@@ -3,7 +3,7 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 28/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #include "MapUI.hpp"
@@ -13,7 +13,7 @@ namespace NekoUI
     void MapUI::Init()
     {
         blackScreenShape.setFillColor(sf::Color(0,0,0,170));
-        quitButton.setTexture(L"Data/Images/quit_button.png");
+        quitButton.setTexture(L"Data/Images/UI/quit_button.png");
         quitButton.setScale(2);
     }
     void MapUI::Destroy() { if (active) CleanUp(); }
@@ -38,12 +38,12 @@ namespace NekoUI
             default: break;
         }
     }
-    void MapUI::CleanUp() { ic::DeleteImage(L"Data/Images/park.jpg"); }
+    void MapUI::CleanUp() { ic::DeleteImage(L"Data/Images/Backgrounds/park.jpg"); }
     void MapUI::PollEvent(sf::Event& event)
     {
         if (!active || !gs::isActiveInterface(this)) return;
         
-        if (quitButton.PollEvent(event)) entity->SendMessage({"MapUI :: Close"});
+        // if (quitButton.PollEvent(event)) entity->SendMessage({"MapUI :: Close"});
     }
     void MapUI::Resize(unsigned int width, unsigned int height)
     {
@@ -66,12 +66,22 @@ namespace NekoUI
     {
         if (!active) return;
         window->draw(background);
-        quitButton.Draw(window);
+        // quitButton.Draw(window);
     }
     void MapUI::RecieveMessage(MessageHolder& message)
     {
         if (!active && message.info == "MapUI :: Show") Switch(true);
         else if (active && message.info == "MapUI :: Close") Switch(false);
+        else if (active && nss::Command(message.info, "Request") && message.additional == L"Data/Images/Backgrounds/park.jpg")
+        {
+            sf::Texture* texture = ic::LoadTexture(message.additional);
+            if ((spriteLoaded = texture))
+            {
+                background.setTexture(*texture, true);
+                background.setOrigin(texture->getSize().x/2, texture->getSize().y/2);
+                Resize(gs::width, gs::height);
+            }
+        }
         else if (message.info == "MapUI :: Switch") Switch(!active);
     }
     void MapUI::Switch(const bool& on)
@@ -83,7 +93,7 @@ namespace NekoUI
             else
             {
                 gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this);
-                sf::Texture* texture = ic::LoadTexture(L"Data/Images/park.jpg");
+                sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/park.jpg", entity->system);
                 if ((spriteLoaded = texture))
                 {
                     background.setTexture(*texture);

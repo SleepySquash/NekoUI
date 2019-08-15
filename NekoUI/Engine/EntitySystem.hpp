@@ -26,7 +26,7 @@ namespace ns
     struct Entity;
     struct EntitySystem;
     
-    struct Component
+    struct Component : MessageSender
     {
         Entity* entity{ nullptr };
         bool offline{ false }, deleteme{ true }, sleep{ false };
@@ -40,6 +40,7 @@ namespace ns
         virtual void PollEvent(sf::Event& event);
         virtual void RecieveMessage(MessageHolder& message);
         virtual void Destroy();
+        void SendMessage(MessageHolder message) override;
         void SetPriority(int priority);
         void SetEntity(Entity* entity);
         Entity* GetEntity();

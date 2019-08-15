@@ -3,7 +3,7 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 23/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef RoomUI_hpp
@@ -21,8 +21,9 @@
 #include "../../../Engine/GUIInterface.hpp"
 
 #include "../Player.hpp"
-#include "../NekoEntity.hpp"
-#include "../RoomLibrary.hpp"
+#include "../Static/NekoStatic.hpp"
+#include "../Apartment/NekoEntity.hpp"
+#include "../Apartment/RoomLibrary.hpp"
 
 using std::cin;
 using std::cout;
@@ -41,13 +42,22 @@ namespace NekoUI
         sf::IntRect availableToTouchZone{ 0, 0, 0, 0 };
         bool ignoreEventMove{ false };
         
+        float secondsUntilNextDay{ 0.f };
+        bool newDayIsComing{ false };
+        int partsOf30UntilNextDay{ 0 };
+        
+        bool shouldDoBackupSaving{ false };
+        float dt{ 0.f }, secondsPassed{ 0.f };
         sf::Sprite dateSprite;
         int dateDay{ 0 }, dateMonth{ 0 };
         sf::Text dayText, monthText;
         sf::Text nekoMoodText;
         
+        bool needbaseSpriteTransparent{ false };
         sf::Sprite needbaseSprite, needSprite;
         
+        sf::Texture* scrolldownTexture_normal{ nullptr }, *scrolldownTexture_close{ nullptr };
+        bool pressWillCloseInterfaces{ false };
         GUI::SpriteButton scrolldownMenu;
         GUI::SpriteButtons scrolldownButtons;
         float scrolldownButtonsScaling{ 1.f };

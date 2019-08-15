@@ -3,7 +3,7 @@
 //  NekoPlace
 //
 //  Created by Никита Исаенко on 17/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef NekoInterfaceUI_hpp
@@ -22,8 +22,8 @@
 #include "../../../Engine/GUIInterface.hpp"
 
 #include "../Player.hpp"
-#include "../NekoEntity.hpp"
-#include "../RoomLibrary.hpp"
+#include "../Apartment/NekoEntity.hpp"
+#include "../Apartment/RoomLibrary.hpp"
 
 using std::cin;
 using std::cout;
@@ -38,17 +38,20 @@ namespace NekoUI
         bool active{ false };
         
         sf::RectangleShape blackScreenShape;
-        
         NekoEntity* neko{ nullptr };
-        sf::RectangleShape nintShape; sf::Text nintNameText, nintText;
-        sf::Sprite nintNekoSprite; GUI::TextButton nintCloseButton, nintSelectMainButton;
-        GUI::SpriteButton quitButton;
-        sf::Color nintRarityColor{ sf::Color::White }, nintMoodColor{ sf::Color::White };
-        std::wstring nintDescriptionText{ L"" }, nintRarityText{ L"" }, nintMoodText{ L"" };
-        float nintYYInfoStart{ 0 };
+        bool nekoIsSleeping{ false };
+        
         bool nintDontDrawPersonNeko{ false };
-        sf::Sprite nintBodyNeko, nintHeart; float nintBodyNekoScale{ 1.f };
-        GUI::TextButton nintTalkButton, nintWardrobeButton, nintGiftButton, nintActionButton;
+        sf::Text nameText, affectionStatusText;
+        sf::Sprite heartSprite;
+        GUI::TextButton talkButton, requestButton, engageButton, actionButton;
+        
+        enum class Screen { main, talk, talkAboutNeko, talkAboutYourself, request, engage, action } screen{ Screen::main };
+        
+        float elapsedSpeechBubble{ 0.f };
+        std::wstring speechBubbleLine{ L"..." };
+        sf::Sprite speechBubbleSprite;
+        sf::Text speechBubbleText;
         
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };

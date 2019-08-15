@@ -3,7 +3,7 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 23/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #include "JobInterfaceUI.hpp"
@@ -13,7 +13,7 @@ namespace NekoUI
     void JobInterfaceUI::Init()
     {
         blackScreenShape.setFillColor(sf::Color(0,0,0,170));
-        quitButton.setTexture(L"Data/Images/quit_button.png");
+        quitButton.setTexture(L"Data/Images/UI/quit_button.png");
         quitButton.setScale(2);
     }
     void JobInterfaceUI::Destroy() { if (active) CleanUp(); }
@@ -38,12 +38,12 @@ namespace NekoUI
             default: break;
         }
     }
-    void JobInterfaceUI::CleanUp() { ic::DeleteImage(L"Data/Images/job_background1.jpg"); }
+    void JobInterfaceUI::CleanUp() { ic::DeleteImage(L"Data/Images/Backgrounds/job_background1.jpg"); }
     void JobInterfaceUI::PollEvent(sf::Event& event)
     {
         if (!active || !gs::isActiveInterface(this)) return;
         
-        if (quitButton.PollEvent(event)) entity->SendMessage({"JobInterfaceUI :: Close"});
+        // if (quitButton.PollEvent(event)) entity->SendMessage({"JobInterfaceUI :: Close"});
     }
     void JobInterfaceUI::Resize(unsigned int width, unsigned int height)
     {
@@ -66,14 +66,24 @@ namespace NekoUI
     {
         if (!active) return;
         
-        //window->draw(blackScreenShape);
-        window->draw(background);
-        quitButton.Draw(window);
+        // window->draw(blackScreenShape);
+        if (spriteLoaded) window->draw(background);
+        // quitButton.Draw(window);
     }
     void JobInterfaceUI::RecieveMessage(MessageHolder& message)
     {
         if (!active && message.info == "JobInterfaceUI :: Show") Switch(true);
         else if (active && message.info == "JobInterfaceUI :: Close") Switch(false);
+        else if (active && nss::Command(message.info, "Request") && message.additional == L"Data/Images/Backgrounds/job_background1.jpg")
+        {
+            sf::Texture* texture = ic::LoadTexture(message.additional);
+            if ((spriteLoaded = texture))
+            {
+                background.setTexture(*texture, true);
+                background.setOrigin(texture->getSize().x/2, texture->getSize().y/2);
+                Resize(gs::width, gs::height);
+            }
+        }
         else if (message.info == "JobInterfaceUI :: Switch") Switch(!active);
     }
     void JobInterfaceUI::Switch(const bool& on)
@@ -85,7 +95,7 @@ namespace NekoUI
             else
             {
                 gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this);
-                sf::Texture* texture = ic::LoadTexture(L"Data/Images/job_background1.jpg");
+                sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/job_background1.jpg", entity->system);
                 if ((spriteLoaded = texture))
                 {
                     background.setTexture(*texture);

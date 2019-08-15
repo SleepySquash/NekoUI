@@ -3,7 +3,7 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 23/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef JobInterfaceUI_hpp
@@ -22,7 +22,7 @@
 #include "../../../Engine/GUIInterface.hpp"
 
 #include "../Player.hpp"
-#include "../RoomLibrary.hpp"
+#include "../Apartment/RoomLibrary.hpp"
 
 using std::cin;
 using std::cout;

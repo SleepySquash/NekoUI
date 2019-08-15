@@ -3,7 +3,7 @@
 //  NekoPlace
 //
 //  Created by Никита Исаенко on 17/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef Player_hpp
@@ -13,6 +13,8 @@
 #include <fstream>
 #include <vector>
 #include <list>
+#include <iomanip>
+#include <sstream>
 
 #include <SFML/Main.hpp>
 #include <SFML/Audio.hpp>
@@ -24,8 +26,13 @@
 #include "../../Engine/Collectors.hpp"
 #include "../../Engine/GUIInterface.hpp"
 
-#include "Persona.hpp"
-#include "ItemDB.hpp"
+#include "Neko.hpp"
+#include "Static/NekoStatic.hpp"
+#include "Engine/Persona.hpp"
+#include "Database/ItemDB.hpp"
+#include "Database/SkillDB.hpp"
+#include "Database/InterestsDB.hpp"
+#include "Database/ActivityDB.hpp"
 
 using std::cin;
 using std::cout;
@@ -42,23 +49,30 @@ namespace NekoUI
     struct Player
     {
         static Persona neko;
-        static unsigned long daysTogether;
+        static unsigned long daysTogether; // считаться за "день" будут только дни, когда заходишь в игру.
         
         static std::wstring display;
+        static std::chrono::time_point<std::chrono::system_clock> birthday;
         
-        enum class Mood { happy, sad, peaceful, desprate, angry, horny };
-        static Mood mood;
-        static std::wstring status;
-        
-        static unsigned long money;
-        static unsigned int affection; /// +Opinion about you
-        static int maxNeed, needHunger, needThirst, needWarmth, needCommunication, needHygiene, needToilet, needEntertaiment;
         
         static void Init();
+        
         static void SaveData();
-        static void SaveInventory();
-        static void SaveFridge();
-        static void SaveWardrobe();
+        static void SaveCurrentDT();
+        
+        static void SavePersona(bool forced = false);
+        static void LoadPersona();
+        
+        static void Birth();
+        static void UpdateDaysTogether();
+        
+        static NekoStatic::EyebrowsEmotion eyebrowsEmotion;
+        static NekoStatic::EyesEmotion eyesEmotion;
+        static NekoStatic::MouthEmotion mouthEmotion;
+        static void UpdateNekoEmotion();
+        enum class RestoringEmotion{ Eyebrows, Eyes, Mouth };
+        static void NekoEmotionAccordingToMood(const RestoringEmotion& restoring);
+        static void NekoEmotionsAccordingToMood();
     };
 }
 

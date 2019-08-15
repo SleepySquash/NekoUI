@@ -3,7 +3,7 @@
 //  NekoPlace
 //
 //  Created by Никита Исаенко on 16/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef Collectors_hpp

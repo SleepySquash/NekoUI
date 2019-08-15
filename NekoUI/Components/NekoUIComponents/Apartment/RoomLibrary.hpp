@@ -3,7 +3,7 @@
 //  NekoPlace
 //
 //  Created by Никита Исаенко on 18/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef RoomLibrary_hpp
@@ -14,8 +14,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../Engine/Settings.hpp"
-#include "../../Engine/Collectors.hpp"
+#include "../../../Engine/Settings.hpp"
+#include "../../../Engine/Collectors.hpp"
 
 using std::cin;
 using std::cout;
@@ -27,27 +27,19 @@ using namespace ns;
 
 namespace NekoUI
 {
-    struct Activity
-    {
-        std::string name; float x, y;
-        std::wstring occupyString, actionString;
-        float duration{ 24.f };
-        unsigned int liking{ 1000 };
-        
-        Activity(const std::string name, const float& x, const float& y, const std::wstring& occupyString = L"", const std::wstring& actionString = L"");
-    };
-    
     struct RoomLibrary
     {
         static float x, y, xWidth, yHeight, scale, roomScale;
         static int width, height;
         static sf::Image* mask;
         
-        static std::vector<Activity> activities;
-        
-        static bool scrolldownMenuOpened, drawDatePanel, drawScrolldownMenu, drawNeeds;
+        static bool scrolldownMenuOpened, drawDatePanel, drawScrolldownMenu, drawNeeds, requestCloseButton;
+        static bool canOpenNekoUI;
         static sf::FloatRect scrolldownMenuBounds;
+        static bool Collision(float x, float y);
     };
+    
+    std::wstring GetMonthStringFromItsNumber(const int& num);
     
     typedef RoomLibrary Room;
     typedef RoomLibrary rm;

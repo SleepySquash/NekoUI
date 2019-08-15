@@ -3,13 +3,14 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 28/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef WardrobeUI_hpp
 #define WardrobeUI_hpp
 
 #include <iostream>
+#include <list>
 
 #include <SFML/Main.hpp>
 #include <SFML/Audio.hpp>
@@ -20,10 +21,10 @@
 #include "../../../Engine/Collectors.hpp"
 #include "../../../Engine/GUIInterface.hpp"
 
-#include "../ItemDB.hpp"
 #include "../Player.hpp"
-#include "../NekoEntity.hpp"
-#include "../RoomLibrary.hpp"
+#include "../Apartment/NekoEntity.hpp"
+#include "../Apartment/RoomLibrary.hpp"
+#include "../Database/ItemDB.hpp"
 
 using std::cin;
 using std::cout;
@@ -44,6 +45,17 @@ namespace NekoUI
         sf::Sprite background; bool spriteLoaded{ false };
         sf::RectangleShape nintShape;
         
+        enum class Category { Head, Top, Bottom, Onepiece, Underwear, Socks, Shoes, Accessories, Sets } category{ Category::Head };
+        float categoriesButtonsScaling{ 1.f }, categoriesStartXX{ 0 };
+        GUI::SpriteButtons categoriesButtons; sf::Sprite selectedCategorySprite, selectedClothSprite, categoriesSprite;
+        GUI::TextButton filterButtons;
+        
+        bool isEmpty{ true }, updateWindowRefresh{ false }; sf::Text emptyText;
+        sf::Sprite slotSprite; GUI::SpriteButton slotUndressButton; GUI::SpriteButtons itemButtons;
+        int slotsXXCount{ 0 }; float startSlotsXX{ 0 };
+        InventoryBase<Wearable>* inventory{ nullptr };
+        std::list<Item*> filter; bool filterApplied{ false };
+        
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };
         float currentTime{ 0.f }, appearTime{ 0.3f }, disappearTime{ 0.2f };
@@ -58,6 +70,8 @@ namespace NekoUI
         void RecieveMessage(MessageHolder& message) override;
         void Switch(const bool& on);
         void UpdateAlpha();
+        void UpdateCategory();
+        void ResizeSlots();
     };
 }
 

@@ -3,7 +3,7 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 28/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef InventoryUI_hpp
@@ -20,8 +20,9 @@
 #include "../../../Engine/Collectors.hpp"
 #include "../../../Engine/GUIInterface.hpp"
 
-#include "../ItemDB.hpp"
-#include "../RoomLibrary.hpp"
+#include "../Database/ItemDB.hpp"
+#include "../Apartment/RoomLibrary.hpp"
+#include "../Player.hpp"
 
 using std::cin;
 using std::cout;
@@ -37,18 +38,20 @@ namespace NekoUI
     {
         bool active{ false };
         enum { items, fridge, wardrobe } display{ items };
+
+        sf::Sprite slotSprite; GUI::SpriteButtons itemButtons;
+        int slotsXXCount{ 0 }; float startSlotsXX{ 0 };
+        sf::Text itemCountText, emptyText;
         
+        bool draggingMode{ false }; sf::Sprite draggingSprite;
+        std::list<std::pair<Item*, int>>::iterator draggingItem;
+        sf::RectangleShape dropzone; bool dropzoneOnRight{ true };
+        float elapsedDraggingTime{ 0.f }; bool inAreaToMoveView{ false };
         
-        sf::Sprite cellSprite;
-        GUI::SpriteButton quitButton;
-        sf::Sprite background; bool spriteLoaded{ false };
-        GUI::SpriteButtons itemButtons;
+        sf::Sprite background; bool spriteLoaded{ false }, isEmpty{ false };;
         float yyZoom{ 0.f };
         
-        sf::RectangleShape detailsShape;
-        sf::Sprite detailsSprite;
-        sf::Text detailsCaption, detailsDescription;
-        
+        sf::Vector2i dot;
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };
         float currentTime{ 0.f }, appearTime{ 0.3f }, disappearTime{ 0.2f };
@@ -63,6 +66,7 @@ namespace NekoUI
         void RecieveMessage(MessageHolder& message) override;
         void Switch(const bool& on);
         void UpdateAlpha();
+        void Save();
     };
 }
 

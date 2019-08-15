@@ -104,10 +104,10 @@ namespace ns
     
     unsigned int gs::relativeWidth = 0;
     unsigned int gs::relativeHeight = 0;
-    
     float gs::scale = 1.f; float gs::scScale = 1.f;
     float gs::scalex = 1.f; float gs::scaley = 1.f;
-    bool gs::verticalOrientation = false;
+    bool gs::verticalOrientation = false, gs::trueVerticalOrientation = false;
+    int gs::screenOffsetTop{ 0 }, gs::notchEffectFromTop{ 0 };
     
     float gs::deltaVelocity = 1.f;
     
@@ -130,9 +130,11 @@ namespace ns
     bool gs::isPause = false;
     bool gs::pauseOnFocusLost = true;
     bool gs::inGame = false;
-    bool gs::ignoreEvent = false;
-    bool gs::ignoreDraw = false;
+    bool gs::ignoreEvent = false, gs::ignoreDraw = false;
     bool gs::requestWindowRefresh = true;
+    
+    bool gs::listenForTextInput{ false }, gs::rememberUsername{ true }, gs::rememberPassword{ false };
+    std::wstring gs::username; std::string gs::password;
     
     std::vector<void*> gs::activeInterfaces;
     void gs::PushInterface(void* address) { activeInterfaces.push_back(address); ignoreEvent = true; }
@@ -149,5 +151,7 @@ namespace ns
     float gs::defaultParallaxFar = 0.032;
     float gs::defaultParallaxNormal = 0.062;
     float gs::defaultParallaxClose = 0.105;
-    float gs::defaultParallaxFrontground = 0.13;    
+    float gs::defaultParallaxFrontground = 0.13;
+    
+    bool gs::buttonHovering = false;
 }

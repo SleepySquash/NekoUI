@@ -3,7 +3,7 @@
 //  NekoUI
 //
 //  Created by Никита Исаенко on 28/05/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #include "CalendarUI.hpp"
@@ -63,8 +63,8 @@ namespace NekoUI
         closeButton.Resize(width, height);
         closeButton.setPosition(gs::width/2, 3.f*gs::height/4);
         dateText.setCharacterSize(120 * gs::scale);
-        dateText.setOrigin(dateText.getGlobalBounds().width/2, dateText.getGlobalBounds().height/2);
         dateText.setOutlineThickness(gs::scale);
+        dateText.setOrigin(dateText.getLocalBounds().width/2, dateText.getLocalBounds().height/1.3);
         dateText.setPosition(gs::width/2, gs::height/2);
     }
     void CalendarUI::Draw(sf::RenderWindow* window)
@@ -78,7 +78,16 @@ namespace NekoUI
     }
     void CalendarUI::RecieveMessage(MessageHolder& message)
     {
-        if (!active && message.info == "CalendarUI :: Show") Switch(true);
+        if (message.info == "Time")
+        {
+            tm* timeinfo = reinterpret_cast<tm*>(message.address);
+            if (timeinfo)
+            {
+                dateText.setString(std::to_wstring(timeinfo->tm_mday) + L" " + GetMonthStringFromItsNumber(timeinfo->tm_mon));
+                dateText.setOrigin(dateText.getLocalBounds().width/2, dateText.getLocalBounds().height/1.3);
+            }
+        }
+        else if (!active && message.info == "CalendarUI :: Show") Switch(true);
         else if (active && message.info == "CalendarUI :: Close") Switch(false);
         else if (message.info == "CalendarUI :: Switch") Switch(!active);
     }
@@ -94,6 +103,7 @@ namespace NekoUI
         blackScreenShape.setFillColor(sf::Color(blackScreenShape.getFillColor().r, blackScreenShape.getFillColor().g, blackScreenShape.getFillColor().b, 170.f * ((float)alpha/255)));
         blackScreenShape.setOutlineColor(sf::Color(blackScreenShape.getOutlineColor().r, blackScreenShape.getOutlineColor().g, blackScreenShape.getOutlineColor().b, 170.f * ((float)alpha/255.f)));
         
+        quitButton.setAlpha(alpha);
         closeButton.setAlpha(alpha);
     }
 }

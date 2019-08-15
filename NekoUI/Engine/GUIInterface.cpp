@@ -172,8 +172,13 @@ namespace ns
             }
             sprite.setPosition(x, y);
         }
-        void SpriteButton::setTexture(const std::wstring& texture) { textureName = texture; setTexture(ic::LoadTexture(texture)); }
-        void SpriteButton::setTexture(sf::Texture* texture) { if ((spriteLoaded = (texture != nullptr))) sprite.setTexture(*texture, true); }
+        void SpriteButton::setTexture(const std::wstring& texture)
+        {
+            if (textureName != L"") { ic::DeleteImage(textureName); textureName = L""; }
+            sf::Texture* loadtexture = ic::LoadTexture(texture);
+            if ((spriteLoaded = loadtexture)) { textureName = texture; setTexture(loadtexture); }
+        }
+        void SpriteButton::setTexture(sf::Texture* texture) { if ((spriteLoaded = texture)) sprite.setTexture(*texture, true); }
         void SpriteButton::setScale(const float& scl) { scale = scl; Resize(gs::width, gs::height); }
         
         
@@ -248,7 +253,7 @@ namespace ns
             sprite.setPosition(x, y);
         }
         void SpriteButtons::setTexture(const std::wstring& texture) { textureName = texture; setTexture(ic::LoadTexture(texture)); }
-        void SpriteButtons::setTexture(sf::Texture* texture) { if ((spriteLoaded = (texture != nullptr))) sprite.setTexture(*texture, true); }
+        void SpriteButtons::setTexture(sf::Texture* texture) { if ((spriteLoaded = texture)) sprite.setTexture(*texture, true); }
         void SpriteButtons::setScale(const float& scl) { scale = scl; Resize(gs::width, gs::height); }
         
         

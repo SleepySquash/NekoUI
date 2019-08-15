@@ -3,7 +3,7 @@
 //  NekoPlace
 //
 //  Created by Никита Исаенко on 24/02/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #ifndef Novel_hpp
@@ -26,7 +26,7 @@
 #include "../../Engine/GUIInterface.hpp"
 
 #include "CharacterLibrary.hpp"
-#include "../NekoUIComponents/Persona.hpp"
+#include "../NekoUIComponents/Engine/Persona.hpp"
 
 using std::cin;
 using std::cout;

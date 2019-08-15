@@ -3,7 +3,7 @@
 //  NekoPlace
 //
 //  Created by Никита Исаенко on 25/01/2019.
-//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
 #include "Base.hpp"
@@ -159,7 +159,8 @@ namespace ns
                 if (p.length() && p[p.length() - 1] != L'/') p += L"/";
                 return p;
             }
-            else {
+            else
+            {
                 pos = path.find_last_of(L'\\');
                 if (pos != std::wstring::npos)
                 {
@@ -186,6 +187,24 @@ namespace ns
             if (pos != std::wstring::npos) return filename.substr(0, pos);
             else return filename;
         }
+        std::wstring GetFilenameWOProhibited(const std::wstring& filename)
+        {
+            if (!filename.length()) return filename;
+            std::wstring wstr; std::size_t pos;
+#ifdef _WIN32
+            for (unsigned long i = 0; i < 254 && i < filename.length(); ++i)
+                if (filename[i] >= 32 && filename[i] != 58 && filename[i] != 60 && filename[i] != 62 && filename[i] != 63 && filename[i] != 34 && filename[i] != 124 && filename[i] != 42 && filename[i] != 47 && filename[i] != 92) wstr += filename[i]; else wstr += L"_";
+            std::wstring lowercase = LowercaseTheString(wstr);
+            if (lowercase == L"con" || lowercase == L"prn" || lowercase == L"aux" || lowercase == L"prn" || lowercase == L"nul" || lowercase == L"com1" || lowercase == L"com2" || lowercase == L"com3" || lowercase == L"com4" || lowercase == L"com5" || lowercase == L"com6" || lowercase == L"com7" || lowercase == L"com8" || lowercase == L"com9" || lowercase == L"lpt1" || lowercase == L"lpt2" || lowercase == L"lpt3" || lowercase == L"lpt4" || lowercase == L"lpt5" || lowercase == L"lpt6" || lowercase == L"lpt7" || lowercase == L"lpt8" || lowercase == L"lpt9") wstr += L"q";
+            else if (wstr[wstr.length() - 1] == L' ' || wstr[wstr.length() - 1] == L'.') wstr += L"q";
+#else
+            wstr = filename;
+            pos = wstr.find('\0'); if (pos != std::string::npos) wstr = wstr.replace(pos, 1, L"_");
+            pos = wstr.find('/'); if (pos != std::string::npos)  wstr = wstr.replace(pos, 1, L"_");
+            pos = wstr.find('\\'); if (pos != std::string::npos) wstr = wstr.replace(pos, 1, L"_");
+#endif
+            return wstr;
+        }
         
         
         
@@ -204,6 +223,93 @@ namespace ns
         
         
         
+        std::wstring LowercaseTheString(const std::wstring& str)
+        {
+            std::wstring result = L"";
+            for (int i = 0; i < str.length(); i++)
+            {
+                switch (str[i])
+                {
+                    case L'Q': result += L'q'; break;
+                    case L'W': result += L'w'; break;
+                    case L'E': result += L'e'; break;
+                    case L'R': result += L'r'; break;
+                    case L'T': result += L't'; break;
+                    case L'Y': result += L'y'; break;
+                    case L'U': result += L'u'; break;
+                    case L'I': result += L'i'; break;
+                    case L'O': result += L'o'; break;
+                    case L'P': result += L'p'; break;
+                    case L'A': result += L'a'; break;
+                    case L'S': result += L's'; break;
+                    case L'D': result += L'd'; break;
+                    case L'F': result += L'f'; break;
+                    case L'G': result += L'g'; break;
+                    case L'H': result += L'h'; break;
+                    case L'J': result += L'j'; break;
+                    case L'K': result += L'k'; break;
+                    case L'L': result += L'l'; break;
+                    case L'Z': result += L'z'; break;
+                    case L'X': result += L'x'; break;
+                    case L'C': result += L'c'; break;
+                    case L'V': result += L'v'; break;
+                    case L'B': result += L'b'; break;
+                    case L'N': result += L'n'; break;
+                    case L'M': result += L'm'; break;
+                        
+                    case L'Й': result += L'й'; break;
+                    case L'Ц': result += L'ц'; break;
+                    case L'У': result += L'у'; break;
+                    case L'К': result += L'к'; break;
+                    case L'Е': result += L'е'; break;
+                    case L'Н': result += L'н'; break;
+                    case L'Г': result += L'г'; break;
+                    case L'Ш': result += L'ш'; break;
+                    case L'Щ': result += L'щ'; break;
+                    case L'З': result += L'з'; break;
+                    case L'Ё': result += L'ё'; break;
+                    case L'Х': result += L'х'; break;
+                    case L'Ъ': result += L'ъ'; break;
+                    case L'Ф': result += L'ф'; break;
+                    case L'Ы': result += L'ы'; break;
+                    case L'В': result += L'в'; break;
+                    case L'А': result += L'а'; break;
+                    case L'П': result += L'п'; break;
+                    case L'Р': result += L'р'; break;
+                    case L'О': result += L'о'; break;
+                    case L'Л': result += L'л'; break;
+                    case L'Д': result += L'д'; break;
+                    case L'Ж': result += L'ж'; break;
+                    case L'Э': result += L'э'; break;
+                    case L'Я': result += L'я'; break;
+                    case L'Ч': result += L'ч'; break;
+                    case L'С': result += L'с'; break;
+                    case L'М': result += L'м'; break;
+                    case L'И': result += L'и'; break;
+                    case L'Т': result += L'т'; break;
+                    case L'Ь': result += L'ь'; break;
+                    case L'Б': result += L'б'; break;
+                    case L'Ю': result += L'ю'; break;
+                        
+                    default: result += str[i]; break;
+                }
+            }
+            return result;
+        }
+        
+        
+        
+        
+        
+        int ConvertToInt(const std::string& stringValue)
+        {
+            std::string parsingString = "";
+            for (int i = 0; stringValue[i] != '\0'; i++)
+                if ((stringValue[i] >= 48 && stringValue[i] <= 57) || stringValue[i] == 45)
+                    parsingString += (char)stringValue[i];
+            
+            try { return std::atoi(parsingString.c_str()); } catch(...) { throw; }
+        }
         int atoi(const std::wstring& stringValue)
         {
             std::string parsingString = "";
@@ -211,7 +317,16 @@ namespace ns
                 if ((stringValue[i] >= 48 && stringValue[i] <= 57) || stringValue[i] == 45)
                     parsingString += (char)stringValue[i];
             
-            return std::atoi(parsingString.c_str());
+            try { return std::atoi(parsingString.c_str()); } catch(...) { throw; }
+        }
+        long atol(const std::wstring& stringValue)
+        {
+            std::string parsingString = "";
+            for (int i = 0; stringValue[i] != '\0'; i++)
+                if ((stringValue[i] >= 48 && stringValue[i] <= 57) || stringValue[i] == 45)
+                    parsingString += (char)stringValue[i];
+            
+            try { return std::atol(parsingString.c_str()); } catch(...) { throw; }
         }
         float atof(const std::wstring& stringValue)
         {
@@ -220,14 +335,15 @@ namespace ns
                 if ((stringValue[i] >= 48 && stringValue[i] <= 57) || stringValue[i] == 44 || stringValue[i] == 46 || stringValue[i] == '-')
                     parsingString += (char)stringValue[i];
             
-            return std::atof(parsingString.c_str());
+            try { return std::atof(parsingString.c_str()); } catch(...) { throw; }
         }
         bool atob(const std::wstring& stringValue)
         {
-            if (stringValue == L"true" || stringValue == L"True" || stringValue == L"T" || stringValue == L"истина" || stringValue == L"1")
-                return true;
-            else
-                return false;
+            if (stringValue == L"true" || stringValue == L"True" || stringValue == L"T" || stringValue == L"истина" || stringValue == L"1") return true;
+            else return false;
         }
+        
+        // double atan(double x) { return 0.79f*x - x*(std::fabs(x) - 1)*(0.2447 + 0.0663*std::fabs(x)); }
+        double atan(double x) { return x * (0.9724 - 0.1919 * x * x); }
     }
 }

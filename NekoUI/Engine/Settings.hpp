@@ -49,7 +49,8 @@ namespace ns
         static float scale, scScale;
         static float scalex, scaley;
         static unsigned int relativeWidth, relativeHeight;
-        static bool verticalOrientation;
+        static bool verticalOrientation, trueVerticalOrientation;
+        static int notchEffectFromTop, screenOffsetTop;
         
         static float deltaVelocity;
         
@@ -67,6 +68,10 @@ namespace ns
         static bool ignoreEvent, ignoreDraw;
         static bool requestWindowRefresh;
         
+        static bool listenForTextInput, rememberUsername, rememberPassword;
+        static std::wstring username;
+        static std::string password;
+        
         static std::vector<void*> activeInterfaces;
         static void PushInterface(void*);
         static void RemoveInterface(void*);
@@ -74,8 +79,9 @@ namespace ns
         
         static bool isParallaxEnabled;
         static float defaultParallaxBackground, defaultParallaxFar, defaultParallaxNormal, defaultParallaxClose, defaultParallaxFrontground;
-        
         static float maxVolumeGlobal, maxVolumeMusic, maxVolumeAmbeint, maxVolumeSound;
+        
+        static bool buttonHovering;
     };
     
     typedef GlobalSettings gs;

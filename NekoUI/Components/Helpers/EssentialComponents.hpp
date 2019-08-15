@@ -15,9 +15,9 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../Engine/EntitySystem.hpp"
-#include "../Engine/Settings.hpp"
-#include "../Engine/Collectors/Font.hpp"
+#include "../../Engine/EntitySystem.hpp"
+#include "../../Engine/Settings.hpp"
+#include "../../Engine/Collectors/Font.hpp"
 
 using std::cin;
 using std::cout;
@@ -40,6 +40,17 @@ namespace ns
             
         public:
             DebugComponent(sf::String build);
+            void Init() override;
+            void Update(const sf::Time& elapsedTime) override;
+            void Draw(sf::RenderWindow* window) override;
+            void Resize(unsigned int width, unsigned int height) override;
+        };
+        
+        struct FadingFromBlackScreen : Component
+        {
+            sf::RectangleShape shape; sf::Uint8 alpha;
+            float elapsedFor{ 0.5f }, elapsedSeconds{ 0.f }, waitFor{ 0.1f };
+            
             void Init() override;
             void Update(const sf::Time& elapsedTime) override;
             void Draw(sf::RenderWindow* window) override;

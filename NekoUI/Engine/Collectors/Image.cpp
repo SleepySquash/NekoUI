@@ -161,7 +161,8 @@ namespace ns
                         std::wstring imageExtention = base::GetExtentionFromString(imageName);
                         std::wstring imageWoExtention = base::GetStringWithNoExtention(imageName);
                         DrawbackImage(imageWoExtention + L"@0x" + imageExtention);
-                    } else if (message == "Requestp")
+                    }
+                    else if (message == "Requestp")
                     {
                         std::wstring imageExtention = base::GetExtentionFromString(imageName);
                         std::wstring imageWoExtention = base::GetStringWithNoExtention(imageName);
