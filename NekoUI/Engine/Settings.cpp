@@ -153,5 +153,5 @@ namespace ns
     float gs::defaultParallaxClose = 0.105;
     float gs::defaultParallaxFrontground = 0.13;
     
-    bool gs::buttonHovering = false;
+    bool gs::buttonHovering = true;
 }

@@ -19,7 +19,7 @@
 #include "../../../Engine/EntitySystem.hpp"
 #include "../../../Engine/Settings.hpp"
 #include "../../../Engine/Collectors.hpp"
-#include "../../../Engine/GUIInterface.hpp"
+#include "../../../Engine/GUI/Button/SomeButtons.hpp"
 
 #include "../Player.hpp"
 #include "../Apartment/NekoEntity.hpp"

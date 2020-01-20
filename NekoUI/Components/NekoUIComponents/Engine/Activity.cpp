@@ -26,12 +26,13 @@ namespace NekoUI
         if (!active) { Init(); active = true; }
         task = tasks.begin();
         doingTheActivity = (*task)->countAsActivityBeingMade;
-        ignoreEyebrowsEmotion = (eyebrowsEmotion != NekoStatic::EyebrowsEmotion::DEFAULT);
-        ignoreEyesEmotion = (eyesEmotion != NekoStatic::EyesEmotion::DEFAULT);
-        ignoreMouthEmotion = (mouthEmotion != NekoStatic::MouthEmotion::DEFAULT);
+        ignoreEyebrowsEmotion = (eyebrowsEmotion != NekoS::EyebrowsEmotion::DEFAULT);
+        ignoreEyesEmotion = (eyesEmotion != NekoS::EyesEmotion::DEFAULT);
+        ignoreMouthEmotion = (mouthEmotion != NekoS::MouthEmotion::DEFAULT);
         if (!ignoreEyebrowsEmotion) eyebrowsEmotion = (*task)->eyebrowsEmotion;
         if (!ignoreEyesEmotion) eyesEmotion = (*task)->eyesEmotion;
         if (!ignoreMouthEmotion) mouthEmotion = (*task)->mouthEmotion;
+        blinking = allowBlinking and (*task)->allowBlinking;
         (*task)->Init();
     }
     void Activity::OnEnd(bool success)
@@ -59,6 +60,7 @@ namespace NekoUI
             if (!ignoreEyebrowsEmotion) eyebrowsEmotion = (*task)->eyebrowsEmotion;
             if (!ignoreEyesEmotion) eyesEmotion = (*task)->eyesEmotion;
             if (!ignoreMouthEmotion) mouthEmotion = (*task)->mouthEmotion;
+            blinking = allowBlinking and (*task)->allowBlinking;
             (*task)->Init();
         }
         

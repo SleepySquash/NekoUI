@@ -34,8 +34,14 @@ namespace NekoUI
         static sf::Image* mask;
         
         static bool scrolldownMenuOpened, drawDatePanel, drawScrolldownMenu, drawNeeds, requestCloseButton;
-        static bool canOpenNekoUI;
+        static bool canPressScrolldownMenu, canPressDatePanel, canOpenNekoUI;
+        static bool shopMode;
+        
+        enum class simulationWasAtEnum{ Non, Grocery };
+        static simulationWasAtEnum simulationWasAt;
+        
         static sf::FloatRect scrolldownMenuBounds;
+        
         static bool Collision(float x, float y);
     };
     

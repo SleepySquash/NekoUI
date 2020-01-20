@@ -51,7 +51,7 @@ namespace NekoUI
         void Resize() override;
         void UpdatePosition() override;
         void Draw(sf::RenderWindow* window) override;
-        void LoadSprite(const std::wstring& filename);
+        void LoadSprite(const std::wstring& filename, const bool& smoothTexture = false);
     };
 }
 

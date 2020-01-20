@@ -13,8 +13,8 @@ namespace NekoUI
     void MapUI::Init()
     {
         blackScreenShape.setFillColor(sf::Color(0,0,0,170));
-        quitButton.setTexture(L"Data/Images/UI/quit_button.png");
-        quitButton.setScale(2);
+        groceryButton.setTexture(L"Data/Images/UI/quit_button.png");
+        groceryButton.setScale(2);
     }
     void MapUI::Destroy() { if (active) CleanUp(); }
     void MapUI::Update(const sf::Time& elapsedTime)
@@ -43,14 +43,20 @@ namespace NekoUI
     {
         if (!active || !gs::isActiveInterface(this)) return;
         
-        // if (quitButton.PollEvent(event)) entity->SendMessage({"MapUI :: Close"});
+        if (groceryButton.PollEvent(event))
+        {
+            rm::requestCloseButton = false;
+            entity->SendMessage({"Apartment :: Destroy"});
+            entity->SendMessage({"PlacesUI :: GroceryUI"});
+            Switch(false);
+        }
     }
     void MapUI::Resize(unsigned int width, unsigned int height)
     {
         if (!active) return;
         
         blackScreenShape.setSize({(float)gs::width, (float)gs::height});
-        quitButton.Resize(width, height); quitButton.setPosition(gs::width - gs::width/12, gs::height/8);
+        groceryButton.Resize(width, height); groceryButton.setPosition(gs::width/2, gs::height/2);
         if (spriteLoaded)
         {
             float scaleFactorX, scaleFactorY, scaleFactor;
@@ -66,7 +72,7 @@ namespace NekoUI
     {
         if (!active) return;
         window->draw(background);
-        // quitButton.Draw(window);
+        groceryButton.Draw(window);
     }
     void MapUI::RecieveMessage(MessageHolder& message)
     {
@@ -110,7 +116,7 @@ namespace NekoUI
     }
     void MapUI::UpdateAlpha()
     {
-        quitButton.setAlpha(alpha);
+        groceryButton.setAlpha(alpha);
         background.setColor({background.getColor().r, background.getColor().g, background.getColor().b, alpha});
     }
 }

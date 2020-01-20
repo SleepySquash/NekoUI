@@ -85,6 +85,7 @@ namespace ns
         void FadingFromBlackScreen::Init() { shape.setFillColor(sf::Color::Black); gs::ignoreDraw = true; }
         void FadingFromBlackScreen::Update(const sf::Time& elapsedTime)
         {
+            gs::requestWindowRefresh = true;
             if (waitFor > 0.f) waitFor -= elapsedTime.asSeconds();
             else if (elapsedSeconds < elapsedFor)
             {

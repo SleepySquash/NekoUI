@@ -15,7 +15,11 @@ namespace NekoUI
     sf::Image* Room::mask{ nullptr };
     
     bool Room::scrolldownMenuOpened{ false }, Room::drawDatePanel{ true }, Room::drawScrolldownMenu{ true }, Room::drawNeeds{ true }, Room::requestCloseButton{ false };
-    bool Room::canOpenNekoUI{ true };
+    bool Room::canPressScrolldownMenu{ true }, Room::canPressDatePanel{ true }, Room::canOpenNekoUI{ true };
+    bool Room::shopMode{ false };
+
+    Room::simulationWasAtEnum Room::simulationWasAt{ simulationWasAtEnum::Non };
+
     sf::FloatRect Room::scrolldownMenuBounds;
     
     bool RoomLibrary::Collision(float x, float y)

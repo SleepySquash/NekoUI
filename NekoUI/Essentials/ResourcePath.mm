@@ -66,7 +66,7 @@
             NSBundle* bundle = [NSBundle mainBundle];
             
             if (bundle == nil) {
-        #ifdef DEBUG
+        #ifdef DEBUGr
                 NSLog(@"bundle is nil... thus no resources path can be found.");
         #endif
             } else {

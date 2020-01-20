@@ -6,73 +6,74 @@
 //  Copyright © 2018 Melancholy Hill. All rights reserved.
 //
 
-#ifndef GUIInterface_hpp
-#define GUIInterface_hpp
+#ifndef GUISomeButtons_hpp
+#define GUISomeButtons_hpp
 
-#include <SFML/Graphics.hpp>
-
-#include "../Essentials/Base.hpp"
-#include "Settings.hpp"
-#include "Collectors/Font.hpp"
-#include "Collectors/Image.hpp"
+#include "Button.hpp"
 
 namespace ns
 {
-    enum class Halign { Left, Center, Right };
-    enum class Valign { Top, Center, Bottom };
     namespace GUI
     {
-        struct Button
-        {
-            sf::Vector2i dot;
-            int maxAlpha{ 255 };
-            bool visible{ true }, active{ true };
-            
-            Halign halign{ Halign::Center };
-            Valign valign{ Valign::Center };
-            
-            virtual void Draw(sf::RenderTarget* window);
-            virtual void Resize(unsigned int width, unsigned int height);
-            virtual bool PollEvent(sf::Event& event);
-            virtual void setAlpha(const sf::Int8& alpha);
-            virtual void setPosition(float x, float y);
-            virtual void setVisible(bool vis);
-        };
-        
         struct TextButton : Button
         {
-            bool fontLoaded{ false };
-            
-            bool onPress{ false };
             bool wasPressed{ false };
-            bool ignoreWasPressed{ false };
-            bool characterScale{ false };
             
             sf::Text text;
             sf::String string;
             unsigned int characterSize{ 20 };
             float thickness{ 1.f };
             
+            sf::Color onormalColor{ sf::Color::Black },
+                      ohoverColor{ 140, 140, 140 },
+                      opressColor{ sf::Color::Black };
+            
             TextButton();
             void Draw(sf::RenderTarget* window) override;
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
-            void setAlpha(const sf::Int8& alpha) override;
+            void setAlpha(const sf::Uint8& alpha) override;
+            sf::Uint8 getAlpha() override;
             void setPosition(float x, float y) override;
             void setFont(const std::wstring& fontname);
             void setString(const std::wstring& string);
             void setCharacterSize(const unsigned int size);
+            void setColor(const sf::Color& fillColour) override;
+            void updateColor() override;
+        };
+        
+        struct TextButtons : Button
+        {
+            unsigned long index{ 0 }, pressedIndex{ 0 };
+            bool anyButtonPressed{ false }, anyButtonHovered{ false };
+            
+            sf::Text text;
+            sf::String string;
+            unsigned int characterSize{ 20 };
+            float thickness{ 1.f };
+            
+            sf::Color onormalColor{ sf::Color::Black },
+                      ohoverColor{ 140, 140, 140 },
+                      opressColor{ sf::Color::Black };
+            
+            TextButtons();
+            void Draw(sf::RenderTarget* window) override;
+            void Resize(unsigned int width, unsigned int height) override;
+            bool PollEvent(sf::Event& event) override;
+            void eventPolled(sf::Event& event);
+            void setAlpha(const sf::Uint8& alpha) override;
+            sf::Uint8 getAlpha() override;
+            void setPosition(float x, float y) override;
+            void setFont(const std::wstring& fontname);
+            void setString(const std::wstring& string);
+            void setCharacterSize(const unsigned int size);
+            void setColor(const sf::Color& fillColour) override;
+            void updateColor() override;
         };
         
         struct SpriteButton : Button
         {
-            bool spriteLoaded{ false };
-            
-            bool onPress{ false };
-            bool wasPressed{ false };
-            bool ignoreWasPressed{ false };
-            bool characterScale{ false };
-            bool invertXAxes{ false };
+            bool wasPressed{ false }, invertXAxes{ false };
             
             sf::Sprite sprite;
             std::wstring textureName{ L"" };
@@ -82,22 +83,20 @@ namespace ns
             void Draw(sf::RenderTarget* window) override;
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
-            void setAlpha(const sf::Int8& alpha) override;
+            void ReceiveMessage(MessageHolder& message) override;
+            void setAlpha(const sf::Uint8& alpha) override;
+            sf::Uint8 getAlpha() override;
             void setPosition(float x, float y) override;
-            void setTexture(const std::wstring& texture);
+            void setTexture(const std::wstring& texture, MessageSender* sender = nullptr);
             void setTexture(sf::Texture* texture);
             void setScale(const float& scl);
+            void setColor(const sf::Color& fillColour) override;
         };
         
         struct SpriteButtons : Button
         {
-            bool spriteLoaded{ false };
-            
-            bool anyButtonPressed{ false };
             unsigned long index{ 0 }, pressedIndex{ 0 };
-            bool onPress{ false };
-            bool ignoreWasPressed{ false };
-            bool characterScale{ false };
+            bool anyButtonPressed{ false };
             
             sf::Sprite sprite;
             std::wstring textureName{ L"" };
@@ -108,7 +107,7 @@ namespace ns
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
             void eventPolled(sf::Event& event);
-            void setAlpha(const sf::Int8& alpha) override;
+            void setAlpha(const sf::Uint8& alpha) override;
             void setPosition(float x, float y) override;
             void setTexture(const std::wstring& texture);
             void setTexture(sf::Texture* texture);
@@ -117,12 +116,7 @@ namespace ns
         
         struct RectangleButton : Button
         {
-            bool fontLoaded{ false };
-            
-            bool onPress{ false };
             bool wasPressed{ false };
-            bool ignoreWasPressed{ false };
-            bool characterScale{ false };
             
             sf::RectangleShape shape;
             sf::Text text;
@@ -130,27 +124,30 @@ namespace ns
             unsigned int characterSize{ 20 };
             float thickness{ 1.f };
             
+            sf::Color onormalColor{ sf::Color::Black },
+                      ohoverColor{ 140, 140, 140 },
+                      opressColor{ sf::Color::Black };
+            sf::Uint8 ralpha{ 255 };
+            
             RectangleButton();
             void Draw(sf::RenderTarget* window) override;
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
-            void setAlpha(const sf::Int8& alpha) override;
+            void setAlpha(const sf::Uint8& alpha) override;
+            void setAlphaEx(const sf::Uint8& alpha, const sf::Uint8& ralpha);
             void setPosition(float x, float y) override;
             void setSize(const sf::Vector2f& vec);
             void setFont(const std::wstring& fontname);
             void setString(const std::wstring& string);
             void setCharacterSize(const unsigned int size);
+            void setColor(const sf::Color& fillColour) override;
+            void updateColor() override;
         };
         
         struct RectangleButtons : Button
         {
-            bool fontLoaded{ false };
-            
             bool anyButtonPressed{ false };
             unsigned long index{ 0 }, pressedIndex{ 0 };
-            bool onPress{ false };
-            bool ignoreWasPressed{ false };
-            bool characterScale{ false };
             
             sf::RectangleShape shape;
             sf::Color shapeFillColor{ sf::Color(0,0,0, 170) };
@@ -165,46 +162,14 @@ namespace ns
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
             void eventPolled(sf::Event& event);
-            void setAlpha(const sf::Int8& alpha) override;
+            void setAlpha(const sf::Uint8& alpha) override;
             void setPosition(float x, float y) override;
             void setSize(const sf::Vector2f& vec);
             void setFont(const std::wstring& fontname);
             void setString(const std::wstring& string);
             void setCharacterSize(const unsigned int size);
         };
-        
-        
-        
-        struct StageButtons : Button
-        {
-            bool fontLoaded{ false };
-            
-            bool anyButtonPressed{ false };
-            unsigned long index{ 0 }, pressedIndex{ 0 };
-            bool onPress{ false };
-            bool ignoreWasPressed{ false };
-            bool characterScale{ false };
-            
-            std::wstring textureName{ L"" };
-            sf::Sprite shape;
-            sf::Text text;
-            unsigned int characterSize{ 20 };
-            float thickness{ 1.f };
-            
-            StageButtons();
-            void Draw(sf::RenderTarget* window) override;
-            void Resize(unsigned int width, unsigned int height) override;
-            bool PollEvent(sf::Event& event) override;
-            void eventPolled(sf::Event& event);
-            void setAlpha(const sf::Int8& alpha) override;
-            void setPosition(float x, float y) override;
-            void setFont(const std::wstring& fontname);
-            void setString(const std::wstring& string);
-            void setCharacterSize(const unsigned int size);
-            void setTexture(const std::wstring& texture);
-            void setTexture(sf::Texture* texture);
-        };
     }
 }
 
-#endif /* GUIInterface_hpp */
+#endif /* GUISomeButtons_hpp */

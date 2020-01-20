@@ -137,6 +137,7 @@ void SetResolutionClass()
                 if (underVersion == 4) gs::resolutionClass = 1;
                 else gs::resolutionClass = 2;
             }
+            
             if (version == 10)
             {
                 int underVersion = base::ConvertToInt(nss::ParseUntil(device, '\0', 8));

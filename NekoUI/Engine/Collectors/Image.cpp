@@ -199,7 +199,7 @@ namespace ns
                 images[imageName].texture = new sf::Texture();
                 
                 sf::Image* imagePtr = images[imageName].image;
-                if (imagePtr->getSize().x > sf::Texture::getMaximumSize() || imagePtr->getSize().y > sf::Texture::getMaximumSize())
+                if (imagePtr && (imagePtr->getSize().x > sf::Texture::getMaximumSize() || imagePtr->getSize().y > sf::Texture::getMaximumSize()))
                     images[imageName].texture->loadFromImage(*imagePtr, sf::IntRect(0, 0, imagePtr->getSize().x > sf::Texture::getMaximumSize() ? sf::Texture::getMaximumSize() : imagePtr->getSize().x, imagePtr->getSize().y > sf::Texture::getMaximumSize() ? sf::Texture::getMaximumSize() : imagePtr->getSize().y));
                 else images[imageName].texture->loadFromImage(*images[imageName].image);
                 if (images[imageName].texture) images[imageName].texture->setSmooth(true);

@@ -22,7 +22,7 @@
 #include "../../../Engine/EntitySystem.hpp"
 #include "../../../Engine/Settings.hpp"
 #include "../../../Engine/Collectors.hpp"
-#include "../../../Engine/GUIInterface.hpp"
+#include "../../../Engine/GUI/Button/SomeButtons.hpp"
 
 #include "RoomLibrary.hpp"
 #include "NekoEntity.hpp"
@@ -49,6 +49,11 @@ namespace NekoUI
         NekoEntity neko; sf::Sprite sprite;
         bool spriteLoaded, active{ true }, hasFocusOnNeko{ false }, pressedNeko{ false };
         
+        sf::Sprite backgroundSprite, backgroundRenderSprite;
+        float backgroundXX{ 0 }, backgroundYY{ 0 };
+        // sf::RenderTexture backgroundTexture; // <- RenderTexture is IMPOSSIBLE to use due to iOS/Android losing OpenGL contex upon recreation.
+        sf::RenderTexture backgroundTextureX, backgroundTextureY;
+        
         sf::Sprite inventoryMovingSprite;
         bool drawInventoryButton{ false }, lastDrawInventoryButton{ false };
         bool entityIsBeingMoved{ false }, entityFromInterface{ false }, savingIsRequired{ false };
@@ -72,8 +77,7 @@ namespace NekoUI
         sf::Sprite nekoPtrSprite, nekoArrowSprite;
         
         FurnitureEntity* nekoHoveringEntity{ nullptr };
-        bool checkNekoHovering{ false };
-        float elapsedNekoHovering{ 0.f };
+        bool checkNekoHovering{ false }; float elapsedNekoHovering{ 0.f };
         
         Apartment();
         void Init() override;
@@ -90,9 +94,11 @@ namespace NekoUI
         void MoveEntityTo(int x, int y);
         void UpdateNekoPointer();
         sf::Vector2f GetEdgeOfView(float theta);
+        float NekoHasBeenSleepingFor(const tm* timeinfo);
         
         void RegisterMovingEntity(RoomEntity* entity, bool fromInterface = false);
         void ReleaseMovingEntity();
+        ItemEntity* RegisterItemEntity(Item* itembase, float x, float y, bool removeFromInventory = false);
         void DestroyItemEntity(RoomEntity* entity, bool addToInventory = false);
         
         void RegisterEntity(RoomEntity* entity, bool sorting = false);
@@ -102,6 +108,9 @@ namespace NekoUI
         void UnregisterFurniture(FurnitureEntity* entity, bool del = true);
         void SortFurniture();
         
+        std::string loadedActivity;
+        RoomEntity* loaded_ReturnToFood_entity;
+        float loadedNeko_x, loadedNeko_y;
         void SaveApartment();
         void LoadApartment();
     };

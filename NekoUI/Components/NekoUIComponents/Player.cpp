@@ -11,14 +11,15 @@
 namespace NekoUI
 {
     unsigned long Player::daysTogether{ 0 };
+    float Player::timePassed{ 0 };
     Persona Player::neko;
     
-    std::wstring Player::display{ L"Ванилла" };
+    std::wstring Player::display{ L"Ванилла" }, Player::backgroundCover{ L"cover2.jpg" };
     std::chrono::time_point<std::chrono::system_clock> Player::birthday;
     
-    NekoStatic::EyebrowsEmotion Player::eyebrowsEmotion{ NekoStatic::EyebrowsEmotion::Normal };
-    NekoStatic::EyesEmotion Player::eyesEmotion{ NekoStatic::EyesEmotion::Normal };
-    NekoStatic::MouthEmotion Player::mouthEmotion{ NekoStatic::MouthEmotion::Smile };
+    NekoS::EyebrowsEmotion Player::eyebrowsEmotion{ NekoS::EyebrowsEmotion::Normal };
+    NekoS::EyesEmotion Player::eyesEmotion{ NekoS::EyesEmotion::Normal };
+    NekoS::MouthEmotion Player::mouthEmotion{ NekoS::MouthEmotion::Smile };
     
     void Player::Init()
     {
@@ -39,16 +40,16 @@ namespace NekoUI
             {
                 std::getline(wif, line); command.Command(line);
                 if (nss::Command(command, L"dtgr: ")) daysTogether = static_cast<unsigned int>(nss::ParseAsInt(command));
-                else if (nss::Command(command, L"m: ")) NStat::money = static_cast<unsigned int>(nss::ParseAsInt(command));
-                else if (nss::Command(command, L"a: ")) NStat::affection = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"1: ")) NStat::needHunger = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"2: ")) NStat::needThirst = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"3: ")) NStat::needWarmth = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"4: ")) NStat::needCommunication = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"5: ")) NStat::needHygiene = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"6: ")) NStat::needToilet = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"7: ")) NStat::needEnergy = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"8: ")) NStat::needEntertaiment = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"m: ")) NekoS::money = static_cast<unsigned int>(nss::ParseAsInt(command));
+                else if (nss::Command(command, L"a: ")) NekoS::affection = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"1: ")) NekoS::needHunger = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"2: ")) NekoS::needThirst = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"3: ")) NekoS::needWarmth = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"4: ")) NekoS::needCommunication = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"5: ")) NekoS::needHygiene = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"6: ")) NekoS::needToilet = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"7: ")) NekoS::needEnergy = nss::ParseAsFloat(command);
+                else if (nss::Command(command, L"8: ")) NekoS::needEntertaiment = nss::ParseAsFloat(command);
             }
             
             wif.close();
@@ -67,46 +68,8 @@ namespace NekoUI
         
         
         
-        auto nowatime = std::chrono::system_clock::now(), beforetime = nowatime;
-        std::ifstream wif3;
-#ifdef _WIN32
-        wif3.open(utf16(documentsPath()) + L"dt", std::ios::binary);
-#else
-        wif3.open(documentsPath() + "dt", std::ios::binary);
-#endif
-        wif3.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
-        if (wif3.is_open())
-        {
-            std::chrono::system_clock::rep file_time_rep;
-            if (wif3.read(reinterpret_cast<char*>(&file_time_rep), sizeof file_time_rep))
-            {
-                std::chrono::system_clock::time_point const cache_valid_time{ std::chrono::system_clock::duration{ file_time_rep } };
-                beforetime = cache_valid_time;
-                time_t const localtime = std::chrono::system_clock::to_time_t(cache_valid_time);
-                cout << std::put_time(std::localtime(&localtime), "%F %T") << endl;
-            }
-        }
-        if (nowatime != beforetime)
-        {
-            std::chrono::duration<double> diff = nowatime - beforetime;
-            cout << "Passed: " << diff.count() << " seconds." << endl;
-            float elapsedTime = diff.count()/60.f;
-            
-            // TODO?: Some simulations based on the time passed.
-            
-            NStat::needHunger -= elapsedTime * NStat::hungerInSecond;
-            NStat::needThirst -= elapsedTime * NStat::thirstInSecond;
-            NStat::needCommunication -= elapsedTime * NStat::communicationInSecond;
-            NStat::needHygiene -= elapsedTime * NStat::hygieneInSecond;
-            NStat::needToilet -= elapsedTime * NStat::toiletInSecond;
-            NStat::needEnergy -= elapsedTime * NStat::energyInSecond;
-            if (NStat::needHunger < 0) NStat::needHunger = 0;
-            if (NStat::needThirst < 0) NStat::needThirst = 0;
-            if (NStat::needCommunication < 0) NStat::needCommunication = 0;
-            if (NStat::needHygiene < 0) NStat::needHygiene = 0;
-            if (NStat::needToilet < 0) NStat::needToilet = 0;
-            if (NStat::needEnergy < 0) NStat::needEnergy = 0;
-        }
+        auto nowatime = std::chrono::system_clock::now();
+        UpdateCurrentDT();
         SaveCurrentDT();
         
         
@@ -150,15 +113,15 @@ namespace NekoUI
         if (wof.is_open())
         {
             wof << L"dtgr: " << daysTogether << endl;
-            wof << L"m: " << NStat::money << endl;
-            wof << "a: " << NStat::affection << endl;
-            wof << "1: " << NStat::needHunger << endl;
-            wof << "2: " << NStat::needThirst << endl;
-            wof << "3: " << NStat::needWarmth << endl;
-            wof << "4: " << NStat::needCommunication << endl;
-            wof << "5: " << NStat::needHygiene << endl;
-            wof << "6: " << NStat::needToilet << endl;
-            wof << "7: " << NStat::needEnergy << endl;
+            wof << L"m: " << NekoS::money << endl;
+            wof << "a: " << NekoS::affection << endl;
+            wof << "1: " << NekoS::needHunger << endl;
+            wof << "2: " << NekoS::needThirst << endl;
+            wof << "3: " << NekoS::needWarmth << endl;
+            wof << "4: " << NekoS::needCommunication << endl;
+            wof << "5: " << NekoS::needHygiene << endl;
+            wof << "6: " << NekoS::needToilet << endl;
+            wof << "7: " << NekoS::needEnergy << endl;
             // wof << "8: " << needEntertaiment << endl;
         }
     }
@@ -187,6 +150,34 @@ namespace NekoUI
             /* std::stringstream stream;
             stream << std::put_time(std::localtime(&now_c), "%F %T");
             wof << utf16(stream.str()) << endl; */
+        }
+    }
+    void Player::UpdateCurrentDT()
+    {
+        auto nowatime = std::chrono::system_clock::now(), beforetime = nowatime;
+        std::ifstream wif3;
+#ifdef _WIN32
+        wif3.open(utf16(documentsPath()) + L"dt", std::ios::binary);
+#else
+        wif3.open(documentsPath() + "dt", std::ios::binary);
+#endif
+        wif3.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
+        if (wif3.is_open())
+        {
+            std::chrono::system_clock::rep file_time_rep;
+            if (wif3.read(reinterpret_cast<char*>(&file_time_rep), sizeof file_time_rep))
+            {
+                std::chrono::system_clock::time_point const cache_valid_time{ std::chrono::system_clock::duration{ file_time_rep } };
+                beforetime = cache_valid_time;
+                time_t const localtime = std::chrono::system_clock::to_time_t(cache_valid_time);
+                cout << std::put_time(std::localtime(&localtime), "%F %T") << endl;
+            }
+        }
+        if (nowatime != beforetime)
+        {
+            std::chrono::duration<double> diff = nowatime - beforetime;
+            cout << "Passed: " << diff.count() << " seconds." << endl;
+            timePassed = diff.count();
         }
     }
     
@@ -283,40 +274,40 @@ namespace NekoUI
     
     void Player::UpdateNekoEmotion()
     {
-        if (eyebrowsEmotion != Neko::eyebrowsEmotion)
+        if (eyebrowsEmotion != NekoP::eyebrowsEmotion)
         {
-            if (Neko::eyebrowsEmotion == NekoStatic::EyebrowsEmotion::DEFAULT)
+            if (NekoP::eyebrowsEmotion == NekoS::EyebrowsEmotion::DEFAULT)
                 NekoEmotionAccordingToMood(RestoringEmotion::Eyebrows);
-            eyebrowsEmotion = Neko::eyebrowsEmotion;
+            eyebrowsEmotion = NekoP::eyebrowsEmotion;
             switch (eyebrowsEmotion)
             {
-                case NekoStatic::EyebrowsEmotion::Normal: neko.eyebrows.Load(L"eyebrows.png", L"eyebrows.png"); break;
+                case NekoS::EyebrowsEmotion::Normal: neko.eyebrows.Load(L"eyebrows.png", L"eyebrows.png"); break;
                 default: break;
             }
         }
-        if (eyesEmotion != Neko::eyesEmotion)
+        if (eyesEmotion != NekoP::eyesEmotion)
         {
-            if (Neko::eyesEmotion == NekoStatic::EyesEmotion::DEFAULT)
+            if (NekoP::eyesEmotion == NekoS::EyesEmotion::DEFAULT)
                 NekoEmotionAccordingToMood(RestoringEmotion::Eyes);
-            eyesEmotion = Neko::eyesEmotion;
+            eyesEmotion = NekoP::eyesEmotion;
             switch (eyesEmotion)
             {
-                case NekoStatic::EyesEmotion::Normal: neko.eyes.Load(L"eyes.png", L"eyes.png"); break;
-                case NekoStatic::EyesEmotion::Closed: neko.eyes.Load(L"eyes_closed1.png", L"eyes_closed1.png"); break;
-                case NekoStatic::EyesEmotion::Confused: neko.eyes.Load(L"eyes_confused1.png", L"eyes_confused1.png"); break;
+                case NekoS::EyesEmotion::Normal: neko.eyes.Load(L"eyes.png", L"eyes.png"); break;
+                case NekoS::EyesEmotion::Closed: neko.eyes.Load(L"eyes_closed1.png", L"eyes_closed1.png"); break;
+                case NekoS::EyesEmotion::Confused: neko.eyes.Load(L"eyes_confused1.png", L"eyes_confused1.png"); break;
                 default: break;
             }
         }
-        if (mouthEmotion != Neko::mouthEmotion)
+        if (mouthEmotion != NekoP::mouthEmotion)
         {
-            if (Neko::mouthEmotion == NekoStatic::MouthEmotion::DEFAULT)
+            if (NekoP::mouthEmotion == NekoS::MouthEmotion::DEFAULT)
                 NekoEmotionAccordingToMood(RestoringEmotion::Mouth);
-            mouthEmotion = Neko::mouthEmotion;
+            mouthEmotion = NekoP::mouthEmotion;
             switch (mouthEmotion)
             {
-                case NekoStatic::MouthEmotion::Smile: neko.mouth.Load(L"mouth.png", L"mouth.png"); break;
-                case NekoStatic::MouthEmotion::Neutral: neko.mouth.Load(L"mouth.png", L"mouth.png"); break;
-                case NekoStatic::MouthEmotion::Sad: neko.mouth.Load(L"mouth.png", L"mouth.png"); break;
+                case NekoS::MouthEmotion::Smile: neko.mouth.Load(L"mouth.png", L"mouth.png"); break;
+                case NekoS::MouthEmotion::Neutral: neko.mouth.Load(L"mouth.png", L"mouth.png"); break;
+                case NekoS::MouthEmotion::Sad: neko.mouth.Load(L"mouth.png", L"mouth.png"); break;
                 default: break;
             }
         }
@@ -324,12 +315,12 @@ namespace NekoUI
     
     void Player::NekoEmotionAccordingToMood(const RestoringEmotion& restoring)
     {
-        switch (Neko::mood)
+        switch (NekoP::mood)
         {
-            case NekoStatic::MoodEnum::Happy:
-                if (restoring == RestoringEmotion::Eyebrows) Neko::eyebrowsEmotion = NekoStatic::EyebrowsEmotion::Normal;
-                else if (restoring == RestoringEmotion::Eyes) Neko::eyesEmotion = NekoStatic::EyesEmotion::Normal;
-                else if (restoring == RestoringEmotion::Mouth) Neko::mouthEmotion = NekoStatic::MouthEmotion::Smile;
+            case NekoS::MoodEnum::Happy:
+                if (restoring == RestoringEmotion::Eyebrows) NekoP::eyebrowsEmotion = NekoS::EyebrowsEmotion::Normal;
+                else if (restoring == RestoringEmotion::Eyes) NekoP::eyesEmotion = NekoS::EyesEmotion::Normal;
+                else if (restoring == RestoringEmotion::Mouth) NekoP::mouthEmotion = NekoS::MouthEmotion::Smile;
                 break;
             default: break;
         }
@@ -337,12 +328,12 @@ namespace NekoUI
     
     void Player::NekoEmotionsAccordingToMood()
     {
-        switch (Neko::mood)
+        switch (NekoP::mood)
         {
-            case NekoStatic::MoodEnum::Happy:
-                Neko::eyebrowsEmotion = NekoStatic::EyebrowsEmotion::Normal;
-                Neko::eyesEmotion = NekoStatic::EyesEmotion::Normal;
-                Neko::mouthEmotion = NekoStatic::MouthEmotion::Smile;
+            case NekoS::MoodEnum::Happy:
+                NekoP::eyebrowsEmotion = NekoS::EyebrowsEmotion::Normal;
+                NekoP::eyesEmotion = NekoS::EyesEmotion::Normal;
+                NekoP::mouthEmotion = NekoS::MouthEmotion::Smile;
                 break;
             default: break;
         }

@@ -62,7 +62,7 @@ namespace NekoUI
         bool beingActionedWith{ false }, beingMoved{ false }, sleeping{ false };
         bool moveRight{ false }, moveLeft{ false }, moveDown{ false }, moveUp{ false }, moving{ false };
         float xySpd{ 140 };
-        bool chibiFacingIsRight{ true };
+        bool chibiFacingIsRight{ Player::neko.chibiReversed };
         
         RoomEntity* movingToEntity{ nullptr };
         float distanceToMovingEntity{ 0 };
@@ -72,6 +72,10 @@ namespace NekoUI
         bool drawDialogue{ false }, unlimitedDrawDialogue{ false };
         sf::Text dialogue; sf::Sprite dialogueSprite; int previousRandomDialogue{ -1 };
         float elapsedWaiting{ 0 }, waitingTime{ 1.2f }, elapsedDialogue{ (rand() % 12000)/1000.f };
+        
+        bool blinking{ true }, allowRandomBlink{ true }, itisblink{ false };
+        float elapsedBlinking{ 1.f }, blinkingFrequency{ 2.3f }, closedBlinkDuration{ 0.07f };
+        NekoS::EyesEmotion blinkEmotion;
         
         void Init();
         void Destroy() override;
@@ -99,8 +103,10 @@ namespace NekoUI
         
         void PutItemInHands(Item* item);
         void RemoveItemFromHands(bool drop = true, bool messageBackTheEntity = false);
+        void ConsumeItem(Item* item);
         
         void Save(std::wofstream& wof) override;
+        void SaveActivity(std::wofstream& wof);
     };
 }
 

@@ -27,8 +27,8 @@
 		DD09432722FE369800FEF1AB /* SkillDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432422FE369800FEF1AB /* SkillDB.cpp */; };
 		DD09432A22FEE51100FEF1AB /* Interest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432822FEE51100FEF1AB /* Interest.cpp */; };
 		DD09432B22FEE51100FEF1AB /* Interest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432822FEE51100FEF1AB /* Interest.cpp */; };
-		DD09432E22FF2F6100FEF1AB /* Neko.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432C22FF2F6100FEF1AB /* Neko.cpp */; };
-		DD09432F22FF2F6100FEF1AB /* Neko.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432C22FF2F6100FEF1AB /* Neko.cpp */; };
+		DD09432E22FF2F6100FEF1AB /* Personality.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432C22FF2F6100FEF1AB /* Personality.cpp */; };
+		DD09432F22FF2F6100FEF1AB /* Personality.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432C22FF2F6100FEF1AB /* Personality.cpp */; };
 		DD09433722FF5A0800FEF1AB /* InterestsDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09433522FF5A0800FEF1AB /* InterestsDB.cpp */; };
 		DD09433822FF5A0800FEF1AB /* InterestsDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09433522FF5A0800FEF1AB /* InterestsDB.cpp */; };
 		DD09433B2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0943392300C33A00FEF1AB /* FurnitureEntity.cpp */; };
@@ -61,8 +61,16 @@
 		DD40882F22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD40882C22F858BB00F6C2C5 /* ItemEntity.cpp */; };
 		DD40883222F85C1400F6C2C5 /* RoomEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD40883022F85C1400F6C2C5 /* RoomEntity.cpp */; };
 		DD40883322F85C1400F6C2C5 /* RoomEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD40883022F85C1400F6C2C5 /* RoomEntity.cpp */; };
-		DD5EADE123040C7200CA0361 /* NekoStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* NekoStatic.cpp */; };
-		DD5EADE223040C7200CA0361 /* NekoStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* NekoStatic.cpp */; };
+		DD4EEF2923D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF2723D3A0DE00CF30B3 /* GroceryUI.cpp */; };
+		DD4EEF2A23D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF2723D3A0DE00CF30B3 /* GroceryUI.cpp */; };
+		DD4EEF2E23D3A1EE00CF30B3 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF2C23D3A1EE00CF30B3 /* Button.cpp */; };
+		DD4EEF2F23D3A1EE00CF30B3 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF2C23D3A1EE00CF30B3 /* Button.cpp */; };
+		DD4EEF3723D3A32500CF30B3 /* SomeButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF3523D3A32500CF30B3 /* SomeButtons.cpp */; };
+		DD4EEF3823D3A32500CF30B3 /* SomeButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF3523D3A32500CF30B3 /* SomeButtons.cpp */; };
+		DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
+		DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
+		DD5EADE123040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
+		DD5EADE223040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE5230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
 		DD5EADE6230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
 		DD65CFD82200B0E400CBEF72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */; };
@@ -123,10 +131,10 @@
 		DDE66FB621FB1C870071145D /* EntitySystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FB321FB1C870071145D /* EntitySystem.cpp */; };
 		DDE66FB921FB1CC90071145D /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FB721FB1CC90071145D /* Settings.cpp */; };
 		DDE66FBA21FB1CC90071145D /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FB721FB1CC90071145D /* Settings.cpp */; };
-		DDE66FBD21FB492C0071145D /* GUIInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FBB21FB492C0071145D /* GUIInterface.cpp */; };
-		DDE66FBE21FB492C0071145D /* GUIInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FBB21FB492C0071145D /* GUIInterface.cpp */; };
 		DDE66FC121FB495B0071145D /* EssentialComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FBF21FB495B0071145D /* EssentialComponents.cpp */; };
 		DDE66FC221FB495B0071145D /* EssentialComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FBF21FB495B0071145D /* EssentialComponents.cpp */; };
+		DDE8B1B523CF537400594CB8 /* NotificationsUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */; };
+		DDE8B1B623CF537400594CB8 /* NotificationsUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */; };
 		DDF4EFC221FD24F90065A6AF /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDAB746E215D88050062F8B6 /* ResourcePath.mm */; };
 		DDFB8088220716BC00BEA832 /* NovelSomeScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFB8086220716BC00BEA832 /* NovelSomeScript.cpp */; };
 		DDFB8089220716BC00BEA832 /* NovelSomeScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFB8086220716BC00BEA832 /* NovelSomeScript.cpp */; };
@@ -153,8 +161,8 @@
 		DD09432522FE369800FEF1AB /* SkillDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SkillDB.hpp; sourceTree = "<group>"; };
 		DD09432822FEE51100FEF1AB /* Interest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Interest.cpp; sourceTree = "<group>"; };
 		DD09432922FEE51100FEF1AB /* Interest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Interest.hpp; sourceTree = "<group>"; };
-		DD09432C22FF2F6100FEF1AB /* Neko.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Neko.cpp; sourceTree = "<group>"; };
-		DD09432D22FF2F6100FEF1AB /* Neko.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Neko.hpp; sourceTree = "<group>"; };
+		DD09432C22FF2F6100FEF1AB /* Personality.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Personality.cpp; sourceTree = "<group>"; };
+		DD09432D22FF2F6100FEF1AB /* Personality.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Personality.hpp; sourceTree = "<group>"; };
 		DD09433522FF5A0800FEF1AB /* InterestsDB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InterestsDB.cpp; sourceTree = "<group>"; };
 		DD09433622FF5A0800FEF1AB /* InterestsDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InterestsDB.hpp; sourceTree = "<group>"; };
 		DD0943392300C33A00FEF1AB /* FurnitureEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FurnitureEntity.cpp; sourceTree = "<group>"; };
@@ -186,8 +194,18 @@
 		DD40882D22F858BB00F6C2C5 /* ItemEntity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemEntity.hpp; sourceTree = "<group>"; };
 		DD40883022F85C1400F6C2C5 /* RoomEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RoomEntity.cpp; sourceTree = "<group>"; };
 		DD40883122F85C1400F6C2C5 /* RoomEntity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RoomEntity.hpp; sourceTree = "<group>"; };
-		DD5EADDF23040C7200CA0361 /* NekoStatic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NekoStatic.cpp; sourceTree = "<group>"; };
-		DD5EADE023040C7200CA0361 /* NekoStatic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NekoStatic.hpp; sourceTree = "<group>"; };
+		DD4EEF2723D3A0DE00CF30B3 /* GroceryUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GroceryUI.cpp; sourceTree = "<group>"; };
+		DD4EEF2823D3A0DE00CF30B3 /* GroceryUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GroceryUI.hpp; sourceTree = "<group>"; };
+		DD4EEF2C23D3A1EE00CF30B3 /* Button.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		DD4EEF2D23D3A1EE00CF30B3 /* Button.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Button.hpp; sourceTree = "<group>"; };
+		DD4EEF3123D3A29400CF30B3 /* enums.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = enums.hpp; sourceTree = "<group>"; };
+		DD4EEF3523D3A32500CF30B3 /* SomeButtons.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SomeButtons.cpp; sourceTree = "<group>"; };
+		DD4EEF3623D3A32500CF30B3 /* SomeButtons.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SomeButtons.hpp; sourceTree = "<group>"; };
+		DD4EEF3A23D3A33200CF30B3 /* GUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GUI.hpp; sourceTree = "<group>"; };
+		DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlacesInterfaceUI.cpp; sourceTree = "<group>"; };
+		DD4EEF4223D3C8D600CF30B3 /* PlacesInterfaceUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlacesInterfaceUI.hpp; sourceTree = "<group>"; };
+		DD5EADDF23040C7200CA0361 /* Static.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Static.cpp; sourceTree = "<group>"; };
+		DD5EADE023040C7200CA0361 /* Static.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Static.hpp; sourceTree = "<group>"; };
 		DD5EADE3230429AE00CA0361 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		DD5EADE4230429AE00CA0361 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		DD65CFCA220072B600CBEF72 /* ResourcePath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ResourcePath.cpp; sourceTree = "<group>"; };
@@ -196,6 +214,7 @@
 		DD65CFE02200D1A900CBEF72 /* NovelSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelSystem.hpp; sourceTree = "<group>"; };
 		DD789BDB22817B300084828A /* MessageHolder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MessageHolder.cpp; sourceTree = "<group>"; };
 		DD789BDC22817B300084828A /* MessageHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageHolder.hpp; sourceTree = "<group>"; };
+		DD87E10E237483F500083FB9 /* NekoUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NekoUI.entitlements; sourceTree = "<group>"; };
 		DDAB7469215D88050062F8B6 /* NekoUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NekoUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDAB746D215D88050062F8B6 /* NekoUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NekoUI-Info.plist"; sourceTree = "<group>"; };
 		DDAB746E215D88050062F8B6 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -255,10 +274,10 @@
 		DDE66FB421FB1C870071145D /* EntitySystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EntitySystem.hpp; sourceTree = "<group>"; };
 		DDE66FB721FB1CC90071145D /* Settings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
 		DDE66FB821FB1CC90071145D /* Settings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Settings.hpp; sourceTree = "<group>"; };
-		DDE66FBB21FB492C0071145D /* GUIInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GUIInterface.cpp; sourceTree = "<group>"; };
-		DDE66FBC21FB492C0071145D /* GUIInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GUIInterface.hpp; sourceTree = "<group>"; };
 		DDE66FBF21FB495B0071145D /* EssentialComponents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EssentialComponents.cpp; sourceTree = "<group>"; };
 		DDE66FC021FB495B0071145D /* EssentialComponents.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EssentialComponents.hpp; sourceTree = "<group>"; };
+		DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NotificationsUI.cpp; sourceTree = "<group>"; };
+		DDE8B1B423CF537400594CB8 /* NotificationsUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NotificationsUI.hpp; sourceTree = "<group>"; };
 		DDFB8086220716BC00BEA832 /* NovelSomeScript.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NovelSomeScript.cpp; sourceTree = "<group>"; };
 		DDFB8087220716BC00BEA832 /* NovelSomeScript.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelSomeScript.hpp; sourceTree = "<group>"; };
 		DDFB808B2207178000BEA832 /* List.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
@@ -405,13 +424,54 @@
 			path = Collectors;
 			sourceTree = "<group>";
 		};
-		DD5EADDE23040C4B00CA0361 /* Static */ = {
+		DD4EEF2523D3A09200CF30B3 /* Places */ = {
 			isa = PBXGroup;
 			children = (
-				DD5EADDF23040C7200CA0361 /* NekoStatic.cpp */,
-				DD5EADE023040C7200CA0361 /* NekoStatic.hpp */,
+				DD4EEF2623D3A0CE00CF30B3 /* Grocery */,
+				DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */,
+				DD4EEF4223D3C8D600CF30B3 /* PlacesInterfaceUI.hpp */,
 			);
-			path = Static;
+			path = Places;
+			sourceTree = "<group>";
+		};
+		DD4EEF2623D3A0CE00CF30B3 /* Grocery */ = {
+			isa = PBXGroup;
+			children = (
+				DD4EEF2723D3A0DE00CF30B3 /* GroceryUI.cpp */,
+				DD4EEF2823D3A0DE00CF30B3 /* GroceryUI.hpp */,
+			);
+			path = Grocery;
+			sourceTree = "<group>";
+		};
+		DD4EEF2B23D3A1DB00CF30B3 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				DD4EEF3423D3A2EE00CF30B3 /* Button */,
+				DD4EEF3123D3A29400CF30B3 /* enums.hpp */,
+			);
+			path = GUI;
+			sourceTree = "<group>";
+		};
+		DD4EEF3423D3A2EE00CF30B3 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				DD4EEF2C23D3A1EE00CF30B3 /* Button.cpp */,
+				DD4EEF2D23D3A1EE00CF30B3 /* Button.hpp */,
+				DD4EEF3523D3A32500CF30B3 /* SomeButtons.cpp */,
+				DD4EEF3623D3A32500CF30B3 /* SomeButtons.hpp */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		DD5EADDE23040C4B00CA0361 /* Neko */ = {
+			isa = PBXGroup;
+			children = (
+				DD5EADDF23040C7200CA0361 /* Static.cpp */,
+				DD5EADE023040C7200CA0361 /* Static.hpp */,
+				DD09432C22FF2F6100FEF1AB /* Personality.cpp */,
+				DD09432D22FF2F6100FEF1AB /* Personality.hpp */,
+			);
+			path = Neko;
 			sourceTree = "<group>";
 		};
 		DDAB745F215D88050062F8B6 = {
@@ -437,6 +497,7 @@
 		DDAB746B215D88050062F8B6 /* NekoUI */ = {
 			isa = PBXGroup;
 			children = (
+				DD87E10E237483F500083FB9 /* NekoUI.entitlements */,
 				DDAB7471215D88050062F8B6 /* main.cpp */,
 				DDE66FAC21FB1A5F0071145D /* Essentials */,
 				DDE66FAD21FB1A7E0071145D /* Engine */,
@@ -502,14 +563,13 @@
 		DDDB65FD228F46A200E354CA /* NekoUIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				DD4EEF2523D3A09200CF30B3 /* Places */,
 				DDDB6606228F46E000E354CA /* Interfaces */,
 				DD09433022FF2FB900FEF1AB /* Engine */,
-				DD5EADDE23040C4B00CA0361 /* Static */,
+				DD5EADDE23040C4B00CA0361 /* Neko */,
 				DD09433422FF303A00FEF1AB /* Database */,
 				DD09433122FF2FC000FEF1AB /* Apartment */,
 				DD09433222FF2FD100FEF1AB /* Misc */,
-				DD09432C22FF2F6100FEF1AB /* Neko.cpp */,
-				DD09432D22FF2F6100FEF1AB /* Neko.hpp */,
 				DDDB660B228F509800E354CA /* Player.cpp */,
 				DDDB660C228F509800E354CA /* Player.hpp */,
 			);
@@ -535,6 +595,8 @@
 				DDE0E6D6229DB97700991722 /* MapUI.hpp */,
 				DDE2846422F61E1E00B280A7 /* ItemDetailsUI.cpp */,
 				DDE2846522F61E1E00B280A7 /* ItemDetailsUI.hpp */,
+				DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */,
+				DDE8B1B423CF537400594CB8 /* NotificationsUI.hpp */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -554,6 +616,8 @@
 		DDE66FAD21FB1A7E0071145D /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				DD4EEF2B23D3A1DB00CF30B3 /* GUI */,
+				DD4EEF3A23D3A33200CF30B3 /* GUI.hpp */,
 				DD23D562228E02010028305E /* Collectors */,
 				DD23D564228E02140028305E /* Collectors.hpp */,
 				DD789BDB22817B300084828A /* MessageHolder.cpp */,
@@ -569,8 +633,6 @@
 				DDFB8087220716BC00BEA832 /* NovelSomeScript.hpp */,
 				DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */,
 				DD65CFE02200D1A900CBEF72 /* NovelSystem.hpp */,
-				DDE66FBB21FB492C0071145D /* GUIInterface.cpp */,
-				DDE66FBC21FB492C0071145D /* GUIInterface.hpp */,
 				DD09430622FC816C00FEF1AB /* Language.cpp */,
 				DD09430722FC816C00FEF1AB /* Language.hpp */,
 			);
@@ -597,7 +659,7 @@
 				DDAB7464215D88050062F8B6 /* Sources */,
 				DDAB7465215D88050062F8B6 /* Frameworks */,
 				DDAB7466215D88050062F8B6 /* Resources */,
-				DDAB7467215D88050062F8B6 /* ShellScript */,
+				DDAB7467215D88050062F8B6 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -684,7 +746,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		DDAB7467215D88050062F8B6 /* ShellScript */ = {
+		DDAB7467215D88050062F8B6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,13 +755,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This shell script simply copies required SFML dylibs/frameworks into the application bundle frameworks folder.\n# If you're using static libraries (which is not recommended) you should remove this script from your project.\n\n# SETTINGS\nSFML_DEPENDENCIES_INSTALL_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_FRAMEWORK_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_LIB_PREFIX=\"/usr/local/lib\"\nFRAMEWORKS_FULL_PATH=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n# Are we building a project that uses frameworks or dylibs?\ncase \"$SFML_BINARY_TYPE\" in\n    DYLIBS)\n        frameworks=\"false\"\n        ;;\n    *)\n        frameworks=\"true\"\n        ;;\nesac\n\n# Echoes to stderr\nerror () # $* message to display\n{\n    echo $* 1>&2\n    exit 2\n}\n\nassert () # $1 is a boolean, $2...N is an error message\n{\n    if [ $# -lt 2 ]\n    then\n        error \"Internal error in assert: not enough args\"\n    fi\n\n    if [ $1 -ne 0 ]\n    then\n        shift\n        error \"$*\"\n    fi\n}\n\nforce_remove () # $@ is some paths\n{\n    test $# -ge 1\n    assert $? \"force_remove() requires at least one parameter\"\n    rm -fr $@\n    assert $? \"couldn't remove $@\"\n}\n\ncopy () # $1 is a source, $2 is a destination\n{\n    test $# -eq 2\n    assert $? \"copy() requires two parameters\"\n    ditto \"$1\" \"$2\"\n    assert $? \"couldn't copy $1 to $2\"\n}\n\nrequire () # $1 is a SFML module like 'system' or 'audio'\n{\n    dest=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n    if [ -z \"$1\" ]\n    then\n        error \"require() requires one parameter!\"\n    else\n        # clean potentially old stuff\n        force_remove \"$dest/libsfml-$1\"*\n        force_remove \"$dest/sfml-$1.framework\"\n\n        # copy SFML libraries\n        if [ \"$frameworks\" = \"true\" ]\n        then\n            source=\"$CMAKE_INSTALL_FRAMEWORK_PREFIX/sfml-$1.framework\"\n            target=\"sfml-$1.framework\"\n        elif [ \"$SFML_LINK_DYLIBS_SUFFIX\" = \"-d\" ]\n        then\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1-d.dylib\"\n            target=\"`readlink $source`\"\n        else\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1.dylib\"\n            target=\"`readlink $source`\"\n        fi\n\n        copy \"$source\" \"$dest/$target\"\n\n        # copy extra dependencies\n        if [ \"$1\" = \"audio\" ]\n        then\n            # copy \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\" frameworks too\n            for f in \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\"\n            do\n                copy \"$SFML_DEPENDENCIES_INSTALL_PREFIX/$f.framework\" \"$dest/$f.framework\"\n            done\n        elif [ \"$1\" = \"graphics\" ]\n        then\n            copy \"$SFML_DEPENDENCIES_INSTALL_PREFIX/freetype.framework\" \"$dest/freetype.framework\"\n        fi\n    fi\n}\n\nif [ -n \"$SFML_SYSTEM\" ]\nthen\n    require \"system\"\nfi\n\nif [ -n \"$SFML_AUDIO\" ]\nthen\n    require \"audio\"\nfi\n\nif [ -n \"$SFML_NETWORK\" ]\nthen\n    require \"network\"\nfi\n\nif [ -n \"$SFML_WINDOW\" ]\nthen\n    require \"window\"\nfi\n\nif [ -n \"$SFML_GRAPHICS\" ]\nthen\n    require \"graphics\"\nfi\n\n                ";
+			shellScript = "# This shell script simply copies required SFML dylibs/frameworks into the application bundle frameworks folder.\n# If you're using static libraries (which is not recommended) you should remove this script from your project.\n\n# SETTINGS\nSFML_DEPENDENCIES_INSTALL_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_FRAMEWORK_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_LIB_PREFIX=\"/usr/local/lib\"\nFRAMEWORKS_FULL_PATH=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n# Are we building a project that uses frameworks or dylibs?\ncase \"$SFML_BINARY_TYPE\" in\n    DYLIBS)\n        frameworks=\"false\"\n        ;;\n    *)\n        frameworks=\"true\"\n        ;;\nesac\n\n# Echoes to stderr\nerror () # $* message to display\n{\n    echo $* 1>&2\n    exit 2\n}\n\nassert () # $1 is a boolean, $2...N is an error message\n{\n    if [ $# -lt 2 ]\n    then\n        error \"Internal error in assert: not enough args\"\n    fi\n\n    if [ $1 -ne 0 ]\n    then\n        shift\n        error \"$*\"\n    fi\n}\n\nforce_remove () # $@ is some paths\n{\n    test $# -ge 1\n    assert $? \"force_remove() requires at least one parameter\"\n    rm -fr $@\n    assert $? \"couldn't remove $@\"\n}\n\ncopy () # $1 is a source, $2 is a destination\n{\n    test $# -eq 2\n    assert $? \"copy() requires two parameters\"\n    ditto \"$1\" \"$2\"\n    assert $? \"couldn't copy $1 to $2\"\n}\n\nrequire () # $1 is a SFML module like 'system' or 'audio'\n{\n    dest=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n    if [ -z \"$1\" ]\n    then\n        error \"require() requires one parameter!\"\n    else\n        # clean potentially old stuff\n        force_remove \"$dest/libsfml-$1\"*\n        force_remove \"$dest/sfml-$1.framework\"\n\n        # copy SFML libraries\n        if [ \"$frameworks\" = \"true\" ]\n        then\n            source=\"$CMAKE_INSTALL_FRAMEWORK_PREFIX/sfml-$1.framework\"\n            target=\"sfml-$1.framework\"\n        elif [ \"$SFML_LINK_DYLIBS_SUFFIX\" = \"-d\" ]\n        then\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1-d.dylib\"\n            target=\"`readlink $source`\"\n        else\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1.dylib\"\n            target=\"`readlink $source`\"\n        fi\n\n        copy \"$source\" \"$dest/$target\"\n\n        # copy extra dependencies\n        if [ \"$1\" = \"audio\" ]\n        then\n            # copy \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\" frameworks too\n            for f in \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\"\n            do\n                copy \"$SFML_DEPENDENCIES_INSTALL_PREFIX/$f.framework\" \"$dest/$f.framework\"\n            done\n        elif [ \"$1\" = \"graphics\" ]\n        then\n            copy \"$SFML_DEPENDENCIES_INSTALL_PREFIX/freetype.framework\" \"$dest/freetype.framework\"\n        fi\n    fi\n}\n\nif [ -n \"$SFML_SYSTEM\" ]\nthen\n    require \"system\"\nfi\n\nif [ -n \"$SFML_AUDIO\" ]\nthen\n    require \"audio\"\nfi\n\nif [ -n \"$SFML_NETWORK\" ]\nthen\n    require \"network\"\nfi\n\nif [ -n \"$SFML_WINDOW\" ]\nthen\n    require \"window\"\nfi\n\nif [ -n \"$SFML_GRAPHICS\" ]\nthen\n    require \"graphics\"\nfi   \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -714,7 +777,6 @@
 				DD09430422FC813A00FEF1AB /* Initialization.cpp in Sources */,
 				DD135B632295D228003BC870 /* CharacterLibrary.cpp in Sources */,
 				DDE3DB84229297D4004DA2B1 /* ItemDB.cpp in Sources */,
-				DDE66FBD21FB492C0071145D /* GUIInterface.cpp in Sources */,
 				DDE3DB802292979C004DA2B1 /* Item.cpp in Sources */,
 				DD09432222FE197F00FEF1AB /* Skill.cpp in Sources */,
 				DD135B73229D45A3003BC870 /* InventoryUI.cpp in Sources */,
@@ -723,8 +785,9 @@
 				DD09431622FE193300FEF1AB /* ActivityDB.cpp in Sources */,
 				DDDB660D228F509800E354CA /* Player.cpp in Sources */,
 				DD09432622FE369800FEF1AB /* SkillDB.cpp in Sources */,
+				DD4EEF3723D3A32500CF30B3 /* SomeButtons.cpp in Sources */,
 				DDE66FC121FB495B0071145D /* EssentialComponents.cpp in Sources */,
-				DD09432E22FF2F6100FEF1AB /* Neko.cpp in Sources */,
+				DD09432E22FF2F6100FEF1AB /* Personality.cpp in Sources */,
 				DD09431A22FE194500FEF1AB /* Buff.cpp in Sources */,
 				DDDB6609228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F525F2222A767005C08D5 /* Novel.cpp in Sources */,
@@ -746,16 +809,20 @@
 				DDE0E6D7229DB97700991722 /* MapUI.cpp in Sources */,
 				DDAB746F215D88050062F8B6 /* ResourcePath.mm in Sources */,
 				DDD2787F228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
+				DDE8B1B523CF537400594CB8 /* NotificationsUI.cpp in Sources */,
 				DD09430822FC816C00FEF1AB /* Language.cpp in Sources */,
 				DD23D575228E02400028305E /* etc.cpp in Sources */,
 				DDE66FB521FB1C870071145D /* EntitySystem.cpp in Sources */,
 				DDE0E6CF229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
+				DD4EEF2923D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
 				DD09433722FF5A0800FEF1AB /* InterestsDB.cpp in Sources */,
+				DD4EEF2E23D3A1EE00CF30B3 /* Button.cpp in Sources */,
 				DD23D569228E022B0028305E /* Image.cpp in Sources */,
-				DD5EADE123040C7200CA0361 /* NekoStatic.cpp in Sources */,
+				DD5EADE123040C7200CA0361 /* Static.cpp in Sources */,
 				DD40883222F85C1400F6C2C5 /* RoomEntity.cpp in Sources */,
 				DD789BDD22817B300084828A /* MessageHolder.cpp in Sources */,
 				DD135B6F22974070003BC870 /* RoomUI.cpp in Sources */,
+				DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
 				DD09431E22FE195900FEF1AB /* BuffDB.cpp in Sources */,
 				DDE3DB7C229295F4004DA2B1 /* Persona.cpp in Sources */,
 			);
@@ -780,8 +847,9 @@
 				DD09431722FE193300FEF1AB /* ActivityDB.cpp in Sources */,
 				DDDB660E228F509800E354CA /* Player.cpp in Sources */,
 				DD09432722FE369800FEF1AB /* SkillDB.cpp in Sources */,
+				DD4EEF3823D3A32500CF30B3 /* SomeButtons.cpp in Sources */,
 				DDE66FB621FB1C870071145D /* EntitySystem.cpp in Sources */,
-				DD09432F22FF2F6100FEF1AB /* Neko.cpp in Sources */,
+				DD09432F22FF2F6100FEF1AB /* Personality.cpp in Sources */,
 				DD09431B22FE194500FEF1AB /* Buff.cpp in Sources */,
 				DDDB660A228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F52602222A767005C08D5 /* Novel.cpp in Sources */,
@@ -801,18 +869,21 @@
 				DDE66FBA21FB1CC90071145D /* Settings.cpp in Sources */,
 				DD5EADE6230429AE00CA0361 /* Shader.cpp in Sources */,
 				DDE0E6D8229DB97700991722 /* MapUI.cpp in Sources */,
-				DDE66FBE21FB492C0071145D /* GUIInterface.cpp in Sources */,
 				DDAB74A1215D89CD0062F8B6 /* main.cpp in Sources */,
+				DDE8B1B623CF537400594CB8 /* NotificationsUI.cpp in Sources */,
 				DD09430922FC816C00FEF1AB /* Language.cpp in Sources */,
 				DDD27880228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
 				DD23D576228E02400028305E /* etc.cpp in Sources */,
 				DDE0E6D0229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
+				DD4EEF2A23D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
 				DD09433822FF5A0800FEF1AB /* InterestsDB.cpp in Sources */,
+				DD4EEF2F23D3A1EE00CF30B3 /* Button.cpp in Sources */,
 				DD23D56A228E022B0028305E /* Image.cpp in Sources */,
-				DD5EADE223040C7200CA0361 /* NekoStatic.cpp in Sources */,
+				DD5EADE223040C7200CA0361 /* Static.cpp in Sources */,
 				DD40883322F85C1400F6C2C5 /* RoomEntity.cpp in Sources */,
 				DD789BDE22817B300084828A /* MessageHolder.cpp in Sources */,
 				DD135B7022974070003BC870 /* RoomUI.cpp in Sources */,
+				DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
 				DD09431F22FE195900FEF1AB /* BuffDB.cpp in Sources */,
 				DDE3DB7D229295F4004DA2B1 /* Persona.cpp in Sources */,
 			);
@@ -843,6 +914,7 @@
 					/Users/mayday/Developer/Libraries/SFML/build/ios/lib/Debug/,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(SFML_SYSTEM)",
@@ -888,6 +960,7 @@
 					/Users/mayday/Developer/Libraries/SFML/build/ios/lib/Debug/,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(SFML_SYSTEM)",
@@ -915,12 +988,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				CODE_SIGN_ENTITLEMENTS = NekoUI/NekoUI.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A2VZ8FCF86;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/;
 				INFOPLIST_FILE = "$(SRCROOT)/NekoUI/NekoUI-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = melancholyhill.NekoUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SFML_AUDIO = "$(SFML_LINK_PREFIX) sfml-audio$(SFML_LINK_SUFFIX)";
 				SFML_BINARY_TYPE = FRAMEWORKS;
 				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
@@ -936,12 +1014,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				CODE_SIGN_ENTITLEMENTS = NekoUI/NekoUI.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A2VZ8FCF86;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/;
 				INFOPLIST_FILE = "$(SRCROOT)/NekoUI/NekoUI-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = melancholyhill.NekoUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SFML_AUDIO = "$(SFML_LINK_PREFIX) sfml-audio$(SFML_LINK_SUFFIX)";
 				SFML_BINARY_TYPE = FRAMEWORKS;
 				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";

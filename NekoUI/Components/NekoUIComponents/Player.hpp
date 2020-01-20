@@ -24,10 +24,10 @@
 #include "../../Engine/EntitySystem.hpp"
 #include "../../Engine/Settings.hpp"
 #include "../../Engine/Collectors.hpp"
-#include "../../Engine/GUIInterface.hpp"
+#include "../../Engine/GUI/Button/SomeButtons.hpp"
 
-#include "Neko.hpp"
-#include "Static/NekoStatic.hpp"
+#include "Neko/Personality.hpp"
+#include "Neko/Static.hpp"
 #include "Engine/Persona.hpp"
 #include "Database/ItemDB.hpp"
 #include "Database/SkillDB.hpp"
@@ -50,8 +50,9 @@ namespace NekoUI
     {
         static Persona neko;
         static unsigned long daysTogether; // считаться за "день" будут только дни, когда заходишь в игру.
+        static float timePassed;
         
-        static std::wstring display;
+        static std::wstring display, backgroundCover;
         static std::chrono::time_point<std::chrono::system_clock> birthday;
         
         
@@ -59,6 +60,7 @@ namespace NekoUI
         
         static void SaveData();
         static void SaveCurrentDT();
+        static void UpdateCurrentDT();
         
         static void SavePersona(bool forced = false);
         static void LoadPersona();
@@ -66,9 +68,9 @@ namespace NekoUI
         static void Birth();
         static void UpdateDaysTogether();
         
-        static NekoStatic::EyebrowsEmotion eyebrowsEmotion;
-        static NekoStatic::EyesEmotion eyesEmotion;
-        static NekoStatic::MouthEmotion mouthEmotion;
+        static NekoS::EyebrowsEmotion eyebrowsEmotion;
+        static NekoS::EyesEmotion eyesEmotion;
+        static NekoS::MouthEmotion mouthEmotion;
         static void UpdateNekoEmotion();
         enum class RestoringEmotion{ Eyebrows, Eyes, Mouth };
         static void NekoEmotionAccordingToMood(const RestoringEmotion& restoring);

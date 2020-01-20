@@ -12,8 +12,9 @@ namespace NekoUI
 {
     void ItemDetailsUI::Init()
     {
-        sf::Font* font = fc::GetFont(L"Pacifica.ttf");
+        sf::Font* font = fc::GetFont(L"Noteworthy-Bold.ttf");
         if (font) { caption.setFont(*font); description.setFont(*font); }
+        description.setLineSpacing(0.6f);
         
         shape.setFillColor({0,0,0, 170});
         shape.setOutlineColor(sf::Color::White);

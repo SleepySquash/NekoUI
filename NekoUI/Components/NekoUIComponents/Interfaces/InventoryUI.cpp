@@ -12,7 +12,7 @@ namespace NekoUI
 {
     void InventoryUI::Init()
     {
-        sf::Font* font = fc::GetFont(L"Pacifica.ttf");
+        sf::Font* font = fc::GetFont(L"Impact.ttf");
         if (font) { emptyText.setFont(*font); itemCountText.setFont(*font); }
         emptyText.setOutlineColor(sf::Color::Black);
         emptyText.setString(L"Empty");

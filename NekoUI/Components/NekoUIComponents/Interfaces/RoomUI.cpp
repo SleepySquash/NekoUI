@@ -12,10 +12,10 @@ namespace NekoUI
 {
     void RoomUI::Init()
     {
-        nekoMoodText.setFont(*fc::GetFont(L"Pacifica.ttf"));
+        nekoMoodText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
         nekoMoodText.setString(L"Счастье");
-        dayText.setFont(*fc::GetFont(L"Pacifica.ttf"));
-        monthText.setFont(*fc::GetFont(L"Pacifica.ttf"));
+        dayText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
+        monthText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
         
         auto now = std::chrono::system_clock::now();
         std::time_t now_c = std::chrono::system_clock::to_time_t(now);
@@ -153,10 +153,10 @@ namespace NekoUI
                 else ignoreEventMove = rm::scrolldownMenuBounds.contains(dot.x, dot.y);
             }
         } else if (event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::TouchEnded) { ignoreEventMove = false;
-            if (rm::drawDatePanel && ((event.type == sf::Event::MouseButtonReleased && dateSprite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) || (event.type == sf::Event::TouchEnded && dateSprite.getGlobalBounds().contains(event.touch.x, event.touch.y)))) entity->system->SendMessage({"CalendarUI :: Switch"});
+            if (rm::drawDatePanel && rm::canPressDatePanel && ((event.type == sf::Event::MouseButtonReleased && dateSprite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) || (event.type == sf::Event::TouchEnded && dateSprite.getGlobalBounds().contains(event.touch.x, event.touch.y)))) entity->system->SendMessage({"CalendarUI :: Switch"});
         } else if (ignoreEventMove && (event.type == sf::Event::MouseMoved || event.type == sf::Event::TouchMoved)) event = sf::Event();
         
-        if (scrolldownMenu.PollEvent(event))
+        if (scrolldownMenu.PollEvent(event) && rm::canPressScrolldownMenu)
         {
             if (pressWillCloseInterfaces)
             {
@@ -334,32 +334,32 @@ namespace NekoUI
                 switch (i)
                 {
                     case 0: needSprite.setTextureRect({0, 0, 33, 34}); needSprite.setOrigin(16, 17);
-                        if (NStat::needHunger > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needHunger > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needHunger > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needHunger > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     case 1: needSprite.setTextureRect({38, 4, 27, 29}); needSprite.setOrigin(13, 14);
-                        if (NStat::needThirst > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needThirst > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needThirst > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needThirst > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     case 2: needSprite.setTextureRect({72, 7, 34, 22}); needSprite.setOrigin(17, 11);
-                        if (NStat::needCommunication > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needCommunication > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needCommunication > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needCommunication > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     case 3: needSprite.setTextureRect({115, 6, 32, 27}); needSprite.setOrigin(16, 13);
-                        if (NStat::needToilet > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needToilet > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needToilet > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needToilet > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     case 4: needSprite.setTextureRect({155, 0, 30, 32}); needSprite.setOrigin(15, 16);
-                        if (NStat::needHygiene > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needHygiene > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needHygiene > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needHygiene > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     case 5: needSprite.setTextureRect({195, 5, 27, 25}); needSprite.setOrigin(13, 12);
-                        if (NStat::needEnergy > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needEnergy > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needEnergy > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needEnergy > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     case 6: needSprite.setTextureRect({226, 0, 16, 34}); needSprite.setOrigin(8, 16);
-                        if (NStat::needWarmth > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
-                        else if (NStat::needWarmth > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
+                        if (NekoS::needWarmth > 666) needbaseSprite.setColor(sf::Color(95, 151, 62));
+                        else if (NekoS::needWarmth > 333) needbaseSprite.setColor(sf::Color(240, 240, 0));
                         else needbaseSprite.setColor(sf::Color(255, 61, 0)); break;
                     default: break;
                 }
@@ -407,6 +407,8 @@ namespace NekoUI
             needSprite.setColor({needSprite.getColor().r, needSprite.getColor().g, needSprite.getColor().b, 100}); }
         else if (message.info == "RoomUI :: StatusVivid") { needbaseSpriteTransparent = false;
             needSprite.setColor({needSprite.getColor().r, needSprite.getColor().g, needSprite.getColor().b, 255}); }
+        else if (message.info == "RoomUI :: GroceryUI") {
+            rm::shopMode = true; nekoMoodText.setString(std::to_string(NekoS::money)); }
     }
     void RoomUI::Switch(const bool& on)
     {

@@ -13,11 +13,14 @@ namespace NekoUI
     void NekoEntity::Init()
     {
         movable = true; type = Type::Neko;
-        occupyText.setFont(*fc::GetFont(L"Pacifica.ttf"));
-        occupyText.setOutlineColor(sf::Color::Black);
-        occupyActionButton.setFont(L"Pacifica.ttf");
+        occupyText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
+        occupyText.setOutlineColor(sf::Color(99, 70, 70));
+        occupyActionButton.setFont(L"Noteworthy-Bold.ttf");
         occupyActionButton.setCharacterSize(32);
         occupyActionButton.valign = Valign::Top;
+        occupyActionButton.thickness = 2.f;
+        occupyActionButton.onormalColor = sf::Color(99, 70, 70);
+        occupyActionButton.updateColor();
         
         
         sf::Texture* texture = ic::LoadTexture(L"Data/Images/UI/dialogue1_n.png");
@@ -25,7 +28,7 @@ namespace NekoUI
         {
             dialogueSprite.setTexture(*texture);
             dialogueSprite.setOrigin(texture->getSize().x/2, texture->getSize().y);
-            dialogue.setFont(*fc::GetFont(L"Pacifica.ttf"));
+            dialogue.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
             dialogue.setFillColor(sf::Color::White);
         }
         
@@ -45,24 +48,53 @@ namespace NekoUI
         if (i >= 100) { x = Room::width/2; y = Room::height/2; }
         
         elapsedWaiting = (rand() % 400)/1000.f;
-        /* if (elapsedWaiting <= 0.16) { elapsedWaiting = 0.f; doNewEventInstantly = true; }
-        Update(sf::seconds(0)); if (occupiedAt == -1) doNewEventInstantly = false; */
     }
     void NekoEntity::Destroy() { ic::DeleteImage(L"Data/Neko/Chibi/body.png"); ic::DeleteImage(L"Data/Images/UI/dialogue1_n.png"); }
     void NekoEntity::Update(const sf::Time& elapsedTime)
     {
-        NStat::needHunger -= elapsedTime.asSeconds() * NStat::hungerInSecond;
-        NStat::needThirst -= elapsedTime.asSeconds() * NStat::thirstInSecond;
-        NStat::needCommunication -= elapsedTime.asSeconds() * NStat::communicationInSecond;
-        NStat::needHygiene -= elapsedTime.asSeconds() * NStat::hygieneInSecond;
-        NStat::needToilet -= elapsedTime.asSeconds() * NStat::toiletInSecond;
-        NStat::needEnergy -= elapsedTime.asSeconds() * NStat::energyInSecond;
-        if (NStat::needHunger < 0) NStat::needHunger = 0;
-        if (NStat::needThirst < 0) NStat::needThirst = 0;
-        if (NStat::needCommunication < 0) NStat::needCommunication = 0;
-        if (NStat::needHygiene < 0) NStat::needHygiene = 0;
-        if (NStat::needToilet < 0) NStat::needToilet = 0;
-        if (NStat::needEnergy < 0) NStat::needEnergy = 0;
+        if (gs::isPause) return;
+        NekoS::needHunger -= elapsedTime.asSeconds() * NekoS::hungerInSecond;
+        NekoS::needThirst -= elapsedTime.asSeconds() * NekoS::thirstInSecond;
+        NekoS::needCommunication -= elapsedTime.asSeconds() * NekoS::communicationInSecond;
+        NekoS::needHygiene -= elapsedTime.asSeconds() * NekoS::hygieneInSecond;
+        NekoS::needToilet -= elapsedTime.asSeconds() * NekoS::toiletInSecond;
+        NekoS::needEnergy -= elapsedTime.asSeconds() * NekoS::energyInSecond;
+        if (NekoS::needHunger < 0) NekoS::needHunger = 0;
+        if (NekoS::needThirst < 0) NekoS::needThirst = 0;
+        if (NekoS::needCommunication < 0) NekoS::needCommunication = 0;
+        if (NekoS::needHygiene < 0) NekoS::needHygiene = 0;
+        if (NekoS::needToilet < 0) NekoS::needToilet = 0;
+        if (NekoS::needEnergy < 0) NekoS::needEnergy = 0;
+        
+        if (blinking)
+        {
+            if (elapsedBlinking > 0.f) elapsedBlinking -= elapsedTime.asSeconds();
+            else
+            {
+                if (!itisblink)
+                {
+                    blinkEmotion = NekoP::eyesEmotion;
+                    NekoP::eyesEmotion = NekoS::EyesEmotion::Closed;
+                    if (NekoP::eyesEmotion != Player::eyesEmotion) gs::requestWindowRefresh = true;
+                    Player::UpdateNekoEmotion();
+                    elapsedBlinking = closedBlinkDuration + (rand() % 4)/100.f;
+                }
+                else
+                {
+                    if (NekoP::eyesEmotion == NekoS::EyesEmotion::Closed)
+                        NekoP::eyesEmotion = blinkEmotion;
+                    if (NekoP::eyesEmotion != Player::eyesEmotion) gs::requestWindowRefresh = true;
+                    Player::UpdateNekoEmotion();
+                    elapsedBlinking = blinkingFrequency + (rand() % 6)/10.f;
+                    if (allowRandomBlink)
+                    {
+                        int chance = rand() % 100;
+                        if (chance < 20) elapsedBlinking = 0.1 + (rand() % 6)/10.f;
+                    }
+                }
+                itisblink = !itisblink;
+            }
+        }
         
         if (beingActionedWith) return;
         if (!unlimitedDrawDialogue)
@@ -97,18 +129,10 @@ namespace NekoUI
                     if (moveLeft || moveRight) xMove = xySpd * elapsedTime.asSeconds();
                     if (moveUp || moveDown) yMove = xySpd * elapsedTime.asSeconds();
                     
-                    if (moveLeft) {
-                        if (!Room::mask->getPixel(floor((x - xMove)/Room::roomScale), floor(y/Room::roomScale)).r)
-                            x -= xMove; else moveLeft = false; }
-                    if (moveRight) {
-                        if (!Room::mask->getPixel(floor((x + xMove)/Room::roomScale), floor(y/Room::roomScale)).r)
-                            x += xMove; else moveRight = false; }
-                    if (moveUp) {
-                        if (!Room::mask->getPixel(floor(x/Room::roomScale), floor((y - yMove)/Room::roomScale)).r)
-                            y -= yMove; else moveUp = false; }
-                    if (moveDown) {
-                        if (!Room::mask->getPixel(floor(x/Room::roomScale), floor((y + yMove)/Room::roomScale)).r)
-                            y += yMove; else moveDown = false; }
+                    if (moveLeft) { if (!Room::Collision(x - xMove, y)) x -= xMove; else moveLeft = false; }
+                    if (moveRight) { if (!Room::Collision(x + xMove, y)) x += xMove; else moveRight = false; }
+                    if (moveUp) { if (!Room::Collision(x, y - yMove)) y -= yMove; else moveUp = false; }
+                    if (moveDown) { if (!Room::Collision(x, y + yMove)) y += yMove; else moveDown = false; }
                 }
                 else
                 {
@@ -125,7 +149,7 @@ namespace NekoUI
                     if (inHands) inHandsSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - 465*sprite.getScale().y);
                     Player::neko.setChibiPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
                     if (drawDialogue) { dialogueSprite.setPosition(sprite.getPosition().x, sprite.getGlobalBounds().top);
-                        dialogue.setPosition(dialogueSprite.getPosition()); }
+                        dialogue.setPosition(dialogueSprite.getPosition().x, dialogueSprite.getPosition().y - dialogueSprite.getGlobalBounds().height/2 - 4*dialogueSprite.getScale().y); }
                     if (beingOccupied)
                     {
                         occupyText.setPosition(sprite.getPosition().x, sprite.getPosition().y + 6*gs::scale);
@@ -143,7 +167,7 @@ namespace NekoUI
                         if ((x > movingTo_x + 20 || x < movingTo_x - 20 || y > movingTo_y + 20 || y < movingTo_y - 20))
                         {
                             // activity->Abort();
-                            // т.к. пока что нет поиска пути
+                            // Но т.к. пока что нет поиска пути:
                             x = movingTo_x; y = movingTo_y; UpdatePosition(); UpdateDepthContinuously();
                             InsertActivity(adb::activities["TeleportationCuzStuck"]);
                             SetDialogue(L"Телепортация! >3<"); elapsedDialogue = 0.7f;
@@ -184,10 +208,12 @@ namespace NekoUI
             
             if (tasks.empty())
             {
-                if (NStat::needHunger <= 260) { sender->SendMessage({"Apartment :: HungerActivity"}); if (activity) return; }
-                if (NStat::needThirst <= 260) { sender->SendMessage({"Apartment :: ThirstActivity"}); if (activity) return; }
-                if (NStat::needEnergy <= 260) { activity = adb::activities["GoSleep"]; }
-                else if (NStat::needHygiene <= 260) { activity = adb::activities["GoTakeABath"]; }
+                if (NekoS::needHunger <= 260) { sender->SendMessage({"Apartment :: HungerActivity"}); if (activity) return; }
+                if (NekoS::needThirst <= 260) { sender->SendMessage({"Apartment :: ThirstActivity"}); if (activity) return; }
+                if (NekoS::needEnergy <= 260) { activity = adb::activities["GoSleep"]; }
+                else if (NekoS::needHygiene <= 260) { activity = adb::activities["GoTakeABath"]; }
+                // HungerActivity или ThirstActivity - ломают игру, когда в холодильнике ничего нет?
+                // ИТОГ: ломал игру MovingTo в Init()'е, когда он сбрасывал movingObject в L""?
                 
                 if (!activity)
                 {
@@ -227,7 +253,7 @@ namespace NekoUI
         Player::neko.setChibiPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
         
         if (drawDialogue) { ResizeDialogue();
-            dialogue.setOrigin(dialogue.getLocalBounds().width/2, dialogue.getLocalBounds().height + 44*gs::scale); }
+            dialogue.setOrigin(dialogue.getLocalBounds().width/2, dialogue.getLocalBounds().height/2); }
         if (beingOccupied) { ResizeOccupied(); occupyText.setOrigin(occupyText.getLocalBounds().width/2, 0); }
         SetOnScreen();
     }
@@ -248,7 +274,7 @@ namespace NekoUI
         if (message.info == "Apartment :: RequestPosition" || message.info == "Apartment :: RequestFoodFromFridge" || message.info == "Apartment :: RequestDrinkFromFridge") sender->SendMessage(message);
         else if (message.info == "Activity :: Update" && activity)
         {
-            cout << "Activity :: Update" << endl;
+            cout << "Activity :: Update (" << (int)((*(activity->task))->type) << ")" << endl;
             if ((*(activity->task))->facingSet) SetChibiFacingDirection((*(activity->task))->facing);
             if ((*(activity->task))->occupyString.length())
             {
@@ -331,43 +357,31 @@ namespace NekoUI
                 abortedActivity = nullptr; abortedCount = 0;
                 if (activity->name == "Eating" && inHands)
                 {
-                    eatOrDrinkAttemts = 0;
-                    NStat::needHunger += inHands->calories;
-                    NStat::needThirst += inHands->thirstSatisfuction;
-                    RemoveItemFromHands(false);
-                    if (activity->parameter1) SetDialogue(L"Пасибя, ето было вкусня! :3"); else SetDialogue(L"Йа покушаля! c:");
-                    if (NStat::needHunger > NStat::maxNeed) NStat::needHunger = NStat::maxNeed;
-                    else if (NStat::needHunger < 0) NStat::needHunger = 0;
-                    if (NStat::needThirst > NStat::maxNeed) NStat::needThirst = NStat::maxNeed;
-                    else if (NStat::needThirst < 0) NStat::needThirst = 0;
+                    ConsumeItem(inHands);
+                    if (activity->parameter1) SetDialogue(L"Пасибя, ето было вкусня! :3");
+                    else SetDialogue(L"Йа покушаля! c:");
                 }
                 else if (activity->name == "Drinking" && inHands)
                 {
-                    eatOrDrinkAttemts = 0;
-                    NStat::needHunger += inHands->calories;
-                    NStat::needThirst += inHands->thirstSatisfuction;
-                    RemoveItemFromHands(false);
-                    if (activity->parameter1) SetDialogue(L"Пасибя, ето было освежающе! :3"); else SetDialogue(L"Йа попила! c:");
-                    if (NStat::needHunger > NStat::maxNeed) NStat::needHunger = NStat::maxNeed;
-                    else if (NStat::needHunger < 0) NStat::needHunger = 0;
-                    if (NStat::needThirst > NStat::maxNeed) NStat::needThirst = NStat::maxNeed;
-                    else if (NStat::needThirst < 0) NStat::needThirst = 0;
+                    ConsumeItem(inHands);
+                    if (activity->parameter1) SetDialogue(L"Пасибя, ето было освежающе! :3");
+                    else SetDialogue(L"Йа попила! c:");
                 }
                 else if (activity->name == "ReturnToFood") droppedInHands = nullptr;
                 else if (activity->name == "Sleeping")
                 {
-                    // NStat::needEnergy += 300.f;
-                    if (NStat::needEnergy > NStat::maxNeed) NStat::needEnergy = NStat::maxNeed;
-                    else if (NStat::needEnergy < 0) NStat::needEnergy = 0;
+                    // NekoS::needEnergy += 300.f;
+                    if (NekoS::needEnergy > NekoS::maxNeed) NekoS::needEnergy = NekoS::maxNeed;
+                    else if (NekoS::needEnergy < 0) NekoS::needEnergy = 0;
                     InsertActivity(adb::activities["ComeToSensesAfterSleep"], false);
                     SetDialogue(L"*Зевает*");
                     return;
                 }
                 else if (activity->name == "Bathing")
                 {
-                    NStat::needHygiene += 300.f;
-                    if (NStat::needHygiene > NStat::maxNeed) NStat::needHygiene = NStat::maxNeed;
-                    else if (NStat::needHygiene < 0) NStat::needHygiene = 0;
+                    NekoS::needHygiene += 300.f;
+                    if (NekoS::needHygiene > NekoS::maxNeed) NekoS::needHygiene = NekoS::maxNeed;
+                    else if (NekoS::needHygiene < 0) NekoS::needHygiene = 0;
                     SetDialogue(L"Йа чистенькая!~ :з");
                 }
             }
@@ -383,8 +397,8 @@ namespace NekoUI
                 if (activity->name == "ReturnToFood") droppedInHands = nullptr;
                 else if (activity->name == "Sleeping")
                 {
-                    if (NStat::needEnergy > NStat::maxNeed) NStat::needEnergy = NStat::maxNeed;
-                    else if (NStat::needEnergy < 0) NStat::needEnergy = 0;
+                    if (NekoS::needEnergy > NekoS::maxNeed) NekoS::needEnergy = NekoS::maxNeed;
+                    else if (NekoS::needEnergy < 0) NekoS::needEnergy = 0;
                     SetDialogue(L"А-а..? *зевает* т.т");
                 }
                 waitTilEntityStopsBeingMoved = false;
@@ -401,11 +415,13 @@ namespace NekoUI
         else if (message.info == "Apartment :: FoodFridgeSpawned")
         {
             iKnowThereIsNoFoodInTheFridge = !message.address;
+            if (iKnowThereIsNoFoodInTheFridge) SetDialogue(L"Туть нет еды! т.т");
             if (activity) activity->ReceiveMessage(message);
         }
         else if (message.info == "Apartment :: DrinkFridgeSpawned")
         {
             iKnowThereIsNoDrinkInTheFridge = !message.address;
+            if (iKnowThereIsNoFoodInTheFridge) SetDialogue(L"Туть нет воды! т.т");
             if (activity) activity->ReceiveMessage(message);
         }
         else if (message.info == "Apartment :: BedInfo" && activity && activity->name == "Sleeping")
@@ -414,7 +430,7 @@ namespace NekoUI
             if (entity)
             {
                 x = entity->x;
-                y = entity->y + (entity->sprite.getLocalBounds().height/1.3f)*entity->relScale;
+                y = entity->y + (entity->sprite.getLocalBounds().height/2.0f)*entity->relScale;
                 UpdatePosition(); UpdateDepthContinuously();
             }
         }
@@ -433,6 +449,7 @@ namespace NekoUI
     void NekoEntity::SendMessage(MessageHolder message) { ReceiveMessage(message); }
     
     
+    
     void NekoEntity::UpdatePosition()
     {
         sprite.setPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
@@ -443,7 +460,7 @@ namespace NekoUI
         if (drawDialogue)
         {
             dialogueSprite.setPosition(sprite.getPosition().x, sprite.getGlobalBounds().top);
-            dialogue.setPosition(dialogueSprite.getPosition());
+            dialogue.setPosition(dialogueSprite.getPosition().x, dialogueSprite.getPosition().y - dialogueSprite.getGlobalBounds().height/2 - 4*dialogueSprite.getScale().y);
         }
         if (beingOccupied)
         {
@@ -458,14 +475,14 @@ namespace NekoUI
         dialogue.setCharacterSize(24 * gs::scale);
         dialogue.setScale(Room::scale, Room::scale);
         
-        dialogueSprite.setScale(1.1*dialogue.getGlobalBounds().width/dialogueSprite.getLocalBounds().width, 1.5 * Room::scale * gs::scale);
+        dialogueSprite.setScale(1.1*dialogue.getGlobalBounds().width/dialogueSprite.getLocalBounds().width, 1.2 * Room::scale * gs::scale);
         dialogueSprite.setPosition(sprite.getPosition().x, sprite.getGlobalBounds().top);
-        dialogue.setPosition(dialogueSprite.getPosition());
+        dialogue.setPosition(dialogueSprite.getPosition().x, dialogueSprite.getPosition().y - dialogueSprite.getGlobalBounds().height/2 - 4*dialogueSprite.getScale().y);
     }
     void NekoEntity::ResizeOccupied()
     {
         occupyText.setCharacterSize(19*gs::scale);
-        occupyText.setOutlineThickness(1*gs::scale);
+        occupyText.setOutlineThickness(2*gs::scale);
         occupyText.setScale(Room::scale, Room::scale);
         occupyText.setPosition(sprite.getPosition().x, sprite.getPosition().y + 6*gs::scale);
         if (drawActionButton)
@@ -514,6 +531,7 @@ namespace NekoUI
     }
     
     
+    
     void NekoEntity::SetDialogue(const std::wstring& dialog, bool unlimited)
     {
         if (!gs::ignoreDraw) gs::requestWindowRefresh = true;
@@ -521,47 +539,47 @@ namespace NekoUI
         dialogue.setString(dialog);
         if (!unlimitedDrawDialogue) elapsedDialogue = 2.1f + 0.08 * dialogue.getString().getSize();// + (rand() % 2000) / 2000.f;
         ResizeDialogue();
-        dialogue.setOrigin(dialogue.getLocalBounds().width/2, dialogue.getLocalBounds().height + 44*gs::scale);
+        dialogue.setOrigin(dialogue.getLocalBounds().width/2, dialogue.getLocalBounds().height/2);
     }
     std::wstring NekoEntity::GenerateRoomDialogue()
     {
         int needsTotal{ 0 };
         if (!activity || !activity->forceActivityReplica)
         {
-            if (NStat::needHunger <= 666) ++needsTotal;
-            if (NStat::needThirst <= 666) ++needsTotal;
-            if (NStat::needCommunication <= 666) ++needsTotal;
-            if (NStat::needHygiene <= 666) ++needsTotal;
-            if (NStat::needToilet <= 666) ++needsTotal;
-            if (NStat::needEnergy <= 666) ++needsTotal;
+            if (NekoS::needHunger <= 666) ++needsTotal;
+            if (NekoS::needThirst <= 666) ++needsTotal;
+            if (NekoS::needCommunication <= 666) ++needsTotal;
+            if (NekoS::needHygiene <= 666) ++needsTotal;
+            if (NekoS::needToilet <= 666) ++needsTotal;
+            if (NekoS::needEnergy <= 666) ++needsTotal;
         }
         if (needsTotal)
         {
             int needArea, chosenArea = 0;
             if (needsTotal == 1)
             {
-                if (NStat::needHunger <= 666) chosenArea = 0;
-                else if (NStat::needThirst <= 666) chosenArea = 1;
-                else if (NStat::needCommunication <= 666) chosenArea = 2;
-                else if (NStat::needHygiene <= 666) chosenArea = 3;
-                else if (NStat::needToilet <= 666) chosenArea = 4;
-                else if (NStat::needEnergy <= 666) chosenArea = 5;
+                if (NekoS::needHunger <= 666) chosenArea = 0;
+                else if (NekoS::needThirst <= 666) chosenArea = 1;
+                else if (NekoS::needCommunication <= 666) chosenArea = 2;
+                else if (NekoS::needHygiene <= 666) chosenArea = 3;
+                else if (NekoS::needToilet <= 666) chosenArea = 4;
+                else if (NekoS::needEnergy <= 666) chosenArea = 5;
             }
             else
             {
-                bool hungerEnabled{ NStat::needHunger <= 666 && previousRandomDialogue != 1000 },
-                     thirstEnabled{ NStat::needThirst <= 666 && previousRandomDialogue != 1001 },
-                     communicationEnabled{ NStat::needCommunication <= 666 && previousRandomDialogue != 1002 },
-                     hygieneEnabled{ NStat::needHygiene <= 666 && previousRandomDialogue != 1003 },
-                     toiletEnabled{ NStat::needToilet <= 666 && previousRandomDialogue != 1004 },
-                     energyEnabled{ NStat::needEnergy <= 666 && previousRandomDialogue != 1005 };
-                needArea = (667 - NStat::needHunger)*hungerEnabled + (667 - NStat::needThirst)*thirstEnabled + (667 - NStat::needCommunication)*communicationEnabled + (667 - NStat::needHygiene)*hygieneEnabled + (667 - NStat::needToilet)*toiletEnabled + (667 - NStat::needEnergy)*energyEnabled;
-                int needHungerArea = (667 - NStat::needHunger)*hungerEnabled,
-                    needThirstArea = needHungerArea + (667 - NStat::needThirst)*thirstEnabled,
-                    needCommunicationArea = needThirstArea + (667 - NStat::needCommunication)*communicationEnabled,
-                    needHygieneArea = needCommunicationArea + (667 - NStat::needHygiene)*hygieneEnabled,
-                    needToiletArea = needHygieneArea + (667 - NStat::needToilet)*toiletEnabled,
-                    needEnergyArea = needToiletArea + (667 - NStat::needEnergy)*energyEnabled;
+                bool hungerEnabled{ NekoS::needHunger <= 666 && previousRandomDialogue != 1000 },
+                     thirstEnabled{ NekoS::needThirst <= 666 && previousRandomDialogue != 1001 },
+                     communicationEnabled{ NekoS::needCommunication <= 666 && previousRandomDialogue != 1002 },
+                     hygieneEnabled{ NekoS::needHygiene <= 666 && previousRandomDialogue != 1003 },
+                     toiletEnabled{ NekoS::needToilet <= 666 && previousRandomDialogue != 1004 },
+                     energyEnabled{ NekoS::needEnergy <= 666 && previousRandomDialogue != 1005 };
+                needArea = (667 - NekoS::needHunger)*hungerEnabled + (667 - NekoS::needThirst)*thirstEnabled + (667 - NekoS::needCommunication)*communicationEnabled + (667 - NekoS::needHygiene)*hygieneEnabled + (667 - NekoS::needToilet)*toiletEnabled + (667 - NekoS::needEnergy)*energyEnabled;
+                int needHungerArea = (667 - NekoS::needHunger)*hungerEnabled,
+                    needThirstArea = needHungerArea + (667 - NekoS::needThirst)*thirstEnabled,
+                    needCommunicationArea = needThirstArea + (667 - NekoS::needCommunication)*communicationEnabled,
+                    needHygieneArea = needCommunicationArea + (667 - NekoS::needHygiene)*hygieneEnabled,
+                    needToiletArea = needHygieneArea + (667 - NekoS::needToilet)*toiletEnabled,
+                    needEnergyArea = needToiletArea + (667 - NekoS::needEnergy)*energyEnabled;
                 int needRandomArea = rand() % needArea;
                 if (needRandomArea >= 0 && needRandomArea < needHungerArea && hungerEnabled) chosenArea = 0;
                 else if (needRandomArea >= needHungerArea && needRandomArea < needThirstArea && thirstEnabled) chosenArea = 1;
@@ -574,12 +592,12 @@ namespace NekoUI
             int needRandom = rand() % 667;
             switch (chosenArea)
             {
-                case 0: if (NStat::needHunger < needRandom) { previousRandomDialogue = 1000; return L"Хотю кушать... т.т"; } break;
-                case 1: if (NStat::needThirst < needRandom) { previousRandomDialogue = 1001; return L"Хотю пить... т.т"; } break;
-                case 2: if (NStat::needCommunication < needRandom) { previousRandomDialogue = 1002; return L"Одиноко... т.т"; } break;
-                case 3: if (NStat::needHygiene < needRandom) { previousRandomDialogue = 1003; return L"Хотю мыться... т.т"; } break;
-                case 4: if (NStat::needToilet < needRandom) { previousRandomDialogue = 1004; return L"Хотю в туалет... т.т"; } break;
-                case 5: if (NStat::needEnergy < needRandom) { previousRandomDialogue = 1005; return L"Усталя... т.т"; } break;
+                case 0: if (NekoS::needHunger < needRandom) { previousRandomDialogue = 1000; return L"Хотю кушать... т.т"; } break;
+                case 1: if (NekoS::needThirst < needRandom) { previousRandomDialogue = 1001; return L"Хотю пить... т.т"; } break;
+                case 2: if (NekoS::needCommunication < needRandom) { previousRandomDialogue = 1002; return L"Одиноко... т.т"; } break;
+                case 3: if (NekoS::needHygiene < needRandom) { previousRandomDialogue = 1003; return L"Хотю мыться... т.т"; } break;
+                case 4: if (NekoS::needToilet < needRandom) { previousRandomDialogue = 1004; return L"Хотю в туалет... т.т"; } break;
+                case 5: if (NekoS::needEnergy < needRandom) { previousRandomDialogue = 1005; return L"Усталя... т.т"; } break;
                 default: break;
             }
         }
@@ -673,16 +691,17 @@ namespace NekoUI
         if (activity)
         {
             rm::canOpenNekoUI = activity->canNekoUI;
-            Neko::eyebrowsEmotion = activity->eyebrowsEmotion;
-            Neko::eyesEmotion = activity->eyesEmotion;
-            Neko::mouthEmotion = activity->mouthEmotion;
+            NekoP::eyebrowsEmotion = activity->eyebrowsEmotion;
+            NekoP::eyesEmotion = activity->eyesEmotion;
+            NekoP::mouthEmotion = activity->mouthEmotion;
+            blinking = activity->blinking; itisblink = false;
             Player::UpdateNekoEmotion();
         }
     }
     void NekoEntity::FinishCurrentActivity()
     {
         // if (activity && (activity->name == "Sleeping" || activity->name == "ComeToSenses")) Player::SetNekoEmotionTo(Player::Emotion::Smiling);
-        Player::NekoEmotionsAccordingToMood();
+        Player::NekoEmotionsAccordingToMood(); blinking = true; itisblink = false;
         if (previousRandomDialogue < 1000 || previousRandomDialogue > 1005) previousRandomDialogue = -1;
         beingOccupied = drawActionButton = randomMoving = moveTo = sleeping = false; rm::canOpenNekoUI = true;
     }
@@ -746,6 +765,42 @@ namespace NekoUI
         }
         // else if (droppedInHands) distanceToMovingEntity = sqrt(pow((droppedInHands->x - x), 2) + pow((droppedInHands->y - y), 2));
     }
+    void NekoEntity::ConsumeItem(Item* item)
+    {
+        if (item->type == ItemType::Food)
+        {
+            eatOrDrinkAttemts = 0;
+            NekoS::needHunger += item->calories;
+            NekoS::needThirst += item->thirstSatisfuction;
+            if (inHands && inHands == item) RemoveItemFromHands(false);
+            if (NekoS::needHunger > NekoS::maxNeed) NekoS::needHunger = NekoS::maxNeed;
+            else if (NekoS::needHunger < 0) NekoS::needHunger = 0;
+            if (NekoS::needThirst > NekoS::maxNeed) NekoS::needThirst = NekoS::maxNeed;
+            else if (NekoS::needThirst < 0) NekoS::needThirst = 0;
+        }
+        else if (item->type == ItemType::Drink)
+        {
+            eatOrDrinkAttemts = 0;
+            NekoS::needHunger += item->calories;
+            NekoS::needThirst += item->thirstSatisfuction;
+            if (inHands && inHands == item) RemoveItemFromHands(false);
+            if (NekoS::needHunger > NekoS::maxNeed) NekoS::needHunger = NekoS::maxNeed;
+            else if (NekoS::needHunger < 0) NekoS::needHunger = 0;
+            if (NekoS::needThirst > NekoS::maxNeed) NekoS::needThirst = NekoS::maxNeed;
+            else if (NekoS::needThirst < 0) NekoS::needThirst = 0;
+        }
+    }
+    
+    
     
     void NekoEntity::Save(std::wofstream &wof) { if (inHands) wof << L"0 " << x << L" " << y << L" 1 " << utf16(inHands->name) << endl; }
+    void NekoEntity::SaveActivity(std::wofstream &wof)
+    {
+        if (activity)
+        {
+            wof << L"name " << utf16(activity->name) << endl;
+            if (activity->name == "ReturnToFood" && movingToEntity) { wof << movingToEntity->x << " " << movingToEntity->y << endl; }
+        }
+        wof << "position " << x << " " << y << endl;
+    }
 }

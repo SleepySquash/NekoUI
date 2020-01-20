@@ -22,7 +22,8 @@
 
 // DONE: Эмоции зависят от состояния неко, А ТАКЖЕ от активности, которая может перезаписывать элементы эмоции (брови, глаза, рот).
 // DONE: Сон восстанавливает энергию В ПРОЦЕССЕ выполнения активности. Т.е. вместо ActivityTasks::Waiting нужен свой таск, который в Update будет также к needEnergy добавлять некоторые очки. И спать неко должна до тех пор, пока эта энерджи не станет полной (или её не разбудят, когда она уже в жёлтой зоне).
-// TODO: Какой-нибудь список кулдаунов активностей. Если отказать кошечке в том, чтобы она покушала, то на 20-30 секунд она не будет пытаться кушать, занявшись чем-то другим.
+// TODO (?): Какой-нибудь список кулдаунов активностей. Если отказать кошечке в том, чтобы она покушала, то на 20-30 секунд она не будет пытаться кушать, занявшись чем-то другим.
+// TODO: Если кошечка спит или занята, то наведение на неё предметом об этом говорит и возвращает предмет в инвентарь.
 
 
 
@@ -63,6 +64,8 @@
 #include "Components/NekoUIComponents/Interfaces/CalendarUI.hpp"
 #include "Components/NekoUIComponents/Interfaces/MapUI.hpp"
 #include "Components/NekoUIComponents/Interfaces/ItemDetailsUI.hpp"
+#include "Components/NekoUIComponents/Interfaces/NotificationsUI.hpp"
+#include "Components/NekoUIComponents/Places/PlacesInterfaceUI.hpp"
 
 using std::cout;
 using std::cin;
@@ -118,13 +121,16 @@ int main()
         Vanilla->AddComponent<NekoUI::ItemDetailsUI>();
         Vanilla->AddComponent<NekoUI::WardrobeUI>();
         Vanilla->AddComponent<NekoUI::MapUI>();
+        Vanilla->AddComponent<NekoUI::PlacesInterfaceUI>();
         Vanilla->AddComponent<NekoUI::Apartment>();
         // Vanilla->AddComponent<NekoUI::OffsetHelper>(L"mouth.png", true, 1); // scale = 0.66
     }
     Entity* Lana = system.AddEntity();
     {
         Lana->AddComponent<NekoUI::RoomUI>();
+        Lana->AddComponent<NekoUI::NotificationsUI>();
     }
+    // Lana->SendMessage({"NotUI :: Popup", L"Hi!"});
     
     ///----------------------------------------------------------
     /// \brief Entity to hold essential components
@@ -135,7 +141,7 @@ int main()
     ///----------------------------------------------------------
     Entity* Shimakaze = system.AddEntity();
     {
-        Shimakaze->AddComponent<EssentialComponents::DebugComponent>("Update 0 build 4");
+        // Shimakaze->AddComponent<EssentialComponents::DebugComponent>("Update 0 build 4");
         Shimakaze->AddComponent<EssentialComponents::FadingFromBlackScreen>();
     }
     gs::lastMousePos = { sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y };

@@ -29,19 +29,23 @@ namespace NekoUI
         }
         
         
-        MovingTo::MovingTo(Activity* activity, const std::wstring& objectName) : ActivityTask(activity) { movingToObject = objectName; occupyString = L"(идёт)"; }
-        MovingTo::MovingTo(Activity* activity, const float& x, const float& y) : ActivityTask(activity) { occupyString = L"(идёт)"; }
+        MovingTo::MovingTo(Activity* activity, const std::wstring& objectName) : ActivityTask(activity)
+        {
+            movingToObject = objectName;
+            occupyString = L"(идёт)";
+        }
         void MovingTo::Init()
         {
             type = TaskType::moving;
-            if (movingToObject != L"" && movingToObject.length()) { activity->RequestMessage({"Apartment :: RequestPosition", movingToObject}); movingToObject = L""; }
-            else activity->RequestMessage({"Activity :: Update"});
+            activity->RequestMessage({"Apartment :: RequestPosition", movingToObject});
+            /*if (movingToObject != L"" && movingToObject.length()) { activity->RequestMessage({"Apartment :: RequestPosition", movingToObject}); movingToObject = L""; }
+            else*/ //activity->RequestMessage({"Activity :: Update"});
         }
         void MovingTo::ReceiveMessage(MessageHolder& message)
         {
             if (message.info == "Apartment :: ReceivePosition")
             {
-                if (message.additional == L"0") { activity->SendMessage({"Abort"}); return; }
+                if (message.additional == L"0") { activity->Abort(); return; }
                 nss::CommandSettings command; command.Command(message.additional);
                 x = nss::ParseAsFloat(command); nss::SkipSpaces(command);
                 y = nss::ParseAsFloat(command);
@@ -55,7 +59,7 @@ namespace NekoUI
         {
             type = TaskType::movetoentity; occupyString = L"(идёт к еде)";
             if (moveToEntity) activity->RequestMessage({"Apartment :: RequestPosition", moveToEntity});
-            else activity->SendMessage({"Abort"});
+            else activity->Abort();
         }
         void ReturnToFood::ReceiveMessage(MessageHolder& message)
         {
@@ -89,7 +93,7 @@ namespace NekoUI
         {
             if (message.info == "Apartment :: FoodFridgeSpawned")
             {
-                if (!message.address) { activity->SendMessage({"Abort"}); return; }
+                if (!message.address) { activity->Abort(); return; }
                 activity->roomEntity = reinterpret_cast<RoomEntity*>(message.address);
                 activity->SendMessage({"Done", this});
             }
@@ -102,7 +106,7 @@ namespace NekoUI
         {
             if (message.info == "Apartment :: DrinkFridgeSpawned")
             {
-                if (!message.address) { activity->SendMessage({"Abort"}); return; }
+                if (!message.address) { activity->Abort(); return; }
                 activity->roomEntity = reinterpret_cast<RoomEntity*>(message.address);
                 activity->SendMessage({"Done", this});
             }
@@ -117,20 +121,15 @@ namespace NekoUI
         void Sleeping::Init() { elapsedDuration = howMuchToWait; activity->RequestMessage({"Activity :: Update"}); }
         void Sleeping::Update(const sf::Time& elapsedTime)
         {
-            NStat::needEnergy += energyInSecond * elapsedTime.asSeconds();
-            elapsedDuration -= elapsedTime.asSeconds();
-            if (elapsedDuration <= 0) activity->SendMessage({"Done", this});
+            NekoS::needEnergy += energyInSecond * elapsedTime.asSeconds();
+            if (NekoS::needEnergy >= energyCap) activity->SendMessage({"Done", this});
+            /*elapsedDuration -= elapsedTime.asSeconds();
+            if (elapsedDuration <= 0) activity->SendMessage({"Done", this});*/
         }
         
         
         DressOrUndress::DressOrUndress(Activity* activity, const bool& dressing, const float& howMuch, const Cloth& clothes) : ActivityTask(activity), howMuchToWait(howMuch), dressing(dressing), clothes(clothes) { }
         void DressOrUndress::Init() { activity->RequestMessage({"Activity :: ClothCheck", std::to_wstring((int)clothes)}); }
-            /* auto it = activity->tasks.begin(), previt = it;
-            while (it != activity->task) { if (previt != it) ++previt; ++it; }
-            if (previt != it) { if (!(*previt)->isSuccess) { activity->SendMessage({"Done", this}); return; } }
-            elapsedDuration = howMuchToWait;
-            activity->RequestMessage({"Activity :: Update"});
-        } */
         void DressOrUndress::Update(const sf::Time& elapsedTime)
         {
             if (!active) return;
@@ -163,7 +162,7 @@ namespace NekoUI
     namespace Activities
     {
         RandomMovement::RandomMovement() : Activity("RandomMovement") { };
-        void RandomMovement::Init() { tasks.push_back(new ActivityTasks::RandomMovement(this)); }
+        void RandomMovement::Init() { tasks.push_back(new ActivityTasks::RandomMovement(this)); tasks.back()->countAsActivityBeingMade = true; }
         
         SittingAtComputer::SittingAtComputer() : Activity("SittingAtComputer") { };
         void SittingAtComputer::Init()
@@ -223,7 +222,8 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::Sleeping(this));
             tasks.back()->occupyString = L"(спит)";
             tasks.back()->countAsActivityBeingMade = true;
-            eyesEmotion = NekoStatic::EyesEmotion::Closed;
+            eyesEmotion = NekoS::EyesEmotion::Closed;
+            allowBlinking = false;
         }
         
         Bathing::Bathing() : Activity("Bathing") { };
@@ -295,7 +295,7 @@ namespace NekoUI
         {
             tasks.push_back(new ActivityTasks::Waiting(this, 0.5f + (rand() % 1000)/1000.f ));
             tasks.back()->occupyString = L"(приходит в себя)";
-            eyesEmotion = NekoStatic::EyesEmotion::Confused;
+            eyesEmotion = NekoS::EyesEmotion::Confused;
         }
         
         ComeToSensesAfterSleep::ComeToSensesAfterSleep() : Activity("ComeToSensesAfterSleep") { };

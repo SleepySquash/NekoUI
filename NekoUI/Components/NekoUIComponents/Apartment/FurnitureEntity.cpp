@@ -32,13 +32,13 @@ namespace NekoUI
             else window->draw(sprite);
         }
     }
-    void FurnitureEntity::LoadSprite(const std::wstring &filename)
+    void FurnitureEntity::LoadSprite(const std::wstring &filename, const bool& smoothTexture)
     {
         spriteName = filename;
         sf::Texture* texture = ic::LoadTexture(L"Data/Apartment/Furniture/" + spriteName);
         if ((spriteLoaded = texture))
         {
-            sprite.setTexture(*texture, true);
+            sprite.setTexture(*texture, true); texture->setSmooth(smoothTexture);
             sprite.setOrigin(texture->getSize().x/2, texture->getSize().y);
             relScale = (static_cast<float>(gs::relativeHeight)/static_cast<float>(texture->getSize().y)) * 0.5f * furnitureScale;
             height = texture->getSize().y * relScale;

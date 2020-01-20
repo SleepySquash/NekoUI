@@ -23,7 +23,7 @@
 #include "../../Engine/NovelSystem.hpp"
 #include "../../Engine/Settings.hpp"
 #include "../../Engine/Collectors.hpp"
-#include "../../Engine/GUIInterface.hpp"
+#include "../../Engine/GUI/Button/SomeButtons.hpp"
 
 #include "CharacterLibrary.hpp"
 #include "../NekoUIComponents/Engine/Persona.hpp"

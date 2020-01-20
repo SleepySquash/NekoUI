@@ -48,7 +48,6 @@ namespace NekoUI
         struct MovingTo : ActivityTask
         {
             MovingTo(Activity* activity, const std::wstring& objectName);
-            MovingTo(Activity* activity, const float& x, const float& y);
             void Init() override;
             void ReceiveMessage(MessageHolder& message) override;
         };
@@ -87,8 +86,8 @@ namespace NekoUI
         };
         struct Sleeping : ActivityTask
         {
-            float elapsedDuration, howMuchToWait, energyInSecond;
-            Sleeping(Activity* activity, const float& energyInSecond = 5.f, const float& howMuch = 60.f);
+            float elapsedDuration, howMuchToWait, energyInSecond, energyCap{ 850.f };
+            Sleeping(Activity* activity, const float& energyInSecond = 60*0.04629f/*5.f*/, const float& howMuch = 60.f);
             void Init() override;
             void Update(const sf::Time& elapsedTime) override;
         };

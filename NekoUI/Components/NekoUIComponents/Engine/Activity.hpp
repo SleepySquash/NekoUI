@@ -17,7 +17,7 @@
 #include "../../../Engine/MessageHolder.hpp"
 
 #include "../Apartment/RoomEntity.hpp"
-#include "../Static/NekoStatic.hpp"
+#include "../Neko/Static.hpp"
 
 using std::cin;
 using std::cout;
@@ -39,15 +39,16 @@ namespace NekoUI
         bool countAsActivityBeingMade{ false };
         std::wstring occupyString, actionString;
         enum class TaskType { moving, randommoving, movetoentity, pickupitem, consumefromhands, insertactivity, hidedressed, dresshidden, bathing, other } type{ TaskType::other };
-        std::wstring movingToObject; float x, y;
+        std::wstring movingToObject; float x{ 0 }, y{ 0 };
         RoomEntity* moveToEntity{ nullptr };
         std::string activityToInsert;
         
         bool facingSet{ false }, facing;
+        bool allowBlinking{ true };
         
-        NekoStatic::EyebrowsEmotion eyebrowsEmotion{ NekoStatic::EyebrowsEmotion::DEFAULT };
-        NekoStatic::EyesEmotion eyesEmotion{ NekoStatic::EyesEmotion::DEFAULT };
-        NekoStatic::MouthEmotion mouthEmotion{ NekoStatic::MouthEmotion::DEFAULT };
+        Neko::s::EyebrowsEmotion eyebrowsEmotion{ Neko::s::EyebrowsEmotion::DEFAULT };
+        Neko::s::EyesEmotion eyesEmotion{ Neko::s::EyesEmotion::DEFAULT };
+        Neko::s::MouthEmotion mouthEmotion{ Neko::s::MouthEmotion::DEFAULT };
         
         ActivityTask(Activity* activity);
         ~ActivityTask();
@@ -70,10 +71,10 @@ namespace NekoUI
         RoomEntity* roomEntity{ nullptr };
         int parameter1{ 0 };
         
-        NekoStatic::EyebrowsEmotion eyebrowsEmotion{ NekoStatic::EyebrowsEmotion::DEFAULT };
-        NekoStatic::EyesEmotion eyesEmotion{ NekoStatic::EyesEmotion::DEFAULT };
-        NekoStatic::MouthEmotion mouthEmotion{ NekoStatic::MouthEmotion::DEFAULT };
-        bool ignoreEyebrowsEmotion, ignoreEyesEmotion, ignoreMouthEmotion;
+        Neko::s::EyebrowsEmotion eyebrowsEmotion{ Neko::s::EyebrowsEmotion::DEFAULT };
+        Neko::s::EyesEmotion eyesEmotion{ Neko::s::EyesEmotion::DEFAULT };
+        Neko::s::MouthEmotion mouthEmotion{ Neko::s::MouthEmotion::DEFAULT };
+        bool ignoreEyebrowsEmotion, ignoreEyesEmotion, ignoreMouthEmotion, allowBlinking{ true }, blinking;
         
         vector<ActivityTask*> tasks;
         vector<ActivityTask*>::iterator task;

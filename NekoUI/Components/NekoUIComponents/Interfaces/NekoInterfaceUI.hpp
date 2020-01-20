@@ -19,7 +19,7 @@
 #include "../../../Engine/Collectors/Font.hpp"
 #include "../../../Engine/Collectors/Image.hpp"
 #include "../../../Engine/EntitySystem.hpp"
-#include "../../../Engine/GUIInterface.hpp"
+#include "../../../Engine/GUI/Button/SomeButtons.hpp"
 
 #include "../Player.hpp"
 #include "../Apartment/NekoEntity.hpp"
@@ -48,6 +48,12 @@ namespace NekoUI
         
         enum class Screen { main, talk, talkAboutNeko, talkAboutYourself, request, engage, action } screen{ Screen::main };
         
+        sf::RectangleShape choiceBackShape;
+        GUI::TextButton talkNekoButton, talkSelfButton, talkInterestButton, talkSkillButton;
+        GUI::SpriteButton talkChooseCircle;
+        GUI::TextButtons choiceButtons;
+        
+        bool drawSpeechBubble{ true };
         float elapsedSpeechBubble{ 0.f };
         std::wstring speechBubbleLine{ L"..." };
         sf::Sprite speechBubbleSprite;
