@@ -388,10 +388,10 @@ namespace NekoUI
                 xx += needbaseSprite.getGlobalBounds().width + 5*gs::scale;
             }
             
-            if (!needbaseSpriteTransparent && (rm::noFood || rm::noDrink))
+            if (!needbaseSpriteTransparent && (Player::noFood || Player::noDrink))
             {
                 unsigned int yy = attentionStartY;
-                if (rm::noDrink)
+                if (Player::noDrink)
                 {
                     attentionText.setPosition(attentionText.getPosition().x, yy - 9*gs::scale);
                     attentionText.setString(L"Нет воды!");
@@ -402,7 +402,7 @@ namespace NekoUI
                     window->draw(attentionText);
                     yy -= attentionShape.getSize().y + 5*gs::scale;
                 }
-                if (rm::noFood)
+                if (Player::noFood)
                 {
                     attentionText.setPosition(attentionText.getPosition().x, yy - 9*gs::scale);
                     attentionText.setString(L"Нет еды!");

@@ -232,4 +232,11 @@ namespace NekoUI
             Inventory::wardrobeAccessories.Push("NekoCollar");
         }
     }
+
+    bool Inventory::FridgeContainsAnyOfType(const ItemType& type)
+    {
+        for (auto& i : Inventory::items.list)
+            if (i.first->type == type) return true;
+        return false;
+    }
 }

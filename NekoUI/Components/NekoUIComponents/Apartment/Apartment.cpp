@@ -796,6 +796,7 @@ namespace NekoUI
         }
         else if (message.info == "Apartment :: HungerActivity")
         {
+            Player::noFood = !Inventory::FridgeContainsAnyOfType(ItemType::Food);
             RoomEntity* closestEntity{ nullptr }; float shortest{ std::numeric_limits<float>::infinity() };
             for (auto& e : entities)
             {
@@ -848,6 +849,7 @@ namespace NekoUI
                     neko.SendMessage({"Apartment :: FoodFridgeSpawned", item});
                     return;
                 }
+            Player::noFood = !Inventory::FridgeContainsAnyOfType(ItemType::Food);
             neko.SendMessage({"Apartment :: FoodFridgeSpawned"});
         }
         else if (message.info == "Apartment :: RequestDrinkFromFridge")
@@ -864,6 +866,7 @@ namespace NekoUI
                     neko.SendMessage({"Apartment :: DrinkFridgeSpawned", item});
                     return;
                 }
+            Player::noDrink = !Inventory::FridgeContainsAnyOfType(ItemType::Drink);
             neko.SendMessage({"Apartment :: DrinkFridgeSpawned"});
         }
         else if (message.info == "Apartment :: GimmeBedInfo") {

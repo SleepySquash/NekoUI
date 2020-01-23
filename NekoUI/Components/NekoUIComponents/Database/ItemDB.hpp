@@ -142,6 +142,8 @@ namespace NekoUI
         static void LoadInventory();
         static void LoadFridge();
         static void LoadWardrobe();
+        
+        static bool FridgeContainsAnyOfType(const ItemType& type);
     };
     
     template<typename T> struct InventoryBase

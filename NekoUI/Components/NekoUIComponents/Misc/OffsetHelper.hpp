@@ -15,6 +15,8 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 
+// #include <nfd.h>
+
 #include "../../../Engine/EntitySystem.hpp"
 #include "../../../Engine/Collectors/Image.hpp"
 #include "../../../Engine/Collectors/Font.hpp"
@@ -26,6 +28,11 @@ using namespace ns;
 
 namespace NekoUI
 {
+    struct OffsetHelperSettings
+    {
+        static bool disableSmoothing;
+    };
+    
     struct BodyPartHelper
     {
         sf::Sprite sprite;
@@ -39,26 +46,39 @@ namespace NekoUI
         BodyPartHelper(const std::wstring& spritepath, const bool& mode = false);
         void Init();
         void Resize(const float& constantScaling, const sf::Vector2f& pos, const float& bodyHeight);
+        void UpdatePosition(const float& constantScaling, const sf::Vector2f& pos);
         void Draw(sf::RenderWindow* window);
         void Switch(bool moded);
+        void Load(const std::wstring& path);
+        void SetAlpha(const sf::Uint8& alpha);
     };
     
     struct OffsetHelper : Component
     {
         sf::Sprite body, sprite;
         std::vector<BodyPartHelper*> parts;
+        BodyPartHelper* part;
         bool bodyLoaded{ false }, spriteLoaded{ false };
         
-        float scaled{ 1.f }, bodyRelative{ 1.f }, constantScaling{ 1.f }, requiredScaling{ 0.9 };
-        int mousex{ 0 }, mousey{ 0 };
-        std::wstring spritepath; bool mode;
-        sf::Text text;
+        int editor{ 1 };
+        bool mode{ true }, dxAllowed{ false };
+        float x{ 0 }, y{ 0 }, dx{ 0 }, dy{ 0 };
+        float x1{ 0 }, x2{ 0 }, y1{ 0 }, y2{ 0 }, requiredScaling1{ 0.82f }, requiredScaling2{ 0.82f };
+        sf::Vector2f lastMouse{ 0, 0 };
+        sf::Vector2f pos{ 0, 0 };
         
-        OffsetHelper(const std::wstring& spritepath, const bool& mode = false, const float& requiredScaling = 0.82);
+        float scaled{ 1.f }, bodyRelative{ 1.f }, constantScaling{ 1.f }, requiredScaling{ 1.f };
+        int mousex{ 0 }, mousey{ 0 };
+        std::wstring spritepath;
+        sf::Text offsetText, modeText, alphaText, constrolsText;
+        
+        OffsetHelper(const std::wstring& spritepath, const bool& mode = false, const float& requiredScaling = 0.82f);
         void Init() override;
         void PollEvent(sf::Event& event) override;
         void Resize(unsigned int width, unsigned int height) override;
+        void UpdatePosition();
         void Draw(sf::RenderWindow* window) override;
+        void UpdateInformation();
     };
 }
 

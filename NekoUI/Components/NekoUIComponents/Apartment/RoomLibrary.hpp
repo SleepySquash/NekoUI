@@ -37,8 +37,6 @@ namespace NekoUI
         static bool canPressScrolldownMenu, canPressDatePanel, canOpenNekoUI;
         static bool shopMode;
         
-        static bool noFood, noDrink;
-        
         enum class simulationWasAtEnum{ Non, Grocery };
         static simulationWasAtEnum simulationWasAt;
         

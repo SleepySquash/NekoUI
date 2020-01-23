@@ -16,6 +16,8 @@ namespace NekoUI
     
     std::wstring Player::display{ L"Ванилла" }, Player::backgroundCover{ L"cover2.jpg" };
     std::chrono::time_point<std::chrono::system_clock> Player::birthday;
+
+    bool Player::noFood{ true }, Player::noDrink{ true };
     
     NekoS::EyebrowsEmotion Player::eyebrowsEmotion{ NekoS::EyebrowsEmotion::Normal };
     NekoS::EyesEmotion Player::eyesEmotion{ NekoS::EyesEmotion::Normal };
@@ -63,6 +65,8 @@ namespace NekoUI
         Inventory::LoadInventory();
         Inventory::LoadFridge();
         Inventory::LoadWardrobe();
+        noFood = !Inventory::FridgeContainsAnyOfType(ItemType::Food);
+        noDrink = !Inventory::FridgeContainsAnyOfType(ItemType::Drink);
         
         LoadPersona();
         
