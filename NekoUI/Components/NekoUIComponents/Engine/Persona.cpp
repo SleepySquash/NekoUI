@@ -79,50 +79,46 @@ namespace NekoUI
         face.relativeChibiScale = 0.289; face.SetOffsetChibi({4, -673});
         face.relativePersonScale = 0.088; face.SetOffsetPerson({-11, -747}); */
         
-        eyebrows.Load(L"eyebrows.png", L"eyebrows.png"); eyebrows.depth = 40; eyebrows.owner = false;
-        eyebrows.relativeChibiScale = 0.06393; eyebrows.SetOffsetChibi({4, -673});
-        eyebrows.relativePersonScale = 0.023205; eyebrows.SetOffsetPerson({-11, -747});
+        eyebrows.Load(L"eyebrows_normal.png", L"eyebrows_normal.png"); eyebrows.depth = 81/*40*/; eyebrows.owner = false;
+        eyebrows.relativeChibiScale = 0.069701; eyebrows.SetOffsetChibi({14, -654});
+        eyebrows.relativePersonScale = 0.023205; eyebrows.SetOffsetPerson({-9, -741});
         
-        eyes.Load(L"eyes.png", L"eyes.png"); eyes.depth = 40; eyes.owner = false;
-        eyes.relativeChibiScale = 0.146251; eyes.SetOffsetChibi({4, -618});
-        eyes.relativePersonScale = 0.045205; eyes.SetOffsetPerson({-11, -733});
+        eyes.Load(L"eyes_normal.png", L"eyes_normal.png"); eyes.depth = 40; eyes.owner = false;
+        eyes.relativeChibiScale = 0.131615; eyes.SetOffsetChibi({6, -601});
+        eyes.relativePersonScale = 0.042294; eyes.SetOffsetPerson({-11, -729});
         
         nose.Load(L"nose.png", L"nose.png"); nose.depth = 40; nose.owner = false;
-        nose.relativePersonScale = 0.002712; nose.SetOffsetPerson({-13, -694});
+        nose.relativePersonScale = 0.002564; nose.SetOffsetPerson({-12, -692});
         
-        cheeks.Load(L"cheeks.png", L"cheeks.png"); cheeks.depth = 40; cheeks.owner = false;
-        cheeks.relativeChibiScale = 0.052545; cheeks.SetOffsetChibi({4, -513});
+        blush.Load(L"blush.png", L"blush.png"); blush.depth = 30; blush.owner = false;
+        blush.relativeChibiScale = 0.104883; blush.SetOffsetChibi({-4, -538});
+        blush.relativePersonScale = 0.038189; blush.SetOffsetPerson({-16, -710});
         
-        mouth.Load(L"mouth.png", L"mouth.png"); mouth.depth = 40; mouth.owner = false;
-        mouth.relativeChibiScale = 0.053421; mouth.SetOffsetChibi({4, -485});
-        mouth.relativePersonScale = 0.018383; mouth.SetOffsetPerson({-11, -691});
+        mouth.Load(L"mouth_smile.png", L"mouth_smile.png"); mouth.depth = 40; mouth.owner = false;
+        mouth.relativeChibiScale = 0.008141; mouth.SetOffsetChibi({-19, -445});
+        mouth.relativePersonScale = 0.004675; mouth.SetOffsetPerson({-17, -680});
         
-        /// eyebrows:
-        // person: 0.023205 479452055 ( -11, 747 )
-        // chibi: 0.063930 303030303 ( 4, -673 )
+        fronthair.Load(L"hairfront1.png", L"hairfront1.png"); fronthair.depth = 80; fronthair.owner = false;
+        fronthair.relativeChibiScale = 0.583869; fronthair.SetOffsetChibi({31, -827});
+        fronthair.relativePersonScale = 0.214175; fronthair.SetOffsetPerson({-9, -798});
         
-        /// eyes:
-        // person: 0.045205 479452055 ( -11, -733 )
-        // chibi: 0.146251 515151515 ( 4, -618 )
+        backhair.Load(L"hairback1.png", L"hairback1.png"); backhair.depth = -80; backhair.owner = false;
+        backhair.relativeChibiScale = 1.012318; backhair.SetOffsetChibi({-44, -840});
+        backhair.relativePersonScale = 0.720037; backhair.SetOffsetPerson({-28, -803});
         
-        /// nose (person): 0.002712 328767123 ( -13, -694 )
-        /// cheeks (chibi): 0.052545 454545455 ( 4, -513 )
-        
-        /// mouth:
-        // person: 0.018383 561643836 ( -11, -691 )
-        // chibi: 0.053421 212121212 ( 4, -485 )
-        
-        hair.Load(L"hair1.png", L"hair1.png"); hair.depth = 80; hair.owner = false;
-        hair.relativeChibiScale = 1.033; hair.SetOffsetChibi({-54, -844});
-        hair.relativePersonScale = 0.7226; hair.SetOffsetPerson({-28, -804});
+        tail.Load(L"tail.png", L"tail.png"); tail.depth = -30; tail.owner = false;
+        tail.relativeChibiScale = 0.137941; tail.SetOffsetChibi({-152, -325});
+        tail.relativePersonScale = 0.286507; tail.SetOffsetPerson({39, -436});
         
         cloth.push_back(&body);
         cloth.push_back(&eyebrows);
         cloth.push_back(&eyes);
         cloth.push_back(&nose);
-        cloth.push_back(&cheeks);
+        cloth.push_back(&blush);
         cloth.push_back(&mouth);
-        cloth.push_back(&hair);     /// !!!!!! FRONT HAIR AND BACK HAIR
+        cloth.push_back(&fronthair);
+        cloth.push_back(&backhair);
+        cloth.push_back(&tail);
         
         
         /* Cloth* nipples = new Cloth(); nipples->depth = 1;
@@ -149,7 +145,7 @@ namespace NekoUI
         headband->relativePersonScale = 0.074; headband->SetOffsetPerson({-6, -795});
         cloth.push_back(headband); */
         
-        Cloth* nekoears = new Cloth(); nekoears->depth = &hair ? (hair.depth + 5) : -1;
+        Cloth* nekoears = new Cloth(); nekoears->depth = &backhair ? (backhair.depth + 5) : -1;
         nekoears->Load(L"neko ears.png", L"neko ears.png");
         nekoears->relativeChibiScale = 0.365988; nekoears->SetOffsetChibi({20, -921});
         nekoears->relativePersonScale = 0.1434; nekoears->SetOffsetPerson({-2, -844});
@@ -168,6 +164,7 @@ namespace NekoUI
         clothing->relativeChibiScale = item->relativeChibiScale;   clothing->SetOffsetChibi(item->offsets.first);
         clothing->relativePersonScale = item->relativePersonScale; clothing->SetOffsetPerson(item->offsets.second);
         clothing->chibiReversed = chibiReversed; clothing->personReversed = personReversed;
+        clothing->chibi.setColor(item->chibiColor); clothing->person.setColor(item->personColor);
         
         clothing->ResizeChibi(body.chibi.getGlobalBounds().height);
         clothing->UpdatePositionChibi(body.chibi.getPosition().x, body.chibi.getPosition().y);

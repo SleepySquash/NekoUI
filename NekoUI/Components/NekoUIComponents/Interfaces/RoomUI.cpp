@@ -55,6 +55,15 @@ namespace NekoUI
         scrolldownButtons.halign = Halign::Right;
         scrolldownButtons.valign = Valign::Center;
         
+        
+        attentionShape.setCornerPointCount(5);
+        attentionShape.setFillColor(sf::Color::Red);
+        attentionShape.setOutlineColor(sf::Color::White);
+        attentionText.setFillColor(sf::Color::White);
+        attentionText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
+        attentionText.setString(L"Нет еды!");
+        
+        
         active = true;
         mode = appearing;
     }
@@ -250,8 +259,8 @@ namespace NekoUI
                     default: break;
                 }
                 if (!rm::scrolldownMenuOpened) { anyPressed = true; break; }
-                if (!gs::verticalOrientation) xx -= scrolldownButtons.sprite.getGlobalBounds().width - 5*scrolldownButtonsScaling*gs::scalex;
-                else yy -= scrolldownButtons.sprite.getGlobalBounds().height - 5*scrolldownButtonsScaling*gs::scaley;
+                if (!gs::verticalOrientation) xx -= scrolldownButtons.sprite.getGlobalBounds().width + 5*scrolldownButtonsScaling*gs::scalex;
+                else yy -= scrolldownButtons.sprite.getGlobalBounds().height + 5*scrolldownButtonsScaling*gs::scaley;
             }
             scrolldownButtons.eventPolled(event);
             if (!anyPressed) rm::scrolldownMenuOpened = false;
@@ -313,6 +322,16 @@ namespace NekoUI
         else if (gs::verticalOrientation && yy < 0) scrolldownButtonsScaling = (scrolldownMenu.sprite.getGlobalBounds().top)/((scrolldownMenu.sprite.getGlobalBounds().top) - yy);
         else scrolldownButtonsScaling = 1.f;
         if (scrolldownButtonsScaling != 1.f) scrolldownButtons.setScale(1.f * scrolldownButtonsScaling);
+        
+        
+        attentionText.setCharacterSize(25*gs::scale);
+        attentionText.setPosition(20*gs::scale, 0);
+        attentionText.setOrigin(0, attentionText.getGlobalBounds().height);
+        attentionStartY = needbaseSprite.getGlobalBounds().top - 5*gs::scale;
+        attentionShape.setSize({10.f, needbaseSprite.getGlobalBounds().height * 1.1f});
+        attentionShape.setOrigin(0, attentionShape.getSize().y);
+        attentionShape.setPosition(5*gs::scale, 0);
+        attentionShape.setCornersRadius(20*gs::scale);
     }
     void RoomUI::Draw(sf::RenderWindow* window)
     {
@@ -367,6 +386,33 @@ namespace NekoUI
                 needSprite.setPosition(xx + needbaseSprite.getGlobalBounds().width/2, needbaseSprite.getPosition().y - needbaseSprite.getGlobalBounds().height/2);
                 window->draw(needbaseSprite); window->draw(needSprite);
                 xx += needbaseSprite.getGlobalBounds().width + 5*gs::scale;
+            }
+            
+            if (!needbaseSpriteTransparent && (rm::noFood || rm::noDrink))
+            {
+                unsigned int yy = attentionStartY;
+                if (rm::noDrink)
+                {
+                    attentionText.setPosition(attentionText.getPosition().x, yy - 9*gs::scale);
+                    attentionText.setString(L"Нет воды!");
+                    attentionShape.setSize({attentionText.getGlobalBounds().width + 30*gs::scale, attentionShape.getSize().y});
+                    attentionShape.setPosition(attentionShape.getPosition().x, yy);
+                    
+                    window->draw(attentionShape);
+                    window->draw(attentionText);
+                    yy -= attentionShape.getSize().y + 5*gs::scale;
+                }
+                if (rm::noFood)
+                {
+                    attentionText.setPosition(attentionText.getPosition().x, yy - 9*gs::scale);
+                    attentionText.setString(L"Нет еды!");
+                    attentionShape.setSize({attentionText.getGlobalBounds().width + 30*gs::scale, attentionShape.getSize().y});
+                    attentionShape.setPosition(attentionShape.getPosition().x, yy);
+                    
+                    window->draw(attentionShape);
+                    window->draw(attentionText);
+                    yy -= attentionShape.getSize().y + 5*gs::scale;
+                }
             }
         }
         if (rm::drawScrolldownMenu)

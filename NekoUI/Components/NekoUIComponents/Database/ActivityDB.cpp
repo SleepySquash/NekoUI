@@ -205,6 +205,7 @@ namespace NekoUI
             canFeed = canNekoUI = false;
             tasks.push_back(new ActivityTasks::Waiting(this, 3.f));
             tasks.back()->occupyString = L"(кушает)";
+            mouthEmotion = NekoS::MouthEmotion::Open;
         }
         
         Drinking::Drinking() : Activity("Drinking") { };
@@ -213,6 +214,7 @@ namespace NekoUI
             canFeed = canNekoUI = false;
             tasks.push_back(new ActivityTasks::Waiting(this, 3.f));
             tasks.back()->occupyString = L"(пьёт)";
+            mouthEmotion = NekoS::MouthEmotion::Open;
         }
         
         Sleeping::Sleeping() : Activity("Sleeping") { };
@@ -223,7 +225,7 @@ namespace NekoUI
             tasks.back()->occupyString = L"(спит)";
             tasks.back()->countAsActivityBeingMade = true;
             eyesEmotion = NekoS::EyesEmotion::Closed;
-            allowBlinking = false;
+            allowBlinking = drawShadow = false;
         }
         
         Bathing::Bathing() : Activity("Bathing") { };
@@ -303,6 +305,10 @@ namespace NekoUI
         {
             tasks.push_back(new ActivityTasks::Waiting(this, 3.5f + (rand() % 1000)/1000.f ));
             tasks.back()->occupyString = L"(приходит в себя)";
+            mouthEmotion = NekoS::MouthEmotion::Open;
+            eyesEmotion = NekoS::EyesEmotion::Embarrassed;
+            eyebrowsEmotion = NekoS::EyebrowsEmotion::Embarrassed;
+            drawShadow = false;
         }
         
         TeleportationCuzStuck::TeleportationCuzStuck() : Activity("TeleportationCuzStuck") { };

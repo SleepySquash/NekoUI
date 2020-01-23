@@ -14,6 +14,7 @@
 #include <SFML/Main.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include "../../../Engine/GUI/RoundedRectangleShape.hpp"
 
 #include "../../../Engine/EntitySystem.hpp"
 #include "../../../Engine/Settings.hpp"
@@ -61,6 +62,10 @@ namespace NekoUI
         GUI::SpriteButton scrolldownMenu;
         GUI::SpriteButtons scrolldownButtons;
         float scrolldownButtonsScaling{ 1.f };
+        
+        unsigned int attentionStartY;
+        sf::RoundedRectangleShape attentionShape;
+        sf::Text attentionText;
         
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };

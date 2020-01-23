@@ -75,6 +75,7 @@ namespace NekoUI
         Neko::s::EyesEmotion eyesEmotion{ Neko::s::EyesEmotion::DEFAULT };
         Neko::s::MouthEmotion mouthEmotion{ Neko::s::MouthEmotion::DEFAULT };
         bool ignoreEyebrowsEmotion, ignoreEyesEmotion, ignoreMouthEmotion, allowBlinking{ true }, blinking;
+        bool drawShadow{ true };
         
         vector<ActivityTask*> tasks;
         vector<ActivityTask*>::iterator task;

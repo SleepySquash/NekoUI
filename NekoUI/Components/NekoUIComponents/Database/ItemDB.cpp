@@ -27,6 +27,8 @@ namespace NekoUI
         Inventory::map.emplace("MaidGloves", new idc::MaidGloves());
         Inventory::map.emplace("WhiteStockings", new idc::WhiteStockings());
         Inventory::map.emplace("BlackStockings", new idc::BlackStockings());
+        Inventory::map.emplace("MaidShoes", new idc::MaidShoes());
+        Inventory::map.emplace("NekoCollar", new idc::NekoCollar());
     }
     
     
@@ -226,6 +228,8 @@ namespace NekoUI
             Inventory::wardrobeSocks.Push("WhiteStockings");
             Inventory::wardrobeSocks.Push("BlackStockings");
             Inventory::wardrobeAccessories.Push("MaidGloves");
+            Inventory::wardrobeShoes.Push("MaidShoes");
+            Inventory::wardrobeAccessories.Push("NekoCollar");
         }
     }
 }

@@ -55,8 +55,8 @@ namespace NekoUI
             MaidUniform() : Wearable("MaidUniform", L"maid uniform.png", L"maid uniform.png", L"Костюм мейдочки.")
             {
                 display = L"Униформа мейдочки"; scale = 1.5f; depth = 60; clothing = ClothType::Onepiece;
-                relativeChibiScale  = 0.330814; offsets.first = {-26, -428};
-                relativePersonScale = 0.417774; offsets.second = {27, -659};
+                relativeChibiScale  = 0.329595; offsets.first = {-28, -427};
+                relativePersonScale = 0.455800; offsets.second = {27, -659};
             }
         };
         struct MaidHeadwear : Wearable
@@ -79,20 +79,39 @@ namespace NekoUI
         };
         struct WhiteStockings : Wearable
         {
-            WhiteStockings() : Wearable("WhiteStockings", L"white stockings.png", L"white stockings.png", L"Белые, как снежок, чулочки.")
+            WhiteStockings() : Wearable("WhiteStockings", L"stockings.png", L"stockings.png", L"Белые, как снежок, чулочки.")
             {
                 display = L"Белые чулочки"; depth = 10; clothing = ClothType::Socks;
-                relativeChibiScale  = 0.188139; offsets.first = {-18, -150};
-                relativePersonScale = 0.428326; offsets.second = {-24, -343};
+                relativeChibiScale  = 0.180708; offsets.first = {-19, -149};
+                relativePersonScale = 0.425710; offsets.second = {-24, -341};
             }
         };
         struct BlackStockings : Wearable
         {
-            BlackStockings() : Wearable("BlackStockings", L"black stockings.png", L"black stockings.png", L"Чёрные, как ночка, чулочки.")
+            BlackStockings() : Wearable("BlackStockings", L"stockings.png", L"stockings.png", L"Чёрные, как ночка, чулочки.")
             {
                 display = L"Чёрные чулочки"; depth = 10; clothing = ClothType::Socks;
-                relativeChibiScale  = 0.188139; offsets.first = {-18, -150};
-                relativePersonScale = 0.428326; offsets.second = {-24, -343};
+                relativeChibiScale  = 0.180708; offsets.first = {-19, -149};
+                relativePersonScale = 0.425710; offsets.second = {-24, -341};
+                chibiColor = personColor = sf::Color(40, 40, 40);
+            }
+        };
+        struct MaidShoes : Wearable
+        {
+            MaidShoes() : Wearable("MaidShoes", L"shoes.png", L"shoes.png", L"Словно хрустальные.")
+            {
+                display = L"Туфельки"; depth = 15; clothing = ClothType::Legwear;
+                relativeChibiScale  = 0.024013; offsets.first = {-17, -19};
+                relativePersonScale = 0.145778; offsets.second = {-30, -110};
+            }
+        };
+        struct NekoCollar : Wearable
+        {
+            NekoCollar() : Wearable("NekoCollar", L"collar.png", L"collar.png", L"Для самой лучшей кошечки.")
+            {
+                display = L"Неко ошейник"; depth = 10; clothing = ClothType::Accessory;
+                relativeChibiScale  = 0.027470; offsets.first = {-20, -418};
+                relativePersonScale = 0.049989; offsets.second = {-26, -655};
             }
         };
     }

@@ -14,6 +14,8 @@
 #include <vector>
 #include <list>
 
+#include <thread>
+
 #include <SFML/Main.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -42,6 +44,7 @@ using namespace ns;
 
 namespace NekoUI
 {
+    void renderBackgroundSprite(sf::RenderTexture* backgroundTexture, sf::Sprite* backgroundSprite, sf::Sprite* backgroundRenderSprite);
     struct Apartment : Component
     {
         vector<RoomEntity*> entities;
@@ -51,8 +54,8 @@ namespace NekoUI
         
         sf::Sprite backgroundSprite, backgroundRenderSprite;
         float backgroundXX{ 0 }, backgroundYY{ 0 };
-        // sf::RenderTexture backgroundTexture; // <- RenderTexture is IMPOSSIBLE to use due to iOS/Android losing OpenGL contex upon recreation.
-        sf::RenderTexture backgroundTextureX, backgroundTextureY;
+        sf::RenderTexture backgroundTexture;
+        bool drawisqueued{ false };
         
         sf::Sprite inventoryMovingSprite;
         bool drawInventoryButton{ false }, lastDrawInventoryButton{ false };

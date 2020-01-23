@@ -17,9 +17,9 @@ namespace NekoUI
         {
             enum class MoodEnum{ Happy, Discomfort, Sadness, Horny, Satisfied, Anger, Calm, Crying, Horrified, Shocked, Euphoria, Bored, Lonely, Rejected };
             
-            enum class EyebrowsEmotion { Normal,   DEFAULT };
-            enum class EyesEmotion { Normal, Closed, Confused,   DEFAULT };
-            enum class MouthEmotion { Smile, Neutral, Sad,   DEFAULT };
+            enum class EyebrowsEmotion { Normal, Embarrassed,   DEFAULT };
+            enum class EyesEmotion { Normal, Closed, Confused, Embarrassed, ClosedHappy,     DEFAULT };
+            enum class MouthEmotion { Smile, Neutral, Dot, Open, Sad,   DEFAULT };
             
             
             static unsigned long money;
@@ -27,6 +27,7 @@ namespace NekoUI
             static unsigned int age;
             static float maxNeed, needHunger, needThirst, needWarmth, needCommunication, needHygiene, needToilet, needEnergy, needEntertaiment;
             static float hungerInSecond, thirstInSecond, communicationInSecond, hygieneInSecond, toiletInSecond, energyInSecond, entertaimentInSecond;
+            static float autoCapHunger, autoCapThirst, autoCapWarmth, autoCapCommunication, autoCapHygiene, autoCapToilet, autoCapEnergy, autoCapEntertaiment;
         };
         
         typedef Static s;

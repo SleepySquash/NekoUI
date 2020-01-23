@@ -41,6 +41,15 @@ namespace NekoUI
             height = texture->getSize().y * 0.54 * relScale;
         }
         
+        texture = ic::LoadTexture(L"Data/Neko/Chibi/shadow.png");
+        if (texture)
+        {
+            shadow.setTexture(*texture);
+            shadowOffsetR = { texture->getSize().x/2.f + texture->getSize().x/20, texture->getSize().y - texture->getSize().y/2.4f };
+            shadowOffsetL = { texture->getSize().x/2.f - texture->getSize().x/20, texture->getSize().y - texture->getSize().y/2.4f };
+            shadow.setOrigin(shadowOffsetR);
+        }
+        
         int i{ 0 }; do {
             x = rand() % Room::width;
             y = rand() % Room::height; ++i;
@@ -49,7 +58,7 @@ namespace NekoUI
         
         elapsedWaiting = (rand() % 400)/1000.f;
     }
-    void NekoEntity::Destroy() { ic::DeleteImage(L"Data/Neko/Chibi/body.png"); ic::DeleteImage(L"Data/Images/UI/dialogue1_n.png"); }
+    void NekoEntity::Destroy() { ic::DeleteImage(L"Data/Neko/Chibi/body.png"); ic::DeleteImage(L"Data/Neko/Chibi/shadow.png"); ic::DeleteImage(L"Data/Images/UI/dialogue1_n.png"); }
     void NekoEntity::Update(const sf::Time& elapsedTime)
     {
         if (gs::isPause) return;
@@ -148,6 +157,7 @@ namespace NekoUI
                     sprite.setPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
                     if (inHands) inHandsSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - 465*sprite.getScale().y);
                     Player::neko.setChibiPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
+                    shadow.setPosition(Player::neko.body.chibi.getPosition());
                     if (drawDialogue) { dialogueSprite.setPosition(sprite.getPosition().x, sprite.getGlobalBounds().top);
                         dialogue.setPosition(dialogueSprite.getPosition().x, dialogueSprite.getPosition().y - dialogueSprite.getGlobalBounds().height/2 - 4*dialogueSprite.getScale().y); }
                     if (beingOccupied)
@@ -252,6 +262,9 @@ namespace NekoUI
         Player::neko.ResizeChibi();
         Player::neko.setChibiPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
         
+        shadow.setScale(Player::neko.chibiScale * 1.6f, Player::neko.chibiScale * 1.6f);
+        shadow.setPosition(Player::neko.body.chibi.getPosition());
+        
         if (drawDialogue) { ResizeDialogue();
             dialogue.setOrigin(dialogue.getLocalBounds().width/2, dialogue.getLocalBounds().height/2); }
         if (beingOccupied) { ResizeOccupied(); occupyText.setOrigin(occupyText.getLocalBounds().width/2, 0); }
@@ -260,6 +273,7 @@ namespace NekoUI
     void NekoEntity::Draw(sf::RenderWindow* window)
     {
         // if (spriteLoaded) window->draw(sprite);
+        if (drawShadow) window->draw(shadow);
         Player::neko.Draw(window, false);
         if (inHands) window->draw(inHandsSprite);
         if (drawDialogue) { window->draw(dialogueSprite); window->draw(dialogue); }
@@ -454,6 +468,7 @@ namespace NekoUI
     {
         sprite.setPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
         Player::neko.setChibiPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
+        shadow.setPosition(Player::neko.body.chibi.getPosition());
         
         if (inHands) inHandsSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - 465*sprite.getScale().y);
         
@@ -499,6 +514,7 @@ namespace NekoUI
             chibiFacingIsRight = right;
             Player::neko.chibiReversed = !right;
             for (auto& c : Player::neko.cloth) c->chibiReversed = !right;
+            if (right) shadow.setOrigin(shadowOffsetR); else shadow.setOrigin(shadowOffsetL);
             Player::neko.ResizeChibi();
         }
     }
@@ -695,13 +711,14 @@ namespace NekoUI
             NekoP::eyesEmotion = activity->eyesEmotion;
             NekoP::mouthEmotion = activity->mouthEmotion;
             blinking = activity->blinking; itisblink = false;
+            drawShadow = activity->drawShadow;
             Player::UpdateNekoEmotion();
         }
     }
     void NekoEntity::FinishCurrentActivity()
     {
         // if (activity && (activity->name == "Sleeping" || activity->name == "ComeToSenses")) Player::SetNekoEmotionTo(Player::Emotion::Smiling);
-        Player::NekoEmotionsAccordingToMood(); blinking = true; itisblink = false;
+        Player::NekoEmotionsAccordingToMood(); blinking = drawShadow = true; itisblink = false;
         if (previousRandomDialogue < 1000 || previousRandomDialogue > 1005) previousRandomDialogue = -1;
         beingOccupied = drawActionButton = randomMoving = moveTo = sleeping = false; rm::canOpenNekoUI = true;
     }

@@ -69,6 +69,8 @@
 		DD4EEF3823D3A32500CF30B3 /* SomeButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF3523D3A32500CF30B3 /* SomeButtons.cpp */; };
 		DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
 		DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
+		DD4EEF4B23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */; };
+		DD4EEF4C23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */; };
 		DD5EADE123040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE223040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE5230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
@@ -204,6 +206,8 @@
 		DD4EEF3A23D3A33200CF30B3 /* GUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GUI.hpp; sourceTree = "<group>"; };
 		DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlacesInterfaceUI.cpp; sourceTree = "<group>"; };
 		DD4EEF4223D3C8D600CF30B3 /* PlacesInterfaceUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlacesInterfaceUI.hpp; sourceTree = "<group>"; };
+		DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RoundedRectangleShape.cpp; sourceTree = "<group>"; };
+		DD4EEF4A23D8BABC00CF30B3 /* RoundedRectangleShape.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RoundedRectangleShape.hpp; sourceTree = "<group>"; };
 		DD5EADDF23040C7200CA0361 /* Static.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Static.cpp; sourceTree = "<group>"; };
 		DD5EADE023040C7200CA0361 /* Static.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Static.hpp; sourceTree = "<group>"; };
 		DD5EADE3230429AE00CA0361 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
@@ -448,6 +452,8 @@
 			children = (
 				DD4EEF3423D3A2EE00CF30B3 /* Button */,
 				DD4EEF3123D3A29400CF30B3 /* enums.hpp */,
+				DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */,
+				DD4EEF4A23D8BABC00CF30B3 /* RoundedRectangleShape.hpp */,
 			);
 			path = GUI;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				DD09430E22FC82A400FEF1AB /* LanguageLibrary.cpp in Sources */,
 				DD09432A22FEE51100FEF1AB /* Interest.cpp in Sources */,
 				DD09431622FE193300FEF1AB /* ActivityDB.cpp in Sources */,
+				DD4EEF4B23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */,
 				DDDB660D228F509800E354CA /* Player.cpp in Sources */,
 				DD09432622FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD4EEF3723D3A32500CF30B3 /* SomeButtons.cpp in Sources */,
@@ -844,6 +851,7 @@
 				DD135B74229D45A3003BC870 /* InventoryUI.cpp in Sources */,
 				DD09430F22FC82A400FEF1AB /* LanguageLibrary.cpp in Sources */,
 				DD09432B22FEE51100FEF1AB /* Interest.cpp in Sources */,
+				DD4EEF4C23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */,
 				DD09431722FE193300FEF1AB /* ActivityDB.cpp in Sources */,
 				DDDB660E228F509800E354CA /* Player.cpp in Sources */,
 				DD09432722FE369800FEF1AB /* SkillDB.cpp in Sources */,

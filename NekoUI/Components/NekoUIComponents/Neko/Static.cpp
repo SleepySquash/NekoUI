@@ -16,5 +16,6 @@ namespace NekoUI
         float Static::affection{ 0 }; /// +Opinion about you
         float Static::maxNeed{ 1000 }, Static::needHunger{ maxNeed }, Static::needThirst{ maxNeed }, Static::needWarmth{ maxNeed }, Static::needCommunication{ maxNeed }, Static::needHygiene{ maxNeed }, Static::needToilet{ maxNeed }, Static::needEnergy{ maxNeed }, Static::needEntertaiment{ maxNeed };
         float Static::hungerInSecond{ 0.3 }, Static::thirstInSecond{ 0.3 }, Static::communicationInSecond{ 0.2 }, Static::hygieneInSecond{ 0.06 }, Static::toiletInSecond{ 0.01 }, Static::energyInSecond{ 0.23 };
+        float Static::autoCapHunger{ 120 }, Static::autoCapThirst{ 120 }, Static::autoCapWarmth{ 260 }, Static::autoCapCommunication{ 200 }, Static::autoCapHygiene{ 120 }, Static::autoCapToilet{ 120 }, Static::autoCapEnergy{ 120 }, Static::autoCapEntertaiment{ 320 };
     }
 }

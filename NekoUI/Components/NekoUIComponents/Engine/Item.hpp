@@ -48,6 +48,7 @@ namespace NekoUI
         std::wstring personPath, chibiPath;
         float localPersonScale{ 1.f }, localChibiScale{ 1.f };
         float relativePersonScale{ 1.f }, relativeChibiScale{ 1.f };
+        sf::Color chibiColor{ sf::Color::White }, personColor{ sf::Color::White };
         std::pair<std::pair<int, int>, std::pair<int, int>> offsets{ {0,0}, {0,0} };
         int depth{ 0 }; bool dressed{ false };
         

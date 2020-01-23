@@ -63,6 +63,7 @@ namespace NekoUI
         bool moveRight{ false }, moveLeft{ false }, moveDown{ false }, moveUp{ false }, moving{ false };
         float xySpd{ 140 };
         bool chibiFacingIsRight{ Player::neko.chibiReversed };
+        sf::Sprite shadow; sf::Vector2f shadowOffsetR, shadowOffsetL; bool drawShadow{ true };
         
         RoomEntity* movingToEntity{ nullptr };
         float distanceToMovingEntity{ 0 };

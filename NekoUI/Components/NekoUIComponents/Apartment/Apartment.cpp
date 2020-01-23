@@ -187,7 +187,7 @@ namespace NekoUI
                 /// if (NekoS::needToilet < 0) NekoS::needToilet = 0;
                 // if (NekoS::needEnergy < 0) NekoS::needEnergy = 0;
                 
-                if (NekoS::needHunger <= 0)
+                if (NekoS::needHunger <= NekoS::autoCapHunger)
                 {
                     if (!foodInRoom.empty())
                     {
@@ -207,7 +207,7 @@ namespace NekoUI
                             }
                     }
                 }
-                if (NekoS::needThirst <= 0)
+                if (NekoS::needThirst <= NekoS::autoCapThirst)
                 {
                     if (!drinkInRoom.empty())
                     {
@@ -227,7 +227,7 @@ namespace NekoUI
                             }
                     }
                 }
-                if (NekoS::needHygiene <= 0) NekoS::needHygiene += 300.f;
+                if (NekoS::needHygiene <= NekoS::autoCapHygiene) NekoS::needHygiene += 300.f;
                 
                 timePassed -= simulationSpd;
             }
@@ -237,38 +237,38 @@ namespace NekoUI
             if (!neko.activity)
             {
                 int needsTotal{ 0 };
-                if (NekoS::needHunger <= 260) ++needsTotal;
-                if (NekoS::needThirst <= 260) ++needsTotal;
-                // if (NekoS::needCommunication <= 260) ++needsTotal; // <- Internet communication possible activity?
-                if (NekoS::needHygiene <= 260) ++needsTotal;
-                // if (NekoS::needToilet <= 260) ++needsTotal;
-                if (NekoS::needEnergy <= 260) ++needsTotal;
+                if (NekoS::needHunger <= NekoS::autoCapHunger) ++needsTotal;
+                if (NekoS::needThirst <= NekoS::autoCapThirst) ++needsTotal;
+                // if (NekoS::needCommunication <= NekoS::autoCapCommunication) ++needsTotal; // <- Internet communication possible activity?
+                if (NekoS::needHygiene <= NekoS::autoCapHygiene) ++needsTotal;
+                // if (NekoS::needToilet <= NekoS::autoCapToilet) ++needsTotal;
+                if (NekoS::needEnergy <= NekoS::autoCapEnergy) ++needsTotal;
             
                 int needArea, chosenArea = -1;
                 if (needsTotal == 1)
                 {
-                    if (NekoS::needHunger <= 260 && (!foodInRoom.empty() || !noFood)) chosenArea = 0;
-                    else if (NekoS::needThirst <= 260 && (!drinkInRoom.empty() || !noDrink)) chosenArea = 1;
-                    else if (NekoS::needCommunication <= 260) chosenArea = 2;
-                    else if (NekoS::needHygiene <= 260) chosenArea = 3;
-                    else if (NekoS::needToilet <= 260) chosenArea = 4;
-                    else if (NekoS::needEnergy <= 260) chosenArea = 5;
+                    if (NekoS::needHunger <= NekoS::autoCapHunger && (!foodInRoom.empty() || !noFood)) chosenArea = 0;
+                    else if (NekoS::needThirst <= NekoS::autoCapThirst && (!drinkInRoom.empty() || !noDrink)) chosenArea = 1;
+                    else if (NekoS::needCommunication <= NekoS::autoCapCommunication) chosenArea = 2;
+                    else if (NekoS::needHygiene <= NekoS::autoCapHygiene) chosenArea = 3;
+                    else if (NekoS::needToilet <= NekoS::autoCapToilet) chosenArea = 4;
+                    else if (NekoS::needEnergy <= NekoS::autoCapEnergy) chosenArea = 5;
                 }
                 else
                 {
-                    bool hungerEnabled{ NekoS::needHunger <= 260 && (!foodInRoom.empty() || !noFood) },
-                         thirstEnabled{ NekoS::needThirst <= 260 && (!drinkInRoom.empty() || !noDrink) },
-                         communicationEnabled{ false && NekoS::needCommunication <= 260 },
-                         hygieneEnabled{ NekoS::needHygiene <= 260 },
-                         toiletEnabled{ false && NekoS::needToilet <= 260 },
-                         energyEnabled{ NekoS::needEnergy <= 260 };
-                    needArea = (261 - NekoS::needHunger)*hungerEnabled + (261 - NekoS::needThirst)*thirstEnabled + (261 - NekoS::needCommunication)*communicationEnabled + (261 - NekoS::needHygiene)*hygieneEnabled + (261 - NekoS::needToilet)*toiletEnabled + (261 - NekoS::needEnergy)*energyEnabled;
-                    int needHungerArea = (261 - NekoS::needHunger)*hungerEnabled,
-                        needThirstArea = needHungerArea + (261 - NekoS::needThirst)*thirstEnabled,
-                        needCommunicationArea = needThirstArea + (261 - NekoS::needCommunication)*communicationEnabled,
-                        needHygieneArea = needCommunicationArea + (261 - NekoS::needHygiene)*hygieneEnabled,
-                        needToiletArea = needHygieneArea + (261 - NekoS::needToilet)*toiletEnabled,
-                        needEnergyArea = needToiletArea + (261 - NekoS::needEnergy)*energyEnabled;
+                    bool hungerEnabled{ NekoS::needHunger <= NekoS::autoCapHunger && (!foodInRoom.empty() || !noFood) },
+                         thirstEnabled{ NekoS::needThirst <= NekoS::autoCapThirst && (!drinkInRoom.empty() || !noDrink) },
+                         communicationEnabled{ false && NekoS::needCommunication <= NekoS::autoCapCommunication },
+                         hygieneEnabled{ NekoS::needHygiene <= NekoS::autoCapHygiene },
+                         toiletEnabled{ false && NekoS::needToilet <= NekoS::autoCapToilet },
+                         energyEnabled{ NekoS::needEnergy <= NekoS::autoCapEnergy };
+                    needArea = (NekoS::autoCapHunger + 1 - NekoS::needHunger)*hungerEnabled + (NekoS::autoCapThirst + 1 - NekoS::needThirst)*thirstEnabled + (NekoS::autoCapCommunication + 1 - NekoS::needCommunication)*communicationEnabled + (NekoS::autoCapHygiene + 1 - NekoS::needHygiene)*hygieneEnabled + (NekoS::autoCapToilet + 1 - NekoS::needToilet)*toiletEnabled + (NekoS::autoCapEnergy + 1 - NekoS::needEnergy)*energyEnabled;
+                    int needHungerArea = (NekoS::autoCapHunger + 1 - NekoS::needHunger)*hungerEnabled,
+                        needThirstArea = needHungerArea + (NekoS::autoCapThirst + 1 - NekoS::needThirst)*thirstEnabled,
+                        needCommunicationArea = needThirstArea + (NekoS::autoCapCommunication + 1 - NekoS::needCommunication)*communicationEnabled,
+                        needHygieneArea = needCommunicationArea + (NekoS::autoCapHygiene + 1 - NekoS::needHygiene)*hygieneEnabled,
+                        needToiletArea = needHygieneArea + (NekoS::autoCapToilet + 1 - NekoS::needToilet)*toiletEnabled,
+                        needEnergyArea = needToiletArea + (NekoS::autoCapEnergy + 1 - NekoS::needEnergy)*energyEnabled;
                     if (needArea != 0)
                     {
                         int needRandomArea = rand() % needArea;
@@ -425,47 +425,6 @@ namespace NekoUI
         
         savingIsRequired = true;
         SortEntities();
-        
-        
-        
-#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
-        unsigned int truewidth = gs::trueVerticalOrientation ? gs::height : gs::width;
-        unsigned int trueheight = gs::trueVerticalOrientation ? gs::width : gs::height;
-        
-        backgroundTextureX.create(truewidth + 2*backgroundSprite.getGlobalBounds().width, trueheight + 2*backgroundSprite.getGlobalBounds().height);
-        float yy = 0, yyuntil = trueheight + 2*backgroundSprite.getGlobalBounds().height;
-        while (yy < yyuntil)
-        {
-            float xx = 0, xxuntil = truewidth + 2*backgroundSprite.getGlobalBounds().width;
-            while (xx < xxuntil)
-            {
-                backgroundSprite.setPosition(xx, yy);
-                backgroundTextureX.draw(backgroundSprite);
-                xx += backgroundSprite.getGlobalBounds().width;
-            }
-            yy += backgroundSprite.getGlobalBounds().height;
-        }
-        backgroundTextureX.display();
-        
-        backgroundTextureY.create(trueheight + 2*backgroundSprite.getGlobalBounds().width, truewidth + 2*backgroundSprite.getGlobalBounds().height);
-        yy = 0; yyuntil = truewidth + 2*backgroundSprite.getGlobalBounds().height;
-        while (yy < yyuntil)
-        {
-            float xx = 0, xxuntil = trueheight + 2*backgroundSprite.getGlobalBounds().width;
-            while (xx < xxuntil)
-            {
-                backgroundSprite.setPosition(xx, yy);
-                backgroundTextureY.draw(backgroundSprite);
-                xx += backgroundSprite.getGlobalBounds().width;
-            }
-            yy += backgroundSprite.getGlobalBounds().height;
-        }
-        backgroundTextureY.display();
-        backgroundRenderSprite.setOrigin(backgroundSprite.getGlobalBounds().width, backgroundSprite.getGlobalBounds().height);
-        
-        // gs::window->setView(sf::View(sf::FloatRect(0, 0, gs::width, gs::height)));
-        window.setActive();
-#endif
     }
     void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); }
     void Apartment::CleanUp()
@@ -477,6 +436,30 @@ namespace NekoUI
         ic::DeleteImage(L"Data/Images/UI/PointerToNeko_arrow.png");
         ic::DeleteImage(L"Data/Images/UI/scrolldown.png");
         ic::DeleteImage(L"Data/Images/UI/scrolldown rev1.png");
+    }
+    void renderBackgroundSprite(sf::RenderTexture* backgroundTexture, sf::Sprite* backgroundSprite, sf::Sprite* backgroundRenderSprite)
+    {
+        sf::Context context;
+        gs::requestWindowRefresh = true;
+        
+        backgroundTexture->create(gs::width + 2*backgroundSprite->getGlobalBounds().width, gs::height + 2*backgroundSprite->getGlobalBounds().height);
+        float yy = 0, yyuntil = gs::height + 2*backgroundSprite->getGlobalBounds().height;
+        while (yy < yyuntil)
+        {
+            float xx = 0, xxuntil = gs::width + 2*backgroundSprite->getGlobalBounds().width;
+            while (xx < xxuntil)
+            {
+                backgroundSprite->setPosition(xx, yy);
+                backgroundTexture->draw(*backgroundSprite);
+                xx += backgroundSprite->getGlobalBounds().width;
+            }
+            yy += backgroundSprite->getGlobalBounds().height;
+        }
+        backgroundTexture->display();
+        backgroundRenderSprite->setTexture(backgroundTexture->getTexture(), true);
+        backgroundRenderSprite->setOrigin(backgroundSprite->getGlobalBounds().width, backgroundSprite->getGlobalBounds().height);
+        
+        gs::requestWindowRefresh = true;
     }
     void Apartment::Update(const sf::Time& elapsedTime)
     {
@@ -703,26 +686,7 @@ namespace NekoUI
         if (spriteLoaded) sprite.setScale(Room::roomScale * gs::scale * Room::scale, Room::roomScale * gs::scale * Room::scale);
         CalculateCameraScale();
         
-#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
-        if (gs::trueVerticalOrientation) backgroundRenderSprite.setTexture(backgroundTextureY.getTexture(), true); else backgroundRenderSprite.setTexture(backgroundTextureX.getTexture(), true);
-#else
-        backgroundTextureX.create(gs::width + 2*backgroundSprite.getGlobalBounds().width, gs::height + 2*backgroundSprite.getGlobalBounds().height);
-        float yy = 0, yyuntil = gs::height + 2*backgroundSprite.getGlobalBounds().height;
-        while (yy < yyuntil)
-        {
-            float xx = 0, xxuntil = gs::width + 2*backgroundSprite.getGlobalBounds().width;
-            while (xx < xxuntil)
-            {
-                backgroundSprite.setPosition(xx, yy);
-                backgroundTextureX.draw(backgroundSprite);
-                xx += backgroundSprite.getGlobalBounds().width;
-            }
-            yy += backgroundSprite.getGlobalBounds().height;
-        }
-        backgroundTextureX.display();
-        backgroundRenderSprite.setTexture(backgroundTextureX.getTexture(), true);
-        backgroundRenderSprite.setOrigin(backgroundSprite.getGlobalBounds().width, backgroundSprite.getGlobalBounds().height);
-#endif
+        std::thread(renderBackgroundSprite, &backgroundTexture, &backgroundSprite, &backgroundRenderSprite).join();
         
         nekoPtrSprite.setScale(0.5 * gs::scale, 0.5 * gs::scale);
         nekoArrowSprite.setScale(0.5 * gs::scale, 0.5 * gs::scale);
@@ -735,21 +699,6 @@ namespace NekoUI
     void Apartment::Draw(sf::RenderWindow* window)
     {
         if (!active || gs::ignoreDraw) return;
-        /*if (spriteLoaded)
-        {
-            float yy = backgroundYY, yyuntil = gs::height + 2*backgroundSprite.getGlobalBounds().height;
-            while (yy < yyuntil)
-            {
-                float xx = backgroundXX, xxuntil = gs::width + 2*backgroundSprite.getGlobalBounds().width;
-                while (xx < xxuntil)
-                {
-                    backgroundSprite.setPosition(xx, yy);
-                    window->draw(backgroundSprite);
-                    xx += backgroundSprite.getGlobalBounds().width;
-                }
-                yy += backgroundSprite.getGlobalBounds().height;
-            }
-        }*/
         if (spriteLoaded) { window->draw(backgroundRenderSprite); window->draw(sprite); }
         for (auto& e : entities) if (!e->offline && e->onScreen && e != movedEntity) e->Draw(window);
         if (drawInventoryButton) window->draw(inventoryMovingSprite);

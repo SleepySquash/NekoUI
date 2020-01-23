@@ -141,7 +141,7 @@ int main()
     ///----------------------------------------------------------
     Entity* Shimakaze = system.AddEntity();
     {
-        // Shimakaze->AddComponent<EssentialComponents::DebugComponent>("Update 0 build 4");
+        // Shimakaze->AddComponent<EssentialComponents::DebugComponent>("Update 0 build 5");
         Shimakaze->AddComponent<EssentialComponents::FadingFromBlackScreen>();
     }
     gs::lastMousePos = { sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y };
@@ -237,7 +237,7 @@ int main()
                 window.display(); //TODO: Might crash here if app is not running
                 
                 gs::requestWindowRefresh = false;
-            } else sf::sleep(sf::milliseconds(10));
+            } else sf::sleep(sf::milliseconds(20));
         } else sf::sleep(sf::milliseconds(100));
 #else
         system.Update(clock.restart());

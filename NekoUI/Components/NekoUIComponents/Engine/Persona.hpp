@@ -71,7 +71,7 @@ namespace NekoUI
         bool chibiReversed{ false }, personReversed{ false };
         bool savingIsRequired{ false };
         
-        Cloth eyebrows, eyes, mouth, nose, cheeks, hair, body;
+        Cloth eyebrows, eyes, mouth, nose, blush, fronthair, backhair, tail, body;
         vector<Cloth*> cloth;
         
         ~Persona();
