@@ -13,8 +13,11 @@ namespace NekoUI
     void JobInterfaceUI::Init()
     {
         blackScreenShape.setFillColor(sf::Color(0,0,0,170));
-        quitButton.setTexture(L"Data/Images/UI/quit_button.png");
-        quitButton.setScale(2);
+        jobs.setCharacterSize(54);
+        jobs.setFont(L"Impact.ttf");
+        jobs.halign = Halign::Center;
+        jobs.valign = Valign::Bottom;
+        jobs.ralpha = 255;
     }
     void JobInterfaceUI::Destroy() { if (active) CleanUp(); }
     void JobInterfaceUI::Update(const sf::Time& elapsedTime)
@@ -38,12 +41,41 @@ namespace NekoUI
             default: break;
         }
     }
-    void JobInterfaceUI::CleanUp() { ic::DeleteImage(L"Data/Images/Backgrounds/job_background1.jpg"); }
+    void JobInterfaceUI::CleanUp() { ic::DeleteImage(L"Data/Images/Backgrounds/job_background1.jpg"); jobs.setTexture(L""); }
     void JobInterfaceUI::PollEvent(sf::Event& event)
     {
         if (!active || !gs::isActiveInterface(this)) return;
         
-        // if (quitButton.PollEvent(event)) entity->SendMessage({"JobInterfaceUI :: Close"});
+        if (event.type == sf::Event::MouseMoved && gs::buttonHovering)
+        {
+            float xx{ jobsStartXX }, yy{ yyScroll + 200*gs::scale }; int currentButton{ 0 };
+            for (int i = 0; i < 4; ++i)
+            {
+                jobs.index = i; jobs.setPosition(xx, yy); jobs.PollEvent(event);
+                xx += jobs.shape.getSize().x + 10*gs::scale;
+                if (++currentButton >= jobsButtonsCount) { currentButton = 0;
+                    xx = jobsStartXX; yy += jobs.shape.getSize().y + 10*gs::scale; }
+            }
+        }
+        else if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::TouchBegan || event.type == sf::Event::TouchEnded)
+        {
+            float xx{ jobsStartXX }, yy{ yyScroll + 200*gs::scale }; int currentButton{ 0 };
+            for (int i = 0; i < 4; ++i)
+            {
+                jobs.index = i; jobs.setPosition(xx, yy);
+                if (jobs.PollEvent(event))
+                {
+                    switch (i)
+                    {
+                        default: break;
+                    }
+                }
+                xx += jobs.shape.getSize().x + 10*gs::scale;
+                if (++currentButton >= jobsButtonsCount) { currentButton = 0;
+                    xx = jobsStartXX; yy += jobs.shape.getSize().y + 10*gs::scale; }
+            }
+            jobs.eventPolled(event);
+        }
     }
     void JobInterfaceUI::Resize(unsigned int width, unsigned int height)
     {
@@ -54,21 +86,43 @@ namespace NekoUI
         if (spriteLoaded)
         {
             float scaleFactorX, scaleFactorY, scaleFactor;
-            scaleFactorX = (float)width / (background.getTexture()->getSize().x);
-            scaleFactorY = (float)height / (background.getTexture()->getSize().y);
+            scaleFactorX = (float)width / background.getLocalBounds().width;
+            scaleFactorY = (float)height / background.getLocalBounds().height;
             
             scaleFactor = (scaleFactorX > scaleFactorY) ? scaleFactorX : scaleFactorY;
             background.setScale(scaleFactor, scaleFactor);
             background.setPosition(width/2, height/2);
         }
+        
+        jobs.Resize(width, height);
+        jobs.setSize({450*gs::scale, 230*gs::scale});
+        jobsButtonsCount = floor((gs::width - 200*gs::scalex - (jobs.shape.getSize().x + 10*gs::scale))/(jobs.shape.getSize().x + 10*gs::scale)) + 1;
+        if (jobsButtonsCount > 4) jobsButtonsCount = 4;
+        jobsStartXX = gs::width/2 - (jobs.shape.getSize().x + 10*gs::scale)*jobsButtonsCount/2;
     }
     void JobInterfaceUI::Draw(sf::RenderWindow* window)
     {
         if (!active) return;
-        
-        // window->draw(blackScreenShape);
         if (spriteLoaded) window->draw(background);
-        // quitButton.Draw(window);
+        
+        float xx{ jobsStartXX }, yy{ yyScroll + 200*gs::scale };
+        int currentButton{ 0 };
+        for (int i = 0; i < 4; ++i)
+        {
+            jobs.index = i;
+            switch (i) {
+                case 0: jobs.setString(L"Официант"); jobs.sprite.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH}); break;
+                case 1: jobs.setString(L"FNAF"); jobs.sprite.setTextureRect({jobsBackgroundW,0,jobsBackgroundW,jobsBackgroundH}); break;
+                case 2: jobs.setString(L"NekoExpress"); jobs.sprite.setTextureRect({0,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
+                case 3: jobs.setString(L"Защита башни"); jobs.sprite.setTextureRect({jobsBackgroundW,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
+                default: break;
+            }
+            jobs.setPosition(xx, yy);
+            jobs.Draw(window);
+            xx += jobs.shape.getSize().x + 10*gs::scale;
+            if (++currentButton >= jobsButtonsCount) { currentButton = 0;
+                xx = jobsStartXX; yy += jobs.shape.getSize().y + 10*gs::scale; }
+        }
     }
     void JobInterfaceUI::RecieveMessage(MessageHolder& message)
     {
@@ -85,9 +139,18 @@ namespace NekoUI
             }
         }
         else if (message.info == "JobInterfaceUI :: Switch") Switch(!active);
+        else if (active && nss::Command(message.info, "Request") && message.additional == jobs.textureName)
+        {
+            jobs.ReceiveMessage(message);
+            jobsBackgroundW = jobs.sprite.getLocalBounds().width/2;
+            jobsBackgroundH = jobs.sprite.getLocalBounds().height/2;
+            jobs.sprite.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH});
+            jobs.setSize(jobs.shape.getSize());
+        }
     }
     void JobInterfaceUI::Switch(const bool& on)
     {
+        rm::drawNeeds = !on;
         if (on) rm::drawDatePanel = false; else rm::drawDatePanel = (gs::activeInterfaces.size() == 1);
         if (on)
         {
@@ -101,6 +164,9 @@ namespace NekoUI
                     background.setTexture(*texture);
                     background.setOrigin(texture->getSize().x/2, texture->getSize().y/2);
                 }
+                jobs.setTexture(L"Data/Images/UI/jobButtonBackgrounds.jpg", ic::globalRequestSender);
+                jobsBackgroundW = jobs.sprite.getLocalBounds().width/2;
+                jobsBackgroundH = jobs.sprite.getLocalBounds().height/2;
                 Resize(gs::width, gs::height);
             }
         }
@@ -112,9 +178,7 @@ namespace NekoUI
     }
     void JobInterfaceUI::UpdateAlpha()
     {
-        /*blackScreenShape.setFillColor(sf::Color(blackScreenShape.getFillColor().r, blackScreenShape.getFillColor().g, blackScreenShape.getFillColor().b, 170.f * ((float)alpha/255)));
-        blackScreenShape.setOutlineColor(sf::Color(blackScreenShape.getOutlineColor().r, blackScreenShape.getOutlineColor().g, blackScreenShape.getOutlineColor().b, 170.f * ((float)alpha/255.f)));*/
-        quitButton.setAlpha(alpha);
+        jobs.setAlpha(alpha);
         background.setColor({background.getColor().r, background.getColor().g, background.getColor().b, alpha});
     }
 }

@@ -94,7 +94,7 @@ namespace NekoUI
     void CalendarUI::Switch(const bool& on)
     {
         if (on && !active) { gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this); Resize(gs::width, gs::height); }
-        else if (active) { gs::RemoveInterface(this); active = true; mode = disappearing; }
+        else if (active) { gs::RemoveInterface(this); mode = disappearing; }
     }
     void CalendarUI::UpdateAlpha()
     {

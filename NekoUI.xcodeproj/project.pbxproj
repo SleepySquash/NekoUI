@@ -57,6 +57,8 @@
 		DD3A6E122293396D00222FF5 /* OffsetHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */; };
 		DD3A6E132293396D00222FF5 /* OffsetHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */; };
 		DD3A6E142293601A00222FF5 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = DDBCAD30222703B100D6A83A /* Data */; };
+		DD3C9B2D23DB4A7D00DA63FA /* TexturedRectangleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3C9B2B23DB4A7D00DA63FA /* TexturedRectangleButton.cpp */; };
+		DD3C9B2E23DB4A7D00DA63FA /* TexturedRectangleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3C9B2B23DB4A7D00DA63FA /* TexturedRectangleButton.cpp */; };
 		DD40882E22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD40882C22F858BB00F6C2C5 /* ItemEntity.cpp */; };
 		DD40882F22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD40882C22F858BB00F6C2C5 /* ItemEntity.cpp */; };
 		DD40883222F85C1400F6C2C5 /* RoomEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD40883022F85C1400F6C2C5 /* RoomEntity.cpp */; };
@@ -71,6 +73,8 @@
 		DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
 		DD4EEF4B23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */; };
 		DD4EEF4C23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */; };
+		DD59162F23DC9E9D00C5BE19 /* Vasya.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */; };
+		DD59163023DC9E9D00C5BE19 /* Vasya.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */; };
 		DD5EADE123040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE223040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE5230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
@@ -80,6 +84,10 @@
 		DD65CFE22200D1A900CBEF72 /* NovelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */; };
 		DD789BDD22817B300084828A /* MessageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD789BDB22817B300084828A /* MessageHolder.cpp */; };
 		DD789BDE22817B300084828A /* MessageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD789BDB22817B300084828A /* MessageHolder.cpp */; };
+		DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
+		DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
+		DD9F796C23DC5BE700D0E10C /* NotificationHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F796A23DC5BE700D0E10C /* NotificationHolder.cpp */; };
+		DD9F796D23DC5BE700D0E10C /* NotificationHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F796A23DC5BE700D0E10C /* NotificationHolder.cpp */; };
 		DDAB746F215D88050062F8B6 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDAB746E215D88050062F8B6 /* ResourcePath.mm */; };
 		DDAB7472215D88050062F8B6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDAB7471215D88050062F8B6 /* main.cpp */; };
 		DDAB7497215D88450062F8B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDAB7496215D88450062F8B6 /* Assets.xcassets */; };
@@ -135,8 +143,8 @@
 		DDE66FBA21FB1CC90071145D /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FB721FB1CC90071145D /* Settings.cpp */; };
 		DDE66FC121FB495B0071145D /* EssentialComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FBF21FB495B0071145D /* EssentialComponents.cpp */; };
 		DDE66FC221FB495B0071145D /* EssentialComponents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE66FBF21FB495B0071145D /* EssentialComponents.cpp */; };
-		DDE8B1B523CF537400594CB8 /* NotificationsUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */; };
-		DDE8B1B623CF537400594CB8 /* NotificationsUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */; };
+		DDE8B1B523CF537400594CB8 /* Notifications.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE8B1B323CF537400594CB8 /* Notifications.cpp */; };
+		DDE8B1B623CF537400594CB8 /* Notifications.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE8B1B323CF537400594CB8 /* Notifications.cpp */; };
 		DDF4EFC221FD24F90065A6AF /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDAB746E215D88050062F8B6 /* ResourcePath.mm */; };
 		DDFB8088220716BC00BEA832 /* NovelSomeScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFB8086220716BC00BEA832 /* NovelSomeScript.cpp */; };
 		DDFB8089220716BC00BEA832 /* NovelSomeScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDFB8086220716BC00BEA832 /* NovelSomeScript.cpp */; };
@@ -192,6 +200,8 @@
 		DD23D574228E02400028305E /* etc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = etc.hpp; sourceTree = "<group>"; };
 		DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OffsetHelper.cpp; sourceTree = "<group>"; };
 		DD3A6E112293396D00222FF5 /* OffsetHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OffsetHelper.hpp; sourceTree = "<group>"; };
+		DD3C9B2B23DB4A7D00DA63FA /* TexturedRectangleButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TexturedRectangleButton.cpp; sourceTree = "<group>"; };
+		DD3C9B2C23DB4A7D00DA63FA /* TexturedRectangleButton.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TexturedRectangleButton.hpp; sourceTree = "<group>"; };
 		DD40882C22F858BB00F6C2C5 /* ItemEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemEntity.cpp; sourceTree = "<group>"; };
 		DD40882D22F858BB00F6C2C5 /* ItemEntity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemEntity.hpp; sourceTree = "<group>"; };
 		DD40883022F85C1400F6C2C5 /* RoomEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RoomEntity.cpp; sourceTree = "<group>"; };
@@ -208,6 +218,10 @@
 		DD4EEF4223D3C8D600CF30B3 /* PlacesInterfaceUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlacesInterfaceUI.hpp; sourceTree = "<group>"; };
 		DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RoundedRectangleShape.cpp; sourceTree = "<group>"; };
 		DD4EEF4A23D8BABC00CF30B3 /* RoundedRectangleShape.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RoundedRectangleShape.hpp; sourceTree = "<group>"; };
+		DD59162723DC870300C5BE19 /* GAME228.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GAME228.hpp; sourceTree = "<group>"; };
+		DD59162B23DC9D5000C5BE19 /* Vasya.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vasya.hpp; sourceTree = "<group>"; };
+		DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vasya.cpp; sourceTree = "<group>"; };
+		DD59163223DC9F0300C5BE19 /* minEH.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = minEH.hpp; sourceTree = "<group>"; };
 		DD5EADDF23040C7200CA0361 /* Static.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Static.cpp; sourceTree = "<group>"; };
 		DD5EADE023040C7200CA0361 /* Static.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Static.hpp; sourceTree = "<group>"; };
 		DD5EADE3230429AE00CA0361 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
@@ -219,6 +233,10 @@
 		DD789BDB22817B300084828A /* MessageHolder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MessageHolder.cpp; sourceTree = "<group>"; };
 		DD789BDC22817B300084828A /* MessageHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageHolder.hpp; sourceTree = "<group>"; };
 		DD87E10E237483F500083FB9 /* NekoUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NekoUI.entitlements; sourceTree = "<group>"; };
+		DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StrangeShopkeeperUI.cpp; sourceTree = "<group>"; };
+		DD9F796023DC333000D0E10C /* StrangeShopkeeperUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StrangeShopkeeperUI.hpp; sourceTree = "<group>"; };
+		DD9F796A23DC5BE700D0E10C /* NotificationHolder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NotificationHolder.cpp; sourceTree = "<group>"; };
+		DD9F796B23DC5BE700D0E10C /* NotificationHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NotificationHolder.hpp; sourceTree = "<group>"; };
 		DDAB7469215D88050062F8B6 /* NekoUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NekoUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDAB746D215D88050062F8B6 /* NekoUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NekoUI-Info.plist"; sourceTree = "<group>"; };
 		DDAB746E215D88050062F8B6 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -280,8 +298,8 @@
 		DDE66FB821FB1CC90071145D /* Settings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Settings.hpp; sourceTree = "<group>"; };
 		DDE66FBF21FB495B0071145D /* EssentialComponents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EssentialComponents.cpp; sourceTree = "<group>"; };
 		DDE66FC021FB495B0071145D /* EssentialComponents.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EssentialComponents.hpp; sourceTree = "<group>"; };
-		DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NotificationsUI.cpp; sourceTree = "<group>"; };
-		DDE8B1B423CF537400594CB8 /* NotificationsUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NotificationsUI.hpp; sourceTree = "<group>"; };
+		DDE8B1B323CF537400594CB8 /* Notifications.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Notifications.cpp; sourceTree = "<group>"; };
+		DDE8B1B423CF537400594CB8 /* Notifications.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Notifications.hpp; sourceTree = "<group>"; };
 		DDFB8086220716BC00BEA832 /* NovelSomeScript.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NovelSomeScript.cpp; sourceTree = "<group>"; };
 		DDFB8087220716BC00BEA832 /* NovelSomeScript.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelSomeScript.hpp; sourceTree = "<group>"; };
 		DDFB808B2207178000BEA832 /* List.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
@@ -431,6 +449,8 @@
 		DD4EEF2523D3A09200CF30B3 /* Places */ = {
 			isa = PBXGroup;
 			children = (
+				DD59163523DCF36400C5BE19 /* Jobs */,
+				DD9F795E23DC331C00D0E10C /* Misc */,
 				DD4EEF2623D3A0CE00CF30B3 /* Grocery */,
 				DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */,
 				DD4EEF4223D3C8D600CF30B3 /* PlacesInterfaceUI.hpp */,
@@ -465,8 +485,35 @@
 				DD4EEF2D23D3A1EE00CF30B3 /* Button.hpp */,
 				DD4EEF3523D3A32500CF30B3 /* SomeButtons.cpp */,
 				DD4EEF3623D3A32500CF30B3 /* SomeButtons.hpp */,
+				DD3C9B2B23DB4A7D00DA63FA /* TexturedRectangleButton.cpp */,
+				DD3C9B2C23DB4A7D00DA63FA /* TexturedRectangleButton.hpp */,
 			);
 			path = Button;
+			sourceTree = "<group>";
+		};
+		DD59162523DC86E400C5BE19 /* TestComponents */ = {
+			isa = PBXGroup;
+			children = (
+				DD59162723DC870300C5BE19 /* GAME228.hpp */,
+				DD59162B23DC9D5000C5BE19 /* Vasya.hpp */,
+				DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */,
+			);
+			path = TestComponents;
+			sourceTree = "<group>";
+		};
+		DD59163523DCF36400C5BE19 /* Jobs */ = {
+			isa = PBXGroup;
+			children = (
+				DD59163623DCF36900C5BE19 /* FNAF */,
+			);
+			path = Jobs;
+			sourceTree = "<group>";
+		};
+		DD59163623DCF36900C5BE19 /* FNAF */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FNAF;
 			sourceTree = "<group>";
 		};
 		DD5EADDE23040C4B00CA0361 /* Neko */ = {
@@ -478,6 +525,15 @@
 				DD09432D22FF2F6100FEF1AB /* Personality.hpp */,
 			);
 			path = Neko;
+			sourceTree = "<group>";
+		};
+		DD9F795E23DC331C00D0E10C /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */,
+				DD9F796023DC333000D0E10C /* StrangeShopkeeperUI.hpp */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 		DDAB745F215D88050062F8B6 = {
@@ -505,6 +561,7 @@
 			children = (
 				DD87E10E237483F500083FB9 /* NekoUI.entitlements */,
 				DDAB7471215D88050062F8B6 /* main.cpp */,
+				DD59163223DC9F0300C5BE19 /* minEH.hpp */,
 				DDE66FAC21FB1A5F0071145D /* Essentials */,
 				DDE66FAD21FB1A7E0071145D /* Engine */,
 				DDE66FAE21FB1A890071145D /* Components */,
@@ -601,8 +658,6 @@
 				DDE0E6D6229DB97700991722 /* MapUI.hpp */,
 				DDE2846422F61E1E00B280A7 /* ItemDetailsUI.cpp */,
 				DDE2846522F61E1E00B280A7 /* ItemDetailsUI.hpp */,
-				DDE8B1B323CF537400594CB8 /* NotificationsUI.cpp */,
-				DDE8B1B423CF537400594CB8 /* NotificationsUI.hpp */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -641,6 +696,10 @@
 				DD65CFE02200D1A900CBEF72 /* NovelSystem.hpp */,
 				DD09430622FC816C00FEF1AB /* Language.cpp */,
 				DD09430722FC816C00FEF1AB /* Language.hpp */,
+				DD9F796A23DC5BE700D0E10C /* NotificationHolder.cpp */,
+				DD9F796B23DC5BE700D0E10C /* NotificationHolder.hpp */,
+				DDE8B1B323CF537400594CB8 /* Notifications.cpp */,
+				DDE8B1B423CF537400594CB8 /* Notifications.hpp */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -648,6 +707,7 @@
 		DDE66FAE21FB1A890071145D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DD59162523DC86E400C5BE19 /* TestComponents */,
 				DD0F525C2222A74B005C08D5 /* VNLightComponents */,
 				DDDB65FD228F46A200E354CA /* NekoUIComponents */,
 				DD09430A22FC81EC00FEF1AB /* Helpers */,
@@ -816,9 +876,11 @@
 				DDE0E6D7229DB97700991722 /* MapUI.cpp in Sources */,
 				DDAB746F215D88050062F8B6 /* ResourcePath.mm in Sources */,
 				DDD2787F228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
-				DDE8B1B523CF537400594CB8 /* NotificationsUI.cpp in Sources */,
+				DD59162F23DC9E9D00C5BE19 /* Vasya.cpp in Sources */,
+				DDE8B1B523CF537400594CB8 /* Notifications.cpp in Sources */,
 				DD09430822FC816C00FEF1AB /* Language.cpp in Sources */,
 				DD23D575228E02400028305E /* etc.cpp in Sources */,
+				DD3C9B2D23DB4A7D00DA63FA /* TexturedRectangleButton.cpp in Sources */,
 				DDE66FB521FB1C870071145D /* EntitySystem.cpp in Sources */,
 				DDE0E6CF229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
 				DD4EEF2923D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
@@ -826,10 +888,12 @@
 				DD4EEF2E23D3A1EE00CF30B3 /* Button.cpp in Sources */,
 				DD23D569228E022B0028305E /* Image.cpp in Sources */,
 				DD5EADE123040C7200CA0361 /* Static.cpp in Sources */,
+				DD9F796C23DC5BE700D0E10C /* NotificationHolder.cpp in Sources */,
 				DD40883222F85C1400F6C2C5 /* RoomEntity.cpp in Sources */,
 				DD789BDD22817B300084828A /* MessageHolder.cpp in Sources */,
 				DD135B6F22974070003BC870 /* RoomUI.cpp in Sources */,
 				DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
+				DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
 				DD09431E22FE195900FEF1AB /* BuffDB.cpp in Sources */,
 				DDE3DB7C229295F4004DA2B1 /* Persona.cpp in Sources */,
 			);
@@ -878,9 +942,11 @@
 				DD5EADE6230429AE00CA0361 /* Shader.cpp in Sources */,
 				DDE0E6D8229DB97700991722 /* MapUI.cpp in Sources */,
 				DDAB74A1215D89CD0062F8B6 /* main.cpp in Sources */,
-				DDE8B1B623CF537400594CB8 /* NotificationsUI.cpp in Sources */,
+				DD59163023DC9E9D00C5BE19 /* Vasya.cpp in Sources */,
+				DDE8B1B623CF537400594CB8 /* Notifications.cpp in Sources */,
 				DD09430922FC816C00FEF1AB /* Language.cpp in Sources */,
 				DDD27880228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
+				DD3C9B2E23DB4A7D00DA63FA /* TexturedRectangleButton.cpp in Sources */,
 				DD23D576228E02400028305E /* etc.cpp in Sources */,
 				DDE0E6D0229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
 				DD4EEF2A23D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
@@ -888,10 +954,12 @@
 				DD4EEF2F23D3A1EE00CF30B3 /* Button.cpp in Sources */,
 				DD23D56A228E022B0028305E /* Image.cpp in Sources */,
 				DD5EADE223040C7200CA0361 /* Static.cpp in Sources */,
+				DD9F796D23DC5BE700D0E10C /* NotificationHolder.cpp in Sources */,
 				DD40883322F85C1400F6C2C5 /* RoomEntity.cpp in Sources */,
 				DD789BDE22817B300084828A /* MessageHolder.cpp in Sources */,
 				DD135B7022974070003BC870 /* RoomUI.cpp in Sources */,
 				DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
+				DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
 				DD09431F22FE195900FEF1AB /* BuffDB.cpp in Sources */,
 				DDE3DB7D229295F4004DA2B1 /* Persona.cpp in Sources */,
 			);

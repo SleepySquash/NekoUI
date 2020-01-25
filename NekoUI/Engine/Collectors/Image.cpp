@@ -329,4 +329,5 @@ namespace ns
     std::unordered_map<std::wstring, ImageCollectorObject> ic::images;
     std::unordered_map<std::wstring, std::thread*> ic::threads;
     icThreadsJoiner ic::threadsJoiner;
+    MessageSender* ic::globalRequestSender{ nullptr };
 }

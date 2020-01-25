@@ -33,11 +33,11 @@ namespace NekoUI
 {
     struct MapUI : Component
     {
-        bool active{ false };
+        bool active{ false }, clickable{ false };
         
         sf::RectangleShape blackScreenShape;
         sf::Sprite background; bool spriteLoaded{ false };
-        GUI::SpriteButton groceryButton;
+        GUI::SpriteButton groceryButton, shopkeeperButton;
         
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };

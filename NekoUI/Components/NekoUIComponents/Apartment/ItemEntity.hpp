@@ -37,6 +37,8 @@ namespace NekoUI
     {
         bool spriteLoaded{ false };
         Item* item{ nullptr };
+        bool drawShadow{ true };
+        sf::Sprite shadow; int shadowOffsetYY{ 0 };
         int count{ 1 };
         
         void Init(Item* item = nullptr);

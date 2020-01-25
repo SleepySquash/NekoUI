@@ -20,6 +20,7 @@ using std::list;
 #include "Settings.hpp"
 #include "MessageHolder.hpp"
 
+#undef SendMessage
 namespace ns
 {
     struct Component;
@@ -68,6 +69,17 @@ namespace ns
         {
             T* component = new T(args...);
             components.push_back(component);
+            
+            component->entity = this;
+            component->Init();
+            component->Resize(gs::width, gs::height);
+            
+            return component;
+        }
+        template<typename T, typename ...Args> T* InsertComponent(const list<Component*>::iterator& it, Args... args)
+        {
+            T* component = new T(args...);
+            components.insert(it, component);
             
             component->entity = this;
             component->Init();

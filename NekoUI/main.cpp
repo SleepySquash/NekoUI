@@ -45,11 +45,16 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
+#ifdef _MSC_VER
+#include <Windows.h>
+#endif
+
 #include "Essentials/ResourcePath.hpp"
 #include "Essentials/Base.hpp"
 #include "Engine/Settings.hpp"
 #include "Engine/EntitySystem.hpp"
 #include "Engine/Initialization.hpp"
+#include "Engine/Notifications.hpp"
 
 #include "Components/Helpers/EssentialComponents.hpp"
 
@@ -64,8 +69,8 @@
 #include "Components/NekoUIComponents/Interfaces/CalendarUI.hpp"
 #include "Components/NekoUIComponents/Interfaces/MapUI.hpp"
 #include "Components/NekoUIComponents/Interfaces/ItemDetailsUI.hpp"
-#include "Components/NekoUIComponents/Interfaces/NotificationsUI.hpp"
 #include "Components/NekoUIComponents/Places/PlacesInterfaceUI.hpp"
+// #include "Components/TestComponents/GAME228.hpp"
 
 using std::cout;
 using std::cin;
@@ -104,6 +109,7 @@ int main()
     
     EntitySystem system;
     srand((unsigned int)time(nullptr));
+    ic::globalRequestSender = &system;
     
     ///----------------------------------------------------------
     /// \brief Entity to hold NekoUI components
@@ -113,6 +119,8 @@ int main()
     ///----------------------------------------------------------
     Entity* Vanilla = system.AddEntity();
     {
+        Vanilla->AddComponent<NotificationsUI>();
+        
         NekoUI::Player::Init();
         Vanilla->AddComponent<NekoUI::CalendarUI>();
         Vanilla->AddComponent<NekoUI::NekoInterfaceUI>();
@@ -128,9 +136,8 @@ int main()
     Entity* Lana = system.AddEntity();
     {
         Lana->AddComponent<NekoUI::RoomUI>();
-        Lana->AddComponent<NekoUI::NotificationsUI>();
     }
-    // Lana->SendMessage({"NotUI :: Popup", L"Hi!"});
+    // Lana->SendMessage({"NotUI :: Popup", new NotificationHolder(L"Greetings!", L"Привет! Я текст! Я очень-очень длинный текст! Невероятно длиннющий! Ого! Ня! Няняня! Кошкодевочки рулят! Я Никита и я Никита! Даааааа! Невероятные слова невероятного человека, невероято делающего всё это. СМЫСОЛ жызни.")});
     
     ///----------------------------------------------------------
     /// \brief Entity to hold essential components
@@ -200,6 +207,7 @@ int main()
                     gs::lastMousePos = { event.mouseMove.x, event.mouseMove.y };
                     break;
                     
+                //case sf::Event::KeyPressed: case sf::Event::KeyReleased: system.PollEvent(event); break;
                 case sf::Event::KeyPressed:
                     switch (event.key.code)
                     {
@@ -211,6 +219,21 @@ int main()
                         default: break;
                     }
                     break;
+                    
+                    case sf::Event::KeyReleased:
+#ifdef SFML_SYSTEM_WINDOWS
+                         if (event.key.code == sf::Keyboard::Key::F11)
+                         {
+                          if ((gs::fullscreen = !gs::fullscreen)) window.create(sf::VideoMode::getFullscreenModes()[0], "NekoUI", sf::Style::Fullscreen);
+                          else window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width >= 1280 ? 1280 : sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height >= 880 ? 800 : sf::VideoMode::getDesktopMode().height - 80), "NovelSome");
+                          gs::width = window.getSize().x;
+                          gs::height = window.getSize().y;
+                          CalculateScaleRatios(gs::width, gs::height);
+                          system.Resize(gs::width, gs::height);
+                          window.setView(sf::View(sf::FloatRect(0, 0, gs::width, gs::height)));
+                         }
+#endif
+                         break;
                     
                 case sf::Event::Resized:
                     gs::width = event.size.width;
@@ -255,5 +278,5 @@ int main()
     
     system.clear();
     
-    return EXIT_SUCCESS;
+    return 0;
 }

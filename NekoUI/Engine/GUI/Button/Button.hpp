@@ -23,9 +23,12 @@ namespace ns
     {
         struct Button
         {
+            int leftBound{ 0 };
+            sf::FloatRect bounds{ 0, (float)gs::relativeWidth, 0, (float)gs::relativeHeight };
+            
             sf::Vector2i dot;
-            sf::Uint8 alpha{ 255 }, maxAlpha{ 255 };
             bool regulateBounds{ false }, wasHovered{ false };
+            sf::Uint8 alpha{ 255 }, maxAlpha{ 255 };
             bool visible{ true }, active{ true }, loaded{ false };
             bool onPress{ false }, ignoreWasPressed{ false }, characterScale{ false };
             
@@ -41,6 +44,7 @@ namespace ns
             virtual void Resize(unsigned int width, unsigned int height);
             virtual bool PollEvent(sf::Event& event);
             virtual void ReceiveMessage(MessageHolder& message);
+            virtual void resetScale();
             virtual void setAlpha(const sf::Uint8& alpha);
             virtual sf::Uint8 getAlpha();
             virtual void setPosition(float x, float y);

@@ -25,6 +25,7 @@
 #include "../../../Engine/Settings.hpp"
 #include "../../../Engine/Collectors.hpp"
 #include "../../../Engine/GUI/Button/SomeButtons.hpp"
+#include "../../../Engine/NotificationHolder.hpp"
 
 #include "RoomLibrary.hpp"
 #include "NekoEntity.hpp"

@@ -19,7 +19,11 @@ namespace NekoUI
         
         auto now = std::chrono::system_clock::now();
         std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+#ifdef _MSC_VER
+        tm* timeinfo = new tm(); localtime_s(timeinfo, &now_c);
+#else
         tm* timeinfo = std::localtime(&now_c);
+#endif
         dateDay = timeinfo->tm_mday; dayText.setString(std::to_string(dateDay));
         dateMonth = timeinfo->tm_mon; monthText.setString(GetMonthStringFromItsNumber(dateMonth));
         int hoursUntilNextDay = 24 - timeinfo->tm_hour;
@@ -77,7 +81,11 @@ namespace NekoUI
             {
                 auto now = std::chrono::system_clock::now();
                 std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+#ifdef _MSC_VER
+                tm* timeinfo = new tm(); localtime_s(timeinfo, &now_c);
+#else
                 tm* timeinfo = std::localtime(&now_c);
+#endif
                 dateDay = timeinfo->tm_mday; dayText.setString(std::to_string(dateDay));
                 dateMonth = timeinfo->tm_mon; monthText.setString(GetMonthStringFromItsNumber(dateMonth));
                 int hoursUntilNextDay = 24 - timeinfo->tm_hour;
@@ -151,7 +159,7 @@ namespace NekoUI
     }
     void RoomUI::PollEvent(sf::Event& event)
     {
-        if (!active || !rm::drawScrolldownMenu) return;
+        if (!active || !rm::drawScrolldownMenu || (gs::forceIgnoreEvent)) return;
         
         if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TouchBegan)
         {

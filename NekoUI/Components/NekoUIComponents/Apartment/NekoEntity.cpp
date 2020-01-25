@@ -105,7 +105,7 @@ namespace NekoUI
             }
         }
         
-        if (beingActionedWith) return;
+        if (beingActionedWith && !ignoreBeingActionedWith) return;
         if (!unlimitedDrawDialogue)
         {
             if (elapsedDialogue > 0) elapsedDialogue -= elapsedTime.asSeconds();
@@ -113,7 +113,11 @@ namespace NekoUI
             {
                 if (drawDialogue) { drawDialogue = false; if (!gs::ignoreDraw) gs::requestWindowRefresh = true;
                     elapsedDialogue = 3.f + (rand() % 9000) / 1000.f; }
-                else if (!activity || activity->doingTheActivity) SetDialogue(GenerateRoomDialogue());
+                else if (!activity || activity->doingTheActivity)
+                {
+                    if (beingActionedWith) sender->SendMessage({"NekoUI :: DDialogue", GenerateRoomDialogue()});
+                    else SetDialogue(GenerateRoomDialogue());
+                }
                 else elapsedDialogue = 1.f;
             }
         }
@@ -712,13 +716,14 @@ namespace NekoUI
             NekoP::mouthEmotion = activity->mouthEmotion;
             blinking = activity->blinking; itisblink = false;
             drawShadow = activity->drawShadow;
+            ignoreBeingActionedWith = activity->ignoreBeingActionedWith;
             Player::UpdateNekoEmotion();
         }
     }
     void NekoEntity::FinishCurrentActivity()
     {
         // if (activity && (activity->name == "Sleeping" || activity->name == "ComeToSenses")) Player::SetNekoEmotionTo(Player::Emotion::Smiling);
-        Player::NekoEmotionsAccordingToMood(); blinking = drawShadow = true; itisblink = false;
+        Player::NekoEmotionsAccordingToMood(); blinking = drawShadow = true; itisblink = ignoreBeingActionedWith = false;
         if (previousRandomDialogue < 1000 || previousRandomDialogue > 1005) previousRandomDialogue = -1;
         beingOccupied = drawActionButton = randomMoving = moveTo = sleeping = false; rm::canOpenNekoUI = true;
     }

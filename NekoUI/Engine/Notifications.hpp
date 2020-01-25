@@ -14,14 +14,17 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Essentials/ResourcePath.hpp"
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/Collectors/Font.hpp"
-#include "../../../Engine/Collectors/Image.hpp"
-#include "../../../Engine/EntitySystem.hpp"
-#include "../../../Engine/GUI/Button/SomeButtons.hpp"
+#include "../Essentials/ResourcePath.hpp"
+#include "Settings.hpp"
+#include "Collectors/Font.hpp"
+#include "Collectors/Image.hpp"
+#include "EntitySystem.hpp"
+#include "GUI/Button/SomeButtons.hpp"
+#include "GUI/RoundedRectangleShape.hpp"
 
-#include "../Apartment/RoomLibrary.hpp"
+#include "NotificationHolder.hpp"
+
+// #include "../Components/NekoUIComponents/Apartment/RoomLibrary.hpp"
 
 using std::cin;
 using std::cout;
@@ -29,21 +32,23 @@ using std::endl;
 using ns::base::utf8;
 using ns::base::utf16;
 
-namespace NekoUI
+namespace ns
 {
     struct PopupMessage : Component
     {
         bool active{ true };
         
-        sf::RectangleShape shape;
-        sf::Text text;
-        GUI::SpriteButton quitButton;
+        sf::RoundedRectangleShape shape;
+        sf::RectangleShape backshape;
+        sf::Text text, caption;
+        std::wstring textStr;
+        GUI::TextButton okButton;
         
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };
         float currentTime{ 0.f }, appearTime{ 0.3f }, disappearTime{ 0.2f };
         
-        PopupMessage(const std::wstring& message);
+        PopupMessage(const std::wstring& caption, const std::wstring& message);
         void Init() override;
         void Update(const sf::Time& elapsedTime) override;
         void PollEvent(sf::Event& event) override;
@@ -65,7 +70,6 @@ namespace NekoUI
     {
         bool active{ true };
         
-        void AddPopupMessage(const std::wstring& message);
         void RecieveMessage(MessageHolder& message) override;
     };
 }

@@ -51,6 +51,7 @@ namespace ns
         static unsigned int relativeWidth, relativeHeight;
         static bool verticalOrientation, trueVerticalOrientation;
         static int notchEffectFromTop, screenOffsetTop;
+        static bool fullscreen;
         
         static float deltaVelocity;
         
@@ -65,7 +66,7 @@ namespace ns
         static bool prefer0xRatherThatpx;
         
         static bool isPause, pauseOnFocusLost, inGame;
-        static bool ignoreEvent, ignoreDraw;
+        static bool ignoreEvent, forceIgnoreEvent, ignoreDraw;
         static bool requestWindowRefresh;
         
         static bool listenForTextInput, rememberUsername, rememberPassword;

@@ -36,6 +36,7 @@ namespace NekoUI
         
         bool usable;
         float scale{ 1.f };
+        int shadowOffsetYY{ 0 };
         
         Item(const std::string& name = "Item", const std::wstring& description = L"", const ItemType& type = ItemType::Other, const unsigned char& rarity = 0, bool usable = false);
     };

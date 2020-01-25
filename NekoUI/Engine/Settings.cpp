@@ -108,6 +108,7 @@ namespace ns
     float gs::scalex = 1.f; float gs::scaley = 1.f;
     bool gs::verticalOrientation = false, gs::trueVerticalOrientation = false;
     int gs::screenOffsetTop{ 0 }, gs::notchEffectFromTop{ 0 };
+    bool gs::fullscreen{ false };
     
     float gs::deltaVelocity = 1.f;
     
@@ -130,7 +131,7 @@ namespace ns
     bool gs::isPause = false;
     bool gs::pauseOnFocusLost = true;
     bool gs::inGame = false;
-    bool gs::ignoreEvent = false, gs::ignoreDraw = false;
+    bool gs::ignoreEvent = false, gs::forceIgnoreEvent = false, gs::ignoreDraw = false;
     bool gs::requestWindowRefresh = true;
     
     bool gs::listenForTextInput{ false }, gs::rememberUsername{ true }, gs::rememberPassword{ false };

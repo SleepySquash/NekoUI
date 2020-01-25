@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+#undef SendMessage
 namespace ns
 {
     struct MessageHolder

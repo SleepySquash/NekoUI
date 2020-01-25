@@ -226,6 +226,7 @@ namespace NekoUI
             tasks.back()->countAsActivityBeingMade = true;
             eyesEmotion = NekoS::EyesEmotion::Closed;
             allowBlinking = drawShadow = false;
+            ignoreBeingActionedWith = true;
         }
         
         Bathing::Bathing() : Activity("Bathing") { };
@@ -298,6 +299,7 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::Waiting(this, 0.5f + (rand() % 1000)/1000.f ));
             tasks.back()->occupyString = L"(приходит в себя)";
             eyesEmotion = NekoS::EyesEmotion::Confused;
+            ignoreBeingActionedWith = true;
         }
         
         ComeToSensesAfterSleep::ComeToSensesAfterSleep() : Activity("ComeToSensesAfterSleep") { };
@@ -308,6 +310,7 @@ namespace NekoUI
             mouthEmotion = NekoS::MouthEmotion::Open;
             eyesEmotion = NekoS::EyesEmotion::Embarrassed;
             eyebrowsEmotion = NekoS::EyebrowsEmotion::Embarrassed;
+            ignoreBeingActionedWith = true;
             drawShadow = false;
         }
         

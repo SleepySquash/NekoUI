@@ -20,6 +20,7 @@
 #include "../../../Engine/Collectors/Image.hpp"
 #include "../../../Engine/EntitySystem.hpp"
 #include "../../../Engine/GUI/Button/SomeButtons.hpp"
+#include "../../../Engine/GUI/Button/TexturedRectangleButton.hpp"
 
 #include "../Player.hpp"
 #include "../Apartment/RoomLibrary.hpp"
@@ -39,6 +40,10 @@ namespace NekoUI
         sf::RectangleShape blackScreenShape;
         sf::Sprite background; bool spriteLoaded{ false };
         GUI::SpriteButton quitButton;
+        
+        GUI::TexturedRectangleButtons jobs;
+        int jobsButtonsCount{ 0 }, jobsBackgroundW, jobsBackgroundH;
+        float jobsStartXX{ 0 }, yyScroll{ 0 };
         
         enum modeEnum { appearing, existing, disappearing };
         modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };

@@ -13,8 +13,8 @@ namespace NekoUI
     void MapUI::Init()
     {
         blackScreenShape.setFillColor(sf::Color(0,0,0,170));
-        groceryButton.setTexture(L"Data/Images/UI/quit_button.png");
-        groceryButton.setScale(2);
+        groceryButton.setTexture(L"Data/Images/UI/quit_button.png"); groceryButton.setScale(2);
+        shopkeeperButton.setTexture(L"Data/Images/UI/quit_button.png"); shopkeeperButton.setScale(2);
     }
     void MapUI::Destroy() { if (active) CleanUp(); }
     void MapUI::Update(const sf::Time& elapsedTime)
@@ -41,13 +41,20 @@ namespace NekoUI
     void MapUI::CleanUp() { ic::DeleteImage(L"Data/Images/Backgrounds/park.jpg"); }
     void MapUI::PollEvent(sf::Event& event)
     {
-        if (!active || !gs::isActiveInterface(this)) return;
+        if (!active || !gs::isActiveInterface(this) || !clickable) return;
         
         if (groceryButton.PollEvent(event))
         {
-            rm::requestCloseButton = false;
+            rm::requestCloseButton = clickable = false;
             entity->SendMessage({"Apartment :: Destroy"});
             entity->SendMessage({"PlacesUI :: GroceryUI"});
+            Switch(false);
+        }
+        else if (shopkeeperButton.PollEvent(event))
+        {
+            rm::requestCloseButton = clickable = false;
+            entity->SendMessage({"Apartment :: Destroy"});
+            entity->SendMessage({"PlacesUI :: ShopkeeperUI"});
             Switch(false);
         }
     }
@@ -57,6 +64,7 @@ namespace NekoUI
         
         blackScreenShape.setSize({(float)gs::width, (float)gs::height});
         groceryButton.Resize(width, height); groceryButton.setPosition(gs::width/2, gs::height/2);
+        shopkeeperButton.Resize(width, height); shopkeeperButton.setPosition(gs::width/2 - 200*gs::scalex, gs::height/2 - 200*gs::scaley);
         if (spriteLoaded)
         {
             float scaleFactorX, scaleFactorY, scaleFactor;
@@ -73,6 +81,7 @@ namespace NekoUI
         if (!active) return;
         window->draw(background);
         groceryButton.Draw(window);
+        shopkeeperButton.Draw(window);
     }
     void MapUI::RecieveMessage(MessageHolder& message)
     {
@@ -98,7 +107,7 @@ namespace NekoUI
             if (active) mode = appearing;
             else
             {
-                gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this);
+                gs::PushInterface(this); active = clickable = true; mode = appearing; entity->SortAbove(this);
                 sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/park.jpg", entity->system);
                 if ((spriteLoaded = texture))
                 {
@@ -110,13 +119,14 @@ namespace NekoUI
         }
         else if (!on)
         {
-            if (active) { gs::RemoveInterface(this); gs::ignoreDraw = false; active = true; mode = disappearing; }
+            if (active) { gs::RemoveInterface(this); gs::ignoreDraw = false; mode = disappearing; }
             else mode = disappearing;
         }
     }
     void MapUI::UpdateAlpha()
     {
         groceryButton.setAlpha(alpha);
+        shopkeeperButton.setAlpha(alpha);
         background.setColor({background.getColor().r, background.getColor().g, background.getColor().b, alpha});
     }
 }

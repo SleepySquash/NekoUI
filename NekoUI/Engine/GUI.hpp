@@ -9,6 +9,8 @@
 #ifndef GUIGUI_hpp
 #define GUIGUI_hpp
 
-#include <GUI/Button/SomeButtons.hpp>
+#include "GUI/Button/SomeButtons.hpp"
+#include "GUI/Button/TexturedRectangleButton.hpp"
+#include "GUI/RoundedRectangleShape.hpp"
 
 #endif /* GUIGUI_hpp */

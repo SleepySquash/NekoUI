@@ -275,7 +275,7 @@ namespace NekoUI
         if (rm::canOpenNekoUI) { if (on) rm::drawDatePanel = false; else rm::drawDatePanel = (gs::activeInterfaces.size() == 1); }
         if (on && !active && rm::canOpenNekoUI) { screen = Screen::main;
             gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this); OpenNekoInterface(neko); }
-        else if (active) { gs::RemoveInterface(this); active = true; mode = disappearing; if (neko) neko->beingActionedWith = false; }
+        else if (active) { gs::RemoveInterface(this); mode = disappearing; if (neko) neko->beingActionedWith = false; }
     }
     void NekoInterfaceUI::OpenNekoInterface(NekoEntity* entity)
     {

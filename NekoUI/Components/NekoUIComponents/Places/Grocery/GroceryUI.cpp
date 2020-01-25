@@ -63,7 +63,7 @@ namespace NekoUI
         {
             if (!active) return;
             
-            if (quitB.PollEvent(event)) { entity->SendMessage({"PlacesUI :: ApartmentUI"}); entity->PopComponent(this); }
+            if (quitB.PollEvent(event)) { entity->SendMessage({"PlacesUI :: ApartmentUI"}); active = false; }
             else if (checkoutB.PollEvent(event)) { }
             else if (discountsB.PollEvent(event)) { }
             else if (foodB.PollEvent(event)) { }
@@ -110,8 +110,6 @@ namespace NekoUI
         }
         void GroceryUI::Draw(sf::RenderWindow* window)
         {
-            if (!active) return;
-            
             window->draw(background);
             
             discountsB.Draw(window);
@@ -134,6 +132,7 @@ namespace NekoUI
                     Resize(gs::width, gs::height);
                 }
             }
+            else if (message.info == "PlacesUI :: ApartmentUI Destroy") entity->PopComponent(this);
         }
         void GroceryUI::UpdateAlpha()
         {

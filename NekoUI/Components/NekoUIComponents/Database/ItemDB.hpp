@@ -46,7 +46,7 @@ namespace NekoUI
         struct FractionOfPie : Item { FractionOfPie() : Item("FractionOfPie", L"Кусочек клубничного панкейка.", ItemType::Food)
             { display = L"Кусок тортика"; calories = 200; thirstSatisfuction = -100; } };
         struct Lootbox : Item { Lootbox() : Item("Lootbox", L"Интересно, что внутри?", ItemType::Other, 100, true)
-            { display = L"Лутбокс"; scale = 3; } };
+            { display = L"Лутбокс"; scale = 3; shadowOffsetYY = -15; } };
         struct WaterBottle : Item { WaterBottle() : Item("WaterBottle", L"Освежающая водичка идеальной температуры из самой-самой чистой скважины.", ItemType::Drink)
             { display = L"Бутылка воды"; calories = 0; thirstSatisfuction = 660; scale = 1.1; } };
         

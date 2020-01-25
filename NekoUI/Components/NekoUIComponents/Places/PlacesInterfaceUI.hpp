@@ -12,6 +12,7 @@
 #include "../../../Engine/EntitySystem.hpp"
 
 #include "Grocery/GroceryUI.hpp"
+#include "Misc/StrangeShopkeeperUI.hpp"
 #include "../Apartment/Apartment.hpp"
 
 namespace NekoUI
@@ -19,6 +20,22 @@ namespace NekoUI
     struct PlacesInterfaceUI : Component
     {
         void RecieveMessage(MessageHolder& message) override;
+    };
+
+    struct PlacesTransitionScreen : Component
+    {
+        std::string info;
+        
+        sf::RectangleShape shape; sf::Text text; sf::Uint8 alpha;
+        float elapsedFor{ 0.5f }, elapsedSeconds{ 0.f }; int stage{ 0 };
+        std::list<Component*>::iterator it;
+        
+        PlacesTransitionScreen(const std::string& info);
+        void Init() override;
+        void Destroy() override;
+        void Update(const sf::Time& elapsedTime) override;
+        void Draw(sf::RenderWindow* window) override;
+        void Resize(unsigned int width, unsigned int height) override;
     };
 }
 

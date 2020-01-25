@@ -32,7 +32,7 @@ namespace NekoUI
         if (!ignoreEyebrowsEmotion) eyebrowsEmotion = (*task)->eyebrowsEmotion;
         if (!ignoreEyesEmotion) eyesEmotion = (*task)->eyesEmotion;
         if (!ignoreMouthEmotion) mouthEmotion = (*task)->mouthEmotion;
-        blinking = allowBlinking and (*task)->allowBlinking;
+        blinking = allowBlinking && (*task)->allowBlinking;
         (*task)->Init();
     }
     void Activity::OnEnd(bool success)
@@ -60,7 +60,7 @@ namespace NekoUI
             if (!ignoreEyebrowsEmotion) eyebrowsEmotion = (*task)->eyebrowsEmotion;
             if (!ignoreEyesEmotion) eyesEmotion = (*task)->eyesEmotion;
             if (!ignoreMouthEmotion) mouthEmotion = (*task)->mouthEmotion;
-            blinking = allowBlinking and (*task)->allowBlinking;
+            blinking = allowBlinking && (*task)->allowBlinking;
             (*task)->Init();
         }
         

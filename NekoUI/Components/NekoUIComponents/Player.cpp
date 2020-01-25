@@ -174,7 +174,12 @@ namespace NekoUI
                 std::chrono::system_clock::time_point const cache_valid_time{ std::chrono::system_clock::duration{ file_time_rep } };
                 beforetime = cache_valid_time;
                 time_t const localtime = std::chrono::system_clock::to_time_t(cache_valid_time);
+#ifdef _MSC_VER
+                tm* timeinfo = new tm(); localtime_s(timeinfo, &localtime);
+                cout << std::put_time(timeinfo, "%F %T") << endl;
+#else
                 cout << std::put_time(std::localtime(&localtime), "%F %T") << endl;
+#endif
             }
         }
         if (nowatime != beforetime)

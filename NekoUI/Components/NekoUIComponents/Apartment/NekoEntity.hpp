@@ -59,7 +59,7 @@ namespace NekoUI
         bool beingOccupied{ false }, drawActionButton{ false };
         sf::Text occupyText; GUI::TextButton occupyActionButton;
         
-        bool beingActionedWith{ false }, beingMoved{ false }, sleeping{ false };
+        bool beingActionedWith{ false }, ignoreBeingActionedWith{ false }, beingMoved{ false }, sleeping{ false };
         bool moveRight{ false }, moveLeft{ false }, moveDown{ false }, moveUp{ false }, moving{ false };
         float xySpd{ 140 };
         bool chibiFacingIsRight{ Player::neko.chibiReversed };

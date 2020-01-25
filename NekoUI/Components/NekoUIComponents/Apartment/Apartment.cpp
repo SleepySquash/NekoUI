@@ -82,8 +82,14 @@ namespace NekoUI
         
         auto now = std::chrono::system_clock::now();
         std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+#ifdef _MSC_VER
+        tm* timeinfo = new tm(); localtime_s(timeinfo, &now_c);
+#else
         tm* timeinfo = std::localtime(&now_c);
+#endif
         if (rm::simulationWasAt != rm::simulationWasAtEnum::Non) Player::UpdateCurrentDT();
+        
+        std::list<std::wstring> nekoDidList;
         
         bool doAnyMoreSimulation{ true }, forceNewCoodrinates{ true };
         if ((forceNewCoodrinates = !(loadedActivity != "ReturnToFood" && Player::timePassed <= 4.5f))) { neko.x = loadedNeko_x; neko.y = loadedNeko_y; }
@@ -92,13 +98,16 @@ namespace NekoUI
             if (loadedActivity == "Sleeping")
             {
                 float energyGain = 0.04629f * Player::timePassed;
-                if (energyGain > 1000.f - NekoS::needEnergy) energyGain = 1000.f - NekoS::needEnergy;
-                if ((NekoS::needEnergy + energyGain) < 1000.f && !(timeinfo->tm_hour >= 23 || timeinfo->tm_hour <= 7))
+                if (timeinfo->tm_hour > 7 && timeinfo->tm_hour < 23)
                 {
-                    neko.InsertActivity(adb::activities["Sleeping"]);
-                    ActivityTasks::Sleeping* task = reinterpret_cast<ActivityTasks::Sleeping*>(*(neko.activity->task));
-                    if (task) task->energyCap = 1000.f;
-                    doAnyMoreSimulation = false;
+                    if ((NekoS::needEnergy + energyGain) < 1000.f)
+                    {
+                        neko.InsertActivity(adb::activities["Sleeping"]);
+                        ActivityTasks::Sleeping* task = reinterpret_cast<ActivityTasks::Sleeping*>(*(neko.activity->task));
+                        if (task) task->energyCap = 1000.f;
+                        doAnyMoreSimulation = false;
+                    }
+                    else nekoDidList.push_back(L"поспала");
                 }
                 NekoS::needEnergy += energyGain;
                 if (NekoS::needEnergy > NekoS::maxNeed) NekoS::needEnergy = NekoS::maxNeed;
@@ -110,7 +119,8 @@ namespace NekoUI
                     ItemEntity* ient = reinterpret_cast<ItemEntity*>(loaded_ReturnToFood_entity);
                     if (ient)
                     {
-                        if (Player::timePassed >= 30.f) { neko.ConsumeItem(ient->item); UnregisterEntity(loaded_ReturnToFood_entity); }
+                        if (Player::timePassed >= 30.f) { nekoDidList.push_back(L"скушала " + ient->item->display);
+                            neko.ConsumeItem(ient->item); UnregisterEntity(loaded_ReturnToFood_entity); }
                         else
                         {
                             float distance = sqrt( pow(loadedNeko_x - ient->x, 2) + pow(loadedNeko_y - ient->y, 2) );
@@ -121,14 +131,15 @@ namespace NekoUI
                                 UnregisterEntity(loaded_ReturnToFood_entity);
                                 neko.InsertActivity(adb::activities["Eating"]);
                                 doAnyMoreSimulation = false; }
-                            else { neko.ConsumeItem(ient->item); UnregisterEntity(loaded_ReturnToFood_entity); }
+                            else { nekoDidList.push_back(L"скушала " + ient->item->display);
+                                neko.ConsumeItem(ient->item); UnregisterEntity(loaded_ReturnToFood_entity); }
                         }
                     }
                 }
             }
             else if (loadedActivity == "Bathing")
             {
-                if (Player::timePassed >= 16.f) NekoS::needHygiene += 300.f;
+                if (Player::timePassed >= 16.f) { NekoS::needHygiene += 300.f; nekoDidList.push_back(L"помылась"); }
                 else
                 {
                     neko.InsertActivity(adb::activities["Bathing"]);
@@ -153,8 +164,10 @@ namespace NekoUI
                     task->energyCap = 1000.f;
                     doAnyMoreSimulation = (Player::timePassed > beenSleepingFor);
                 }
+                else if (loadedActivity == "Sleeping") nekoDidList.push_back(L"поспала");
             }
-            else if (Player::timePassed >= 28800.f) { NekoS::needEnergy = 4.174f/(timeinfo->tm_hour - 7) * NekoS::maxNeed; }
+            else if (Player::timePassed >= 28800.f) {
+                NekoS::needEnergy = 4.174f/(timeinfo->tm_hour - 7) * NekoS::maxNeed; nekoDidList.push_back(L"поспала"); }
             /// ((23 - 7)*261)/1000 = 17.f;
         }
         
@@ -192,6 +205,7 @@ namespace NekoUI
                     if (!foodInRoom.empty())
                     {
                         ItemEntity* ient = foodInRoom.front(); foodInRoom.pop_front();
+                        nekoDidList.push_back(L"скушала " + ient->item->display);
                         neko.ConsumeItem(ient->item); UnregisterEntity(ient);
                     }
                     else if (!noFood)
@@ -201,6 +215,7 @@ namespace NekoUI
                             if (i.first && i.first->type == ItemType::Food)
                             {
                                 Inventory::items.savingIsRequired = true; cout << "Ate " << i.first->name << endl;
+                                nekoDidList.push_back(L"скушала " + i.first->display);
                                 neko.ConsumeItem(i.first); noFood = false;
                                 Inventory::items.Remove(i.first->name);
                                 break;
@@ -212,6 +227,7 @@ namespace NekoUI
                     if (!drinkInRoom.empty())
                     {
                         ItemEntity* ient = drinkInRoom.front(); drinkInRoom.pop_front();
+                        nekoDidList.push_back(L"выпила " + ient->item->display);
                         neko.ConsumeItem(ient->item); UnregisterEntity(ient);
                     }
                     else if (!noDrink)
@@ -221,6 +237,7 @@ namespace NekoUI
                             if (i.first && i.first->type == ItemType::Drink)
                             {
                                 Inventory::items.savingIsRequired = true; cout << "Drank " << i.first->name << endl;
+                                nekoDidList.push_back(L"выпила " + i.first->display);
                                 neko.ConsumeItem(i.first); noDrink = false;
                                 Inventory::items.Remove(i.first->name);
                                 break;
@@ -423,6 +440,14 @@ namespace NekoUI
             }
         }
         
+        if (!nekoDidList.empty())
+        {
+            std::wstring finalStr = L"Кошечка: ";
+            for (auto it : nekoDidList) finalStr += it + L", ";
+            finalStr.pop_back(); finalStr.pop_back(); finalStr += L"!";
+            entity->system->SendMessage({"NotUI :: Popup", new NotificationHolder(L"Пока тебя не было...", finalStr)});
+        }
+        
         savingIsRequired = true;
         SortEntities();
     }
@@ -541,10 +566,10 @@ namespace NekoUI
                 else
                 {
                     float spdx{ 270 * gs::scalex }, spdy{ 270 * gs::scaley }, sclx{ 16 * gs::scalex }, scly{ 16 * gs::scaley };
-                    if (dot.x > gs::width - spdx) rm::x += (-spdx + gs::width - dot.x)/sclx;
-                    if (dot.x < spdx) rm::x += (spdx - dot.x)/sclx;
-                    if (dot.y > gs::height - spdy) rm::y += (-spdy + gs::height - dot.y)/scly;
-                    if (dot.y < spdy) rm::y += (spdy - dot.y)/scly;
+                    if (dot.x > gs::width - spdx) rm::x += (-spdx + gs::width - dot.x)/sclx   * 90.f * elapsedTime.asSeconds();
+                    if (dot.x < spdx) rm::x += (spdx - dot.x)/sclx                            * 90.f * elapsedTime.asSeconds();
+                    if (dot.y > gs::height - spdy) rm::y += (-spdy + gs::height - dot.y)/scly * 90.f * elapsedTime.asSeconds();
+                    if (dot.y < spdy) rm::y += (spdy - dot.y)/scly                            * 90.f * elapsedTime.asSeconds();
                     gs::requestWindowRefresh = true; MoveEntityTo(dot.x, dot.y); movedEntity->UpdateDepthPosition(); CalculateCameraPosition();
                 }
             }
@@ -686,7 +711,8 @@ namespace NekoUI
         if (spriteLoaded) sprite.setScale(Room::roomScale * gs::scale * Room::scale, Room::roomScale * gs::scale * Room::scale);
         CalculateCameraScale();
         
-        std::thread(renderBackgroundSprite, &backgroundTexture, &backgroundSprite, &backgroundRenderSprite).join();
+        if (backgroundSprite.getGlobalBounds().width > 0 && backgroundSprite.getGlobalBounds().height > 0)
+            std::thread(renderBackgroundSprite, &backgroundTexture, &backgroundSprite, &backgroundRenderSprite).join();
         
         nekoPtrSprite.setScale(0.5 * gs::scale, 0.5 * gs::scale);
         nekoArrowSprite.setScale(0.5 * gs::scale, 0.5 * gs::scale);
@@ -800,7 +826,7 @@ namespace NekoUI
             RoomEntity* closestEntity{ nullptr }; float shortest{ std::numeric_limits<float>::infinity() };
             for (auto& e : entities)
             {
-                Item* reitem; if (e->type == RoomEntity::Type::Item) reitem = reinterpret_cast<ItemEntity*>(e)->item;
+                Item* reitem{ nullptr }; if (e->type == RoomEntity::Type::Item) reitem = reinterpret_cast<ItemEntity*>(e)->item;
                 if (((e->type == RoomEntity::Type::Item && reitem->type == ItemType::Food) || (e->type == RoomEntity::Type::Furniture && e->id == "Fridge" && !neko.iKnowThereIsNoFoodInTheFridge)) && movedEntity != e && !e->offline)
                 {
                     float distance = sqrt(pow((neko.x - e->x), 2) + pow((neko.y - e->y), 2));
@@ -820,7 +846,7 @@ namespace NekoUI
             RoomEntity* closestEntity{ nullptr }; float shortest{ std::numeric_limits<float>::infinity() };
             for (auto& e : entities)
             {
-                Item* reitem; if (e->type == RoomEntity::Type::Item) reitem = reinterpret_cast<ItemEntity*>(e)->item;
+                Item* reitem{ nullptr }; if (e->type == RoomEntity::Type::Item) reitem = reinterpret_cast<ItemEntity*>(e)->item;
                 if (((e->type == RoomEntity::Type::Item && reitem->type == ItemType::Drink) || (e->type == RoomEntity::Type::Furniture && e->id == "Fridge" && !neko.iKnowThereIsNoDrinkInTheFridge)) && movedEntity != e && !e->offline)
                 {
                     float distance = sqrt(pow((neko.x - e->x), 2) + pow((neko.y - e->y), 2));
@@ -951,7 +977,9 @@ namespace NekoUI
         ///////////////////////////////////////////////////////////
         /// This function belongs to: https://stackoverflow.com/users/34820/olie
         ///////////////////////////////////////////////////////////
-        
+#ifndef M_PI
+#define M_PI 3.1415926535
+#endif
         const double twoPI = M_PI * 2.;
         while (theta < -M_PI) theta += twoPI;
         while (theta > M_PI) theta -= twoPI;

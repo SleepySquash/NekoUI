@@ -13,7 +13,7 @@ namespace NekoUI
     float Room::x{ 0 }, Room::y{ 0 }, Room::xWidth{ 0 }, Room::yHeight{ 0 }, Room::scale{ 1.f }, Room::roomScale{ 3.3f };
     int Room::width{ 1 }, Room::height{ 1 };
     sf::Image* Room::mask{ nullptr };
-    
+
     bool Room::scrolldownMenuOpened{ false }, Room::drawDatePanel{ true }, Room::drawScrolldownMenu{ true }, Room::drawNeeds{ true }, Room::requestCloseButton{ false };
     bool Room::canPressScrolldownMenu{ true }, Room::canPressDatePanel{ true }, Room::canOpenNekoUI{ true };
     bool Room::shopMode{ false };
