@@ -150,22 +150,17 @@ namespace NekoUI
                         itemButtons.setPosition(xx + slotSprite.getGlobalBounds().width/2, yy + slotSprite.getGlobalBounds().height/2);
                         if (itemButtons.PollEvent(event))
                         {
-                            if (item.first->dressed) Player::neko.Undress(item.first);
-                            else
+                            if (item.first->dependencies)
                             {
-                                switch (category)
-                                {
-                                    case Category::Head: Player::neko.Undress(ClothType::Head); break;
-                                    case Category::Top: Player::neko.Undress(ClothType::Top); break;
-                                    case Category::Bottom: Player::neko.Undress(ClothType::Bottom); break;
-                                    case Category::Onepiece: Player::neko.Undress(ClothType::Top); Player::neko.Undress(ClothType::Bottom); Player::neko.Undress(ClothType::Onepiece); break;
-                                    case Category::Underwear: if (item.first->clothing == ClothType::Bra) Player::neko.Undress(ClothType::Bra); else if (item.first->clothing == ClothType::Pantsu) Player::neko.Undress(ClothType::Pantsu); break;
-                                    case Category::Socks: Player::neko.Undress(ClothType::Socks); break;
-                                    case Category::Shoes: Player::neko.Undress(ClothType::Legwear); break;
-                                    default: break;
-                                }
-                                Player::neko.Dress(item.first);
+                                bool dressing{ item.first->dressed };
+                                if (!item.first->dependencies->calculated) Inventory::CalculateWearset(item.first);
+                                for (auto it : item.first->dependencies->set)
+                                    if ((!dressing && !it->dressed) || (dressing && it->dressed))
+                                        DressUndressItem(it, false);
+                                DressUndressItem(item.first, true);
                             }
+                            else DressUndressItem(item.first, true);
+                            Player::neko.savingIsRequired = true;
                             return;
                         }
                         ++i;
@@ -176,6 +171,46 @@ namespace NekoUI
             itemButtons.eventPolled(event);
             categoriesButtons.eventPolled(event);
         }
+    }
+    void WardrobeUI::DressUndressItem(Wearable* item, bool sort)
+    {
+        if (item->dressed) Player::neko.Undress(item);
+        else
+        {
+            switch (category)
+            {
+                case Category::Head: UndressByCategory(ClothType::Head); break;
+                case Category::Top: UndressByCategory(ClothType::Onepiece); UndressByCategory(ClothType::Top); break;
+                case Category::Bottom: UndressByCategory(ClothType::Onepiece); UndressByCategory(ClothType::Bottom); break;
+                case Category::Onepiece: UndressByCategory(ClothType::Onepiece); UndressByCategory(ClothType::Top); UndressByCategory(ClothType::Bottom); break;
+                case Category::Underwear: if (item->clothing == ClothType::Bra) UndressByCategory(ClothType::Bra); else if (item->clothing == ClothType::Pantsu) UndressByCategory(ClothType::Pantsu); break;
+                case Category::Socks: UndressByCategory(ClothType::Socks); break;
+                case Category::Shoes: UndressByCategory(ClothType::Legwear); break;
+                default: break;
+            }
+            Player::neko.Dress(item, sort);
+        }
+    }
+    void WardrobeUI::UndressByCategory(const ClothType& category)
+    {
+        vector<Cloth*>::iterator it = Player::neko.cloth.begin();
+        while (it != Player::neko.cloth.end())
+            if ((*it)->item && (*it)->item->clothing == category)
+            {
+                if ((*it)->offline) { delete (*it); it = Player::neko.cloth.erase(it); }
+                else
+                {
+                    if ((*it)->item->dependencies)
+                    {
+                        Cloth* cl = (*it);
+                        if (!cl->item->dependencies->calculated) Inventory::CalculateWearset(cl->item);
+                        for (auto iter : cl->item->dependencies->set) Player::neko.Undress(iter);
+                        cl->item->dressed = false; cl->Destroy(); it = Player::neko.cloth.begin();
+                    }
+                    else { (*it)->item->dressed = false; (*it)->Destroy(); delete (*it); it = Player::neko.cloth.erase(it); }
+                }
+            }
+            else ++it;
     }
     void WardrobeUI::Resize(unsigned int width, unsigned int height)
     {

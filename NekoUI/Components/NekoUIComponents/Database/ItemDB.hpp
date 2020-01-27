@@ -54,7 +54,7 @@ namespace NekoUI
         {
             MaidUniform() : Wearable("MaidUniform", L"maid uniform.png", L"maid uniform.png", L"Костюм мейдочки.")
             {
-                display = L"Униформа мейдочки"; scale = 1.5f; depth = 60; clothing = ClothType::Onepiece;
+                display = L"Униформа мейдочки"; scale = 1.5f; depth = 80; clothing = ClothType::Onepiece;
                 relativeChibiScale  = 0.329595; offsets.first = {-28, -427};
                 relativePersonScale = 0.455800; offsets.second = {27, -659};
             }
@@ -63,7 +63,7 @@ namespace NekoUI
         {
             MaidHeadwear() : Wearable("MaidHeadwear", L"headband.png", L"headband.png", L"Ободок мейдочки.")
             {
-                display = L"Обруч мейдочки"; scale = 0.8f; depth = 90; clothing = ClothType::Head;
+                display = L"Обруч мейдочки"; scale = 0.8f; depth = 130; clothing = ClothType::Head;
                 relativeChibiScale  = 0.24;  offsets.first = {17, -820};
                 relativePersonScale = 0.074; offsets.second = {-6, -795};
             }
@@ -72,7 +72,7 @@ namespace NekoUI
         {
             MaidGloves() : Wearable("MaidGloves", L"handcliff.png", L"handcliff.png", L"Аккуратные нежные перчаточки~ <3")
             {
-                display = L"Перчатки мейдочки"; depth = 75; clothing = ClothType::Gloves;
+                display = L"Перчатки мейдочки"; depth = 85; clothing = ClothType::Gloves;
                 relativeChibiScale  = 0.045; offsets.first = {-1, -264};
                 relativePersonScale = 0.032333; offsets.second = {84, -693};
             }
@@ -109,9 +109,38 @@ namespace NekoUI
         {
             NekoCollar() : Wearable("NekoCollar", L"collar.png", L"collar.png", L"Для самой лучшей кошечки.")
             {
-                display = L"Неко ошейник"; depth = 10; clothing = ClothType::Accessory;
+                display = L"Неко ошейник"; depth = 77; clothing = ClothType::Accessory;
                 relativeChibiScale  = 0.027470; offsets.first = {-20, -418};
                 relativePersonScale = 0.049989; offsets.second = {-26, -655};
+            }
+        };
+    
+        struct PleatedSailorSkirt : Wearable
+        {
+            PleatedSailorSkirt() : Wearable("PleatedSailorSkirt", L"pleated_sailor_skirt.png", L"pleated_sailor_skirt.png", L"Юбочка в стиле сейлор фуку.")
+            {
+                display = L"Сейлор юбочка"; depth = 60; clothing = ClothType::Bottom;
+                relativeChibiScale  = 0.1295045; offsets.first = {-25.675676, -265.315315};
+                relativePersonScale = 0.21396966; offsets.second = {-32.3640961, -490.518331};
+            }
+        };
+    
+        struct SailorBlouse : Wearable
+        {
+            SailorBlouse() : Wearable("SailorBlouse", L"sailor_blouse.png", L"sailor_blouse.png", L"Идеально для сейлор фуку.")
+            {
+                display = L"Сейлор матроска"; depth = 40; clothing = ClothType::Top;
+                relativeChibiScale  = 0.244369; offsets.first = {-24.775, -426.126};
+                relativePersonScale = 0.24115044; offsets.second = {-23.0088496, -657.648546};
+                AddDependency("SailorBlouse_top");
+            }
+        };
+        struct SailorBlouse_top : Wearable
+        {
+            SailorBlouse_top() : Wearable("SailorBlouse_top", L"", L"sailor_blouse_top.png")
+            {
+                depth = 75; clothing = ClothType::Non;
+                relativeChibiScale  = 0.061937; offsets.first = {-30.1802, -426.126};
             }
         };
     }
@@ -134,6 +163,8 @@ namespace NekoUI
         static std::unordered_map<std::string, Item*> map;
         static InventoryBase<Item> items, fridge;
         static InventoryBase<Wearable> wardrobeHead, wardrobeTop, wardrobeBottom, wardrobeOnepiece, wardrobeUnderwear, wardrobeSocks, wardrobeShoes, wardrobeAccessories;
+        
+        static void CalculateWearset(Wearable* item);
         
         static void SaveInventory(bool forced = false);
         static void SaveFridge(bool forced = false);

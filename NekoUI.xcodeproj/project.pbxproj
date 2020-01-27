@@ -75,6 +75,8 @@
 		DD4EEF4C23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */; };
 		DD59162F23DC9E9D00C5BE19 /* Vasya.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */; };
 		DD59163023DC9E9D00C5BE19 /* Vasya.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */; };
+		DD59163923DFA53500C5BE19 /* FNAF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59163723DFA53500C5BE19 /* FNAF.cpp */; };
+		DD59163A23DFA53500C5BE19 /* FNAF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59163723DFA53500C5BE19 /* FNAF.cpp */; };
 		DD5EADE123040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE223040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE5230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
@@ -222,6 +224,8 @@
 		DD59162B23DC9D5000C5BE19 /* Vasya.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vasya.hpp; sourceTree = "<group>"; };
 		DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vasya.cpp; sourceTree = "<group>"; };
 		DD59163223DC9F0300C5BE19 /* minEH.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = minEH.hpp; sourceTree = "<group>"; };
+		DD59163723DFA53500C5BE19 /* FNAF.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FNAF.cpp; sourceTree = "<group>"; };
+		DD59163823DFA53500C5BE19 /* FNAF.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FNAF.hpp; sourceTree = "<group>"; };
 		DD5EADDF23040C7200CA0361 /* Static.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Static.cpp; sourceTree = "<group>"; };
 		DD5EADE023040C7200CA0361 /* Static.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Static.hpp; sourceTree = "<group>"; };
 		DD5EADE3230429AE00CA0361 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
@@ -512,6 +516,8 @@
 		DD59163623DCF36900C5BE19 /* FNAF */ = {
 			isa = PBXGroup;
 			children = (
+				DD59163723DFA53500C5BE19 /* FNAF.cpp */,
+				DD59163823DFA53500C5BE19 /* FNAF.hpp */,
 			);
 			path = FNAF;
 			sourceTree = "<group>";
@@ -861,6 +867,7 @@
 				DD135B672295D23A003BC870 /* NovelCharacter.cpp in Sources */,
 				DD09433B2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */,
 				DD40882E22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */,
+				DD59163923DFA53500C5BE19 /* FNAF.cpp in Sources */,
 				DDDB6604228F46D700E354CA /* NekoEntity.cpp in Sources */,
 				DD65CFE12200D1A900CBEF72 /* NovelSystem.cpp in Sources */,
 				DD135B6B2296BFBB003BC870 /* JobInterfaceUI.cpp in Sources */,
@@ -927,6 +934,7 @@
 				DD0F52602222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B682295D23A003BC870 /* NovelCharacter.cpp in Sources */,
 				DD09433C2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */,
+				DD59163A23DFA53500C5BE19 /* FNAF.cpp in Sources */,
 				DD40882F22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */,
 				DDDB6605228F46D700E354CA /* NekoEntity.cpp in Sources */,
 				DD65CFE22200D1A900CBEF72 /* NovelSystem.cpp in Sources */,

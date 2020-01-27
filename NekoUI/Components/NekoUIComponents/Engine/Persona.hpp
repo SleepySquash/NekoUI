@@ -37,14 +37,14 @@ namespace NekoUI
     struct Cloth
     {
         bool personLoaded{ false }, chibiLoaded{ false }, imOnMyOwn{ false }, owner{ true };
-        bool chibiReversed{ false }, personReversed{ false }, hidden{ false };
+        bool chibiReversed{ false }, personReversed{ false }, hidden{ false }, offline{ false };
         sf::Sprite person, chibi;
         
         Wearable* item{ nullptr };
         std::wstring personPath, chibiPath;
         float localPersonScale{ 1.f }, localChibiScale{ 1.f };
         float relativePersonScale{ 1.f }, relativeChibiScale{ 1.f };
-        pair<pair<int, int>, pair<int, int>> offsets{ {0,0}, {0,0} };
+        pair<pair<float, float>, pair<float, float>> offsets{ {0,0}, {0,0} };
         int depth{ 0 };
         
         void Load(const std::wstring& pPath, const std::wstring& cPath);
@@ -53,11 +53,11 @@ namespace NekoUI
         void setChibiAlpha(const sf::Uint8& alpha);
         void ResizeChibi(const int& relativeBodyHeight);
         void UpdatePositionChibi(const float& x, const float& y);
-        void SetOffsetChibi(pair<int, int>);
+        void SetOffsetChibi(const pair<float, float>&);
         
         void setPersonAlpha(const sf::Uint8& alpha);
         void ResizePerson(const int& relativeBodyHeight);
-        void SetOffsetPerson(pair<int, int>);
+        void SetOffsetPerson(const pair<float, float>&);
         void UpdatePositionPerson(const float& x, const float& y);
         
         void Draw(sf::RenderWindow* window, bool mode = true);
@@ -71,7 +71,7 @@ namespace NekoUI
         bool chibiReversed{ false }, personReversed{ false };
         bool savingIsRequired{ false };
         
-        Cloth eyebrows, eyes, mouth, nose, blush, fronthair, backhair, tail, body;
+        Cloth eyebrows, eyes, mouth, nose, blush, fronthair, backhair, tail, arms, body;
         vector<Cloth*> cloth;
         
         ~Persona();

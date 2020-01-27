@@ -65,6 +65,8 @@ namespace NekoUI
         void Update(const sf::Time& elapsedTime) override;
         void CleanUp();
         void PollEvent(sf::Event& event) override;
+        void DressUndressItem(Wearable* item, bool sort);
+        void UndressByCategory(const ClothType& category);
         void Resize(unsigned int width, unsigned int height) override;
         void Draw(sf::RenderWindow* window) override;
         void RecieveMessage(MessageHolder& message) override;

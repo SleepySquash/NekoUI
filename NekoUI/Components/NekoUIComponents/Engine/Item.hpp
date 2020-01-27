@@ -10,6 +10,7 @@
 #define Item_hpp
 
 #include <iostream>
+#include <list>
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -41,7 +42,8 @@ namespace NekoUI
         Item(const std::string& name = "Item", const std::wstring& description = L"", const ItemType& type = ItemType::Other, const unsigned char& rarity = 0, bool usable = false);
     };
     
-    enum class ClothType { Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear };
+    struct WearSet;
+    enum class ClothType { Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Non };
     struct Wearable : Item
     {
         ClothType clothing{ ClothType::Top };
@@ -50,10 +52,21 @@ namespace NekoUI
         float localPersonScale{ 1.f }, localChibiScale{ 1.f };
         float relativePersonScale{ 1.f }, relativeChibiScale{ 1.f };
         sf::Color chibiColor{ sf::Color::White }, personColor{ sf::Color::White };
-        std::pair<std::pair<int, int>, std::pair<int, int>> offsets{ {0,0}, {0,0} };
+        std::pair<std::pair<float, float>, std::pair<float, float>> offsets{ {0,0}, {0,0} };
         int depth{ 0 }; bool dressed{ false };
         
+        WearSet* dependencies{ nullptr };
+        
         Wearable(const std::string&, const std::wstring& personPath, const std::wstring& chibiPath, const std::wstring& description = L"", const unsigned char& rarity = 0);
+        ~Wearable();
+        void AddDependency(const std::string& str);
+    };
+
+    struct WearSet
+    {
+        bool calculated{ false };
+        std::list<Wearable*> set;
+        std::list<std::string> dependencies;
     };
 }
 

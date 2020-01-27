@@ -21,5 +21,7 @@ namespace NekoUI
         else                   color = sf::Color(60, 60, 60, 100);
     }
     
-    Wearable::Wearable(const std::string& name, const std::wstring& personPath, const std::wstring& chibiPath, const std::wstring& description, const unsigned char& rarity) : Item(name, description, ItemType::Wearable, rarity), personPath(personPath), chibiPath(chibiPath) { }
+Wearable::Wearable(const std::string& name, const std::wstring& personPath, const std::wstring& chibiPath, const std::wstring& description, const unsigned char& rarity) : Item(name, description, ItemType::Wearable, rarity), personPath(personPath), chibiPath(chibiPath) { }
+    Wearable::~Wearable() { if (dependencies) delete dependencies; }
+    void Wearable::AddDependency(const std::string &str) { if (!dependencies) dependencies = new WearSet(); dependencies->dependencies.push_back(str); }
 }

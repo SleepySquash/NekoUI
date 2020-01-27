@@ -524,11 +524,11 @@ namespace NekoUI
     }
     bool NekoEntity::ShowOrHidePersonaCloth(const int& type, const bool& hidden, const bool& justCheck)
     {
-        bool head{ false }, top{ false }, bottom{ false }, onepiece{ false }, bra{ false }, pantsu{ false }, socks{ false }, gloves{ false }, legwear{ false }, accessories{ false };
-        /// { All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear }
+        bool head{ false }, top{ false }, bottom{ false }, onepiece{ false }, bra{ false }, pantsu{ false }, socks{ false }, gloves{ false }, legwear{ false }, accessories{ false }, non{ false };
+        /// { All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear, Non }
         switch (type)
         {
-            case 0: head = top = bottom = onepiece = bra = pantsu = socks = gloves = legwear = accessories = true; break;
+            case 0: head = top = bottom = onepiece = bra = pantsu = socks = gloves = legwear = accessories = non = true; break;
             case 1: accessories = true; break;
             case 2: head = true; break;
             case 3: top = onepiece = true; break;
@@ -541,11 +541,12 @@ namespace NekoUI
             case 10: legwear = true; break;
             case 11: head = top = bottom = onepiece = gloves = legwear = accessories = true; break;
             case 12: bra = pantsu = socks = true; break;
+            case 13: non = true; break;
             default: break;
         }
-        /// { Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear };
+        /// { Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Non };
         bool anyClothesTaken{ false };
-        for (auto& c : Player::neko.cloth) if (c->item && ((accessories && c->item->clothing == ClothType::Accessory) || (head && c->item->clothing == ClothType::Head) || (top && c->item->clothing == ClothType::Top) || (bottom && c->item->clothing == ClothType::Accessory) || (onepiece && c->item->clothing == ClothType::Onepiece) || (bra && c->item->clothing == ClothType::Bra) || (pantsu && c->item->clothing == ClothType::Pantsu) || (socks && c->item->clothing == ClothType::Socks) || (gloves && c->item->clothing == ClothType::Gloves) || (legwear && c->item->clothing == ClothType::Legwear)) ) { if (justCheck) return true; c->hidden = hidden; anyClothesTaken = true; }
+        for (auto& c : Player::neko.cloth) if (c->item && ((accessories && c->item->clothing == ClothType::Accessory) || (head && c->item->clothing == ClothType::Head) || (top && c->item->clothing == ClothType::Top) || (bottom && c->item->clothing == ClothType::Accessory) || (onepiece && c->item->clothing == ClothType::Onepiece) || (bra && c->item->clothing == ClothType::Bra) || (pantsu && c->item->clothing == ClothType::Pantsu) || (socks && c->item->clothing == ClothType::Socks) || (gloves && c->item->clothing == ClothType::Gloves) || (legwear && c->item->clothing == ClothType::Legwear) || (non && c->item->clothing == ClothType::Non)) ) { if (justCheck) return true; c->hidden = hidden; anyClothesTaken = true; }
         
         return anyClothesTaken;
     }

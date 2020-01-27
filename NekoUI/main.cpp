@@ -102,7 +102,7 @@ int main()
     gs::relativeWidth = 1280;
     gs::relativeHeight = 800;
     
-    ExecuteInitalization();
+    ExecuteInitalization(); gs::resolutionClass = 1;
     
     if (!gs::isVerticalSyncEnabled) window.setFramerateLimit(gs::framerateLimit);
     window.setVerticalSyncEnabled(gs::isVerticalSyncEnabled);

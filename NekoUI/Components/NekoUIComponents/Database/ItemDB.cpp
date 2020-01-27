@@ -29,6 +29,9 @@ namespace NekoUI
         Inventory::map.emplace("BlackStockings", new idc::BlackStockings());
         Inventory::map.emplace("MaidShoes", new idc::MaidShoes());
         Inventory::map.emplace("NekoCollar", new idc::NekoCollar());
+        Inventory::map.emplace("PleatedSailorSkirt", new idc::PleatedSailorSkirt());
+        Inventory::map.emplace("SailorBlouse", new idc::SailorBlouse());
+        Inventory::map.emplace("SailorBlouse_top", new idc::SailorBlouse_top());
     }
     
     
@@ -95,6 +98,22 @@ namespace NekoUI
     template<typename T> void InventoryBase<T>::Sort() { list.sort([](const std::pair<T*, int> a, const std::pair<T*, int> b) { return a.first->rarity > b.first->rarity; }); }
     template<typename T> void InventoryBase<T>::Clear() { list.clear(); } */
     
+
+
+    void Inventory::CalculateWearset(Wearable* item)
+    {
+        if (item->dependencies && !item->dependencies->calculated)
+        {
+            for (auto it : item->dependencies->dependencies)
+            {
+                auto found = Inventory::map.find(it);
+                if (found != Inventory::map.end())
+                    item->dependencies->set.push_back(reinterpret_cast<Wearable*>((*found).second));
+            }
+            item->dependencies->calculated = true;
+        }
+    }
+
     
     
     void Inventory::SaveInventory(bool forced)
@@ -221,7 +240,7 @@ namespace NekoUI
                 Inventory::wardrobeAccessories.Sort();
             }
         }
-        if (Inventory::wardrobeTop.list.empty())
+        else
         {
             Inventory::wardrobeOnepiece.Push("MaidUniform");
             Inventory::wardrobeHead.Push("MaidHeadwear");
@@ -230,6 +249,8 @@ namespace NekoUI
             Inventory::wardrobeAccessories.Push("MaidGloves");
             Inventory::wardrobeShoes.Push("MaidShoes");
             Inventory::wardrobeAccessories.Push("NekoCollar");
+            Inventory::wardrobeBottom.Push("PleatedSailorSkirt");
+            Inventory::wardrobeTop.Push("SailorBlouse");
         }
     }
 

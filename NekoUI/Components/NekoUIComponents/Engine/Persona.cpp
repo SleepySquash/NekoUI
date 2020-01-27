@@ -15,50 +15,63 @@ namespace NekoUI
         if (personLoaded) ic::DeleteImage(L"Data/Neko/Person/" + personPath);
         if (chibiLoaded) ic::DeleteImage(L"Data/Neko/Chibi/" + chibiPath);
         
-        sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Person/" + pPath);
-        if ((personLoaded = texture))
+        if ((personLoaded = (pPath != L"")))
         {
-            this->personPath = pPath;
-            person.setTexture(*texture, true);
-            person.setOrigin(texture->getSize().x/2, 0);
+            sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Person/" + pPath);
+            if ((personLoaded = texture))
+            {
+                this->personPath = pPath;
+                person.setTexture(*texture, true);
+                person.setOrigin(texture->getSize().x/2, 0);
+            }
         }
         
-        texture = ic::LoadTexture(L"Data/Neko/Chibi/" + cPath);
-        if ((chibiLoaded = texture))
+        if ((chibiLoaded = (cPath != L"")))
         {
-            this->chibiPath = cPath;
-            chibi.setTexture(*texture, true);
-            chibi.setOrigin(texture->getSize().x/2, 0);
+            sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Chibi/" + cPath);
+            if ((chibiLoaded = texture))
+            {
+                this->chibiPath = cPath;
+                chibi.setTexture(*texture, true);
+                chibi.setOrigin(texture->getSize().x/2, 0);
+            }
         }
     }
     void Cloth::Destroy()
     {
         if (personLoaded) ic::DeleteImage(L"Data/Neko/Person/" + personPath);
         if (chibiLoaded) ic::DeleteImage(L"Data/Neko/Chibi/" + chibiPath);
+        offline = true;
     }
-    void Cloth::setChibiAlpha(const sf::Uint8& alpha) { chibi.setColor({chibi.getColor().r, chibi.getColor().g, chibi.getColor().b, alpha}); }
+    void Cloth::setChibiAlpha(const sf::Uint8& alpha) {
+        if (chibiLoaded) chibi.setColor({chibi.getColor().r, chibi.getColor().g, chibi.getColor().b, alpha}); }
     void Cloth::ResizeChibi(const int& relativeBodyHeight)
     {
+        if (!chibiLoaded) return;
         float scale = (relativeBodyHeight * relativeChibiScale)/chibi.getLocalBounds().height;
         if (chibiReversed) chibi.setScale(-scale, scale); else chibi.setScale(scale, scale);
     }
-    void Cloth::SetOffsetChibi(pair<int, int> offset) { offsets.first = offset; }
+    void Cloth::SetOffsetChibi(const pair<float, float>& offset) { offsets.first = offset; }
     void Cloth::UpdatePositionChibi(const float& x, const float& y)
     {
+        if (!chibiLoaded) return;
         float scale = (chibi.getGlobalBounds().height/static_cast<float>(gs::relativeHeight)) / relativeChibiScale;
         if (chibiReversed) chibi.setPosition(x - offsets.first.first*scale, y + offsets.first.second*scale);
         else chibi.setPosition(x + offsets.first.first*scale, y + offsets.first.second*scale);
     }
     
-    void Cloth::setPersonAlpha(const sf::Uint8& alpha) { person.setColor({person.getColor().r, person.getColor().g, person.getColor().b, alpha}); }
+    void Cloth::setPersonAlpha(const sf::Uint8& alpha) {
+        if (personLoaded) person.setColor({person.getColor().r, person.getColor().g, person.getColor().b, alpha}); }
     void Cloth::ResizePerson(const int& relativeBodyHeight)
     {
+        if (!personLoaded) return;
         float scale = (relativeBodyHeight * relativePersonScale)/person.getLocalBounds().height;
         if (personReversed) person.setScale(-scale, scale); else person.setScale(scale, scale);
     }
-    void Cloth::SetOffsetPerson(pair<int, int> offset) { offsets.second = offset; }
+    void Cloth::SetOffsetPerson(const pair<float, float>& offset) { offsets.second = offset; }
     void Cloth::UpdatePositionPerson(const float& x, const float& y)
     {
+        if (!personLoaded) return;
         float scale = (person.getGlobalBounds().height/static_cast<float>(gs::relativeHeight)) / relativePersonScale;
         if (personReversed) person.setPosition(x - offsets.second.first*scale, y + offsets.second.second*scale);
         else person.setPosition(x + offsets.second.first*scale, y + offsets.second.second*scale);
@@ -75,11 +88,14 @@ namespace NekoUI
         body.chibi.setOrigin(body.chibi.getOrigin().x, body.chibi.getLocalBounds().height);
         body.person.setOrigin(body.person.getOrigin().x, body.person.getLocalBounds().height);
         
+        arms.Load(L"", L"arms.png"); arms.depth = 70; arms.owner = false;
+        arms.relativeChibiScale = 0.2454955; arms.SetOffsetChibi({-24.77477, -416.666});
+        
         /* face.Load(L"face.png", L"face.png"); face.depth = 40; face.owner = false;
         face.relativeChibiScale = 0.289; face.SetOffsetChibi({4, -673});
         face.relativePersonScale = 0.088; face.SetOffsetPerson({-11, -747}); */
         
-        eyebrows.Load(L"eyebrows_normal.png", L"eyebrows_normal.png"); eyebrows.depth = 81/*40*/; eyebrows.owner = false;
+        eyebrows.Load(L"eyebrows_normal.png", L"eyebrows_normal.png"); eyebrows.depth = 121/*40*/; eyebrows.owner = false;
         eyebrows.relativeChibiScale = 0.069701; eyebrows.SetOffsetChibi({14, -654});
         eyebrows.relativePersonScale = 0.023205; eyebrows.SetOffsetPerson({-9, -741});
         
@@ -98,7 +114,7 @@ namespace NekoUI
         mouth.relativeChibiScale = 0.008141; mouth.SetOffsetChibi({-19, -445});
         mouth.relativePersonScale = 0.004675; mouth.SetOffsetPerson({-17, -680});
         
-        fronthair.Load(L"hairfront1.png", L"hairfront1.png"); fronthair.depth = 80; fronthair.owner = false;
+        fronthair.Load(L"hairfront1.png", L"hairfront1.png"); fronthair.depth = 120; fronthair.owner = false;
         fronthair.relativeChibiScale = 0.583869; fronthair.SetOffsetChibi({31, -827});
         fronthair.relativePersonScale = 0.214175; fronthair.SetOffsetPerson({-9, -798});
         
@@ -111,6 +127,7 @@ namespace NekoUI
         tail.relativePersonScale = 0.286507; tail.SetOffsetPerson({39, -436});
         
         cloth.push_back(&body);
+        cloth.push_back(&arms);
         cloth.push_back(&eyebrows);
         cloth.push_back(&eyes);
         cloth.push_back(&nose);

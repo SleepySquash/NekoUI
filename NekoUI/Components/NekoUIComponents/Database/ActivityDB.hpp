@@ -94,7 +94,7 @@ namespace NekoUI
         struct DressOrUndress : ActivityTask
         {
             float elapsedDuration, howMuchToWait; bool dressing, active{ false };
-            enum class Cloth{ All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear } clothes;
+            enum class Cloth{ All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear, Non } clothes;
             
             DressOrUndress(Activity* activity, const bool& dressing = true, const float& howMuch = 5.f, const Cloth& clothes = Cloth::All);
             void Init() override;
@@ -103,13 +103,13 @@ namespace NekoUI
         };
         struct HideDressed : ActivityTask
         {
-            enum class Cloth{ All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear } whatToHide;
+            enum class Cloth{ All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear, Non } whatToHide;
             HideDressed(Activity* activity, const Cloth& whatToHide = Cloth::All);
             void Init() override;
         };
         struct DressHiden : ActivityTask
         {
-            enum class Cloth{ All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear } whatToShow;
+            enum class Cloth{ All, Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Outerwear, Underwear, Non } whatToShow;
             DressHiden(Activity* activity, const Cloth& whatToShow = Cloth::All);
             void Init() override;
         };
