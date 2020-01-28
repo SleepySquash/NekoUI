@@ -100,6 +100,8 @@ namespace NekoUI
             daysTogether = diff.count() / 86400;
         }
         else Birth();
+        
+        neko.Init();
     }
     
     void Player::SaveData()

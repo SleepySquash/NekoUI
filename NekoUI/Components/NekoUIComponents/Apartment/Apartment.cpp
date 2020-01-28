@@ -32,7 +32,7 @@ namespace NekoUI
     {
         neko.Init(); neko.sender = entity;
         neko.positionInArray = 0; neko.vector = &entities; entities.push_back(&neko);
-        Player::neko.Init(); hasFocusOnNeko = true; rm::scale = 1.7f;
+        hasFocusOnNeko = true; rm::scale = 1.7f;
         entity->SendMessage({"NekoUI :: SelectNeko", &neko});
         
         rm::scrolldownMenuOpened = rm::requestCloseButton = rm::shopMode = false;
