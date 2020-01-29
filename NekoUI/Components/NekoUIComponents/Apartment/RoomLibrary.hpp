@@ -35,7 +35,7 @@ namespace NekoUI
         
         static bool scrolldownMenuOpened, drawDatePanel, drawScrolldownMenu, drawNeeds, requestCloseButton;
         static bool canPressScrolldownMenu, canPressDatePanel, canOpenNekoUI;
-        static bool shopMode;
+        static bool allowDTSaving;
         
         enum class simulationWasAtEnum{ Non, Grocery };
         static simulationWasAtEnum simulationWasAt;

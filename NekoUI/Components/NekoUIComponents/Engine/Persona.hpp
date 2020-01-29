@@ -47,6 +47,8 @@ namespace NekoUI
         pair<pair<float, float>, pair<float, float>> offsets{ {0,0}, {0,0} };
         int depth{ 0 };
         
+        void Set(const std::wstring& pPath);
+        void Set(const std::wstring& pPath, const std::wstring& cPath);
         void Load(const std::wstring& pPath, const std::wstring& cPath);
         void Destroy();
         
@@ -76,6 +78,9 @@ namespace NekoUI
         
         ~Persona();
         void Init();
+        
+        void OccupyMemory();
+        void FreeMemory();
         
         void Dress(Wearable* item, bool sorting = true);
         void Undress(Wearable* item);

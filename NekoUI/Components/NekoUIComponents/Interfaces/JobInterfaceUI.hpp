@@ -35,7 +35,7 @@ namespace NekoUI
 {
     struct JobInterfaceUI : Component
     {
-        bool active{ false };
+        bool active{ false }, clickable{ false };
         
         sf::RectangleShape blackScreenShape;
         sf::Sprite background; bool spriteLoaded{ false };

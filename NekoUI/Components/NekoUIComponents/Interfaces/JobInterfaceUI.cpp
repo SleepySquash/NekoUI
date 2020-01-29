@@ -44,7 +44,7 @@ namespace NekoUI
     void JobInterfaceUI::CleanUp() { ic::DeleteImage(L"Data/Images/Backgrounds/job_background1.jpg"); jobs.setTexture(L""); }
     void JobInterfaceUI::PollEvent(sf::Event& event)
     {
-        if (!active || !gs::isActiveInterface(this)) return;
+        if (!active || !gs::isActiveInterface(this) || !clickable) return;
         
         if (event.type == sf::Event::MouseMoved && gs::buttonHovering)
         {
@@ -67,6 +67,9 @@ namespace NekoUI
                 {
                     switch (i)
                     {
+                        case 1: rm::requestCloseButton = clickable = false;
+                            entity->SendMessage({"PlacesUI :: JobFNAF"});
+                            Switch(false); break;
                         default: break;
                     }
                 }
@@ -157,7 +160,7 @@ namespace NekoUI
             if (active) mode = appearing;
             else
             {
-                gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this);
+                gs::PushInterface(this); active = clickable = true; mode = appearing; entity->SortAbove(this);
                 sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/job_background1.jpg", entity->system);
                 if ((spriteLoaded = texture))
                 {

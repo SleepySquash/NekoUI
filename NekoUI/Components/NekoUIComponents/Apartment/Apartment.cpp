@@ -30,13 +30,13 @@ namespace NekoUI
     }
     void Apartment::Init()
     {
-        neko.Init(); neko.sender = entity;
+        neko.Init(); Player::neko.OccupyMemory(); neko.sender = entity;
         neko.positionInArray = 0; neko.vector = &entities; entities.push_back(&neko);
         hasFocusOnNeko = true; rm::scale = 1.7f;
         entity->SendMessage({"NekoUI :: SelectNeko", &neko});
         
-        rm::scrolldownMenuOpened = rm::requestCloseButton = rm::shopMode = false;
-        rm::drawDatePanel = rm::drawNeeds = rm::drawScrolldownMenu = true;
+        rm::scrolldownMenuOpened = rm::requestCloseButton = false;
+        rm::drawDatePanel = rm::drawNeeds = rm::drawScrolldownMenu = rm::allowDTSaving = true;
         rm::canPressScrolldownMenu = rm::canPressDatePanel = rm::canOpenNekoUI = true;
         
         Player::eyebrowsEmotion = NekoS::EyebrowsEmotion::DEFAULT;
@@ -448,10 +448,13 @@ namespace NekoUI
             entity->system->SendMessage({"NotUI :: Popup", new NotificationHolder(L"Пока тебя не было...", finalStr)});
         }
         
+        rm::simulationWasAt = rm::simulationWasAtEnum::Non;
+        entity->system->SendMessage({"RoomUI :: Update"});
+        
         savingIsRequired = true;
         SortEntities();
     }
-    void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); }
+    void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); Player::neko.FreeMemory(); }
     void Apartment::CleanUp()
     {
         ic::DeleteImage(L"Data/Apartment/Background/room.png");

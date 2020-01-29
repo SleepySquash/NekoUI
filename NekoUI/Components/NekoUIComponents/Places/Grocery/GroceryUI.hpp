@@ -10,6 +10,7 @@
 #define GroceryUI_hpp
 
 #include <iostream>
+#include <vector>
 
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
@@ -20,9 +21,12 @@
 #include "../../../../Engine/Collectors/Image.hpp"
 #include "../../../../Engine/EntitySystem.hpp"
 #include "../../../../Engine/GUI/Button/SomeButtons.hpp"
+#include "../../../../Engine/GUI/Button/RoundedRectangleButton.hpp"
 
 #include "../../Neko/Static.hpp"
 #include "../../Apartment/RoomLibrary.hpp"
+#include "../../Engine/Item.hpp"
+#include "../../Database/ItemDB.hpp"
 
 using std::cin;
 using std::cout;
@@ -34,20 +38,29 @@ namespace NekoUI
 {
     namespace Places
     {
+        void renderGroceryShelvesSprite(sf::RenderTexture* texture, sf::Sprite* sprite, sf::Sprite* render);
         struct GroceryUI : Component
         {
             bool active{ true };
+            float xx, yy; bool done; int xy;
             
             sf::RectangleShape loadingShape;
             GUI::SpriteButton quitB, checkoutB;
-            GUI::RectangleButton discountsB, foodB, drinksB, householdB;
+            GUI::RoundedRectangleButton discountsB, foodB, drinksB, householdB;
             sf::Uint8 alpha{ 255 };
             
             sf::Sprite background; bool spriteLoaded{ false };
+            sf::Sprite shelvesSprite, shelfSprite, shelfItem; sf::RenderTexture shelvesTexture; bool shelvedRendered{ false };
+            sf::RectangleShape pricetagShape;
+            int shelfColumnL{ 0 }, shelfColumnR{ 0 }, shelfColumns{ 0 }, shelfCount{ 0 };
+            float shelfItemWidth{ 0 };
+            std::vector<Item*> shelfFood;
+            std::vector<sf::Texture*> shelfFoodTexture;
+            
+            enum class Mode{ Main, Discount, Food, Drinks, Household } mode{ Mode::Main };
             
             void Init() override;
             void Destroy() override;
-            void Update(const sf::Time& elapsedTime) override;
             void PollEvent(sf::Event& event) override;
             void Resize(unsigned int width, unsigned int height) override;
             void Draw(sf::RenderWindow* window) override;

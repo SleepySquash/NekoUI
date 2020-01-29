@@ -546,7 +546,7 @@ namespace NekoUI
         }
         /// { Accessory, Head, Top, Bottom, Onepiece, Gloves, Bra, Pantsu, Socks, Legwear, Non };
         bool anyClothesTaken{ false };
-        for (auto& c : Player::neko.cloth) if (c->item && ((accessories && c->item->clothing == ClothType::Accessory) || (head && c->item->clothing == ClothType::Head) || (top && c->item->clothing == ClothType::Top) || (bottom && c->item->clothing == ClothType::Accessory) || (onepiece && c->item->clothing == ClothType::Onepiece) || (bra && c->item->clothing == ClothType::Bra) || (pantsu && c->item->clothing == ClothType::Pantsu) || (socks && c->item->clothing == ClothType::Socks) || (gloves && c->item->clothing == ClothType::Gloves) || (legwear && c->item->clothing == ClothType::Legwear) || (non && c->item->clothing == ClothType::Non)) ) { if (justCheck) return true; c->hidden = hidden; anyClothesTaken = true; }
+        for (auto& c : Player::neko.cloth) if (c->item && ((accessories && c->item->clothing == ClothType::Accessory) || (head && c->item->clothing == ClothType::Head) || (top && c->item->clothing == ClothType::Top) || (bottom && c->item->clothing == ClothType::Bottom) || (onepiece && c->item->clothing == ClothType::Onepiece) || (bra && c->item->clothing == ClothType::Bra) || (pantsu && c->item->clothing == ClothType::Pantsu) || (socks && c->item->clothing == ClothType::Socks) || (gloves && c->item->clothing == ClothType::Gloves) || (legwear && c->item->clothing == ClothType::Legwear) || (non && c->item->clothing == ClothType::Non)) ) { if (justCheck) return true; c->hidden = hidden; anyClothesTaken = true; }
         
         return anyClothesTaken;
     }

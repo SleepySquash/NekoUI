@@ -13,7 +13,7 @@ namespace NekoUI
     void RoomUI::Init()
     {
         nekoMoodText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
-        nekoMoodText.setString(L"Счастье");
+        nekoMoodText.setString(L"Счастье"); nekoMoodText.setOutlineColor(sf::Color::Black);
         dayText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
         monthText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
         
@@ -33,23 +33,22 @@ namespace NekoUI
         newDayIsComing = (secondsUntilNextDay < 60);
         entity->system->SendMessage({"Time", timeinfo});
         
-        sf::Texture* texture = ic::LoadTexture(L"Data/Images/UI/sun.png");
-        if ((spriteLoaded = texture)) dateSprite.setTexture(*texture);
+        /*sf::Texture* texture = ic::LoadTexture(L"Data/Images/UI/sun.png");
+        if ((spriteLoaded = texture)) dateSprite.setTexture(*texture);*/
         dateSprite.setColor(sf::Color(231, 152, 36));
         
         
-        texture = ic::LoadTexture(L"Data/Images/UI/need.png");
+        /*texture = ic::LoadTexture(L"Data/Images/UI/need.png");
         if ((spriteLoaded = texture)) {
             needbaseSprite.setTexture(*texture);
             needbaseSprite.setOrigin(0, texture->getSize().y); }
         texture = ic::LoadTexture(L"Data/Images/UI/needs.png");
-        if ((spriteLoaded = texture)) needSprite.setTexture(*texture);
+        if ((spriteLoaded = texture)) needSprite.setTexture(*texture); */
         
         
-        // scrolldownMenu.setTexture(L"Data/Images/scrolldown rev1.png");
-        scrolldownTexture_normal = ic::LoadTexture(L"Data/Images/UI/scrolldown rev1.png");
-        scrolldownTexture_close = ic::LoadTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
-        scrolldownMenu.setTexture(scrolldownTexture_normal);
+        // scrolldownTexture_normal = ic::LoadTexture(L"Data/Images/UI/scrolldown rev1.png");
+        // scrolldownTexture_close = ic::LoadTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
+        // scrolldownMenu.setTexture(scrolldownTexture_normal);
         scrolldownMenu.setScale(0.6f);
         scrolldownMenu.halign = Halign::Right;
         scrolldownMenu.valign = Valign::Bottom;
@@ -68,8 +67,7 @@ namespace NekoUI
         attentionText.setString(L"Нет еды!");
         
         
-        active = true;
-        mode = appearing;
+        Switch(true);
     }
     void RoomUI::Destroy() { if (active) CleanUp(); }
     void RoomUI::Update(const sf::Time& elapsedTime)
@@ -101,26 +99,28 @@ namespace NekoUI
         if (secondsPassed >= 30.f)
         {
             // TODO: Some simulation as quite a time has passed.
-            secondsUntilNextDay -= secondsPassed;
+            secondsUntilNextDay -= secondsPassed; dt = 0.f;
             newDayIsComing = (secondsUntilNextDay <= 30);
-            Player::SaveCurrentDT(); dt = 0.f;
+            if (rm::allowDTSaving) Player::SaveCurrentDT();
         }
         else
         {
             dt += secondsPassed;
             if (dt >= 30.f)
             {
-                secondsUntilNextDay -= dt;
+                secondsUntilNextDay -= dt; dt = 0.f;
                 newDayIsComing = (secondsUntilNextDay <= 30);
-                Player::SaveCurrentDT(); dt = 0.f;
-                
-                if (shouldDoBackupSaving)
+                if (rm::allowDTSaving)
                 {
-                    Inventory::SaveInventory(); Inventory::SaveFridge(); Inventory::SaveWardrobe();
-                    Player::SaveData(); Player::SavePersona(); cout << "Backup saving... Success!" << endl;
-                    entity->system->SendMessage({"Apartment :: Save"});
+                    Player::SaveCurrentDT();
+                    if (shouldDoBackupSaving)
+                    {
+                        Inventory::SaveInventory(); Inventory::SaveFridge(); Inventory::SaveWardrobe();
+                        Player::SaveData(); Player::SavePersona(); cout << "Backup saving... Success!" << endl;
+                        entity->system->SendMessage({"Apartment :: Save"});
+                    }
+                    shouldDoBackupSaving = !shouldDoBackupSaving;
                 }
-                shouldDoBackupSaving = !shouldDoBackupSaving;
             }
         }
         
@@ -278,17 +278,7 @@ namespace NekoUI
     void RoomUI::Resize(unsigned int width, unsigned int height)
     {
         if (!active) return;
-        
-        dateSprite.setScale(0.65f * gs::scale, 0.65f * gs::scale);
-        dayText.setCharacterSize(70*gs::scale);
-        dayText.setPosition(80*gs::scale, 20*gs::scale);
-        dayText.setOrigin(dayText.getLocalBounds().width/2, 0);
-        monthText.setCharacterSize(45*gs::scale);
-        monthText.setPosition(80*gs::scale, 30*gs::scale + dayText.getGlobalBounds().height);
-        monthText.setOrigin(monthText.getLocalBounds().width/2, 0);
-        nekoMoodText.setCharacterSize(40*gs::scale);
-        nekoMoodText.setPosition(dateSprite.getGlobalBounds().left + dateSprite.getGlobalBounds().width + 15*gs::scale, 6*gs::scale + gs::screenOffsetTop);
-        
+        UpdateAccordingToMode();
         
         needbaseSprite.setScale(0.75f*gs::scale, 0.75f*gs::scale);
         needSprite.setScale(0.75f*gs::scale, 0.75f*gs::scale);
@@ -341,16 +331,39 @@ namespace NekoUI
         attentionShape.setPosition(5*gs::scale, 0);
         attentionShape.setCornersRadius(20*gs::scale);
     }
+    void RoomUI::UpdateAccordingToMode()
+    {
+        switch (rm::simulationWasAt)
+        {
+            default:
+                dateSprite.setScale(0.65f * gs::scale, 0.65f * gs::scale);
+                dayText.setCharacterSize(70*gs::scale);
+                dayText.setPosition(80*gs::scale, 20*gs::scale);
+                dayText.setOrigin(dayText.getLocalBounds().width/2, 0);
+                monthText.setCharacterSize(45*gs::scale);
+                monthText.setPosition(80*gs::scale, 30*gs::scale + dayText.getGlobalBounds().height);
+                monthText.setOrigin(monthText.getLocalBounds().width/2, 0);
+                nekoMoodText.setCharacterSize(40*gs::scale);
+                nekoMoodText.setPosition(dateSprite.getGlobalBounds().left + dateSprite.getGlobalBounds().width + 15*gs::scale, 6*gs::scale + gs::screenOffsetTop);
+                nekoMoodText.setOutlineThickness(gs::scale);
+                break;
+        }
+    }
     void RoomUI::Draw(sf::RenderWindow* window)
     {
         if (!active) return;
         
         if (rm::drawDatePanel)
         {
-            window->draw(dateSprite);
-            window->draw(nekoMoodText);
-            window->draw(dayText);
-            window->draw(monthText);
+            switch (rm::simulationWasAt)
+            {
+                default:
+                    window->draw(dateSprite);
+                    window->draw(nekoMoodText);
+                    window->draw(dayText);
+                    window->draw(monthText);
+                    break;
+            }
         }
         if (rm::drawNeeds)
         {
@@ -461,15 +474,42 @@ namespace NekoUI
             needSprite.setColor({needSprite.getColor().r, needSprite.getColor().g, needSprite.getColor().b, 100}); }
         else if (message.info == "RoomUI :: StatusVivid") { needbaseSpriteTransparent = false;
             needSprite.setColor({needSprite.getColor().r, needSprite.getColor().g, needSprite.getColor().b, 255}); }
-        else if (message.info == "RoomUI :: GroceryUI") {
-            rm::shopMode = true; nekoMoodText.setString(std::to_string(NekoS::money)); }
+        else if (message.info == "RoomUI :: Update")
+        {
+            switch (rm::simulationWasAt)
+            {
+                case rm::simulationWasAtEnum::Non:
+                    nekoMoodText.setString(L"Счастье");
+                    break;
+                case rm::simulationWasAtEnum::Grocery:
+                    nekoMoodText.setString(std::to_string(NekoS::money) + " P");
+                    break;
+            }
+            if (lastSimulationWasAt != rm::simulationWasAt) { lastSimulationWasAt = rm::simulationWasAt; UpdateAccordingToMode(); }
+        }
     }
     void RoomUI::Switch(const bool& on)
     {
         if (on)
         {
             if (active) mode = appearing;
-            else { active = true; mode = appearing; Resize(gs::width, gs::height); }
+            else
+            {
+                sf::Texture* texture = ic::LoadTexture(L"Data/Images/UI/sun.png");
+                if ((spriteLoaded = texture)) dateSprite.setTexture(*texture);
+                
+                texture = ic::LoadTexture(L"Data/Images/UI/need.png");
+                if ((spriteLoaded = texture)) {
+                    needbaseSprite.setTexture(*texture);
+                    needbaseSprite.setOrigin(0, texture->getSize().y); }
+                texture = ic::LoadTexture(L"Data/Images/UI/needs.png");
+                if ((spriteLoaded = texture)) needSprite.setTexture(*texture);
+                
+                scrolldownTexture_normal = ic::LoadTexture(L"Data/Images/UI/scrolldown rev1.png");
+                scrolldownTexture_close = ic::LoadTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
+                scrolldownMenu.setTexture(scrolldownTexture_normal);
+                active = true; mode = appearing; Resize(gs::width, gs::height);
+            }
         }
         else if (!on) mode = disappearing;
     }

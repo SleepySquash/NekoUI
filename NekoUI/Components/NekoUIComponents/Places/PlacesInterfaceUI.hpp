@@ -13,6 +13,7 @@
 
 #include "Grocery/GroceryUI.hpp"
 #include "Misc/StrangeShopkeeperUI.hpp"
+#include "Jobs/FNAF/FNAF.hpp"
 #include "../Apartment/Apartment.hpp"
 
 namespace NekoUI

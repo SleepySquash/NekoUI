@@ -10,30 +10,37 @@
 
 namespace NekoUI
 {
+    void Cloth::Set(const std::wstring& pPath) { personPath = chibiPath = pPath; }
+    void Cloth::Set(const std::wstring& pPath, const std::wstring& cPath) { personPath = pPath; chibiPath = cPath; }
     void Cloth::Load(const std::wstring& pPath, const std::wstring& cPath)
     {
-        if (personLoaded) ic::DeleteImage(L"Data/Neko/Person/" + personPath);
-        if (chibiLoaded) ic::DeleteImage(L"Data/Neko/Chibi/" + chibiPath);
-        
-        if ((personLoaded = (pPath != L"")))
+        if (!personLoaded || pPath != personPath)
         {
-            sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Person/" + pPath);
-            if ((personLoaded = texture))
+            if (personLoaded) ic::DeleteImage(L"Data/Neko/Person/" + personPath);
+            if ((personLoaded = (pPath != L"")))
             {
-                this->personPath = pPath;
-                person.setTexture(*texture, true);
-                person.setOrigin(texture->getSize().x/2, 0);
+                sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Person/" + pPath);
+                if ((personLoaded = texture))
+                {
+                    personPath = pPath;
+                    person.setTexture(*texture, true);
+                    person.setOrigin(texture->getSize().x/2, 0);
+                }
             }
         }
         
-        if ((chibiLoaded = (cPath != L"")))
+        if (!chibiLoaded || cPath != chibiPath)
         {
-            sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Chibi/" + cPath);
-            if ((chibiLoaded = texture))
+            if (chibiLoaded) ic::DeleteImage(L"Data/Neko/Chibi/" + chibiPath);
+            if ((chibiLoaded = (cPath != L"")))
             {
-                this->chibiPath = cPath;
-                chibi.setTexture(*texture, true);
-                chibi.setOrigin(texture->getSize().x/2, 0);
+                sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Chibi/" + cPath);
+                if ((chibiLoaded = texture))
+                {
+                    chibiPath = cPath;
+                    chibi.setTexture(*texture, true);
+                    chibi.setOrigin(texture->getSize().x/2, 0);
+                }
             }
         }
     }
@@ -41,7 +48,7 @@ namespace NekoUI
     {
         if (personLoaded) ic::DeleteImage(L"Data/Neko/Person/" + personPath);
         if (chibiLoaded) ic::DeleteImage(L"Data/Neko/Chibi/" + chibiPath);
-        offline = true;
+        personLoaded = chibiLoaded = false; offline = true;
     }
     void Cloth::setChibiAlpha(const sf::Uint8& alpha) {
         if (chibiLoaded) chibi.setColor({chibi.getColor().r, chibi.getColor().g, chibi.getColor().b, alpha}); }
@@ -84,45 +91,41 @@ namespace NekoUI
     Persona::~Persona() { for (auto& c : cloth) if (c->owner) delete c; cloth.clear(); }
     void Persona::Init()
     {
-        body.Load(L"body.png", L"body.png"); body.depth = 0; body.imOnMyOwn = true; body.owner = false;
-        body.chibi.setOrigin(body.chibi.getOrigin().x, body.chibi.getLocalBounds().height);
-        body.person.setOrigin(body.person.getOrigin().x, body.person.getLocalBounds().height);
+        body.Set(L"body.png", L"body.png"); body.depth = 0; body.imOnMyOwn = true; body.owner = false;
+        // body.chibi.setOrigin(body.chibi.getOrigin().x, body.chibi.getLocalBounds().height);
+        // body.person.setOrigin(body.person.getOrigin().x, body.person.getLocalBounds().height);
         
-        arms.Load(L"", L"arms.png"); arms.depth = 70; arms.owner = false;
+        arms.Set(L"", L"arms.png"); arms.depth = 70; arms.owner = false;
         arms.relativeChibiScale = 0.2454955; arms.SetOffsetChibi({-24.77477, -416.666});
         
-        /* face.Load(L"face.png", L"face.png"); face.depth = 40; face.owner = false;
-        face.relativeChibiScale = 0.289; face.SetOffsetChibi({4, -673});
-        face.relativePersonScale = 0.088; face.SetOffsetPerson({-11, -747}); */
-        
-        eyebrows.Load(L"eyebrows_normal.png", L"eyebrows_normal.png"); eyebrows.depth = 121/*40*/; eyebrows.owner = false;
+        eyebrows.Set(L"eyebrows_normal.png", L"eyebrows_normal.png"); eyebrows.depth = 121/*40*/; eyebrows.owner = false;
         eyebrows.relativeChibiScale = 0.069701; eyebrows.SetOffsetChibi({14, -654});
         eyebrows.relativePersonScale = 0.023205; eyebrows.SetOffsetPerson({-9, -741});
         
-        eyes.Load(L"eyes_normal.png", L"eyes_normal.png"); eyes.depth = 40; eyes.owner = false;
+        eyes.Set(L"eyes_normal.png", L"eyes_normal.png"); eyes.depth = 40; eyes.owner = false;
         eyes.relativeChibiScale = 0.131615; eyes.SetOffsetChibi({6, -601});
         eyes.relativePersonScale = 0.042294; eyes.SetOffsetPerson({-11, -729});
         
-        nose.Load(L"nose.png", L"nose.png"); nose.depth = 40; nose.owner = false;
+        nose.Set(L"nose.png", L"nose.png"); nose.depth = 40; nose.owner = false;
         nose.relativePersonScale = 0.002564; nose.SetOffsetPerson({-12, -692});
         
-        blush.Load(L"blush.png", L"blush.png"); blush.depth = 30; blush.owner = false;
+        blush.Set(L"blush.png", L"blush.png"); blush.depth = 30; blush.owner = false;
         blush.relativeChibiScale = 0.104883; blush.SetOffsetChibi({-4, -538});
         blush.relativePersonScale = 0.038189; blush.SetOffsetPerson({-16, -710});
         
-        mouth.Load(L"mouth_smile.png", L"mouth_smile.png"); mouth.depth = 40; mouth.owner = false;
+        mouth.Set(L"mouth_smile.png", L"mouth_smile.png"); mouth.depth = 40; mouth.owner = false;
         mouth.relativeChibiScale = 0.008141; mouth.SetOffsetChibi({-19, -445});
         mouth.relativePersonScale = 0.004675; mouth.SetOffsetPerson({-17, -680});
         
-        fronthair.Load(L"hairfront1.png", L"hairfront1.png"); fronthair.depth = 120; fronthair.owner = false;
+        fronthair.Set(L"hairfront1.png", L"hairfront1.png"); fronthair.depth = 120; fronthair.owner = false;
         fronthair.relativeChibiScale = 0.583869; fronthair.SetOffsetChibi({31, -827});
         fronthair.relativePersonScale = 0.214175; fronthair.SetOffsetPerson({-9, -798});
         
-        backhair.Load(L"hairback1.png", L"hairback1.png"); backhair.depth = -80; backhair.owner = false;
+        backhair.Set(L"hairback1.png", L"hairback1.png"); backhair.depth = -80; backhair.owner = false;
         backhair.relativeChibiScale = 1.012318; backhair.SetOffsetChibi({-44, -840});
         backhair.relativePersonScale = 0.720037; backhair.SetOffsetPerson({-28, -803});
         
-        tail.Load(L"tail.png", L"tail.png"); tail.depth = -30; tail.owner = false;
+        tail.Set(L"tail.png", L"tail.png"); tail.depth = -30; tail.owner = false;
         tail.relativeChibiScale = 0.137941; tail.SetOffsetChibi({-152, -325});
         tail.relativePersonScale = 0.286507; tail.SetOffsetPerson({39, -436});
         
@@ -137,40 +140,30 @@ namespace NekoUI
         cloth.push_back(&backhair);
         cloth.push_back(&tail);
         
-        
         /* Cloth* nipples = new Cloth(); nipples->depth = 1;
         nipples->Load(L"nipples.png", L"nipples.png");
         nipples->relativeChibiScale = 0.181; nipples->SetOffsetChibi({17, -780});
         nipples->relativePersonScale = 0.0209; nipples->SetOffsetPerson({-9, -595});
         cloth.push_back(nipples); */
         
-        /* Cloth* maidoutfit = new Cloth(); maidoutfit->depth = 60;
-        maidoutfit->Load(L"maid uniform.png", L"maid uniform.png");
-        maidoutfit->relativeChibiScale = 0.330814; maidoutfit->SetOffsetChibi({-26, -428});
-        maidoutfit->relativePersonScale = 0.417774; maidoutfit->SetOffsetPerson({27, -659});
-        cloth.push_back(maidoutfit);
-        
-        Cloth* stockings = new Cloth(); stockings->depth = 10;
-        stockings->Load(L"white stockings.png", L"white stockings.png");
-        stockings->relativeChibiScale = 0.188139; stockings->SetOffsetChibi({-18, -150});
-        stockings->relativePersonScale = 0.428326; stockings->SetOffsetPerson({-24, -343});
-        cloth.push_back(stockings);
-        
-        Cloth* headband = new Cloth(); headband->depth = 90;
-        headband->Load(L"headband.png", L"headband.png");
-        headband->relativeChibiScale = 0.24; headband->SetOffsetChibi({17, -820});
-        headband->relativePersonScale = 0.074; headband->SetOffsetPerson({-6, -795});
-        cloth.push_back(headband); */
-        
         Cloth* nekoears = new Cloth(); nekoears->depth = &backhair ? (backhair.depth + 5) : -1;
-        nekoears->Load(L"neko ears.png", L"neko ears.png");
+        nekoears->Set(L"neko ears.png", L"neko ears.png");
         nekoears->relativeChibiScale = 0.365988; nekoears->SetOffsetChibi({20, -921});
         nekoears->relativePersonScale = 0.1434; nekoears->SetOffsetPerson({-2, -844});
         cloth.push_back(nekoears);
         
         SortClothes();
+        // RecalculateBounds();
+    }
+
+    void Persona::OccupyMemory()
+    {
+        for (auto c : cloth) c->Load(c->personPath, c->chibiPath);
+        body.chibi.setOrigin(body.chibi.getOrigin().x, body.chibi.getLocalBounds().height);
+        body.person.setOrigin(body.person.getOrigin().x, body.person.getLocalBounds().height);
         RecalculateBounds();
     }
+    void Persona::FreeMemory() { for (auto c : cloth) { c->Destroy(); c->offline = false; } }
     
     void Persona::Dress(Wearable* item, bool sorting)
     {

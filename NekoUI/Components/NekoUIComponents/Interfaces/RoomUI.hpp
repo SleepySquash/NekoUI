@@ -39,7 +39,7 @@ namespace NekoUI
     struct RoomUI : Component
     {
         NekoEntity* neko{ nullptr };
-        bool spriteLoaded, active{ true };
+        bool spriteLoaded, active{ false };
         sf::IntRect availableToTouchZone{ 0, 0, 0, 0 };
         bool ignoreEventMove{ false };
         
@@ -53,6 +53,7 @@ namespace NekoUI
         int dateDay{ 0 }, dateMonth{ 0 };
         sf::Text dayText, monthText;
         sf::Text nekoMoodText;
+        rm::simulationWasAtEnum lastSimulationWasAt{ rm::simulationWasAtEnum::Non };
         
         bool needbaseSpriteTransparent{ false };
         sf::Sprite needbaseSprite, needSprite;
@@ -79,6 +80,7 @@ namespace NekoUI
         void Resize(unsigned int width, unsigned int height) override;
         void Draw(sf::RenderWindow* window) override;
         void RecieveMessage(MessageHolder& message) override;
+        void UpdateAccordingToMode();
         void Switch(const bool& on);
         void UpdateAlpha();
     };

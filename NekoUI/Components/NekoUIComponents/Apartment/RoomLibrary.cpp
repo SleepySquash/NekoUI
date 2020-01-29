@@ -16,7 +16,7 @@ namespace NekoUI
 
     bool Room::scrolldownMenuOpened{ false }, Room::drawDatePanel{ true }, Room::drawScrolldownMenu{ true }, Room::drawNeeds{ true }, Room::requestCloseButton{ false };
     bool Room::canPressScrolldownMenu{ true }, Room::canPressDatePanel{ true }, Room::canOpenNekoUI{ true };
-    bool Room::shopMode{ false };
+    bool Room::allowDTSaving{ true };
 
     Room::simulationWasAtEnum Room::simulationWasAt{ simulationWasAtEnum::Non };
 

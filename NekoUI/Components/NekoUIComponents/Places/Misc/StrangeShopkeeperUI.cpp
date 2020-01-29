@@ -15,8 +15,8 @@ namespace NekoUI
         void StrangeShopkeeperUI::Init()
         {
             rm::scrolldownMenuOpened = rm::requestCloseButton = false;
-            rm::drawDatePanel = rm::shopMode = true; rm::drawNeeds = rm::drawScrolldownMenu = false;
-            rm::canPressDatePanel = false;
+            rm::drawDatePanel = true; rm::drawNeeds = rm::drawScrolldownMenu = false;
+            rm::canPressDatePanel = rm::allowDTSaving = false;
             rm::simulationWasAt = rm::simulationWasAtEnum::Grocery;
             
             // background.setFillColor(sf::Color(100, 100, 100));

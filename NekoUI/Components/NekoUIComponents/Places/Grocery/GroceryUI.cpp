@@ -15,11 +15,11 @@ namespace NekoUI
         void GroceryUI::Init()
         {
             rm::scrolldownMenuOpened = rm::requestCloseButton = false;
-            rm::drawDatePanel = rm::shopMode = true; rm::drawNeeds = rm::drawScrolldownMenu = false;
-            rm::canPressDatePanel = false;
+            rm::drawDatePanel = true; rm::drawNeeds = rm::drawScrolldownMenu = false;
+            rm::canPressDatePanel = rm::allowDTSaving = false;
             rm::simulationWasAt = rm::simulationWasAtEnum::Grocery;
+            entity->system->SendMessage({"RoomUI :: Update"});
             
-            // background.setFillColor(sf::Color(100, 100, 100));
             sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/grocery.jpg", entity->system);
             if ((spriteLoaded = texture))
             {
@@ -39,36 +39,92 @@ namespace NekoUI
             
             discountsB.setFont(L"Impact.ttf");
             discountsB.setString(L"Акции");
-            discountsB.onormalColor = {37, 133, 166};
             foodB.setFont(L"Impact.ttf");
             foodB.setString(L"Продукты");
-            foodB.onormalColor = {37, 133, 166};
             drinksB.setFont(L"Impact.ttf");
             drinksB.setString(L"Напитки");
-            drinksB.onormalColor = {37, 133, 166};
             householdB.setFont(L"Impact.ttf");
             householdB.setString(L"Хозтовары");
-            householdB.onormalColor = {37, 133, 166};
+            discountsB.snormalColor = foodB.snormalColor = drinksB.snormalColor = householdB.snormalColor = {37, 133, 166};
+            discountsB.sonormalColor = foodB.sonormalColor = drinksB.sonormalColor = householdB.sonormalColor = {37, 133, 166};
             discountsB.characterSize = foodB.characterSize = drinksB.characterSize = householdB.characterSize = 48;
+            discountsB.radius = foodB.radius = drinksB.radius = householdB.radius = 20.f;
+            discountsB.ralpha = foodB.ralpha = drinksB.ralpha = householdB.ralpha = 0.8f * 255;
             discountsB.updateColor(); foodB.updateColor(); drinksB.updateColor(); householdB.updateColor();
+            
+            texture = ic::LoadTexture(L"Data/Images/UI/ShopSlotConcept.png");
+            if (texture) shelfSprite.setTexture(*texture);
             
             UpdateAlpha();
         }
-        void GroceryUI::Update(const sf::Time& elapsedTime)
+        void renderGroceryShelvesSprite(sf::RenderTexture* texture, sf::Sprite* sprite, sf::Sprite* render)
         {
+            sf::Context context;
+            gs::requestWindowRefresh = true;
             
+            texture->create(gs::width, gs::height);
+            sprite->setScale(gs::width/sprite->getLocalBounds().width, gs::scale);
+            int count = floor(gs::height/sprite->getGlobalBounds().height) - 1; if (count < 1) count = 1;
+            // gs::scale*count = gs::height/(sprite->getLocalBounds().height)
+            sprite->setScale(gs::width/sprite->getLocalBounds().width, gs::height/(sprite->getLocalBounds().height * count));
+            float yy = 0, yyuntil = gs::height;
+            while (yy < yyuntil)
+            {
+                sprite->setPosition(0, yy);
+                texture->draw(*sprite);
+                yy += sprite->getGlobalBounds().height;
+            }
+            texture->display();
+            render->setTexture(texture->getTexture(), true);
         }
-        void GroceryUI::Destroy() { ic::DeleteImage(L"Data/Images/Backgrounds/grocery.jpg"); }
+        void GroceryUI::Destroy() { ic::DeleteImage(L"Data/Images/Backgrounds/grocery.jpg"); ic::DeleteImage(L"Data/Images/UI/ShopSlotConcept.png"); }
         void GroceryUI::PollEvent(sf::Event& event)
         {
             if (!active) return;
             
-            if (quitB.PollEvent(event)) { entity->SendMessage({"PlacesUI :: ApartmentUI"}); active = false; }
-            else if (checkoutB.PollEvent(event)) { }
-            else if (discountsB.PollEvent(event)) { }
-            else if (foodB.PollEvent(event)) { }
-            else if (drinksB.PollEvent(event)) { }
-            else if (householdB.PollEvent(event)) { }
+            switch (mode)
+            {
+                case Mode::Food: case Mode::Drinks:
+                    if (quitB.PollEvent(event))
+                    {
+                        mode = Mode::Main;
+                        for (auto i : shelfFood) if (i) ic::DeleteImage(L"Data/Items/" + utf16(i->name) + L".png");
+                        shelfFood.clear(); shelfFoodTexture.clear();
+                    }
+                    break;
+                default:
+                    if (quitB.PollEvent(event)) { entity->SendMessage({"PlacesUI :: ApartmentUI"}); active = false; }
+                    else if (checkoutB.PollEvent(event)) { }
+                    else if (discountsB.PollEvent(event)) { }
+                    else if (foodB.PollEvent(event))
+                    {
+                        mode = Mode::Food;
+                        for (auto i : shelfFood) if (i) ic::DeleteImage(L"Data/Items/" + utf16(i->name) + L".png");
+                        shelfFood.clear(); shelfFoodTexture.clear();
+                        shelfFood.push_back(nullptr); shelfFoodTexture.push_back(nullptr);
+                        for (auto i : Inventory::map)
+                            if (i.second->type == ItemType::Food)
+                            {
+                                shelfFood.push_back(i.second);
+                                shelfFoodTexture.push_back(ic::LoadTexture(L"Data/Items/" + utf16(i.second->name) + L".png"));
+                            }
+                    }
+                    else if (drinksB.PollEvent(event))
+                    {
+                        mode = Mode::Drinks;
+                        for (auto i : shelfFood) if (i) ic::DeleteImage(L"Data/Items/" + utf16(i->name) + L".png");
+                        shelfFood.clear(); shelfFoodTexture.clear();
+                        shelfFood.push_back(nullptr); shelfFoodTexture.push_back(nullptr);
+                        for (auto i : Inventory::map)
+                            if (i.second->type == ItemType::Drink)
+                            {
+                                shelfFood.push_back(i.second);
+                                shelfFoodTexture.push_back(ic::LoadTexture(L"Data/Items/" + utf16(i.second->name) + L".png"));
+                            }
+                    }
+                    else if (householdB.PollEvent(event)) { }
+                    break;
+            }
         }
         void GroceryUI::Resize(unsigned int width, unsigned int height)
         {
@@ -107,18 +163,62 @@ namespace NekoUI
             householdB.setSize({0.75f*gs::width/3.f, 0.7f*gs::height*9.f/10});
             householdB.Resize(width, height);
             householdB.setPosition(foodB.shape.getPosition().x - zazor*gs::scale - householdB.shape.getSize().x, gs::height - (gs::height - foodB.shape.getSize().y)/2 - householdB.shape.getSize().y);
+            
+            std::thread(renderGroceryShelvesSprite, &shelvesTexture, &shelfSprite, &shelvesSprite).join();
+            shelfCount = floor(gs::height/shelfSprite.getGlobalBounds().height + 0.1f);
+            shelfItemWidth = 200*gs::scale;
+            shelfColumnR = floor(gs::width/shelfItemWidth) + 1;
+            pricetagShape.setSize({55*gs::scale, 23*shelfSprite.getScale().y});
+            pricetagShape.setOrigin(pricetagShape.getSize().x/2, 0);
         }
         void GroceryUI::Draw(sf::RenderWindow* window)
         {
-            window->draw(background);
-            
-            discountsB.Draw(window);
-            foodB.Draw(window);
-            drinksB.Draw(window);
-            householdB.Draw(window);
-            
-            quitB.Draw(window);
-            checkoutB.Draw(window);
+            switch (mode)
+            {
+                case Mode::Food: case Mode::Drinks:
+                    window->draw(shelvesSprite);
+                    
+                    xx = 0; yy = 0; done = false;
+                    for (int i = shelfColumnL; i < shelfColumnR && !done; ++i)
+                    {
+                        for (int j = 0; j < shelfCount && !done; ++j)
+                        {
+                            xy = i*shelfCount + j;
+                            if (shelfFoodTexture[xy])
+                            {
+                                pricetagShape.setPosition(xx + shelfItemWidth/2, yy + (128 - 23)*shelfSprite.getScale().y);
+                                window->draw(pricetagShape);
+                                
+                                shelfItem.setTexture(*shelfFoodTexture[xy], true);
+                                shelfItem.setScale(0.85*gs::scale*shelfFood[xy]->scale, 0.85*gs::scale*shelfFood[xy]->scale);
+                                if (shelfItem.getGlobalBounds().width > shelfItemWidth)
+                                    shelfItem.setScale(shelfItemWidth/shelfItem.getLocalBounds().width, shelfItemWidth/shelfItem.getLocalBounds().width);
+                                if (shelfItem.getGlobalBounds().height > (128 - 23)*shelfSprite.getScale().y)
+                                    shelfItem.setScale((128 - 23)*shelfSprite.getScale().y/shelfItem.getLocalBounds().height, (128 - 23)*shelfSprite.getScale().y/shelfItem.getLocalBounds().height);
+                                shelfItem.setPosition(xx + shelfItemWidth/2 - shelfItem.getGlobalBounds().width/2, pricetagShape.getPosition().y - shelfItem.getGlobalBounds().height);
+                                window->draw(shelfItem);
+                            }
+                            
+                            yy += shelfSprite.getGlobalBounds().height;
+                            done = (xy >= shelfFood.size() - 1);
+                        }
+                        yy = 0; xx += shelfItemWidth;
+                    }
+                    
+                    quitB.Draw(window);
+                    break;
+                default:
+                    window->draw(background);
+                    
+                    discountsB.Draw(window);
+                    foodB.Draw(window);
+                    drinksB.Draw(window);
+                    householdB.Draw(window);
+                    
+                    quitB.Draw(window);
+                    checkoutB.Draw(window);
+                    break;
+            }
         }
         void GroceryUI::RecieveMessage(MessageHolder& message)
         {
@@ -140,10 +240,10 @@ namespace NekoUI
             background.setColor({background.getColor().r, background.getColor().g, background.getColor().b, alpha});
             quitB.setAlpha(alpha);
             checkoutB.setAlpha(alpha);
-            discountsB.setAlphaEx(alpha, 0.8*alpha);
-            foodB.setAlphaEx(alpha, 0.8*alpha);
-            drinksB.setAlphaEx(alpha, 0.8*alpha);
-            householdB.setAlphaEx(alpha, 0.8*alpha);
+            discountsB.setAlpha(alpha);
+            foodB.setAlpha(alpha);
+            drinksB.setAlpha(alpha);
+            householdB.setAlpha(alpha);
         }
     }
 }

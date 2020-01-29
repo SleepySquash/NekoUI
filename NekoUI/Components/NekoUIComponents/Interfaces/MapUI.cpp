@@ -46,14 +46,12 @@ namespace NekoUI
         if (groceryButton.PollEvent(event))
         {
             rm::requestCloseButton = clickable = false;
-            entity->SendMessage({"Apartment :: Destroy"});
             entity->SendMessage({"PlacesUI :: GroceryUI"});
             Switch(false);
         }
         else if (shopkeeperButton.PollEvent(event))
         {
             rm::requestCloseButton = clickable = false;
-            entity->SendMessage({"Apartment :: Destroy"});
             entity->SendMessage({"PlacesUI :: ShopkeeperUI"});
             Switch(false);
         }

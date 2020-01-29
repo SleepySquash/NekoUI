@@ -147,16 +147,9 @@ namespace NekoUI
         wof.open(documentsPath() + "dt", std::ios::binary);
 #endif
         wof.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
-        if (wof.is_open())
-        {
-            /* auto now = std::chrono::system_clock::now();
-            std::time_t now_c = std::chrono::system_clock::to_time_t(now); */
+        if (wof.is_open()) {
             auto const cache_time = (std::chrono::system_clock::now()).time_since_epoch().count();
-            wof.write(reinterpret_cast<char const*>(&cache_time), sizeof cache_time);
-            /* std::stringstream stream;
-            stream << std::put_time(std::localtime(&now_c), "%F %T");
-            wof << utf16(stream.str()) << endl; */
-        }
+            wof.write(reinterpret_cast<char const*>(&cache_time), sizeof cache_time); }
     }
     void Player::UpdateCurrentDT()
     {

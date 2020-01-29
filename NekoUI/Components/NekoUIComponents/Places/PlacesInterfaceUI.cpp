@@ -12,14 +12,14 @@ namespace NekoUI
 {
     void PlacesInterfaceUI::RecieveMessage(MessageHolder& message)
     {
-        if (message.info == "PlacesUI :: ApartmentUI" || message.info == "PlacesUI :: GroceryUI" || message.info == "PlacesUI :: ShopkeeperUI") entity->AddComponent<PlacesTransitionScreen>(message.info);
+        if (message.info == "PlacesUI :: ApartmentUI" || message.info == "PlacesUI :: GroceryUI" || message.info == "PlacesUI :: ShopkeeperUI" || message.info == "PlacesUI :: JobFNAF") entity->AddComponent<PlacesTransitionScreen>(message.info);
     }
     
     PlacesTransitionScreen::PlacesTransitionScreen(const std::string& info) : info(info) { }
     void PlacesTransitionScreen::Init()
     {
         gs::PushInterface(this);
-        rm::scrolldownMenuOpened = rm::requestCloseButton = rm::shopMode = false;
+        rm::scrolldownMenuOpened = rm::requestCloseButton = rm::allowDTSaving = false;
         rm::drawDatePanel = rm::drawNeeds = rm::drawScrolldownMenu = false;
         rm::canPressScrolldownMenu = rm::canPressDatePanel = rm::canOpenNekoUI = false;
         
@@ -27,6 +27,10 @@ namespace NekoUI
         text.setFont(*fc::GetFont(L"Impact.ttf"));
         text.setString(L"Идём...");
         gs::ignoreDraw = false;
+        
+        entity->system->SendMessage({"Apartment :: Destroy"});
+        if (nss::Command(info, "PlacesUI :: Job"))
+            entity->system->SendMessage({"RoomUI :: Close"});
     }
     void PlacesTransitionScreen::Destroy() { gs::RemoveInterface(this); }
     void PlacesTransitionScreen::Update(const sf::Time& elapsedTime)
@@ -54,8 +58,9 @@ namespace NekoUI
                 it = entity->components.begin();
                 std::advance(it, entity->components.size() - 1);
                 if (info == "PlacesUI :: GroceryUI") entity->InsertComponent<Places::GroceryUI>(it);
-                else if (info == "PlacesUI :: ApartmentUI") entity->InsertComponent<Apartment>(it);
+                else if (info == "PlacesUI :: ApartmentUI") { entity->system->SendMessage({"RoomUI :: Show"}); entity->InsertComponent<Apartment>(it); }
                 else if (info == "PlacesUI :: ShopkeeperUI") entity->InsertComponent<Places::StrangeShopkeeperUI>(it);
+                else if (info == "PlacesUI :: JobFNAF") entity->InsertComponent<Jobs_FNAFGame::FNAF>(it);
                 stage = 3;
                 break;
             case 3: stage = 4; break;

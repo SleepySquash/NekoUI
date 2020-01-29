@@ -84,6 +84,8 @@
 		DD65CFD82200B0E400CBEF72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */; };
 		DD65CFE12200D1A900CBEF72 /* NovelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */; };
 		DD65CFE22200D1A900CBEF72 /* NovelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */; };
+		DD684B4623E1FB8400A98368 /* RoundedRectangleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */; };
+		DD684B4723E1FB8400A98368 /* RoundedRectangleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */; };
 		DD789BDD22817B300084828A /* MessageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD789BDB22817B300084828A /* MessageHolder.cpp */; };
 		DD789BDE22817B300084828A /* MessageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD789BDB22817B300084828A /* MessageHolder.cpp */; };
 		DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
@@ -234,6 +236,8 @@
 		DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NovelSystem.cpp; sourceTree = "<group>"; };
 		DD65CFE02200D1A900CBEF72 /* NovelSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelSystem.hpp; sourceTree = "<group>"; };
+		DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RoundedRectangleButton.cpp; sourceTree = "<group>"; };
+		DD684B4523E1FB8400A98368 /* RoundedRectangleButton.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RoundedRectangleButton.hpp; sourceTree = "<group>"; };
 		DD789BDB22817B300084828A /* MessageHolder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MessageHolder.cpp; sourceTree = "<group>"; };
 		DD789BDC22817B300084828A /* MessageHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageHolder.hpp; sourceTree = "<group>"; };
 		DD87E10E237483F500083FB9 /* NekoUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NekoUI.entitlements; sourceTree = "<group>"; };
@@ -491,6 +495,8 @@
 				DD4EEF3623D3A32500CF30B3 /* SomeButtons.hpp */,
 				DD3C9B2B23DB4A7D00DA63FA /* TexturedRectangleButton.cpp */,
 				DD3C9B2C23DB4A7D00DA63FA /* TexturedRectangleButton.hpp */,
+				DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */,
+				DD684B4523E1FB8400A98368 /* RoundedRectangleButton.hpp */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -881,6 +887,7 @@
 				DDAB7472215D88050062F8B6 /* main.cpp in Sources */,
 				DD5EADE5230429AE00CA0361 /* Shader.cpp in Sources */,
 				DDE0E6D7229DB97700991722 /* MapUI.cpp in Sources */,
+				DD684B4623E1FB8400A98368 /* RoundedRectangleButton.cpp in Sources */,
 				DDAB746F215D88050062F8B6 /* ResourcePath.mm in Sources */,
 				DDD2787F228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
 				DD59162F23DC9E9D00C5BE19 /* Vasya.cpp in Sources */,
@@ -948,6 +955,7 @@
 				DDE66FB221FB1BC80071145D /* Base.cpp in Sources */,
 				DDE66FBA21FB1CC90071145D /* Settings.cpp in Sources */,
 				DD5EADE6230429AE00CA0361 /* Shader.cpp in Sources */,
+				DD684B4723E1FB8400A98368 /* RoundedRectangleButton.cpp in Sources */,
 				DDE0E6D8229DB97700991722 /* MapUI.cpp in Sources */,
 				DDAB74A1215D89CD0062F8B6 /* main.cpp in Sources */,
 				DD59163023DC9E9D00C5BE19 /* Vasya.cpp in Sources */,

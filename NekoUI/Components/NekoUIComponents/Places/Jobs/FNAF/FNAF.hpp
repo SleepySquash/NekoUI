@@ -10,5 +10,27 @@
 #define JobsFNAF_hpp
 
 #include <iostream>
+#include "../../../../../Engine/EntitySystem.hpp"
+#include "../../../../../Engine/GUI/Button/SomeButtons.hpp"
+
+using namespace ns;
+
+namespace NekoUI
+{
+    namespace Jobs_FNAFGame
+    {
+        struct FNAF : Component
+        {
+            bool clickable{ true };
+            GUI::TextButton exitButton;
+            
+            void Init() override;
+            void PollEvent(sf::Event& event) override;
+            void Resize(unsigned int width, unsigned int height) override;
+            void Draw(sf::RenderWindow* window) override;
+            void RecieveMessage(MessageHolder& message) override;
+        };
+    }
+}
 
 #endif /* JobsFNAF_hpp */
