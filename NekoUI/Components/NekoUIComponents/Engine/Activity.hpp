@@ -36,7 +36,7 @@ namespace NekoUI
         bool isSuccess{ false };
         Activity* activity;
         
-        bool countAsActivityBeingMade{ false };
+        bool drawNekoDialogue{ false };
         std::wstring occupyString, actionString;
         enum class TaskType { moving, randommoving, movetoentity, pickupitem, consumefromhands, insertactivity, hidedressed, dresshidden, bathing, other } type{ TaskType::other };
         std::wstring movingToObject; float x{ 0 }, y{ 0 };
@@ -64,7 +64,7 @@ namespace NekoUI
     struct Activity : MessageSender
     {
         std::string name;
-        bool active{ false }, doingTheActivity{ false }, forceActivityReplica{ false };
+        bool active{ false }, drawNekoDialogue{ false }, forceActivityReplica{ false };
         bool canFeed{ true }, canMove{ true }, canNekoUI{ true };
         MessageSender* sender;
         

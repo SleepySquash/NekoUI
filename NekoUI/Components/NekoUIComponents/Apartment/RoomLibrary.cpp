@@ -18,7 +18,7 @@ namespace NekoUI
     bool Room::canPressScrolldownMenu{ true }, Room::canPressDatePanel{ true }, Room::canOpenNekoUI{ true };
     bool Room::allowDTSaving{ true };
 
-    Room::simulationWasAtEnum Room::simulationWasAt{ simulationWasAtEnum::Non };
+    Room::Location Room::location{ Location::Unknown };
 
     sf::FloatRect Room::scrolldownMenuBounds;
     

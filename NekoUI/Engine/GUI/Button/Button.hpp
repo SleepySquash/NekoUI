@@ -40,7 +40,7 @@ namespace ns
             Halign halign{ Halign::Center };
             Valign valign{ Valign::Center };
             
-            virtual void Draw(sf::RenderTarget* window);
+            virtual void draw(sf::RenderTarget* target, sf::RenderStates states = sf::RenderStates::Default);
             virtual void Resize(unsigned int width, unsigned int height);
             virtual bool PollEvent(sf::Event& event);
             virtual void ReceiveMessage(MessageHolder& message);
@@ -48,6 +48,9 @@ namespace ns
             virtual void setAlpha(const sf::Uint8& alpha);
             virtual sf::Uint8 getAlpha();
             virtual void setPosition(float x, float y);
+            virtual const sf::Vector2f& getPosition();
+            virtual sf::FloatRect getLocalBounds() const;
+            virtual sf::FloatRect getGlobalBounds() const;
             virtual void setVisible(bool vis);
             virtual void setColor(const sf::Color& fillColour);
             virtual void updateColor();

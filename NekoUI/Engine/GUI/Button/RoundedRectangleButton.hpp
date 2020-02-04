@@ -41,7 +41,7 @@ namespace ns
             float thickness{ 1.f }, radius{ 20 };
             
             RoundedRectangleButton();
-            void Draw(sf::RenderTarget* window) override;
+            void draw(sf::RenderTarget* target, sf::RenderStates states = sf::RenderStates::Default) override;
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
             void eventPolled(sf::Event& event);

@@ -24,7 +24,7 @@ using std::endl;
 
 namespace NekoUI
 {
-    enum class ItemType { Wearable, Food, Drink, Toy, Other };
+    enum class ItemType { Wearable, Food, Drink, Toy, Container, Other };
     struct Item
     {
         std::string name; std::wstring description;
@@ -35,7 +35,8 @@ namespace NekoUI
         unsigned char rarity; // 0 - 100
         sf::Color color;
         
-        bool usable;
+        bool usable, sellable{ true };
+        int price{ 10 };
         float scale{ 1.f };
         int shadowOffsetYY{ 0 };
         

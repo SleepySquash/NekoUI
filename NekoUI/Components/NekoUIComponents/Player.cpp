@@ -17,7 +17,7 @@ namespace NekoUI
     std::wstring Player::display{ L"Ванилла" }, Player::backgroundCover{ L"cover2.jpg" };
     std::chrono::time_point<std::chrono::system_clock> Player::birthday;
 
-    bool Player::noFood{ true }, Player::noDrink{ true };
+    bool Player::tutorial{ true }, Player::noFood{ true }, Player::noDrink{ true };
     
     NekoS::EyebrowsEmotion Player::eyebrowsEmotion{ NekoS::EyebrowsEmotion::Normal };
     NekoS::EyesEmotion Player::eyesEmotion{ NekoS::EyesEmotion::Normal };
@@ -25,6 +25,8 @@ namespace NekoUI
     
     void Player::Init()
     {
+        bool firstLaunch{ true };
+        
         std::wifstream wif;
 #ifdef _WIN32
         wif.open(utf16(documentsPath()) + L"Player.nekoui");
@@ -35,6 +37,7 @@ namespace NekoUI
         
         if (wif.is_open())
         {
+            firstLaunch = false;
             std::wstring line;
             nss::CommandSettings command;
             
@@ -87,6 +90,7 @@ namespace NekoUI
         wifbd.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
         if (wifbd.is_open())
         {
+            firstLaunch = false;
             std::chrono::system_clock::rep file_time_rep;
             if (wifbd.read(reinterpret_cast<char*>(&file_time_rep), sizeof file_time_rep))
             {
@@ -101,6 +105,7 @@ namespace NekoUI
         }
         else Birth();
         
+        if (firstLaunch) NekoS::money = 500;
         neko.Init();
     }
     

@@ -26,7 +26,7 @@ namespace ns
         {
             if (threads.find(imageName) != threads.end())
             {
-                threads[imageName]->join();
+                threads[imageName]->join(); // TODO: Might "ACCESS VIOLATION" here
                 delete threads[imageName]; threads.erase(imageName);
                 if (images.find(imageName) != images.end() && images[imageName].image != nullptr)
                 {

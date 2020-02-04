@@ -127,17 +127,17 @@ namespace NekoUI
         if (!active) return;
         switch (mode)
         {
-            case appearing:      //currentTime = appearTime;
+            case Mode::appearing:      //currentTime = appearTime;
                 if (currentTime < appearTime) currentTime += elapsedTime.asSeconds();
-                if (currentTime >= appearTime) { alpha = 255; currentTime = 0.f; mode = existing; }
+                if (currentTime >= appearTime) { alpha = 255; currentTime = disappearTime; mode = Mode::existing; }
                 else alpha = (sf::Uint8)(255 * (currentTime / appearTime));
                 UpdateAlpha(); gs::requestWindowRefresh = true;
                 break;
                 
-            case disappearing:     //currentTime = disappearTime;
-                if (currentTime < disappearTime) currentTime += elapsedTime.asSeconds();
-                if (currentTime >= disappearTime) { active = false; CleanUp(); alpha = 0; currentTime = 0.f; mode = existing; }
-                else alpha = (sf::Uint8)(255 - (255 * (currentTime / disappearTime)));
+            case Mode::disappearing:     //currentTime = disappearTime;
+                if (currentTime > 0) currentTime -= elapsedTime.asSeconds();
+                if (currentTime <= 0) { active = false; CleanUp(); alpha = 0; currentTime = 0.f; mode = Mode::existing; }
+                else alpha = (sf::Uint8)(255 * (currentTime / disappearTime));
                 UpdateAlpha(); gs::requestWindowRefresh = true;
                 break;
             default: break;
@@ -147,6 +147,22 @@ namespace NekoUI
             pressWillCloseInterfaces = rm::requestCloseButton;
             if (pressWillCloseInterfaces) scrolldownMenu.setTexture(scrolldownTexture_close);
             else scrolldownMenu.setTexture(scrolldownTexture_normal);
+        }
+        switch (scrolldown)
+        {
+            case Mode::appearing:      //currentTime = appearTime;
+                if (scrollcurrentTime < scrollappearTime) scrollcurrentTime += elapsedTime.asSeconds();
+                if (scrollcurrentTime >= scrollappearTime) { scrolldownButtonsOffset = 1;
+                    scrollcurrentTime = scrolldisappearTime; scrolldown = Mode::existing; }
+                else scrolldownButtonsOffset = (scrollcurrentTime / scrollappearTime); gs::requestWindowRefresh = true;
+                break;
+                
+            case Mode::disappearing:     //currentTime = disappearTime;
+                if (scrollcurrentTime > 0) scrollcurrentTime -= elapsedTime.asSeconds();
+                if (scrollcurrentTime <= 0) { scrolldownButtonsOffset = 0; scrollcurrentTime = 0.f; scrolldown = Mode::existing; }
+                else scrolldownButtonsOffset = (scrollcurrentTime / scrolldisappearTime); gs::requestWindowRefresh = true;
+                break;
+            default: break;
         }
     }
     void RoomUI::CleanUp()
@@ -187,6 +203,7 @@ namespace NekoUI
                 entity->system->SendMessage({"MapUI :: Close"});
             }
             else rm::scrolldownMenuOpened = !rm::scrolldownMenuOpened;
+            if (rm::scrolldownMenuOpened) scrolldown = Mode::appearing; else scrolldown = Mode::disappearing;
         }
         if (rm::scrolldownMenuOpened && ((event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::TouchEnded || event.type == sf::Event::TouchBegan)))
         {
@@ -207,7 +224,7 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Close"});
-                            rm::requestCloseButton = true;
+                            rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 1: scrolldownButtons.sprite.setTextureRect({124, 0, 97, 126});
@@ -219,7 +236,7 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Close"});
-                            rm::requestCloseButton = true;
+                            rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 2: scrolldownButtons.sprite.setTextureRect({230, 5, 128, 123});
@@ -231,7 +248,7 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Switch"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Close"});
-                            rm::requestCloseButton = true;
+                            rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 3: scrolldownButtons.sprite.setTextureRect({368, 0, 130, 117});
@@ -243,7 +260,7 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Switch"});
                             entity->system->SendMessage({"MapUI :: Close"});
-                            rm::requestCloseButton = true;
+                            rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 4: scrolldownButtons.sprite.setTextureRect({507, 0, 120, 124});
@@ -257,7 +274,7 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Switch"});
-                            rm::requestCloseButton = true;
+                            rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 6: scrolldownButtons.sprite.setTextureRect({780, 3, 123, 114});
@@ -271,7 +288,7 @@ namespace NekoUI
                 else yy -= scrolldownButtons.sprite.getGlobalBounds().height + 5*scrolldownButtonsScaling*gs::scaley;
             }
             scrolldownButtons.eventPolled(event);
-            if (!anyPressed) rm::scrolldownMenuOpened = false;
+            if (!anyPressed) { rm::scrolldownMenuOpened = false; scrolldown = Mode::disappearing; }
         }
         if (ignoreEventMove && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TouchBegan)) event = sf::Event();
     }
@@ -288,7 +305,9 @@ namespace NekoUI
         scrolldownMenu.Resize(width, height);
         scrolldownMenu.setPosition(width - 10*gs::scalex, height - 10*gs::scaley);
         scrolldownButtons.Resize(width, height);
-        rm::scrolldownMenuBounds = scrolldownMenu.sprite.getGlobalBounds();
+        // sf::FloatRect rect = scrolldownMenu.sprite.getGlobalBounds();
+        // rect.left -= 60*gs::scale; rect.top -= 60*gs::scale; rect.width += 60*gs::scale; rect.height += 60*gs::scale;
+        rm::scrolldownMenuBounds = scrolldownMenu.sprite.getGlobalBounds(); // rect;
         
         availableToTouchZone.width = width;
         availableToTouchZone.height = height;
@@ -333,7 +352,7 @@ namespace NekoUI
     }
     void RoomUI::UpdateAccordingToMode()
     {
-        switch (rm::simulationWasAt)
+        switch (rm::location)
         {
             default:
                 dateSprite.setScale(0.65f * gs::scale, 0.65f * gs::scale);
@@ -355,7 +374,7 @@ namespace NekoUI
         
         if (rm::drawDatePanel)
         {
-            switch (rm::simulationWasAt)
+            switch (rm::location)
             {
                 default:
                     window->draw(dateSprite);
@@ -438,11 +457,10 @@ namespace NekoUI
         }
         if (rm::drawScrolldownMenu)
         {
-            scrolldownMenu.Draw(window);
-            if (rm::scrolldownMenuOpened)
+            if (rm::scrolldownMenuOpened || scrolldown != Mode::existing)
             {
-                float xx = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().x : scrolldownMenu.sprite.getGlobalBounds().left - 5*scrolldownButtonsScaling*gs::scalex;
-                float yy = gs::verticalOrientation ? scrolldownMenu.sprite.getGlobalBounds().top - 5*scrolldownButtonsScaling*gs::scaley : scrolldownMenu.sprite.getPosition().y;
+                float xx = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().x : scrolldownMenu.sprite.getPosition().x - scrolldownMenu.sprite.getGlobalBounds().width/2 - (scrolldownMenu.sprite.getGlobalBounds().width/2 + 5*scrolldownButtonsScaling*gs::scalex) * scrolldownButtonsOffset;
+                float yy = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().y - scrolldownMenu.sprite.getGlobalBounds().height/2 - (scrolldownMenu.sprite.getGlobalBounds().height/2 + 5*scrolldownButtonsScaling*gs::scaley) * scrolldownButtonsOffset : scrolldownMenu.sprite.getPosition().y;
                 for (int i = 0; i < 8; ++i)
                 {
                     scrolldownButtons.index = i;
@@ -458,11 +476,12 @@ namespace NekoUI
                         case 7: scrolldownButtons.sprite.setTextureRect({908, 14, 120, 80}); break;
                         default: break;
                     }
-                    scrolldownButtons.setPosition(xx, yy - 62*gs::scale); scrolldownButtons.Draw(window);
-                    if (!gs::verticalOrientation) xx -= scrolldownButtons.sprite.getGlobalBounds().width + 5*scrolldownButtonsScaling*gs::scalex;
-                    else yy -= scrolldownButtons.sprite.getGlobalBounds().height + 5*scrolldownButtonsScaling*gs::scaley;
+                    scrolldownButtons.setPosition(xx, yy - 62*gs::scale); scrolldownButtons.draw(window);
+                    if (!gs::verticalOrientation) xx -= (scrolldownButtons.sprite.getGlobalBounds().width + 5*scrolldownButtonsScaling*gs::scalex) * scrolldownButtonsOffset;
+                    else yy -= (scrolldownButtons.sprite.getGlobalBounds().height + 5*scrolldownButtonsScaling*gs::scaley) * scrolldownButtonsOffset;
                 }
             }
+            scrolldownMenu.draw(window);
         }
     }
     void RoomUI::RecieveMessage(MessageHolder& message)
@@ -476,23 +495,24 @@ namespace NekoUI
             needSprite.setColor({needSprite.getColor().r, needSprite.getColor().g, needSprite.getColor().b, 255}); }
         else if (message.info == "RoomUI :: Update")
         {
-            switch (rm::simulationWasAt)
+            switch (rm::location)
             {
-                case rm::simulationWasAtEnum::Non:
+                case rm::Location::Apartment:
                     nekoMoodText.setString(L"Счастье");
                     break;
-                case rm::simulationWasAtEnum::Grocery:
+                case rm::Location::Grocery: case rm::Location::Shopkeeper:
                     nekoMoodText.setString(std::to_string(NekoS::money) + " P");
                     break;
+                default: break;
             }
-            if (lastSimulationWasAt != rm::simulationWasAt) { lastSimulationWasAt = rm::simulationWasAt; UpdateAccordingToMode(); }
+            if (lastLocation != rm::location) { lastLocation = rm::location; UpdateAccordingToMode(); }
         }
     }
     void RoomUI::Switch(const bool& on)
     {
         if (on)
         {
-            if (active) mode = appearing;
+            if (active) mode = Mode::appearing;
             else
             {
                 sf::Texture* texture = ic::LoadTexture(L"Data/Images/UI/sun.png");
@@ -508,10 +528,10 @@ namespace NekoUI
                 scrolldownTexture_normal = ic::LoadTexture(L"Data/Images/UI/scrolldown rev1.png");
                 scrolldownTexture_close = ic::LoadTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
                 scrolldownMenu.setTexture(scrolldownTexture_normal);
-                active = true; mode = appearing; Resize(gs::width, gs::height);
+                active = true; mode = Mode::appearing; Resize(gs::width, gs::height);
             }
         }
-        else if (!on) mode = disappearing;
+        else if (!on) mode = Mode::disappearing;
     }
     void RoomUI::UpdateAlpha()
     {

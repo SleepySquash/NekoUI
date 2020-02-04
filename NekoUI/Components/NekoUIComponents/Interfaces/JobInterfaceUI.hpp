@@ -40,6 +40,7 @@ namespace NekoUI
         sf::RectangleShape blackScreenShape;
         sf::Sprite background; bool spriteLoaded{ false };
         GUI::SpriteButton quitButton;
+        sf::Text moneyText;
         
         GUI::TexturedRectangleButtons jobs;
         int jobsButtonsCount{ 0 }, jobsBackgroundW, jobsBackgroundH;

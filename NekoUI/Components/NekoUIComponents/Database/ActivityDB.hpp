@@ -86,8 +86,15 @@ namespace NekoUI
         };
         struct Sleeping : ActivityTask
         {
-            float elapsedDuration, howMuchToWait, energyInSecond, energyCap{ 850.f };
-            Sleeping(Activity* activity, const float& energyInSecond = 60*0.04629f/*5.f*/, const float& howMuch = 60.f);
+            float elapsedDuration, energyInSecond, energyCap{ 850.f };
+            Sleeping(Activity* activity, const float& energyInSecond = 60*0.04629f/*5.f*/);
+            void Init() override;
+            void Update(const sf::Time& elapsedTime) override;
+        };
+        struct UseToilet : ActivityTask
+        {
+            float elapsedDuration, howMuchToWait, toiletInSecond, toiletCap{ 1000.f };
+            UseToilet(Activity* activity, const float& toiletInSecond = 40.f/*5.f*//*, const float& howMuch = 12.f*/);
             void Init() override;
             void Update(const sf::Time& elapsedTime) override;
         };
@@ -126,12 +133,14 @@ namespace NekoUI
         struct Drinking : Activity { Drinking(); void Init() override; };
         struct Sleeping : Activity { Sleeping(); void Init() override; };
         struct Bathing : Activity { Bathing(); void Init() override; };
+        struct UseToilet : Activity { UseToilet(); void Init() override; };
         
         struct ReturnToFood : Activity { ReturnToFood(); void Init() override; void Destroy() override; };
         struct EatFromFridge : Activity { EatFromFridge(); void Init() override; };
         struct DrinkFromFridge : Activity { DrinkFromFridge(); void Init() override; };
         struct GoSleep : Activity { GoSleep(); void Init() override; };
         struct GoTakeABath : Activity { GoTakeABath(); void Init() override; };
+        struct GoUseToilet : Activity { GoUseToilet(); void Init() override; };
         
         struct ComeToSenses : Activity { ComeToSenses(); void Init() override; };
         struct ComeToSensesAfterSleep : Activity { ComeToSensesAfterSleep(); void Init() override; };

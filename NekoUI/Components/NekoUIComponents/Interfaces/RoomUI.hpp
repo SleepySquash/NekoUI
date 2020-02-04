@@ -53,24 +53,26 @@ namespace NekoUI
         int dateDay{ 0 }, dateMonth{ 0 };
         sf::Text dayText, monthText;
         sf::Text nekoMoodText;
-        rm::simulationWasAtEnum lastSimulationWasAt{ rm::simulationWasAtEnum::Non };
+        rm::Location lastLocation{ rm::Location::Apartment };
         
         bool needbaseSpriteTransparent{ false };
         sf::Sprite needbaseSprite, needSprite;
+        
+        enum class Mode { appearing, existing, disappearing };
+        Mode mode{ Mode::appearing }; sf::Uint8 alpha{ 0 };
+        float currentTime{ 0.f }, appearTime{ 0.3f }, disappearTime{ 0.2f };
         
         sf::Texture* scrolldownTexture_normal{ nullptr }, *scrolldownTexture_close{ nullptr };
         bool pressWillCloseInterfaces{ false };
         GUI::SpriteButton scrolldownMenu;
         GUI::SpriteButtons scrolldownButtons;
-        float scrolldownButtonsScaling{ 1.f };
+        float scrolldownButtonsScaling{ 1.f }, scrolldownButtonsOffset{ 0.f };
+        Mode scrolldown{  Mode::existing };
+        float scrollcurrentTime{ 0.f }, scrollappearTime{ 0.2f }, scrolldisappearTime{ 0.2f };
         
         unsigned int attentionStartY;
         sf::RoundedRectangleShape attentionShape;
         sf::Text attentionText;
-        
-        enum modeEnum { appearing, existing, disappearing };
-        modeEnum mode{ appearing }; sf::Uint8 alpha{ 0 };
-        float currentTime{ 0.f }, appearTime{ 0.3f }, disappearTime{ 0.2f };
         
         void Init() override;
         void Destroy() override;

@@ -86,7 +86,7 @@ namespace ns
         window->draw(shape);
         window->draw(caption);
         window->draw(text);
-        okButton.Draw(window);
+        okButton.draw(window);
     }
     void PopupMessage::RecieveMessage(MessageHolder& message) { if (active && message.info == "Popup :: Close") Close(); }
     void PopupMessage::Close()

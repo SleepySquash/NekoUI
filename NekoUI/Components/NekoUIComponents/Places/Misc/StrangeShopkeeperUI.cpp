@@ -17,7 +17,7 @@ namespace NekoUI
             rm::scrolldownMenuOpened = rm::requestCloseButton = false;
             rm::drawDatePanel = true; rm::drawNeeds = rm::drawScrolldownMenu = false;
             rm::canPressDatePanel = rm::allowDTSaving = false;
-            rm::simulationWasAt = rm::simulationWasAtEnum::Grocery;
+            rm::location = rm::Location::Shopkeeper;
             
             // background.setFillColor(sf::Color(100, 100, 100));
             sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/strangeshopkeeper.jpg", entity->system);
@@ -53,7 +53,11 @@ namespace NekoUI
         {
             if (!active) return;
             
-            if (goButton.PollEvent(event)) { entity->SendMessage({"PlacesUI :: ApartmentUI"}); active = false; }
+            if (goButton.PollEvent(event))
+            {
+                if (Inventory::transition.list.empty()) entity->system->SendMessage({"MapUI :: Show"});
+                else { entity->SendMessage({"PlacesUI :: ApartmentUI"}); active = false; }
+            }
             else if (shopButton.PollEvent(event)) { }
             else if (talkButton.PollEvent(event)) { }
         }
@@ -83,9 +87,9 @@ namespace NekoUI
         {
             window->draw(background);
             
-            shopButton.Draw(window);
-            talkButton.Draw(window);
-            goButton.Draw(window);
+            shopButton.draw(window);
+            talkButton.draw(window);
+            goButton.draw(window);
         }
         void StrangeShopkeeperUI::RecieveMessage(MessageHolder& message)
         {

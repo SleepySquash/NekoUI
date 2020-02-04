@@ -39,7 +39,7 @@ namespace NekoUI
     
     
     
-    InventoryBase<Item> Inventory::items, Inventory::fridge;
+    InventoryBase<Item> Inventory::items, Inventory::fridge, Inventory::transition;
     InventoryBase<Wearable> Inventory::wardrobeHead, Inventory::wardrobeTop, Inventory::wardrobeBottom, Inventory::wardrobeOnepiece, Inventory::wardrobeUnderwear, Inventory::wardrobeSocks, Inventory::wardrobeShoes, Inventory::wardrobeAccessories;
     std::unordered_map<std::string, Item*> Inventory::map;
     void ItemsBase::Push(const std::string& item, unsigned int count)

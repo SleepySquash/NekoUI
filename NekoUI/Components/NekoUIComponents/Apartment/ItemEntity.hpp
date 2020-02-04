@@ -26,8 +26,6 @@
 using std::cin;
 using std::cout;
 using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 
@@ -35,16 +33,13 @@ namespace NekoUI
 {
     struct ItemEntity : RoomEntity
     {
-        bool spriteLoaded{ false };
+        bool loaded{ false }, drawShadow{ true };
+        int count{ 1 }, shadowOffsetYY{ 0 };
         Item* item{ nullptr };
-        bool drawShadow{ true };
-        sf::Sprite shadow; int shadowOffsetYY{ 0 };
-        int count{ 1 };
+        sf::Sprite shadow;
         
         void Init(Item* item = nullptr);
         void Destroy() override;
-        void Update(const sf::Time& elapsedTime) override;
-        void PollEvent(sf::Event& event) override;
         void Resize() override;
         void UpdatePosition() override;
         void Draw(sf::RenderWindow* window) override;

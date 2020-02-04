@@ -13,6 +13,8 @@
 #include "../../../../../Engine/EntitySystem.hpp"
 #include "../../../../../Engine/GUI/Button/SomeButtons.hpp"
 
+#include "../../../Neko/Static.hpp"
+
 using namespace ns;
 
 namespace NekoUI
@@ -22,7 +24,7 @@ namespace NekoUI
         struct FNAF : Component
         {
             bool clickable{ true };
-            GUI::TextButton exitButton;
+            GUI::TextButton exitButton, moneyButton;
             
             void Init() override;
             void PollEvent(sf::Event& event) override;

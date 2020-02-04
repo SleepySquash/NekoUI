@@ -28,9 +28,12 @@ namespace NekoUI
         text.setString(L"Идём...");
         gs::ignoreDraw = false;
         
-        entity->system->SendMessage({"Apartment :: Destroy"});
         if (nss::Command(info, "PlacesUI :: Job"))
+        {
             entity->system->SendMessage({"RoomUI :: Close"});
+            rm::location = rm::Location::Job;
+        }
+        else if (rm::location == rm::Location::Job) { Player::SaveData(); }
     }
     void PlacesTransitionScreen::Destroy() { gs::RemoveInterface(this); }
     void PlacesTransitionScreen::Update(const sf::Time& elapsedTime)
@@ -54,6 +57,7 @@ namespace NekoUI
             case 1: stage = 2; break;
             case 2:
                 //TODO: waitFor{ 0.1f }
+                ic::globalRequestSender->SendMessage({"Apartment :: Destroy"});
                 ic::globalRequestSender->SendMessage(info + " Destroy");
                 it = entity->components.begin();
                 std::advance(it, entity->components.size() - 1);

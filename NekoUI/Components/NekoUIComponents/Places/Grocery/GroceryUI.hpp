@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
@@ -28,6 +29,8 @@
 #include "../../Engine/Item.hpp"
 #include "../../Database/ItemDB.hpp"
 
+#include "ItemDetails.hpp"
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -38,11 +41,20 @@ namespace NekoUI
 {
     namespace Places
     {
-        void renderGroceryShelvesSprite(sf::RenderTexture* texture, sf::Sprite* sprite, sf::Sprite* render);
+        struct ShelfItemStruct
+        {
+            Item* item;
+            sf::Texture* texture{ nullptr };
+            int count{ 0 };
+            
+            ShelfItemStruct(Item* item = nullptr, int qty = 0);
+            ~ShelfItemStruct();
+            ShelfItemStruct(ShelfItemStruct&& b);
+        };
         struct GroceryUI : Component
         {
             bool active{ true };
-            float xx, yy; bool done; int xy;
+            float xx, yy; bool done; int xy, selectedxy;
             
             sf::RectangleShape loadingShape;
             GUI::SpriteButton quitB, checkoutB;
@@ -51,17 +63,24 @@ namespace NekoUI
             
             sf::Sprite background; bool spriteLoaded{ false };
             sf::Sprite shelvesSprite, shelfSprite, shelfItem; sf::RenderTexture shelvesTexture; bool shelvedRendered{ false };
-            sf::RectangleShape pricetagShape;
+            sf::RectangleShape pricetagShape; sf::Text pricetagText;
             int shelfColumnL{ 0 }, shelfColumnR{ 0 }, shelfColumns{ 0 }, shelfCount{ 0 };
             float shelfItemWidth{ 0 };
-            std::vector<Item*> shelfFood;
-            std::vector<sf::Texture*> shelfFoodTexture;
+            std::vector<ShelfItemStruct> shelfFood;
             
-            enum class Mode{ Main, Discount, Food, Drinks, Household } mode{ Mode::Main };
+            std::unordered_map<Item*, int> checkList; int checkPrice{ 0 };
+            sf::Text checkCaption, checkBalance, checkName, checkQty, checkPriceT;
+            GUI::RoundedRectangleButton payB, resetB;
+            sf::RoundedRectangleShape checkShape; sf::Sprite nekopaySprite;
+            float checkLinesYY{ 0 }, checkLinesXX1{ 0 }, checkLinesXX2{ 0 }, checkLinesXX3{ 0 };
+            
+            enum class Mode{ Main, Discount, Food, Drinks, Household, Check } mode{ Mode::Main }, prev{ Mode::Main };
             
             void Init() override;
             void Destroy() override;
+            void SwitchMode(const Mode& to);
             void PollEvent(sf::Event& event) override;
+            void ResizeCheck();
             void Resize(unsigned int width, unsigned int height) override;
             void Draw(sf::RenderWindow* window) override;
             void RecieveMessage(MessageHolder& message) override;

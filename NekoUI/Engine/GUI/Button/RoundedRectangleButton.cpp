@@ -20,7 +20,7 @@ namespace ns
             if (drawOutlineShape) shape.setOutlineColor(sonormalColor);
             shape.setCornerPointCount(5);
         }
-        void RoundedRectangleButton::Draw(sf::RenderTarget* window)
+        void RoundedRectangleButton::draw(sf::RenderTarget* target, sf::RenderStates states)
         {
             if (loaded && visible)
             {
@@ -38,8 +38,7 @@ namespace ns
                         if (drawOutline) text.setOutlineColor(sf::Color(ohoverColor.r, ohoverColor.g, ohoverColor.b, ralpha));
                         if (drawOutlineShape) shape.setFillColor(sf::Color(shoverColor.r, shoverColor.g, shoverColor.b, ralpha)); }
                 }
-                if (drawShape) window->draw(shape);
-                window->draw(text);
+                if (drawShape) target->draw(shape, states); target->draw(text, states);
                 if ((anyButtonPressed || wasHovered) && index == pressedIndex) {
                     if (drawOutlineShape) shape.setOutlineColor({sonormalColor.r, sonormalColor.g, sonormalColor.b, ralpha});
                     if (drawOutline) text.setOutlineColor({onormalColor.r, onormalColor.g, onormalColor.b, alpha});
@@ -74,9 +73,10 @@ namespace ns
                     if (drawOutlineShape) shape.setOutlineColor({sonormalColor.r, sonormalColor.g, sonormalColor.b, ralpha});
                     if (drawOutline) text.setOutlineColor({onormalColor.r, onormalColor.g, onormalColor.b, alpha});
                     text.setFillColor({normalColor.r, normalColor.g, normalColor.b, alpha});
-                    shape.setFillColor({onormalColor.r, onormalColor.g, onormalColor.b, ralpha});
+                    shape.setFillColor({snormalColor.r, snormalColor.g, snormalColor.b, ralpha});
                     bool constains = shape.getGlobalBounds().contains(dot.x, dot.y);
-                    if (constains) { anyButtonPressed = false; event = sf::Event(); }
+                    if (constains) event = sf::Event();
+                    anyButtonPressed = false;
                     
                     return constains;
                 }
@@ -127,7 +127,7 @@ namespace ns
                 case Valign::Top: text.setOrigin(text.getOrigin().x, 0); text.setPosition(text.getPosition().x, y); break;
                 case Valign::Center:
                     text.setPosition(text.getPosition().x, y + shape.getSize().y/2);
-                    text.setOrigin(text.getOrigin().x, text.getLocalBounds().height/2); break;
+                    text.setOrigin(text.getOrigin().x, 1.35*text.getLocalBounds().height/2); break;
                 case Valign::Bottom:
                     text.setPosition(text.getPosition().x, y + shape.getSize().y);
                     text.setOrigin(text.getOrigin().x, text.getLocalBounds().height*1.25); break;

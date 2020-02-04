@@ -81,13 +81,21 @@
 		DD5EADE223040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
 		DD5EADE5230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
 		DD5EADE6230429AE00CA0361 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADE3230429AE00CA0361 /* Shader.cpp */; };
+		DD5FC2E123E71EA80018D336 /* ContainerEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5FC2DF23E71EA80018D336 /* ContainerEntity.cpp */; };
+		DD5FC2E223E71EA80018D336 /* ContainerEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5FC2DF23E71EA80018D336 /* ContainerEntity.cpp */; };
 		DD65CFD82200B0E400CBEF72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */; };
 		DD65CFE12200D1A900CBEF72 /* NovelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */; };
 		DD65CFE22200D1A900CBEF72 /* NovelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */; };
 		DD684B4623E1FB8400A98368 /* RoundedRectangleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */; };
 		DD684B4723E1FB8400A98368 /* RoundedRectangleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */; };
+		DD684B4A23E3670900A98368 /* ItemDetails.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4823E3670900A98368 /* ItemDetails.cpp */; };
+		DD684B4B23E3670900A98368 /* ItemDetails.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4823E3670900A98368 /* ItemDetails.cpp */; };
 		DD789BDD22817B300084828A /* MessageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD789BDB22817B300084828A /* MessageHolder.cpp */; };
 		DD789BDE22817B300084828A /* MessageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD789BDB22817B300084828A /* MessageHolder.cpp */; };
+		DD842F6023E44BA900208A3A /* BlurTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD842F5E23E44BA900208A3A /* BlurTest.cpp */; };
+		DD842F6123E44BA900208A3A /* BlurTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD842F5E23E44BA900208A3A /* BlurTest.cpp */; };
+		DD842F6423E47DAE00208A3A /* Blur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD842F6223E47DAE00208A3A /* Blur.cpp */; };
+		DD842F6523E47DAE00208A3A /* Blur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD842F6223E47DAE00208A3A /* Blur.cpp */; };
 		DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
 		DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
 		DD9F796C23DC5BE700D0E10C /* NotificationHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F796A23DC5BE700D0E10C /* NotificationHolder.cpp */; };
@@ -232,14 +240,22 @@
 		DD5EADE023040C7200CA0361 /* Static.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Static.hpp; sourceTree = "<group>"; };
 		DD5EADE3230429AE00CA0361 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		DD5EADE4230429AE00CA0361 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		DD5FC2DF23E71EA80018D336 /* ContainerEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerEntity.cpp; sourceTree = "<group>"; };
+		DD5FC2E023E71EA80018D336 /* ContainerEntity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ContainerEntity.hpp; sourceTree = "<group>"; };
 		DD65CFCA220072B600CBEF72 /* ResourcePath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ResourcePath.cpp; sourceTree = "<group>"; };
 		DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD65CFDF2200D1A900CBEF72 /* NovelSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NovelSystem.cpp; sourceTree = "<group>"; };
 		DD65CFE02200D1A900CBEF72 /* NovelSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelSystem.hpp; sourceTree = "<group>"; };
 		DD684B4423E1FB8400A98368 /* RoundedRectangleButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RoundedRectangleButton.cpp; sourceTree = "<group>"; };
 		DD684B4523E1FB8400A98368 /* RoundedRectangleButton.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RoundedRectangleButton.hpp; sourceTree = "<group>"; };
+		DD684B4823E3670900A98368 /* ItemDetails.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemDetails.cpp; sourceTree = "<group>"; };
+		DD684B4923E3670900A98368 /* ItemDetails.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemDetails.hpp; sourceTree = "<group>"; };
 		DD789BDB22817B300084828A /* MessageHolder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MessageHolder.cpp; sourceTree = "<group>"; };
 		DD789BDC22817B300084828A /* MessageHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MessageHolder.hpp; sourceTree = "<group>"; };
+		DD842F5E23E44BA900208A3A /* BlurTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BlurTest.cpp; sourceTree = "<group>"; };
+		DD842F5F23E44BA900208A3A /* BlurTest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlurTest.hpp; sourceTree = "<group>"; };
+		DD842F6223E47DAE00208A3A /* Blur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Blur.cpp; sourceTree = "<group>"; };
+		DD842F6323E47DAE00208A3A /* Blur.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Blur.hpp; sourceTree = "<group>"; };
 		DD87E10E237483F500083FB9 /* NekoUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NekoUI.entitlements; sourceTree = "<group>"; };
 		DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StrangeShopkeeperUI.cpp; sourceTree = "<group>"; };
 		DD9F796023DC333000D0E10C /* StrangeShopkeeperUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StrangeShopkeeperUI.hpp; sourceTree = "<group>"; };
@@ -390,6 +406,8 @@
 				DD40882D22F858BB00F6C2C5 /* ItemEntity.hpp */,
 				DD0943392300C33A00FEF1AB /* FurnitureEntity.cpp */,
 				DD09433A2300C33A00FEF1AB /* FurnitureEntity.hpp */,
+				DD5FC2DF23E71EA80018D336 /* ContainerEntity.cpp */,
+				DD5FC2E023E71EA80018D336 /* ContainerEntity.hpp */,
 				DDD2787D228FF62400EFDABB /* RoomLibrary.cpp */,
 				DDD2787E228FF62400EFDABB /* RoomLibrary.hpp */,
 				DDDB65FE228F46C700E354CA /* Apartment.cpp */,
@@ -471,6 +489,8 @@
 			children = (
 				DD4EEF2723D3A0DE00CF30B3 /* GroceryUI.cpp */,
 				DD4EEF2823D3A0DE00CF30B3 /* GroceryUI.hpp */,
+				DD684B4823E3670900A98368 /* ItemDetails.cpp */,
+				DD684B4923E3670900A98368 /* ItemDetails.hpp */,
 			);
 			path = Grocery;
 			sourceTree = "<group>";
@@ -482,6 +502,8 @@
 				DD4EEF3123D3A29400CF30B3 /* enums.hpp */,
 				DD4EEF4923D8BABC00CF30B3 /* RoundedRectangleShape.cpp */,
 				DD4EEF4A23D8BABC00CF30B3 /* RoundedRectangleShape.hpp */,
+				DD842F6223E47DAE00208A3A /* Blur.cpp */,
+				DD842F6323E47DAE00208A3A /* Blur.hpp */,
 			);
 			path = GUI;
 			sourceTree = "<group>";
@@ -507,6 +529,8 @@
 				DD59162723DC870300C5BE19 /* GAME228.hpp */,
 				DD59162B23DC9D5000C5BE19 /* Vasya.hpp */,
 				DD59162E23DC9E9D00C5BE19 /* Vasya.cpp */,
+				DD842F5E23E44BA900208A3A /* BlurTest.cpp */,
+				DD842F5F23E44BA900208A3A /* BlurTest.hpp */,
 			);
 			path = TestComponents;
 			sourceTree = "<group>";
@@ -863,6 +887,7 @@
 				DD09431622FE193300FEF1AB /* ActivityDB.cpp in Sources */,
 				DD4EEF4B23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */,
 				DDDB660D228F509800E354CA /* Player.cpp in Sources */,
+				DD842F6423E47DAE00208A3A /* Blur.cpp in Sources */,
 				DD09432622FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD4EEF3723D3A32500CF30B3 /* SomeButtons.cpp in Sources */,
 				DDE66FC121FB495B0071145D /* EssentialComponents.cpp in Sources */,
@@ -872,6 +897,7 @@
 				DD0F525F2222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B672295D23A003BC870 /* NovelCharacter.cpp in Sources */,
 				DD09433B2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */,
+				DD684B4A23E3670900A98368 /* ItemDetails.cpp in Sources */,
 				DD40882E22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */,
 				DD59163923DFA53500C5BE19 /* FNAF.cpp in Sources */,
 				DDDB6604228F46D700E354CA /* NekoEntity.cpp in Sources */,
@@ -896,6 +922,7 @@
 				DD23D575228E02400028305E /* etc.cpp in Sources */,
 				DD3C9B2D23DB4A7D00DA63FA /* TexturedRectangleButton.cpp in Sources */,
 				DDE66FB521FB1C870071145D /* EntitySystem.cpp in Sources */,
+				DD842F6023E44BA900208A3A /* BlurTest.cpp in Sources */,
 				DDE0E6CF229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
 				DD4EEF2923D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
 				DD09433722FF5A0800FEF1AB /* InterestsDB.cpp in Sources */,
@@ -907,6 +934,7 @@
 				DD789BDD22817B300084828A /* MessageHolder.cpp in Sources */,
 				DD135B6F22974070003BC870 /* RoomUI.cpp in Sources */,
 				DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
+				DD5FC2E123E71EA80018D336 /* ContainerEntity.cpp in Sources */,
 				DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
 				DD09431E22FE195900FEF1AB /* BuffDB.cpp in Sources */,
 				DDE3DB7C229295F4004DA2B1 /* Persona.cpp in Sources */,
@@ -931,6 +959,7 @@
 				DD09432B22FEE51100FEF1AB /* Interest.cpp in Sources */,
 				DD4EEF4C23D8BABC00CF30B3 /* RoundedRectangleShape.cpp in Sources */,
 				DD09431722FE193300FEF1AB /* ActivityDB.cpp in Sources */,
+				DD842F6523E47DAE00208A3A /* Blur.cpp in Sources */,
 				DDDB660E228F509800E354CA /* Player.cpp in Sources */,
 				DD09432722FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD4EEF3823D3A32500CF30B3 /* SomeButtons.cpp in Sources */,
@@ -940,6 +969,7 @@
 				DDDB660A228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F52602222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B682295D23A003BC870 /* NovelCharacter.cpp in Sources */,
+				DD684B4B23E3670900A98368 /* ItemDetails.cpp in Sources */,
 				DD09433C2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */,
 				DD59163A23DFA53500C5BE19 /* FNAF.cpp in Sources */,
 				DD40882F22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */,
@@ -964,6 +994,7 @@
 				DDD27880228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
 				DD3C9B2E23DB4A7D00DA63FA /* TexturedRectangleButton.cpp in Sources */,
 				DD23D576228E02400028305E /* etc.cpp in Sources */,
+				DD842F6123E44BA900208A3A /* BlurTest.cpp in Sources */,
 				DDE0E6D0229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
 				DD4EEF2A23D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
 				DD09433822FF5A0800FEF1AB /* InterestsDB.cpp in Sources */,
@@ -975,6 +1006,7 @@
 				DD789BDE22817B300084828A /* MessageHolder.cpp in Sources */,
 				DD135B7022974070003BC870 /* RoomUI.cpp in Sources */,
 				DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
+				DD5FC2E223E71EA80018D336 /* ContainerEntity.cpp in Sources */,
 				DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
 				DD09431F22FE195900FEF1AB /* BuffDB.cpp in Sources */,
 				DDE3DB7D229295F4004DA2B1 /* Persona.cpp in Sources */,

@@ -12,7 +12,9 @@ namespace NekoUI
 {
     void NekoEntity::Init()
     {
-        movable = true; type = Type::Neko;
+        movable = canhover = true; type = Type::Neko;
+        chibiFacingIsRight = Player::neko.chibiReversed;
+        
         occupyText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
         occupyText.setOutlineColor(sf::Color(99, 70, 70));
         occupyActionButton.setFont(L"Noteworthy-Bold.ttf");
@@ -113,7 +115,7 @@ namespace NekoUI
             {
                 if (drawDialogue) { drawDialogue = false; if (!gs::ignoreDraw) gs::requestWindowRefresh = true;
                     elapsedDialogue = 3.f + (rand() % 9000) / 1000.f; }
-                else if (!activity || activity->doingTheActivity)
+                else if (!activity || activity->drawNekoDialogue)
                 {
                     if (beingActionedWith) sender->SendMessage({"NekoUI :: DDialogue", GenerateRoomDialogue()});
                     else SetDialogue(GenerateRoomDialogue());
@@ -226,6 +228,7 @@ namespace NekoUI
                 if (NekoS::needThirst <= 260) { sender->SendMessage({"Apartment :: ThirstActivity"}); if (activity) return; }
                 if (NekoS::needEnergy <= 260) { activity = adb::activities["GoSleep"]; }
                 else if (NekoS::needHygiene <= 260) { activity = adb::activities["GoTakeABath"]; }
+                else if (NekoS::needToilet <= 260) { activity = adb::activities["GoUseToilet"]; }
                 // HungerActivity или ThirstActivity - ломают игру, когда в холодильнике ничего нет?
                 // ИТОГ: ломал игру MovingTo в Init()'е, когда он сбрасывал movingObject в L""?
                 
@@ -284,7 +287,7 @@ namespace NekoUI
         if (beingOccupied)
         {
             window->draw(occupyText);
-            if (drawActionButton) occupyActionButton.Draw(window);
+            if (drawActionButton) occupyActionButton.draw(window);
         }
     }
     void NekoEntity::ReceiveMessage(MessageHolder& message)
@@ -304,6 +307,11 @@ namespace NekoUI
             }
             else beingOccupied = drawActionButton = false;
             moveTo = randomMoving = false;
+            
+            if ((sleeping = (activity->name == "Sleeping")))
+                sender->SendMessage({"Apartment :: GimmeBedInfo"});
+            else if ((activity->name == "UseToilet"))
+                sender->SendMessage({"Apartment :: GimmeToiletInfo"});
             
             if ((*(activity->task))->type == ActivityTask::TaskType::randommoving) randomMoving = true;
             else if ((*(activity->task))->type == ActivityTask::TaskType::moving)
@@ -402,6 +410,11 @@ namespace NekoUI
                     else if (NekoS::needHygiene < 0) NekoS::needHygiene = 0;
                     SetDialogue(L"Йа чистенькая!~ :з");
                 }
+                else if (activity->name == "UseToilet")
+                {
+                    if (NekoS::needToilet > NekoS::maxNeed) NekoS::needToilet = NekoS::maxNeed;
+                    else if (NekoS::needToilet < 0) NekoS::needToilet = 0;
+                }
             }
             else
             {
@@ -458,7 +471,15 @@ namespace NekoUI
             if (entity)
             {
                 x = entity->x - (entity->sprite.getLocalBounds().width/2)*entity->relScale;
-                y = entity->y + 1;
+                y = entity->y + 1; UpdatePosition(); UpdateDepthContinuously();
+            }
+        }
+        else if (message.info == "Apartment :: ToiletInfo" && activity && activity->name == "UseToilet")
+        {
+            RoomEntity* entity = reinterpret_cast<RoomEntity*>(message.address);
+            if (entity)
+            {
+                x = entity->x; y = entity->y + 1;
                 UpdatePosition(); UpdateDepthContinuously();
             }
         }
@@ -622,7 +643,7 @@ namespace NekoUI
                 default: break;
             }
         }
-        if (activity && activity->doingTheActivity)
+        if (activity && activity->drawNekoDialogue)
         {
             if (activity->name == "SittingAtTable")
             {
@@ -705,8 +726,6 @@ namespace NekoUI
     {
         if (!activity) return;
         activity->sender = this;
-        if ((sleeping = (activity->name == "Sleeping")))
-            sender->SendMessage({"Apartment :: GimmeBedInfo"});
         activity->OnStart();
         
         if (activity)

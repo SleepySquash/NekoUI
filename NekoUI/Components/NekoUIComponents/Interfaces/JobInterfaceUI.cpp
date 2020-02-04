@@ -18,6 +18,10 @@ namespace NekoUI
         jobs.halign = Halign::Center;
         jobs.valign = Valign::Bottom;
         jobs.ralpha = 255;
+        
+        moneyText.setFont(*fc::GetFont(L"Noteworthy-Bold.ttf"));
+        moneyText.setString(std::to_string(NekoS::money) + " P");
+        moneyText.setOutlineColor(sf::Color::Black);
     }
     void JobInterfaceUI::Destroy() { if (active) CleanUp(); }
     void JobInterfaceUI::Update(const sf::Time& elapsedTime)
@@ -27,15 +31,15 @@ namespace NekoUI
         {
             case appearing:      //currentTime = appearTime;
                 if (currentTime < appearTime) currentTime += elapsedTime.asSeconds();
-                if (currentTime >= appearTime) { gs::ignoreDraw = true; alpha = 255; currentTime = 0.f; mode = existing; }
+                if (currentTime >= appearTime) { gs::ignoreDraw = true; alpha = 255; currentTime = disappearTime; mode = existing; }
                 else alpha = (sf::Uint8)(255 * (currentTime / appearTime));
                 UpdateAlpha(); gs::requestWindowRefresh = true;
                 break;
                 
             case disappearing:     //currentTime = disappearTime;
-                if (currentTime < disappearTime) currentTime += elapsedTime.asSeconds();
-                if (currentTime >= disappearTime) { active = false; CleanUp(); alpha = 0; currentTime = 0.f; mode = existing; }
-                else alpha = (sf::Uint8)(255 - (255 * (currentTime / disappearTime)));
+                if (currentTime > 0) currentTime -= elapsedTime.asSeconds();
+                if (currentTime <= 0) { active = false; CleanUp(); alpha = 0; currentTime = 0.f; mode = existing; }
+                else alpha = (sf::Uint8)(255 * (currentTime / disappearTime));
                 UpdateAlpha(); gs::requestWindowRefresh = true;
                 break;
             default: break;
@@ -102,6 +106,10 @@ namespace NekoUI
         jobsButtonsCount = floor((gs::width - 200*gs::scalex - (jobs.shape.getSize().x + 10*gs::scale))/(jobs.shape.getSize().x + 10*gs::scale)) + 1;
         if (jobsButtonsCount > 4) jobsButtonsCount = 4;
         jobsStartXX = gs::width/2 - (jobs.shape.getSize().x + 10*gs::scale)*jobsButtonsCount/2;
+        
+        moneyText.setCharacterSize(40*gs::scale);
+        moneyText.setPosition(15*gs::scale, 6*gs::scale + gs::screenOffsetTop);
+        moneyText.setOutlineThickness(gs::scale);
     }
     void JobInterfaceUI::Draw(sf::RenderWindow* window)
     {
@@ -114,18 +122,20 @@ namespace NekoUI
         {
             jobs.index = i;
             switch (i) {
-                case 0: jobs.setString(L"Официант"); jobs.sprite.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH}); break;
-                case 1: jobs.setString(L"FNAF"); jobs.sprite.setTextureRect({jobsBackgroundW,0,jobsBackgroundW,jobsBackgroundH}); break;
-                case 2: jobs.setString(L"NekoExpress"); jobs.sprite.setTextureRect({0,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
-                case 3: jobs.setString(L"Защита башни"); jobs.sprite.setTextureRect({jobsBackgroundW,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
+                case 0: jobs.setString(L"Официант"); jobs.shape.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH}); break;
+                case 1: jobs.setString(L"FNAF"); jobs.shape.setTextureRect({jobsBackgroundW,0,jobsBackgroundW,jobsBackgroundH}); break;
+                case 2: jobs.setString(L"NekoExpress"); jobs.shape.setTextureRect({0,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
+                case 3: jobs.setString(L"Защита башни"); jobs.shape.setTextureRect({jobsBackgroundW,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
                 default: break;
             }
             jobs.setPosition(xx, yy);
-            jobs.Draw(window);
+            jobs.draw(window);
             xx += jobs.shape.getSize().x + 10*gs::scale;
             if (++currentButton >= jobsButtonsCount) { currentButton = 0;
                 xx = jobsStartXX; yy += jobs.shape.getSize().y + 10*gs::scale; }
         }
+        
+        window->draw(moneyText);
     }
     void JobInterfaceUI::RecieveMessage(MessageHolder& message)
     {
@@ -145,10 +155,13 @@ namespace NekoUI
         else if (active && nss::Command(message.info, "Request") && message.additional == jobs.textureName)
         {
             jobs.ReceiveMessage(message);
-            jobsBackgroundW = jobs.sprite.getLocalBounds().width/2;
-            jobsBackgroundH = jobs.sprite.getLocalBounds().height/2;
-            jobs.sprite.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH});
-            jobs.setSize(jobs.shape.getSize());
+            const sf::Texture* texture = jobs.shape.getTexture();
+            if (texture)
+            {
+                jobsBackgroundW = texture->getSize().x/2;
+                jobsBackgroundH = texture->getSize().y/2;
+                jobs.shape.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH});
+            }
         }
     }
     void JobInterfaceUI::Switch(const bool& on)
@@ -162,14 +175,20 @@ namespace NekoUI
             {
                 gs::PushInterface(this); active = clickable = true; mode = appearing; entity->SortAbove(this);
                 sf::Texture* texture = ic::RequestHigherTexture(L"Data/Images/Backgrounds/job_background1.jpg", entity->system);
+                moneyText.setString(std::to_string(NekoS::money) + " P");
                 if ((spriteLoaded = texture))
                 {
                     background.setTexture(*texture);
                     background.setOrigin(texture->getSize().x/2, texture->getSize().y/2);
                 }
                 jobs.setTexture(L"Data/Images/UI/jobButtonBackgrounds.jpg", ic::globalRequestSender);
-                jobsBackgroundW = jobs.sprite.getLocalBounds().width/2;
-                jobsBackgroundH = jobs.sprite.getLocalBounds().height/2;
+                const sf::Texture* ttexture = jobs.shape.getTexture();
+                if (ttexture)
+                {
+                    jobsBackgroundW = ttexture->getSize().x/2;
+                    jobsBackgroundH = ttexture->getSize().y/2;
+                    jobs.shape.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH});
+                }
                 Resize(gs::width, gs::height);
             }
         }

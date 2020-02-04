@@ -14,8 +14,6 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Essentials/ResourcePath.hpp"
-#include "../../../Engine/MessageHolder.hpp"
 #include "../../../Engine/Settings.hpp"
 #include "../../../Engine/Collectors.hpp"
 
@@ -31,8 +29,6 @@ using std::cout;
 using std::endl;
 using std::vector;
 using std::list;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 
@@ -78,7 +74,7 @@ namespace NekoUI
         float elapsedBlinking{ 1.f }, blinkingFrequency{ 2.3f }, closedBlinkDuration{ 0.07f };
         NekoS::EyesEmotion blinkEmotion;
         
-        void Init();
+        void Init() override;
         void Destroy() override;
         void Update(const sf::Time& elapsedTime) override;
         void PollEvent(sf::Event& event) override;

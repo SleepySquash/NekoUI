@@ -27,7 +27,7 @@ namespace ns
             sf::Color onormalColor{ sf::Color::Black },
                       ohoverColor{ 140, 140, 140 },
                       opressColor{ sf::Color::Black };
-            sf::Color snormalColor{ sf::Color::Black },
+            sf::Color snormalColor{ sf::Color::White },
                       shoverColor{ 225, 225, 225 },
                       spressColor{ 200, 200, 200 };
             bool drawOutlineShape{ true };
@@ -37,9 +37,7 @@ namespace ns
             sf::Uint8 ralpha{ 255 };
             
             bool spriteLoaded{ false };
-            sf::Sprite sprite;
             std::wstring textureName{ L"" };
-            float scale{ 1.f };
             
             sf::Text text;
             unsigned int characterSize{ 20 };
@@ -47,7 +45,7 @@ namespace ns
             
             TexturedRectangleButtons();
             ~TexturedRectangleButtons();
-            void Draw(sf::RenderTarget* window) override;
+            void draw(sf::RenderTarget* target, sf::RenderStates states = sf::RenderStates::Default) override;
             void Resize(unsigned int width, unsigned int height) override;
             bool PollEvent(sf::Event& event) override;
             void eventPolled(sf::Event& event);

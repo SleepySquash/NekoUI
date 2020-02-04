@@ -72,9 +72,9 @@ namespace NekoUI
         if (!active || gs::ignoreDraw) return;
         
         window->draw(blackScreenShape);
-        quitButton.Draw(window);
+        quitButton.draw(window);
         window->draw(dateText);
-        closeButton.Draw(window);
+        closeButton.draw(window);
     }
     void CalendarUI::RecieveMessage(MessageHolder& message)
     {

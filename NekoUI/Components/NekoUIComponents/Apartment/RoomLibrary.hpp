@@ -37,8 +37,8 @@ namespace NekoUI
         static bool canPressScrolldownMenu, canPressDatePanel, canOpenNekoUI;
         static bool allowDTSaving;
         
-        enum class simulationWasAtEnum{ Non, Grocery };
-        static simulationWasAtEnum simulationWasAt;
+        enum class Location{ Unknown, Apartment, Grocery, Shopkeeper, Park, TrainStation, NekoScience, Job }; // Больница, Аптека, Рыбалка, Лес, СалонКрасоты, МагазинОдежды, Рынок, Ресторан, ТЦ, Кино, Театр
+        static Location location;
         
         static sf::FloatRect scrolldownMenuBounds;
         

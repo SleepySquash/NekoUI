@@ -31,6 +31,7 @@
 #include "NekoEntity.hpp"
 #include "ItemEntity.hpp"
 #include "FurnitureEntity.hpp"
+#include "ContainerEntity.hpp"
 #include "../Player.hpp"
 
 using std::cin;
@@ -45,7 +46,6 @@ using namespace ns;
 
 namespace NekoUI
 {
-    void renderBackgroundSprite(sf::RenderTexture* backgroundTexture, sf::Sprite* backgroundSprite, sf::Sprite* backgroundRenderSprite);
     struct Apartment : Component
     {
         vector<RoomEntity*> entities;
@@ -65,8 +65,10 @@ namespace NekoUI
         sf::Vector2f lastValidDot{ 0, 0 };
         bool inAreaToMoveView{ false };
         
-        sf::Text hoverText; bool drawHoverText{ false }, hoverIsPossible{ false };
-        bool requestHoverUpdate{ false }, lastDrawHoverText{ false };
+        sf::Text hoverText; bool drawHoverText{ false }, lastDrawHoverText{ false };
+        bool requestHoverAtNekoUpdate{ false }, hoverAtNekoIsPossible{ false };
+        FurnitureEntity* hoverAboveEntity{ nullptr };
+        bool hoverAboveIsPossible{ false }, checkHoverAbove{ false }; float elapsedHoverAbove{ 0.f };
         
         float timeSinceFirstPress{ 0.f }, timeSinceFirstHold{ 0.f };
         sf::Vector2i dot, pressedNekoPos, middleZoom{ 0, 0 };
@@ -79,9 +81,6 @@ namespace NekoUI
         
         bool drawPointer{ false }, lastMistake{ true }, requestPointerUpdate{ false };
         sf::Sprite nekoPtrSprite, nekoArrowSprite;
-        
-        FurnitureEntity* nekoHoveringEntity{ nullptr };
-        bool checkNekoHovering{ false }; float elapsedNekoHovering{ 0.f };
         
         Apartment();
         void Init() override;

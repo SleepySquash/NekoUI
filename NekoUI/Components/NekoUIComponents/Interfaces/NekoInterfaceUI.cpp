@@ -97,9 +97,18 @@ namespace NekoUI
                 if (currentTime < disappearTime) currentTime += elapsedTime.asSeconds();
                 if (currentTime >= disappearTime) { active = false; CleanUp(); alpha = 0; currentTime = 0.f; mode = existing; }
                 else alpha = (sf::Uint8)(255 - (255 * (currentTime / disappearTime)));
+                blurSprite.setColor(sf::Color(blurSprite.getColor().r, blurSprite.getColor().g, blurSprite.getColor().b, alpha));
                 UpdateAlpha(); gs::requestWindowRefresh = true;
                 break;
             default: break;
+        }
+        if (applyBlurAlpha)
+        {
+            if (blurCurrentTime < blurAppearTime) blurCurrentTime += elapsedTime.asSeconds();
+            if (blurCurrentTime >= blurAppearTime) { bluralpha = 255; applyBlurAlpha = false; }
+            else bluralpha = (sf::Uint8)(255 * (blurCurrentTime / blurAppearTime));
+            blurSprite.setColor({blurSprite.getColor().r, blurSprite.getColor().g, blurSprite.getColor().b, bluralpha});
+            gs::requestWindowRefresh = true;
         }
         if (drawSpeechBubble && elapsedSpeechBubble > 0.f)
         {
@@ -139,6 +148,16 @@ namespace NekoUI
     void NekoInterfaceUI::Resize(unsigned int width, unsigned int height)
     {
         if (!active) return;
+        blurRendered = true;
+        if (blurSprite.getLocalBounds().width != 0)
+        {
+#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
+            blurSprite.setScale(gs::width/blurSprite.getLocalBounds().width, -1.f*((float)gs::height/blurSprite.getLocalBounds().height));
+            blurSprite.setPosition(0, blurSprite.getGlobalBounds().height);
+#else
+            blurSprite.setScale(gs::width/blurSprite.getLocalBounds().width, gs::height/blurSprite.getLocalBounds().height);
+#endif
+        }
         
         blackScreenShape.setSize({(float)gs::width, (float)gs::height});
         choiceBackShape.setSize({(float)gs::width, (float)gs::height});
@@ -208,11 +227,61 @@ namespace NekoUI
         talkInterestButton.setPosition(gs::width/2, gs::height/2 - 90*gs::scale);
         talkSkillButton.setPosition(gs::width/2, gs::height/2 + 90*gs::scale);*/
     }
+    void renderNekoInterfaceBlur(sf::Texture* blurTexture, sf::Sprite* blurSprite, sf::Texture* texture, volatile bool* applyBlurAlpha)
+    {
+        sf::Context context;
+        
+        sf::Image screen = texture->copyToImage();
+#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
+        sf::Image blur = GUI::Blur(screen, 6, 6*gs::scale);
+#else
+        sf::Image blur = GUI::Blur(screen, 6, 4*gs::scale);
+#endif
+        blurTexture->loadFromImage(blur);
+        blurSprite->setTexture(*blurTexture, true);
+#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
+        blurSprite->setScale(gs::width/blurSprite->getLocalBounds().width, -1.f*((float)gs::height/blurSprite->getLocalBounds().height));
+        blurSprite->setPosition(0, blurSprite->getGlobalBounds().height);
+#else
+        blurSprite->setScale(gs::width/blurSprite->getLocalBounds().width, gs::height/blurSprite->getLocalBounds().height);
+#endif
+        *applyBlurAlpha = true;
+    }
     void NekoInterfaceUI::Draw(sf::RenderWindow* window)
     {
         if (!active || gs::ignoreDraw) return;
         
-        window->draw(blackScreenShape);
+        if (blurRendered)
+        {
+            sf::Clock clock;
+            blurScreenTexture.create(gs::width, gs::height);
+            blurScreenTexture.update(*gs::window);
+            // std::thread(renderNekoInterfaceBlur, &blurTexture, &blurSprite, &blurScreenTexture, &applyBlurAlpha).detach();
+            std::thread([this]()
+            {
+                sf::Context context;
+                        
+                sf::Image screen = blurScreenTexture.copyToImage();
+#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
+                sf::Image blur = GUI::Blur(screen, 6, 6*gs::scale);
+#else
+                sf::Image blur = GUI::Blur(screen, 6, 4);
+#endif
+                blurTexture.loadFromImage(blur);
+                blurSprite.setTexture(blurTexture, true);
+#if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
+                blurSprite.setScale(gs::width/blurSprite.getLocalBounds().width, -1.f*((float)gs::height/blurSprite.getLocalBounds().height));
+                blurSprite.setPosition(0, blurSprite.getGlobalBounds().height);
+#else
+                blurSprite.setScale(gs::width/blurSprite.getLocalBounds().width, gs::height/blurSprite.getLocalBounds().height);
+#endif
+                applyBlurAlpha = true;
+            }).detach();
+            blurRendered = false;
+        }
+        
+        window->draw(blurSprite);
+        // window->draw(blackScreenShape);
         Player::neko.Draw(window, true);
         
         switch (screen)
@@ -225,10 +294,10 @@ namespace NekoUI
                     window->draw(speechBubbleSprite);
                     window->draw(speechBubbleText); }
                 
-                talkButton.Draw(window);
-                requestButton.Draw(window);
-                engageButton.Draw(window);
-                actionButton.Draw(window);
+                talkButton.draw(window);
+                requestButton.draw(window);
+                engageButton.draw(window);
+                actionButton.draw(window);
                 break;
             case Screen::talk:
                 window->draw(heartSprite);
@@ -239,11 +308,11 @@ namespace NekoUI
                     window->draw(speechBubbleText); }
                 
                 window->draw(choiceBackShape);
-                talkChooseCircle.Draw(window);
-                talkNekoButton.Draw(window);
-                talkSelfButton.Draw(window);
-                talkInterestButton.Draw(window);
-                talkSkillButton.Draw(window);
+                talkChooseCircle.draw(window);
+                talkNekoButton.draw(window);
+                talkSelfButton.draw(window);
+                talkInterestButton.draw(window);
+                talkSkillButton.draw(window);
                 break;
             default: break;
         }
@@ -274,8 +343,21 @@ namespace NekoUI
     {
         if (rm::canOpenNekoUI) { if (on) rm::drawDatePanel = false; else rm::drawDatePanel = (gs::activeInterfaces.size() == 1); }
         if (on && !active && rm::canOpenNekoUI) { screen = Screen::main;
-            gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this); OpenNekoInterface(neko); }
-        else if (active) { gs::RemoveInterface(this); mode = disappearing; if (neko) neko->beingActionedWith = false; }
+            gs::PushInterface(this); active = true; mode = appearing; entity->SortAbove(this);
+            
+            /*sf::Texture texture;
+            texture.create(gs::width, gs::height);
+            texture.update(*gs::window);
+            sf::Image screen = texture.copyToImage();
+            sf::Image blur = GUI::Blur(screen, 4);
+            blurTexture.loadFromImage(blur);
+            blurSprite.setTexture(blurTexture, true);*/
+            blurRendered = true;
+            
+            OpenNekoInterface(neko);
+        }
+        else if (active) { blurCurrentTime = 0.f; applyBlurAlpha = false; bluralpha = 0;
+            gs::RemoveInterface(this); mode = disappearing; if (neko) neko->beingActionedWith = false; }
     }
     void NekoInterfaceUI::OpenNekoInterface(NekoEntity* entity)
     {

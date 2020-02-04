@@ -20,6 +20,7 @@
 #include "../../../Engine/Collectors/Image.hpp"
 #include "../../../Engine/EntitySystem.hpp"
 #include "../../../Engine/GUI/Button/SomeButtons.hpp"
+#include "../../../Engine/GUI/Blur.hpp"
 
 #include "../Player.hpp"
 #include "../Apartment/NekoEntity.hpp"
@@ -40,6 +41,13 @@ namespace NekoUI
         sf::RectangleShape blackScreenShape;
         NekoEntity* neko{ nullptr };
         bool nekoIsSleeping{ false };
+        sf::Texture blurTexture, blurScreenTexture;
+        sf::Sprite blurSprite;
+        bool blurRendered{ false };
+        
+        volatile bool applyBlurAlpha{ false };
+        sf::Uint8 bluralpha{ 0 };
+        float blurCurrentTime{ 0.f }, blurAppearTime{ 0.3f };
         
         bool nintDontDrawPersonNeko{ false };
         sf::Text nameText, affectionStatusText;

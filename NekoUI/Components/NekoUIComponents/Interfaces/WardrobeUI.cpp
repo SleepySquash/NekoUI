@@ -293,7 +293,7 @@ namespace NekoUI
         {
             categoriesButtons.index = i;
             categoriesButtons.setPosition(xx, categoriesButtons.sprite.getPosition().y);
-            categoriesButtons.Draw(window);
+            categoriesButtons.draw(window);
             switch (i)
             {
                 case 0: categoriesSprite.setTextureRect({0, 0, 111, 114}); break;
@@ -313,7 +313,7 @@ namespace NekoUI
             window->draw(categoriesSprite);
             xx += categoriesButtons.sprite.getGlobalBounds().width + 2*gs::scale;
         }
-        filterButtons.Draw(window);
+        filterButtons.draw(window);
         
         if (isEmpty) window->draw(emptyText);
         else if (inventory)
@@ -322,7 +322,7 @@ namespace NekoUI
             
             slotSprite.setPosition(xx, yy); window->draw(slotSprite);
             slotUndressButton.setPosition(xx + slotSprite.getGlobalBounds().width/2, yy + slotSprite.getGlobalBounds().height/2);
-            slotUndressButton.Draw(window); ++inrow;
+            slotUndressButton.draw(window); ++inrow;
             if (inrow >= slotsXXCount) { inrow = 0; xx = startSlotsXX; yy += 126*gs::scale; } else xx += 126*gs::scale;
             
             for (auto& item : inventory->list)
@@ -338,7 +338,7 @@ namespace NekoUI
                         float scaleX = 126.f / texture->getSize().x, scaleY = 126.f / texture->getSize().y;
                         itemButtons.setScale(scaleX > scaleY ? scaleY : scaleX); }
                     itemButtons.setPosition(xx + slotSprite.getGlobalBounds().width/2, yy + slotSprite.getGlobalBounds().height/2);
-                    itemButtons.Draw(window);
+                    itemButtons.draw(window);
                     ++i;
                 }
                 ++inrow; if (inrow >= slotsXXCount) { inrow = 0; xx = startSlotsXX; yy += 126*gs::scale; } else xx += 126*gs::scale;

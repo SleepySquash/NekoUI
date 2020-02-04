@@ -23,6 +23,7 @@
 
 #include "../../Neko/Static.hpp"
 #include "../../Apartment/RoomLibrary.hpp"
+#include "../../Database/ItemDB.hpp"
 
 using std::cin;
 using std::cout;

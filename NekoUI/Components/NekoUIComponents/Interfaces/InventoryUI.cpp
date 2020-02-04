@@ -175,7 +175,7 @@ namespace NekoUI
                                 float scaleX = 126.f / texture->getSize().x, scaleY = 126.f / texture->getSize().y;
                                 itemButtons.setScale(scaleX > scaleY ? scaleY : scaleX); }
                             itemButtons.setPosition(xx + slotSprite.getGlobalBounds().width/2, yy + slotSprite.getGlobalBounds().height/2);
-                            itemButtons.Draw(window);
+                            itemButtons.draw(window);
                             if (item.second > 1)
                             {
                                 itemCountText.setString(std::to_string(item.second));

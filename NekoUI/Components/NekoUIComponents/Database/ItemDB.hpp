@@ -33,22 +33,22 @@ namespace NekoUI
     namespace idc
     {
         struct Cupcake : Item { Cupcake() : Item("Cupcake", L"Вкусный пирожочек с вишенкой.", ItemType::Food)
-            { display = L"Пирожок"; calories = 150; thirstSatisfuction = -50; } };
+            { display = L"Пирожок"; calories = 150; thirstSatisfuction = -50; price = 50; } };
         struct Cake : Item { Cake() : Item("Cake", L"Шоколадный тортик с вишенкой наверху.", ItemType::Food, 10)
-            { display = L"Тортик"; calories = 700; thirstSatisfuction = -350; scale = 1.1f; } };
+            { display = L"Тортик"; calories = 700; thirstSatisfuction = -350; scale = 1.1f; price = 230; } };
         struct Candy : Item { Candy() : Item("Candy", L"М-м, тот самый ностальгический вкус.", ItemType::Food)
-            { display = L"Конфетка"; calories = 50; thirstSatisfuction = -15; scale = 0.5; } };
+            { display = L"Конфетка"; calories = 50; thirstSatisfuction = -15; scale = 0.5; price = 25; } };
         struct Star : Item { Star() : Item("Star", L"Звёздочка с неба.", ItemType::Other, 90) { display = L"Звезда"; } };
         struct Icecream : Item { Icecream() : Item("Icecream", L"Приятно тает во рту.", ItemType::Food)
-            { display = L"Мороженка"; calories = 150; thirstSatisfuction = 50; } };
+            { display = L"Мороженка"; calories = 150; thirstSatisfuction = 50; price = 50; } };
         struct Donut : Item { Donut() : Item("Donut", L"Шоколадный пончик в клубничной глазури.", ItemType::Food)
-            { display = L"Пончик"; calories = 100; thirstSatisfuction = -20; scale = 0.75f; } };
+            { display = L"Пончик"; calories = 100; thirstSatisfuction = -20; scale = 0.75f; price = 60; } };
         struct FractionOfPie : Item { FractionOfPie() : Item("FractionOfPie", L"Кусочек клубничного панкейка.", ItemType::Food)
-            { display = L"Кусок тортика"; calories = 200; thirstSatisfuction = -100; } };
+            { display = L"Кусок тортика"; calories = 200; thirstSatisfuction = -100; price = 100; } };
         struct Lootbox : Item { Lootbox() : Item("Lootbox", L"Интересно, что внутри?", ItemType::Other, 100, true)
             { display = L"Лутбокс"; scale = 3; shadowOffsetYY = -15; } };
         struct WaterBottle : Item { WaterBottle() : Item("WaterBottle", L"Освежающая водичка идеальной температуры из самой-самой чистой скважины.", ItemType::Drink)
-            { display = L"Бутылка воды"; calories = 0; thirstSatisfuction = 660; scale = 1.1; } };
+            { display = L"Бутылка воды"; calories = 0; thirstSatisfuction = 660; scale = 1.1; price = 30; } };
         
         struct MaidUniform : Wearable
         {
@@ -161,7 +161,7 @@ namespace NekoUI
     struct Inventory
     {
         static std::unordered_map<std::string, Item*> map;
-        static InventoryBase<Item> items, fridge;
+        static InventoryBase<Item> items, fridge, transition;
         static InventoryBase<Wearable> wardrobeHead, wardrobeTop, wardrobeBottom, wardrobeOnepiece, wardrobeUnderwear, wardrobeSocks, wardrobeShoes, wardrobeAccessories;
         
         static void CalculateWearset(Wearable* item);
@@ -190,13 +190,20 @@ namespace NekoUI
             T* reint = reinterpret_cast<T*>(it->second);
             if (reint) { list.push_back({reint, count}); savingIsRequired = true; }
         }
-        void Add(const std::string& item, unsigned int count = 1)
+        void Add(const std::string& item, unsigned int count = 1, bool sort = true)
         {
             auto it = Inventory::map.find(item); if (it == Inventory::map.end()) return;
             for (auto itin = list.begin(); itin != list.end(); ++itin)
                 if (itin->first == it->second) { itin->second += count; savingIsRequired = true; return; }
             T* reint = reinterpret_cast<T*>(it->second);
-            if (reint) { list.push_back({reint, count}); savingIsRequired = true; Sort(); }
+            if (reint) { list.push_back({reint, count}); savingIsRequired = true; if (sort) Sort(); }
+        }
+        void Add(Item* item, unsigned int count = 1, bool sort = true)
+        {
+            for (auto itin = list.begin(); itin != list.end(); ++itin)
+                if (itin->first == item) { itin->second += count; savingIsRequired = true; return; }
+            T* reint = reinterpret_cast<T*>(item);
+            if (reint) { list.push_back({reint, count}); savingIsRequired = true; if (sort) Sort(); }
         }
         void Remove(const std::string& item, unsigned int count = 1)
         {

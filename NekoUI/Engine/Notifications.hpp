@@ -69,7 +69,6 @@ namespace ns
     struct NotificationsUI : Component
     {
         bool active{ true };
-        
         void RecieveMessage(MessageHolder& message) override;
     };
 }

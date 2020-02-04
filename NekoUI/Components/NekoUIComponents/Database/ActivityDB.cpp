@@ -117,14 +117,20 @@ namespace NekoUI
         void InsertActivity::Init() { type = TaskType::insertactivity; activity->RequestMessage({"Activity :: Update"}); }
         
         
-        Sleeping::Sleeping(Activity* activity, const float& energyInSecond, const float& howMuch) : ActivityTask(activity), howMuchToWait(howMuch), energyInSecond(energyInSecond) { }
-        void Sleeping::Init() { elapsedDuration = howMuchToWait; activity->RequestMessage({"Activity :: Update"}); }
+        Sleeping::Sleeping(Activity* activity, const float& energyInSecond) : ActivityTask(activity), energyInSecond(energyInSecond) { }
+        void Sleeping::Init() { activity->RequestMessage({"Activity :: Update"}); }
         void Sleeping::Update(const sf::Time& elapsedTime)
         {
             NekoS::needEnergy += energyInSecond * elapsedTime.asSeconds();
             if (NekoS::needEnergy >= energyCap) activity->SendMessage({"Done", this});
-            /*elapsedDuration -= elapsedTime.asSeconds();
-            if (elapsedDuration <= 0) activity->SendMessage({"Done", this});*/
+        }
+        
+        UseToilet::UseToilet(Activity* activity, const float& toiletInSecond) : ActivityTask(activity), toiletInSecond(toiletInSecond) { }
+        void UseToilet::Init() { activity->RequestMessage({"Activity :: Update"}); }
+        void UseToilet::Update(const sf::Time& elapsedTime)
+        {
+            NekoS::needToilet += toiletInSecond * elapsedTime.asSeconds();
+            if (NekoS::needToilet >= toiletCap) activity->SendMessage({"Done", this});
         }
         
         
@@ -162,7 +168,7 @@ namespace NekoUI
     namespace Activities
     {
         RandomMovement::RandomMovement() : Activity("RandomMovement") { };
-        void RandomMovement::Init() { tasks.push_back(new ActivityTasks::RandomMovement(this)); tasks.back()->countAsActivityBeingMade = true; }
+        void RandomMovement::Init() { tasks.push_back(new ActivityTasks::RandomMovement(this)); tasks.back()->drawNekoDialogue = true; }
         
         SittingAtComputer::SittingAtComputer() : Activity("SittingAtComputer") { };
         void SittingAtComputer::Init()
@@ -171,7 +177,7 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::Waiting(this));
             tasks.back()->occupyString = L"(сёрфит Интернет)";
             tasks.back()->actionString = L"Посёрфить вместе";
-            tasks.back()->countAsActivityBeingMade = true;
+            tasks.back()->drawNekoDialogue = true;
             tasks.back()->facingSet = true; tasks.back()->facing = false;
         }
         
@@ -182,7 +188,7 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::Waiting(this));
             tasks.back()->occupyString = L"(сидит)";
             tasks.back()->actionString = L"Присесть рядышком";
-            tasks.back()->countAsActivityBeingMade = true;
+            tasks.back()->drawNekoDialogue = true;
             tasks.back()->facingSet = tasks.back()->facing = true;
         }
         
@@ -193,7 +199,7 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::Waiting(this));
             tasks.back()->occupyString = L"(смотрит на вкусняшки)";
             tasks.back()->actionString = L"Покормить";
-            tasks.back()->countAsActivityBeingMade = true;
+            tasks.back()->drawNekoDialogue = true;
             tasks.back()->facingSet = tasks.back()->facing = true;
         }
         
@@ -223,7 +229,7 @@ namespace NekoUI
             canFeed = false; forceActivityReplica = true;
             tasks.push_back(new ActivityTasks::Sleeping(this));
             tasks.back()->occupyString = L"(спит)";
-            tasks.back()->countAsActivityBeingMade = true;
+            tasks.back()->drawNekoDialogue = true;
             eyesEmotion = NekoS::EyesEmotion::Closed;
             allowBlinking = drawShadow = false;
             ignoreBeingActionedWith = true;
@@ -238,9 +244,18 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::Waiting(this, 15.f));
             tasks.back()->occupyString = L"(принимает ванну)";
             tasks.back()->type = ActivityTask::TaskType::bathing;
-            tasks.back()->countAsActivityBeingMade = true;
+            tasks.back()->drawNekoDialogue = true;
             tasks.push_back(new ActivityTasks::DressOrUndress(this));
             tasks.back()->occupyString = L"(одевается)";
+        }
+        
+        UseToilet::UseToilet() : Activity("UseToilet") { };
+        void UseToilet::Init()
+        {
+            canFeed = canMove = canNekoUI = false;
+            tasks.push_back(new ActivityTasks::UseToilet(this));
+            tasks.back()->occupyString = L"(пользуется туалетом)";
+            ignoreBeingActionedWith = true;
         }
         
         
@@ -291,6 +306,14 @@ namespace NekoUI
             tasks.push_back(new ActivityTasks::InsertActivity(this, "Bathing"));
             tasks.front()->occupyString = L"(идёт купаться)";
         }
+    
+        GoUseToilet::GoUseToilet() : Activity("GoUseToilet") { };
+        void GoUseToilet::Init()
+        {
+            tasks.push_back(new ActivityTasks::MovingTo(this, L"Toilet"));
+            tasks.push_back(new ActivityTasks::InsertActivity(this, "UseToilet"));
+            tasks.front()->occupyString = L"(идёт в туалет)";
+        }
         
         
         ComeToSenses::ComeToSenses() : Activity("ComeToSenses") { };
@@ -333,12 +356,14 @@ namespace NekoUI
         adb::activities["Drinking"] = new Activities::Drinking();
         adb::activities["Sleeping"] = new Activities::Sleeping();
         adb::activities["Bathing"] = new Activities::Bathing();
+        adb::activities["UseToilet"] = new Activities::UseToilet();
         
         adb::activities["ReturnToFood"] = new Activities::ReturnToFood();
         adb::activities["EatFromFridge"] = new Activities::EatFromFridge();
         adb::activities["DrinkFromFridge"] = new Activities::DrinkFromFridge();
         adb::activities["GoSleep"] = new Activities::GoSleep();
         adb::activities["GoTakeABath"] = new Activities::GoTakeABath();
+        adb::activities["GoUseToilet"] = new Activities::GoUseToilet();
         
         adb::activities["ComeToSenses"] = new Activities::ComeToSenses();
         adb::activities["ComeToSensesAfterSleep"] = new Activities::ComeToSensesAfterSleep();

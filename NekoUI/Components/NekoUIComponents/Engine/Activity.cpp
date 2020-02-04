@@ -25,7 +25,7 @@ namespace NekoUI
     {
         if (!active) { Init(); active = true; }
         task = tasks.begin();
-        doingTheActivity = (*task)->countAsActivityBeingMade;
+        drawNekoDialogue = (*task)->drawNekoDialogue;
         ignoreEyebrowsEmotion = (eyebrowsEmotion != NekoS::EyebrowsEmotion::DEFAULT);
         ignoreEyesEmotion = (eyesEmotion != NekoS::EyesEmotion::DEFAULT);
         ignoreMouthEmotion = (mouthEmotion != NekoS::MouthEmotion::DEFAULT);
@@ -37,7 +37,7 @@ namespace NekoUI
     }
     void Activity::OnEnd(bool success)
     {
-        active = doingTheActivity = false;
+        active = drawNekoDialogue = false;
         vector<ActivityTask*>::iterator it = tasks.begin();
         while (it != tasks.end()) { (*it)->Destroy(); delete (*it); it = tasks.erase(it); }
     }
@@ -56,7 +56,7 @@ namespace NekoUI
         cout << "Activity :: NextTask" << endl; ++task; if (task == tasks.end()) Abort(false);
         else
         {
-            doingTheActivity = (*task)->countAsActivityBeingMade;
+            drawNekoDialogue = (*task)->drawNekoDialogue;
             if (!ignoreEyebrowsEmotion) eyebrowsEmotion = (*task)->eyebrowsEmotion;
             if (!ignoreEyesEmotion) eyesEmotion = (*task)->eyesEmotion;
             if (!ignoreMouthEmotion) mouthEmotion = (*task)->mouthEmotion;

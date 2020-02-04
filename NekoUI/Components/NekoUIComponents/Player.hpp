@@ -55,7 +55,7 @@ namespace NekoUI
         static std::wstring display, backgroundCover;
         static std::chrono::time_point<std::chrono::system_clock> birthday;
         
-        static bool noFood, noDrink;
+        static bool tutorial, noFood, noDrink;
         
         
         static void Init();

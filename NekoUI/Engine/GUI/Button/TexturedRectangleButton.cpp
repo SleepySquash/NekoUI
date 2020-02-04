@@ -21,7 +21,7 @@ namespace ns
             shape.setCornerPointCount(5);
         }
         TexturedRectangleButtons::~TexturedRectangleButtons() { if (textureName != L"") ic::DeleteImage(textureName); }
-        void TexturedRectangleButtons::Draw(sf::RenderTarget* window)
+        void TexturedRectangleButtons::draw(sf::RenderTarget* target, sf::RenderStates states)
         {
             if (loaded && visible)
             {
@@ -39,9 +39,7 @@ namespace ns
                         if (drawOutline) text.setOutlineColor(sf::Color(ohoverColor.r, ohoverColor.g, ohoverColor.b, ralpha));
                         if (drawOutlineShape) shape.setFillColor(sf::Color(shoverColor.r, shoverColor.g, shoverColor.b, ralpha)); }
                 }
-                if (drawShape) window->draw(shape);
-                if (spriteLoaded) window->draw(sprite);
-                window->draw(text);
+                if (drawShape) target->draw(shape, states); target->draw(text, states);
                 if ((anyButtonPressed || wasHovered) && index == pressedIndex) {
                     if (drawOutlineShape) shape.setOutlineColor({sonormalColor.r, sonormalColor.g, sonormalColor.b, ralpha});
                     if (drawOutline) text.setOutlineColor({onormalColor.r, onormalColor.g, onormalColor.b, alpha});
@@ -76,7 +74,7 @@ namespace ns
                     if (drawOutlineShape) shape.setOutlineColor({sonormalColor.r, sonormalColor.g, sonormalColor.b, ralpha});
                     if (drawOutline) text.setOutlineColor({onormalColor.r, onormalColor.g, onormalColor.b, alpha});
                     text.setFillColor({normalColor.r, normalColor.g, normalColor.b, alpha});
-                    shape.setFillColor({onormalColor.r, onormalColor.g, onormalColor.b, ralpha});
+                    shape.setFillColor({snormalColor.r, snormalColor.g, snormalColor.b, ralpha});
                     bool constains = shape.getGlobalBounds().contains(dot.x, dot.y);
                     if (constains) { anyButtonPressed = false; event = sf::Event(); }
                     
@@ -104,7 +102,7 @@ namespace ns
             if (nss::Command(message.info, "Request") && message.additional == textureName)
             {
                 sf::Texture* texture = ic::LoadTexture(textureName);
-                if ((spriteLoaded = texture)) { sprite.setTexture(*texture, true); setSize(shape.getSize()); }
+                if ((spriteLoaded = texture)) shape.setTexture(texture, true);
             }
         }
         void TexturedRectangleButtons::setAlpha(const sf::Uint8& alpha)
@@ -117,13 +115,11 @@ namespace ns
                 text.setOutlineColor(sf::Color(text.getOutlineColor().r, text.getOutlineColor().g, text.getOutlineColor().b, realAlpha));
                 shape.setFillColor(sf::Color(shape.getFillColor().r, shape.getFillColor().g, shape.getFillColor().b, realRAlpha));
                 shape.setOutlineColor(sf::Color(shape.getOutlineColor().r, shape.getOutlineColor().g, shape.getOutlineColor().b, realRAlpha));
-                sprite.setColor(sf::Color(sprite.getColor().r, sprite.getColor().g, sprite.getColor().b, realRAlpha));
             }
         }
         void TexturedRectangleButtons::setPosition(float x, float y)
         {
             shape.setPosition(x, y);
-            if (spriteLoaded) sprite.setPosition(x + shape.getSize().x/2 - sprite.getGlobalBounds().width/2, y + shape.getSize().y/2 - sprite.getGlobalBounds().height/2);
             switch (halign)
             {
                 case Halign::Left: text.setOrigin(0, text.getOrigin().y); text.setPosition(x, text.getPosition().y); break;
@@ -145,19 +141,7 @@ namespace ns
                     text.setOrigin(text.getOrigin().x, text.getLocalBounds().height*1.25); break;
             }
         }
-        void TexturedRectangleButtons::setSize(const sf::Vector2f& vec)
-        {
-            shape.setSize(vec);
-            if (spriteLoaded)
-            {
-                float scaleFactorX, scaleFactorY, scaleFactor;
-                scaleFactorX = vec.x / sprite.getLocalBounds().width;
-                scaleFactorY = vec.y / sprite.getLocalBounds().height;
-                
-                scaleFactor = (scaleFactorX > scaleFactorY) ? scaleFactorX : scaleFactorY;
-                sprite.setScale(scaleFactor, scaleFactor);
-            }
-        }
+        void TexturedRectangleButtons::setSize(const sf::Vector2f& vec) { shape.setSize(vec); }
         void TexturedRectangleButtons::setFont(const std::wstring& fontname)
         {
             if ((loaded = fc::GetFont(fontname)))
@@ -177,7 +161,7 @@ namespace ns
             {
                 sf::Texture* texture;
                 if (sender) texture = ic::RequestHigherTexture(imagePath, sender); else texture = ic::LoadTexture(imagePath);
-                if ((spriteLoaded = texture)) sprite.setTexture(*texture, true);
+                if ((spriteLoaded = texture)) shape.setTexture(texture, true);
             }
         }
         void TexturedRectangleButtons::updateColor()
@@ -186,7 +170,6 @@ namespace ns
             if (drawOutline) text.setOutlineColor({onormalColor.r, onormalColor.g, onormalColor.b, alpha});
             shape.setFillColor({snormalColor.r, snormalColor.g, snormalColor.b, ralpha});
             text.setFillColor({normalColor.r, normalColor.g, normalColor.b, alpha});
-            sprite.setColor({255, 255, 255, ralpha});
         }
     }
 }

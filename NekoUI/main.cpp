@@ -70,7 +70,7 @@
 #include "Components/NekoUIComponents/Interfaces/MapUI.hpp"
 #include "Components/NekoUIComponents/Interfaces/ItemDetailsUI.hpp"
 #include "Components/NekoUIComponents/Places/PlacesInterfaceUI.hpp"
-// #include "Components/TestComponents/GAME228.hpp"
+#include "Components/TestComponents/BlurTest.hpp"
 
 using std::cout;
 using std::cin;
@@ -120,6 +120,7 @@ int main()
     Entity* Vanilla = system.AddEntity();
     {
         Vanilla->AddComponent<NotificationsUI>();
+        // Vanilla->AddComponent<BlurTest>();
         
         NekoUI::Player::Init();
         Vanilla->AddComponent<NekoUI::CalendarUI>();

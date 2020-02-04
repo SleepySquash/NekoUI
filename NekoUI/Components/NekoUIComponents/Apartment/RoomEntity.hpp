@@ -20,16 +20,17 @@ namespace NekoUI
     struct RoomEntity
     {
         float x, y, height, relScale{ 1.f };
-        bool movable{ false }, onScreen{ true }, offline{ false };
+        bool movable{ false }, canhover{ false }, dropininventory{ false }, onScreen{ true }, offline{ false };
         unsigned long positionInArray{ 0 };
         std::vector<RoomEntity*>* vector{ nullptr };
         
-        enum class Type { Item, Furniture, Neko, Unknown } type{ Type::Unknown };
+        enum class Type { Item, Furniture, Neko, ContainerItem, Unknown } type{ Type::Unknown };
         std::string id;
         
         sf::Sprite sprite;
         
         ~RoomEntity();
+        virtual void Init();
         virtual void Destroy();
         virtual void Update(const sf::Time& elapsedTime);
         void UpdateDepthPosition();

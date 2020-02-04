@@ -11,6 +11,7 @@
 namespace NekoUI
 {
     RoomEntity::~RoomEntity() { }
+    void RoomEntity::Init() { }
     void RoomEntity::Destroy() { }
     void RoomEntity::Update(const sf::Time &elapsedTime) { }
     void RoomEntity::UpdateDepthPosition()

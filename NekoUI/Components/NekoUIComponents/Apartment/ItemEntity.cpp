@@ -12,11 +12,11 @@ namespace NekoUI
 {
     void ItemEntity::Init(Item* item)
     {
-        movable = true; this->item = item; type = Type::Item;
+        movable = dropininventory = true; this->item = item; type = Type::Item;
         if (item)
         {
             sf::Texture* texture = ic::LoadTexture(utf16("Data/Items/" + item->name + ".png"));
-            if ((spriteLoaded = texture))
+            if ((loaded = texture))
             {
                 sprite.setTexture(*texture, true);
                 sprite.setOrigin(texture->getSize().x/2, texture->getSize().y);
@@ -33,10 +33,8 @@ namespace NekoUI
             }
         }
     }
-    void ItemEntity::Destroy() { if (item && spriteLoaded) {
+    void ItemEntity::Destroy() { if (item && loaded) {
         ic::DeleteImage(utf16("Data/Items/" + item->name + ".png")); ic::LoadTexture(L"Data/Neko/Chibi/shadow.png"); } }
-    void ItemEntity::Update(const sf::Time& elapsedTime) { }
-    void ItemEntity::PollEvent(sf::Event& event) { }
     void ItemEntity::Resize()
     {
         sprite.setScale(0.35 * relScale * Room::scale * gs::scale, 0.35 * relScale * Room::scale * gs::scale);
@@ -48,6 +46,6 @@ namespace NekoUI
     void ItemEntity::UpdatePosition() {
         sprite.setPosition((Room::x + x) * Room::scale * gs::scale, (Room::y + y) * Room::scale * gs::scale);
         if (drawShadow) shadow.setPosition(sprite.getPosition().x, sprite.getPosition().y + shadowOffsetYY*gs::scale*Room::scale); }
-    void ItemEntity::Draw(sf::RenderWindow* window) { if (spriteLoaded) { window->draw(shadow); window->draw(sprite); } }
+    void ItemEntity::Draw(sf::RenderWindow* window) { if (loaded) { if (drawShadow) window->draw(shadow); window->draw(sprite); } }
     void ItemEntity::Save(std::wofstream& wof) { wof << (int)type << L" " << x << L" " << y << L" " << count << L" " << utf16(item->name) << endl; }
 }
