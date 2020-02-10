@@ -1,0 +1,8 @@
+%version 1
+%name ru
+%display Русский
+
+Request = Просьба
+Talk = Поговорить
+Engage = Занятие
+Action = Действие
