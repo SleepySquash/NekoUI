@@ -13,7 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/Settings.hpp"
+#include <minEH/Engine/Settings.hpp>
 
 using std::cin;
 using std::cout;

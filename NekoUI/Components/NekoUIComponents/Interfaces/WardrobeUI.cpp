@@ -212,7 +212,7 @@ namespace NekoUI
             }
             else ++it;
     }
-    void WardrobeUI::Resize(unsigned int width, unsigned int height)
+    void WardrobeUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         
@@ -345,7 +345,7 @@ namespace NekoUI
             }
         }
     }
-    void WardrobeUI::RecieveMessage(MessageHolder& message)
+    void WardrobeUI::ReceiveMessage(MessageHolder& message)
     {
         if (!active && message.info == "WardrobeUI :: Show") Switch(true);
         else if (active && message.info == "WardrobeUI :: Close") Switch(false);

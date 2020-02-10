@@ -28,7 +28,7 @@ namespace NekoUI
             if (exitButton.PollEvent(event)) { entity->system->SendMessage({"PlacesUI :: ApartmentUI"}); clickable = false; }
             else if (moneyButton.PollEvent(event)) NekoS::money += 500;
         }
-        void FNAF::Resize(unsigned int width, unsigned int height)
+        void FNAF::Resize(const unsigned int& width, const unsigned int& height)
         {
             moneyButton.Resize(width, height);
             moneyButton.setPosition(width/2, height/2 - moneyButton.getGlobalBounds().height/2 - 10*gs::scale);
@@ -41,7 +41,7 @@ namespace NekoUI
             moneyButton.draw(window);
             exitButton.draw(window);
         }
-        void FNAF::RecieveMessage(MessageHolder& message)
+        void FNAF::ReceiveMessage(MessageHolder& message)
         {
             if (message.info == "PlacesUI :: ApartmentUI Destroy") entity->PopComponent(this);
         }

@@ -10,8 +10,8 @@
 #define JobsFNAF_hpp
 
 #include <iostream>
-#include "../../../../../Engine/EntitySystem.hpp"
-#include "../../../../../Engine/GUI/Button/SomeButtons.hpp"
+#include <minEH/Engine/EntitySystem.hpp>
+#include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 
 #include "../../../Neko/Static.hpp"
 
@@ -28,9 +28,9 @@ namespace NekoUI
             
             void Init() override;
             void PollEvent(sf::Event& event) override;
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void Draw(sf::RenderWindow* window) override;
-            void RecieveMessage(MessageHolder& message) override;
+            void ReceiveMessage(MessageHolder& message) override;
         };
     }
 }

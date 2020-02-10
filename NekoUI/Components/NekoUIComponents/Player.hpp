@@ -20,12 +20,6 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../Essentials/ResourcePath.hpp"
-#include "../../Engine/EntitySystem.hpp"
-#include "../../Engine/Settings.hpp"
-#include "../../Engine/Collectors.hpp"
-#include "../../Engine/GUI/Button/SomeButtons.hpp"
-
 #include "Neko/Personality.hpp"
 #include "Neko/Static.hpp"
 #include "Engine/Persona.hpp"
@@ -69,6 +63,9 @@ namespace NekoUI
         
         static void Birth();
         static void UpdateDaysTogether();
+        
+        static void OccupyPersona();
+        static void FreePersona();
         
         static NekoS::EyebrowsEmotion eyebrowsEmotion;
         static NekoS::EyesEmotion eyesEmotion;

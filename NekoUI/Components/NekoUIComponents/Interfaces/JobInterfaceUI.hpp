@@ -14,13 +14,13 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Essentials/ResourcePath.hpp"
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/Collectors/Font.hpp"
-#include "../../../Engine/Collectors/Image.hpp"
-#include "../../../Engine/EntitySystem.hpp"
-#include "../../../Engine/GUI/Button/SomeButtons.hpp"
-#include "../../../Engine/GUI/Button/TexturedRectangleButton.hpp"
+#include <minEH/Essentials/ResourcePath.hpp>
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/Collectors/Font.hpp>
+#include <minEH/Engine/Collectors/Image.hpp>
+#include <minEH/Engine/EntitySystem.hpp>
+#include <minEH/Engine/GUI/Button/SomeButtons.hpp>
+#include <minEH/Engine/GUI/Button/TexturedRectangleButton.hpp>
 
 #include "../Player.hpp"
 #include "../Apartment/RoomLibrary.hpp"
@@ -55,9 +55,9 @@ namespace NekoUI
         void Update(const sf::Time& elapsedTime) override;
         void CleanUp();
         void PollEvent(sf::Event& event) override;
-        void Resize(unsigned int width, unsigned int height) override;
+        void Resize(const unsigned int& width, const unsigned int& height) override;
         void Draw(sf::RenderWindow* window) override;
-        void RecieveMessage(MessageHolder& message) override;
+        void ReceiveMessage(MessageHolder& message) override;
         void Switch(const bool& on);
         void UpdateAlpha();
     };

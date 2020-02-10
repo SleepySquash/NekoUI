@@ -13,8 +13,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/MessageHolder.hpp"
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/MessageHolder.hpp>
 
 #include "../Apartment/RoomEntity.hpp"
 #include "../Neko/Static.hpp"

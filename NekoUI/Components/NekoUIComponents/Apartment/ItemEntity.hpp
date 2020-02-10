@@ -14,10 +14,9 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Essentials/ResourcePath.hpp"
-#include "../../../Engine/MessageHolder.hpp"
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/Collectors.hpp"
+#include <minEH/Essentials/ResourcePath.hpp>
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/Collectors.hpp>
 
 #include "../Engine/Item.hpp"
 #include "RoomEntity.hpp"

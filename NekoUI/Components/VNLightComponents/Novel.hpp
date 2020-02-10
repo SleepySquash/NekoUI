@@ -19,11 +19,11 @@
 #include <SFML/Graphics.hpp>
 
 //#include "../../Essentials/ResourcePath.hpp"
-#include "../../Engine/EntitySystem.hpp"
-#include "../../Engine/NovelSystem.hpp"
-#include "../../Engine/Settings.hpp"
-#include "../../Engine/Collectors.hpp"
-#include "../../Engine/GUI/Button/SomeButtons.hpp"
+#include <minEH/Engine/EntitySystem.hpp>
+#include <minEH/Engine/NovelSystem.hpp>
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/Collectors.hpp>
+#include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 
 #include "CharacterLibrary.hpp"
 #include "../NekoUIComponents/Engine/Persona.hpp"
@@ -66,7 +66,7 @@ namespace ns
             sendMessageBackEnum sendMessageBack{ atAppearance };
             
             void Init() override;
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void Update(const sf::Time& elapsedTime) override;
             void Draw(sf::RenderWindow* window) override;
         };
@@ -95,12 +95,12 @@ namespace ns
             float parallaxPower { gs::defaultParallaxBackground };
             
             void LoadImage(const sf::String&);
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void Update(const sf::Time& elapsedTime) override;
             void Draw(sf::RenderWindow* window) override;
             void Destroy() override;
             void PollEvent(sf::Event& event) override;
-            void CalculateScale(unsigned int width, unsigned int height);
+            void CalculateScale(const unsigned int& width, const unsigned int& height);
             void CalculateParallax(int mouseX, int mouseY);
         };
         
@@ -143,7 +143,7 @@ namespace ns
             void PollEvent(sf::Event& event) override;
             void Draw(sf::RenderWindow* window) override;
             void Destroy() override;
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void SetGroup(const list<Dialogue*>::iterator& element);
             void SetNeko(Persona* info);
             void SetCharacterName(const sf::String& characterName);
@@ -185,7 +185,7 @@ namespace ns
             bool visible{ true };
             
             void LoadState(const sf::String& state);
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void Update(const sf::Time& elapsedTime) override;
             void Draw(sf::RenderWindow* window) override;
             void Destroy() override;
@@ -211,7 +211,7 @@ namespace ns
             void Destroy() override;
             void Update(const sf::Time& elapsedTime) override;
             void PollEvent(sf::Event& event) override;
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void Draw(sf::RenderWindow* window) override;
             void OnHold(NovelObject* component);
             void UnHold(NovelObject* component);

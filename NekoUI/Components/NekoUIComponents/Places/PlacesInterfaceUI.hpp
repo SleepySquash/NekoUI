@@ -9,7 +9,7 @@
 #ifndef PlacesInterfaceUI_hpp
 #define PlacesInterfaceUI_hpp
 
-#include "../../../Engine/EntitySystem.hpp"
+#include <minEH/Engine/EntitySystem.hpp>
 
 #include "Grocery/GroceryUI.hpp"
 #include "Misc/StrangeShopkeeperUI.hpp"
@@ -20,7 +20,7 @@ namespace NekoUI
 {
     struct PlacesInterfaceUI : Component
     {
-        void RecieveMessage(MessageHolder& message) override;
+        void ReceiveMessage(MessageHolder& message) override;
     };
 
     struct PlacesTransitionScreen : Component
@@ -36,7 +36,7 @@ namespace NekoUI
         void Destroy() override;
         void Update(const sf::Time& elapsedTime) override;
         void Draw(sf::RenderWindow* window) override;
-        void Resize(unsigned int width, unsigned int height) override;
+        void Resize(const unsigned int& width, const unsigned int& height) override;
     };
 }
 

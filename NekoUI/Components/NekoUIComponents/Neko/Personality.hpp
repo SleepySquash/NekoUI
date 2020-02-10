@@ -15,7 +15,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/Settings.hpp"
+#include <minEH/Engine/Settings.hpp>
 
 #include "Static.hpp"
 #include "../Engine/Interest.hpp"

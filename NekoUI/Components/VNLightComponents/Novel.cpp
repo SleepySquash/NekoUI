@@ -24,7 +24,7 @@ namespace ns
         
         
         void RectangleShape::Init() { shape.setFillColor(sf::Color(0,0,0,0)); }
-        void RectangleShape::Resize(unsigned int width, unsigned int height) { shape.setSize({(float)width, (float)height}); }
+        void RectangleShape::Resize(const unsigned int& width, const unsigned int& height) { shape.setSize({(float)width, (float)height}); }
         void RectangleShape::Update(const sf::Time& elapsedTime)
         {
             switch (mode)
@@ -87,7 +87,7 @@ namespace ns
             else
                 cout << "Error :: BackgroundComponent :: LoadImage :: No novel was loaded, pointer is NULL" << endl;
         }
-        void Background::Resize(unsigned int width, unsigned int height)
+        void Background::Resize(const unsigned int& width, const unsigned int& height)
         {
             CalculateScale(width, height);
             if (doParallax && !gs::isPause)
@@ -136,7 +136,7 @@ namespace ns
             if (event.type == sf::Event::MouseMoved && mode != deprecated && visible && doParallax && parallaxPower > 0)
                 CalculateParallax(event.mouseMove.x, event.mouseMove.y);
         }
-        void Background::CalculateScale(unsigned int width, unsigned int height)
+        void Background::CalculateScale(const unsigned int& width, const unsigned int& height)
         {
             if (spriteLoaded)
             {
@@ -311,7 +311,7 @@ namespace ns
             ic::DeleteImage(L"Data/Images/dialogue1.png");
             if (drawCharacterName) ic::DeleteImage(L"Data/Images/dialogue1_n.png");
         }
-        void Dialogue::Resize(unsigned int width, unsigned int height)
+        void Dialogue::Resize(const unsigned int& width, const unsigned int& height)
         {
             charText.setCharacterSize((unsigned int)(characterSize * gs::scale));
             text.setCharacterSize((unsigned int)(characterSize * gs::scale));
@@ -452,7 +452,7 @@ namespace ns
                 novelSystem->PopComponent(this);
             }
         }
-        void Character::Resize(unsigned int width, unsigned int height)
+        void Character::Resize(const unsigned int& width, const unsigned int& height)
         {
             if (spriteLoaded)
             {
@@ -1165,7 +1165,7 @@ namespace ns
             if (eof && onHold.empty()) entity->PopComponent(this);
         }
         void Novel::PollEvent(sf::Event& event) { if (!gs::isPause) layers.PollEvent(event); }
-        void Novel::Resize(unsigned int width, unsigned int height) { layers.Resize(width, height); }
+        void Novel::Resize(const unsigned int& width, const unsigned int& height) { layers.Resize(width, height); }
         void Novel::Draw(sf::RenderWindow* window) { layers.Draw(window); }
         void Novel::OnHold(NovelObject* component) { onHold.insert(onHold.begin(), component); }
         void Novel::UnHold(NovelObject* component)

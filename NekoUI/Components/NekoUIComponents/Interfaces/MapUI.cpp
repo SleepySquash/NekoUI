@@ -12,7 +12,7 @@ namespace NekoUI
 {
     void MapUI::Init()
     {
-        blackScreenShape.setFillColor(sf::Color(0,0,0,170));
+        blackScreenShape.setFillColor(sf::Color(0,0,0,170)); // TODO: Добавить "скейлинг относительно столько-то пикселей", на который будет просто делиться реальный размер, чтобы скейл не зависел от ресолюшинкласса
         groceryButton.setTexture(L"Data/Images/UI/map_Grocery.png"); groceryButton.setScale(0.5f);
         shopkeeperButton.setTexture(L"Data/Images/UI/map_Shopkeeper.png"); shopkeeperButton.setScale(0.5f);
         homeButton.setTexture(L"Data/Images/UI/map_Home.png"); homeButton.setScale(0.5f);
@@ -70,7 +70,7 @@ namespace NekoUI
             Switch(false);
         }
     }
-    void MapUI::Resize(unsigned int width, unsigned int height)
+    void MapUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         
@@ -106,7 +106,7 @@ namespace NekoUI
         homeButton.draw(window);
         scrolldownMenu.draw(window);
     }
-    void MapUI::RecieveMessage(MessageHolder& message)
+    void MapUI::ReceiveMessage(MessageHolder& message)
     {
         if (!active && message.info == "MapUI :: Show") Switch(true);
         else if (active && message.info == "MapUI :: Close") Switch(false);

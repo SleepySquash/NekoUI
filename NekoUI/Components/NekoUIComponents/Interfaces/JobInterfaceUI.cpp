@@ -84,7 +84,7 @@ namespace NekoUI
             jobs.eventPolled(event);
         }
     }
-    void JobInterfaceUI::Resize(unsigned int width, unsigned int height)
+    void JobInterfaceUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         
@@ -137,7 +137,7 @@ namespace NekoUI
         
         window->draw(moneyText);
     }
-    void JobInterfaceUI::RecieveMessage(MessageHolder& message)
+    void JobInterfaceUI::ReceiveMessage(MessageHolder& message)
     {
         if (!active && message.info == "JobInterfaceUI :: Show") Switch(true);
         else if (active && message.info == "JobInterfaceUI :: Close") Switch(false);

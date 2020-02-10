@@ -279,6 +279,11 @@ namespace NekoUI
         }
     }
     
+
+
+    void Player::OccupyPersona() { neko.OccupyMemory(); UpdateNekoEmotion(); neko.chibiReversed = false; }
+    void Player::FreePersona() { neko.FreeMemory(); neko.chibiReversed = false; NekoEmotionsAccordingToMood(); }
+    
     
     
     void Player::UpdateNekoEmotion()

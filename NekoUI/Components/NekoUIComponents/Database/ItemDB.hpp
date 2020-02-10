@@ -10,6 +10,7 @@
 #define ItemDB_hpp
 
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <unordered_map>
 
@@ -17,16 +18,16 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Essentials/ResourcePath.hpp"
-#include "../../../Engine/Settings.hpp"
+#include <minEH/Essentials/ResourcePath.hpp>
+#include <minEH/Essentials/Base.hpp>
+#include <minEH/Engine/NovelSomeScript.hpp>
+using namespace ns;
 
 #include "../Engine/Item.hpp"
 
 using std::cin;
 using std::cout;
 using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 namespace NekoUI
 {

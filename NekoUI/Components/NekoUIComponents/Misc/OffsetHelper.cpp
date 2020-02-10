@@ -225,7 +225,7 @@ namespace NekoUI
             }
         }
     }
-    void OffsetHelper::Resize(unsigned int width, unsigned int height)
+    void OffsetHelper::Resize(const unsigned int& width, const unsigned int& height)
     {
         constantScaling = requiredScaling*gs::scale;
         body.setScale(bodyRelative * constantScaling, bodyRelative * constantScaling);

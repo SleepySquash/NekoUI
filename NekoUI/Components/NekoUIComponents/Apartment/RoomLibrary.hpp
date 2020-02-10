@@ -14,8 +14,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/Collectors.hpp"
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/Collectors.hpp>
 
 using std::cin;
 using std::cout;

@@ -17,9 +17,9 @@
 
 // #include <nfd.h>
 
-#include "../../../Engine/EntitySystem.hpp"
-#include "../../../Engine/Collectors/Image.hpp"
-#include "../../../Engine/Collectors/Font.hpp"
+#include <minEH/Engine/EntitySystem.hpp>
+#include <minEH/Engine/Collectors/Image.hpp>
+#include <minEH/Engine/Collectors/Font.hpp>
 
 using std::cout;
 using std::endl;
@@ -75,7 +75,7 @@ namespace NekoUI
         OffsetHelper(const std::wstring& spritepath, const bool& mode = false, const float& requiredScaling = 0.82f);
         void Init() override;
         void PollEvent(sf::Event& event) override;
-        void Resize(unsigned int width, unsigned int height) override;
+        void Resize(const unsigned int& width, const unsigned int& height) override;
         void UpdatePosition();
         void Draw(sf::RenderWindow* window) override;
         void UpdateInformation();

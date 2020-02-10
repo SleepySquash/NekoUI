@@ -16,7 +16,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Color.hpp>
 
-#include "../../../Engine/MessageHolder.hpp"
+#include <minEH/Engine/MessageHolder.hpp>
 
 using std::cin;
 using std::cout;

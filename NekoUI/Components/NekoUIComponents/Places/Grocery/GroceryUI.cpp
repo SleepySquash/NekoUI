@@ -156,7 +156,7 @@ namespace NekoUI
                     if (quitB.PollEvent(event)) SwitchMode(Mode::Main);
                     else if (payB.PollEvent(event))
                     {
-                        if (NekoS::money >= checkPrice)
+                        if (!checkList.empty() && NekoS::money >= checkPrice)
                         {
                             for (auto i : checkList)
                                 Inventory::transition.Add(i.first, i.second, false);
@@ -205,7 +205,7 @@ namespace NekoUI
                     checkLinesYY = checkCaption.getPosition().y + checkCaption.getGlobalBounds().height;
             }
         }
-        void GroceryUI::Resize(unsigned int width, unsigned int height)
+        void GroceryUI::Resize(const unsigned int& width, const unsigned int& height)
         {
             // background.setSize({(float)width, (float)height});
             if (spriteLoaded)
@@ -430,7 +430,7 @@ namespace NekoUI
                     break;
             }
         }
-        void GroceryUI::RecieveMessage(MessageHolder& message)
+        void GroceryUI::ReceiveMessage(MessageHolder& message)
         {
             if (active && nss::Command(message.info, "Request") && message.additional == L"Data/Images/Backgrounds/grocery.jpg")
             {

@@ -20,12 +20,12 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../../../Essentials/ResourcePath.hpp"
-#include "../../../Engine/EntitySystem.hpp"
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/Collectors.hpp"
-#include "../../../Engine/GUI/Button/SomeButtons.hpp"
-#include "../../../Engine/NotificationHolder.hpp"
+#include <minEH/Essentials/ResourcePath.hpp>
+#include <minEH/Engine/EntitySystem.hpp>
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/Collectors.hpp>
+#include <minEH/Engine/GUI/Button/SomeButtons.hpp>
+#include <minEH/Engine/NotificationHolder.hpp>
 
 #include "RoomLibrary.hpp"
 #include "NekoEntity.hpp"
@@ -88,9 +88,9 @@ namespace NekoUI
         void CleanUp();
         void Update(const sf::Time& elapsedTime) override;
         void PollEvent(sf::Event& event) override;
-        void Resize(unsigned int width, unsigned int height) override;
+        void Resize(const unsigned int& width, const unsigned int& height) override;
         void Draw(sf::RenderWindow* window) override;
-        void RecieveMessage(MessageHolder& message) override;
+        void ReceiveMessage(MessageHolder& message) override;
         
         void CalculateCameraPosition();
         void CalculateCameraScale();
@@ -113,6 +113,7 @@ namespace NekoUI
         
         std::string loadedActivity;
         RoomEntity* loaded_ReturnToFood_entity;
+        Item* loaded_inHands{ nullptr };
         float loadedNeko_x, loadedNeko_y;
         void SaveApartment();
         void LoadApartment();

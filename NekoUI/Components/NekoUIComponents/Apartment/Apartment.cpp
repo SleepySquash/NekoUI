@@ -30,9 +30,9 @@ namespace NekoUI
     }
     void Apartment::Init()
     {
-        neko.Init(); Player::neko.OccupyMemory(); neko.sender = entity;
+        neko.Init(); Player::OccupyPersona(); neko.sender = entity;
         neko.positionInArray = 0; neko.vector = &entities; entities.push_back(&neko);
-        hasFocusOnNeko = true; if (gs::trueVerticalOrientation) rm::scale = 3.f; else rm::scale = 2.24f;
+        hasFocusOnNeko = true; if (gs::trueVerticalOrientation) /*rm::scale = 3.f; else*/ rm::scale = 2.24f;
         entity->SendMessage({"NekoUI :: SelectNeko", &neko});
         
         rm::scrolldownMenuOpened = rm::requestCloseButton = false;
@@ -93,8 +93,8 @@ namespace NekoUI
         
         std::list<std::wstring> nekoDidList;
         
-        bool doAnyMoreSimulation{ true }, forceNewCoodrinates{ true };
-        if ((forceNewCoodrinates = !(loadedActivity != "ReturnToFood" && Player::timePassed <= 4.5f))) { neko.x = loadedNeko_x; neko.y = loadedNeko_y; }
+        bool doAnyMoreSimulation{ true }, forceNewCoodrinates{ true }, generateNekoReplica{ true };
+        if (!(forceNewCoodrinates = !(loadedActivity != "ReturnToFood" && Player::timePassed <= 5.f))) { neko.x = loadedNeko_x; neko.y = loadedNeko_y; }
         if (loadedActivity.length())
         {
             if (loadedActivity == "Sleeping")
@@ -159,6 +159,39 @@ namespace NekoUI
                     doAnyMoreSimulation = false;
                 }
             }
+            else if (loaded_inHands)
+            {
+                if (loadedActivity == "Eating")
+                {
+                    if (Player::timePassed >= 5.f) { nekoDidList.push_back(L"скушала " + loaded_inHands->display); neko.ConsumeItem(loaded_inHands); }
+                    else
+                    {
+                        neko.PutItemInHands(loaded_inHands);
+                        neko.InsertActivity(adb::activities["Eating"]);
+                        neko.SetDialogue(L"*Ом-ном-ном*");
+                        doAnyMoreSimulation = generateNekoReplica = false;
+                    }
+                    loaded_inHands = nullptr;
+                }
+                else if (loadedActivity == "Drinking")
+                {
+                    if (Player::timePassed >= 5.f) { nekoDidList.push_back(L"выпила " + loaded_inHands->display); neko.ConsumeItem(loaded_inHands); }
+                    else
+                    {
+                        neko.PutItemInHands(loaded_inHands);
+                        neko.InsertActivity(adb::activities["Drinking"]);
+                        neko.SetDialogue(L"*Бульк-бульк*");
+                        doAnyMoreSimulation = generateNekoReplica = false;
+                    }
+                    loaded_inHands = nullptr;
+                }
+            }
+        }
+        
+        if (loaded_inHands)
+        {
+            RegisterItemEntity(loaded_inHands, loadedNeko_x, loadedNeko_y);
+            loaded_inHands = nullptr;
         }
         
         if (doAnyMoreSimulation)
@@ -376,87 +409,90 @@ namespace NekoUI
                     {
                         if (neko.activity->name == "SittingAtComputer") { neko.x = 72*Room::roomScale; neko.y = 148*Room::roomScale; }
                         else if (neko.activity->name == "SittingAtTable") { neko.x = 227*Room::roomScale; neko.y = 122*Room::roomScale; }
-                        else if (neko.activity->name == "SittingAtComputer") { neko.x = 363*Room::roomScale; neko.y = 130*Room::roomScale; }
+                        else if (neko.activity->name == "LookingAtKitchen") { neko.x = 363*Room::roomScale; neko.y = 130*Room::roomScale; }
                     }
                 }
                 
-                if (rm::location == rm::Location::Grocery)
+                if (generateNekoReplica)
                 {
-                    int random = rand() % 4;
-                    switch (random)
+                    if (rm::location == rm::Location::Grocery)
                     {
-                        case 0: neko.SetDialogue(L"Ваа, уже вернулься?~"); break;
-                        case 1: neko.SetDialogue(L"А хозяин купиль вкусняшек??"); break;
-                        case 2: case 3: neko.SetDialogue(L"С возвращением, хозяин! <3"); break;
-                        default: break;
-                    }
-                }
-                else if (rm::location == rm::Location::Job)
-                {
-                    int random = rand() % 4;
-                    switch (random)
-                    {
-                        case 0: neko.SetDialogue(L"Ваа, не усталь работать?~"); break;
-                        case 1: neko.SetDialogue(L"Переживала, пока ты работал! >3<"); break;
-                        case 2: case 3: neko.SetDialogue(L"С возвращением с работы! <3"); break;
-                        default: break;
-                    }
-                }
-                else
-                {
-                    if (timeinfo->tm_hour >= 23 || timeinfo->tm_hour <= 1)
-                    {
-                        int random = rand() % 3;
+                        int random = rand() % 4;
                         switch (random)
                         {
-                            case 0: neko.SetDialogue(L"Хозяин?~ Тоже не спится?"); break;
-                            case 1: neko.SetDialogue(L"А я чуть позже лягу!! >3<"); break;
-                            case 2: neko.SetDialogue(L"Доброй ночи, хозяин!~~"); break;
+                            case 0: neko.SetDialogue(L"Ваа, уже вернулься?~"); break;
+                            case 1: neko.SetDialogue(L"А хозяин купиль вкусняшек??"); break;
+                            case 2: case 3: neko.SetDialogue(L"С возвращением, хозяин! <3"); break;
                             default: break;
                         }
                     }
-                    else if (timeinfo->tm_hour <= 5)
+                    else if (rm::location == rm::Location::Job)
                     {
-                        int random = rand() % 3;
+                        int random = rand() % 4;
                         switch (random)
                         {
-                            case 0: neko.SetDialogue(L"Хозяин?~ А ты тиво не спишь?"); break;
-                            case 1: neko.SetDialogue(L"Уф, дя, совсем не спится! >3<"); break;
-                            case 2: neko.SetDialogue(L"А? Хозяин? Д-доброй ночки, дя~"); break;
-                            default: break;
-                        }
-                    }
-                    else if (timeinfo->tm_hour <= 7)
-                    {
-                        int random = rand() % 3;
-                        switch (random)
-                        {
-                            case 0: neko.SetDialogue(L"Доброе утро, хозяин!~"); break;
-                            case 1: neko.SetDialogue(L"У-у, ты так рано! >3<"); break;
-                            case 2: neko.SetDialogue(L"Мм? Ты ведь выспалься, надеюсь? >3<"); break;
-                            default: break;
-                        }
-                    }
-                    else if (timeinfo->tm_hour >= 20)
-                    {
-                        int random = rand() % 3;
-                        switch (random)
-                        {
-                            case 0: neko.SetDialogue(L"Доброго вечера, хозяин!~"); break;
-                            case 1: neko.SetDialogue(L"Приветь, как твой денёк?~~"); break;
-                            case 2: neko.SetDialogue(L"Весь день уже делаю скучашки!! >3<"); break;
+                            case 0: neko.SetDialogue(L"Ваа, не усталь работать?~"); break;
+                            case 1: neko.SetDialogue(L"Переживала, пока ты работал! >3<"); break;
+                            case 2: case 3: neko.SetDialogue(L"С возвращением с работы! <3"); break;
                             default: break;
                         }
                     }
                     else
                     {
-                        int random = rand() % 3;
-                        switch (random)
+                        if (timeinfo->tm_hour >= 23 || timeinfo->tm_hour <= 1)
                         {
-                            case 0: neko.SetDialogue(L"Хозяин!!! Приветь! :3?"); break;
-                            case 1: neko.SetDialogue(L"Доброго дня, лапка~ c:"); break;
-                            case 2: neko.SetDialogue(L"Я скучала по тебе!! >3<"); break;
-                            default: break;
+                            int random = rand() % 3;
+                            switch (random)
+                            {
+                                case 0: neko.SetDialogue(L"Хозяин?~ Тоже не спится?"); break;
+                                case 1: neko.SetDialogue(L"А я чуть позже лягу!! >3<"); break;
+                                case 2: neko.SetDialogue(L"Доброй ночи, хозяин!~~"); break;
+                                default: break;
+                            }
+                        }
+                        else if (timeinfo->tm_hour <= 5)
+                        {
+                            int random = rand() % 3;
+                            switch (random)
+                            {
+                                case 0: neko.SetDialogue(L"Хозяин?~ А ты тиво не спишь?"); break;
+                                case 1: neko.SetDialogue(L"Уф, дя, совсем не спится! >3<"); break;
+                                case 2: neko.SetDialogue(L"А? Хозяин? Д-доброй ночки, дя~"); break;
+                                default: break;
+                            }
+                        }
+                        else if (timeinfo->tm_hour <= 7)
+                        {
+                            int random = rand() % 3;
+                            switch (random)
+                            {
+                                case 0: neko.SetDialogue(L"Доброе утро, хозяин!~"); break;
+                                case 1: neko.SetDialogue(L"У-у, ты так рано! >3<"); break;
+                                case 2: neko.SetDialogue(L"Мм? Ты ведь выспалься, надеюсь? >3<"); break;
+                                default: break;
+                            }
+                        }
+                        else if (timeinfo->tm_hour >= 20)
+                        {
+                            int random = rand() % 3;
+                            switch (random)
+                            {
+                                case 0: neko.SetDialogue(L"Доброго вечера, хозяин!~"); break;
+                                case 1: neko.SetDialogue(L"Приветь, как твой денёк?~~"); break;
+                                case 2: neko.SetDialogue(L"Весь день уже делаю скучашки!! >3<"); break;
+                                default: break;
+                            }
+                        }
+                        else
+                        {
+                            int random = rand() % 3;
+                            switch (random)
+                            {
+                                case 0: neko.SetDialogue(L"Хозяин!!! Приветь! :3?"); break;
+                                case 1: neko.SetDialogue(L"Доброго дня, лапка~ c:"); break;
+                                case 2: neko.SetDialogue(L"Я скучала по тебе!! >3<"); break;
+                                default: break;
+                            }
                         }
                     }
                 }
@@ -495,7 +531,7 @@ namespace NekoUI
         savingIsRequired = true;
         SortEntities();
     }
-    void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); Player::neko.FreeMemory(); }
+    void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); Player::FreePersona(); }
     void Apartment::CleanUp()
     {
         ic::DeleteImage(L"Data/Apartment/Background/room.png");
@@ -726,7 +762,7 @@ namespace NekoUI
         else if (event.type == sf::Event::Closed || event.type == sf::Event::LostFocus) { Player::SaveData(); Player::SaveCurrentDT();
             if (savingIsRequired) SaveApartment(); }
     }
-    void Apartment::Resize(unsigned int width, unsigned int height)
+    void Apartment::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         Room::xWidth = gs::width/(gs::scale * Room::scale); Room::yHeight = gs::height/(gs::scale * Room::scale);
@@ -779,7 +815,7 @@ namespace NekoUI
         }
         if (drawPointer) { window->draw(nekoArrowSprite); window->draw(nekoPtrSprite); }
     }
-    void Apartment::RecieveMessage(MessageHolder& message)
+    void Apartment::ReceiveMessage(MessageHolder& message)
     {
         if (!active) return;
         
@@ -1145,7 +1181,7 @@ namespace NekoUI
                         neko.drawDialogue = neko.unlimitedDrawDialogue = false;
                         if (hoverAboveEntity->id == "Bed") { neko.InsertActivity(adb::activities["Sleeping"]); performEntityReposition = false; }
                         else if (hoverAboveEntity->id == "Bathtub") neko.InsertActivity(adb::activities["Bathing"]);
-                        else if (hoverAboveEntity->id == "Toilet") { if (NekoS::needToilet < NekoS::autoCapToilet) neko.InsertActivity(adb::activities["UseToilet"]); else neko.SetDialogue(L"Не хотю в туалет! >3<"); }
+                        else if (hoverAboveEntity->id == "Toilet") { if (NekoS::needToilet < 800) neko.InsertActivity(adb::activities["UseToilet"]); else neko.SetDialogue(L"Не хотю в туалет! >3<"); }
                     }
                     else
                     {
@@ -1408,6 +1444,15 @@ namespace NekoUI
                                 loaded_ReturnToFood_entity = nullptr;
                                 for (auto& e : entities) if (e->x == x && e->y == y) { loaded_ReturnToFood_entity = e; break; }
                             }
+                        }
+                        if (nss::Command(command, L"inhands "))
+                        {
+                            std::wstring strtype = nss::ParseUntil(command, L' '); nss::SkipSpaces(command);
+                            std::wstring strcount = nss::ParseUntil(command, L' '); nss::SkipSpaces(command);
+                            std::wstring strname = nss::ParseUntil(command, L' ');
+                            std::string iname = utf8(strname);
+                            auto it = Inventory::map.find(iname);
+                            if (it != Inventory::map.end()) loaded_inHands = (*it).second;
                         }
                         else if (nss::Command(command, L"position "))
                         {

@@ -13,7 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/MessageHolder.hpp"
+#include <minEH/Engine/MessageHolder.hpp>
 
 namespace NekoUI
 {

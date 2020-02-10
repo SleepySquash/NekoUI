@@ -48,7 +48,7 @@ namespace NekoUI
         if (((event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) && !shape.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) || ((event.type == sf::Event::TouchBegan || event.type == sf::Event::TouchEnded) && !shape.getGlobalBounds().contains(event.touch.x, event.touch.y)))
         { entity->SendMessage({"DetailsUI :: Close"}); event = sf::Event(); }
     }
-    void ItemDetailsUI::Resize(unsigned int width, unsigned int height)
+    void ItemDetailsUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         
@@ -95,7 +95,7 @@ namespace NekoUI
         window->draw(caption);
         window->draw(description);
     }
-    void ItemDetailsUI::RecieveMessage(MessageHolder& message)
+    void ItemDetailsUI::ReceiveMessage(MessageHolder& message)
     {
         if (!active && message.info == "DetailsUI :: Show") Switch(true);
         else if (active && message.info == "DetailsUI :: Close") Switch(false);

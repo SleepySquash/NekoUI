@@ -99,7 +99,7 @@ namespace NekoUI
                 qty.setString(std::to_string(count)); qty.setPosition(shape.getPosition().x + shape.getSize().x/2 - qty.getGlobalBounds().width/2, shape.getPosition().y + shape.getSize().y - qty.getGlobalBounds().height - 20*gs::scale); entity->SendMessage({"count -= 10"}); }
             
         }
-        void ItemDetails::Resize(unsigned int width, unsigned int height)
+        void ItemDetails::Resize(const unsigned int& width, const unsigned int& height)
         {
             shape.setCornersRadius(170*gs::scale);
             shape.setOutlineThickness(10 * gs::scale);

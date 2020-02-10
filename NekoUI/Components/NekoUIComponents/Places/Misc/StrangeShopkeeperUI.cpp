@@ -61,7 +61,7 @@ namespace NekoUI
             else if (shopButton.PollEvent(event)) { }
             else if (talkButton.PollEvent(event)) { }
         }
-        void StrangeShopkeeperUI::Resize(unsigned int width, unsigned int height)
+        void StrangeShopkeeperUI::Resize(const unsigned int& width, const unsigned int& height)
         {
             // background.setSize({(float)width, (float)height});
             if (spriteLoaded)
@@ -91,7 +91,7 @@ namespace NekoUI
             talkButton.draw(window);
             goButton.draw(window);
         }
-        void StrangeShopkeeperUI::RecieveMessage(MessageHolder& message)
+        void StrangeShopkeeperUI::ReceiveMessage(MessageHolder& message)
         {
             if (active && nss::Command(message.info, "Request") && message.additional == L"Data/Images/Backgrounds/strangeshopkeeper.jpg")
             {

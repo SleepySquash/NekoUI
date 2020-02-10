@@ -15,8 +15,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/NovelSomeScript.hpp"
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/NovelSomeScript.hpp>
 
 #include "../Engine/Activity.hpp"
 

@@ -37,7 +37,7 @@ namespace NekoUI
         texture = ic::LoadTexture(L"Data/Neko/Chibi/body.png");
         if ((spriteLoaded = texture))
         {
-            sprite.setTexture(*texture);
+            sprite.setTexture(*texture); // TODO: Сделать relScale, влияющий на inHands спрайт (функция PutInHands())
             sprite.setOrigin(texture->getSize().x/2, texture->getSize().y - texture->getSize().y/15);
             relScale = (static_cast<float>(gs::relativeHeight)/static_cast<float>(texture->getSize().y)) * 0.46;
             height = texture->getSize().y * 0.54 * relScale;
@@ -835,7 +835,7 @@ namespace NekoUI
     
     
     
-    void NekoEntity::Save(std::wofstream &wof) { if (inHands) wof << L"0 " << x << L" " << y << L" 1 " << utf16(inHands->name) << endl; }
+    void NekoEntity::Save(std::wofstream &wof) { /*if (inHands) wof << L"0 " << x << L" " << y << L" 1 " << utf16(inHands->name) << endl;*/ }
     void NekoEntity::SaveActivity(std::wofstream &wof)
     {
         if (activity)
@@ -843,6 +843,7 @@ namespace NekoUI
             wof << L"name " << utf16(activity->name) << endl;
             if (activity->name == "ReturnToFood" && movingToEntity) { wof << movingToEntity->x << " " << movingToEntity->y << endl; }
         }
+        if (inHands) wof << L"inhands 0 1 " << utf16(inHands->name) << endl;
         wof << "position " << x << " " << y << endl;
     }
 }

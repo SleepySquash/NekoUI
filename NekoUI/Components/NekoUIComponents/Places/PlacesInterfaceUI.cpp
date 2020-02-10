@@ -10,7 +10,7 @@
 
 namespace NekoUI
 {
-    void PlacesInterfaceUI::RecieveMessage(MessageHolder& message)
+    void PlacesInterfaceUI::ReceiveMessage(MessageHolder& message)
     {
         if (message.info == "PlacesUI :: ApartmentUI" || message.info == "PlacesUI :: GroceryUI" || message.info == "PlacesUI :: ShopkeeperUI" || message.info == "PlacesUI :: JobFNAF") entity->AddComponent<PlacesTransitionScreen>(message.info);
     }
@@ -81,7 +81,7 @@ namespace NekoUI
         }
     }
     void PlacesTransitionScreen::Draw(sf::RenderWindow* window) { window->draw(shape); window->draw(text); }
-    void PlacesTransitionScreen::Resize(unsigned int width, unsigned int height)
+    void PlacesTransitionScreen::Resize(const unsigned int& width, const unsigned int& height)
     {
         shape.setSize({(float)width, (float)height});
         text.setCharacterSize(94*gs::scale);

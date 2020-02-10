@@ -140,11 +140,11 @@ namespace NekoUI
         cloth.push_back(&backhair);
         cloth.push_back(&tail);
         
-        /* Cloth* nipples = new Cloth(); nipples->depth = 1;
-        nipples->Load(L"nipples.png", L"nipples.png");
+        /*Cloth* nipples = new Cloth(); nipples->depth = 1;
+        nipples->Set(L"nipples.png", L"nipples.png");
         nipples->relativeChibiScale = 0.181; nipples->SetOffsetChibi({17, -780});
         nipples->relativePersonScale = 0.0209; nipples->SetOffsetPerson({-9, -595});
-        cloth.push_back(nipples); */
+        cloth.push_back(nipples);*/
         
         Cloth* nekoears = new Cloth(); nekoears->depth = &backhair ? (backhair.depth + 5) : -1;
         nekoears->Set(L"neko ears.png", L"neko ears.png");

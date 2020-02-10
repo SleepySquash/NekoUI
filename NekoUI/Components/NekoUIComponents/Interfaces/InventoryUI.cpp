@@ -120,7 +120,7 @@ namespace NekoUI
             else if (event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::TouchEnded) { itemButtons.eventPolled(event); draggingMode = false; }
         }
     }
-    void InventoryUI::Resize(unsigned int width, unsigned int height)
+    void InventoryUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         if (spriteLoaded)
@@ -191,7 +191,7 @@ namespace NekoUI
         }
         if (draggingMode) { window->draw(dropzone); window->draw(draggingSprite); }
     }
-    void InventoryUI::RecieveMessage(MessageHolder& message)
+    void InventoryUI::ReceiveMessage(MessageHolder& message)
     {
         if (!active && message.info == "InventoryUI :: Show") Switch(true);
         else if (active && message.info == "InventoryUI :: Close") Switch(false);

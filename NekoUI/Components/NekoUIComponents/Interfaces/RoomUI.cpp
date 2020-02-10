@@ -292,7 +292,7 @@ namespace NekoUI
         }
         if (ignoreEventMove && (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::TouchBegan)) event = sf::Event();
     }
-    void RoomUI::Resize(unsigned int width, unsigned int height)
+    void RoomUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         UpdateAccordingToMode();
@@ -484,7 +484,7 @@ namespace NekoUI
             scrolldownMenu.draw(window);
         }
     }
-    void RoomUI::RecieveMessage(MessageHolder& message)
+    void RoomUI::ReceiveMessage(MessageHolder& message)
     {
         if (!active && message.info == "RoomUI :: Show") Switch(true);
         else if (active && message.info == "RoomUI :: Close") Switch(false);

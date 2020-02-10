@@ -53,7 +53,7 @@ namespace NekoUI
         
         if (quitButton.PollEvent(event) || closeButton.PollEvent(event)) entity->SendMessage({"CalendarUI :: Close"});
     }
-    void CalendarUI::Resize(unsigned int width, unsigned int height)
+    void CalendarUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         
@@ -76,7 +76,7 @@ namespace NekoUI
         window->draw(dateText);
         closeButton.draw(window);
     }
-    void CalendarUI::RecieveMessage(MessageHolder& message)
+    void CalendarUI::ReceiveMessage(MessageHolder& message)
     {
         if (message.info == "Time")
         {

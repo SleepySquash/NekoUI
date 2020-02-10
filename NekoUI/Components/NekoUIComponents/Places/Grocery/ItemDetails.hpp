@@ -10,9 +10,10 @@
 #define GroceryItemDetails_hpp
 
 #include <iostream>
-#include "../../../../Engine/EntitySystem.hpp"
-#include "../../../../Engine/GUI/RoundedRectangleShape.hpp"
-#include "../../../../Engine/GUI/Button/SomeButtons.hpp"
+#include <minEH/Engine/EntitySystem.hpp>
+#include <minEH/Engine/GUI/RoundedRectangleShape.hpp>
+#include <minEH/Engine/GUI/Button/SomeButtons.hpp>
+
 #include "../../Engine/Item.hpp"
 
 using namespace ns;
@@ -40,7 +41,7 @@ namespace NekoUI
             void Destroy() override;
             void Update(const sf::Time& elapsedTime) override;
             void PollEvent(sf::Event& event) override;
-            void Resize(unsigned int width, unsigned int height) override;
+            void Resize(const unsigned int& width, const unsigned int& height) override;
             void Draw(sf::RenderWindow* window) override;
             void UpdateAlpha();
         };

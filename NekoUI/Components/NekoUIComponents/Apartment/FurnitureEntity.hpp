@@ -13,9 +13,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../Engine/Settings.hpp"
-#include "../../../Engine/Collectors.hpp"
-#include "../../../Engine/Collectors/Shader.hpp"
+#include <minEH/Engine/Settings.hpp>
+#include <minEH/Engine/Collectors.hpp>
+#include <minEH/Engine/Collectors/Shader.hpp>
 
 #include "RoomEntity.hpp"
 #include "RoomLibrary.hpp"
