@@ -27,8 +27,6 @@
 #include <minEH/Engine/NovelSomeScript.hpp>
 
 #include "Abstract/CharacterLibrary.hpp"
-#include "Abstract/Skin.hpp"
-#include "Abstract/Savable.hpp"
 #include "Abstract/Modes.hpp"
 
 using std::cin;
@@ -42,7 +40,7 @@ namespace ns
 {
     namespace NovelComponents
     {
-        struct Character : NovelObject, Savable
+        struct Character : NovelObject
         {
             sf::Sprite sprite;
             std::wstring image, folder, state;
@@ -63,7 +61,6 @@ namespace ns
             bool doParallax{ gs::isParallaxEnabled };
             float parallaxPower { gs::defaultParallaxNormal };
             
-            Character();
             void LoadState(const std::wstring& stateName);
             void Resize(const unsigned int& width, const unsigned int& height) override;
             void Update(const sf::Time& elapsedTime) override;
@@ -75,9 +72,6 @@ namespace ns
             void SetStateMode(const Mode& newMode);
             void SetCharacterData(CharacterData* characterData);
             void SetPosition(const Position& pos, float x = 0, float y = 0);
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
         };
     }
 }

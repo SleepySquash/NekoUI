@@ -21,7 +21,6 @@ namespace NekoUI
             enum class EyesEmotion { Normal, Closed, Confused, Embarrassed, ClosedHappy,     DEFAULT };
             enum class MouthEmotion { Smile, Neutral, Dot, Open, Sad,   DEFAULT };
             
-            
             static unsigned long money;
             static float affection; /// +Opinion about you
             static unsigned int age;

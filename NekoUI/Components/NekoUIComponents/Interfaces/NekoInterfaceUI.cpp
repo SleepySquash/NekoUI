@@ -133,7 +133,13 @@ namespace NekoUI
                 if (talkButton.PollEvent(event)) { screen = Screen::talk; }
                 else if (requestButton.PollEvent(event)) { }
                 else if (engageButton.PollEvent(event)) { }
-                else if (actionButton.PollEvent(event)) { }
+                else if (actionButton.PollEvent(event))
+                {
+                    entity->system->SendMessage({"PlacesUI :: Test2Novel"});
+                    /*entity->system->SendMessage({"Push", L"Неко \"Приветь!!!\""});
+                    entity->system->SendMessage({"Push", L"Неко \"Видись, йа разговаривайу!!!!!!\""});
+                    entity->system->SendMessage({"Push", L"Неко \"Дяяяяя!!!\""});*/
+                }
                 break;
             case Screen::talk:
                 if (talkChooseCircle.PollEvent(event)) { screen = Screen::main; }
@@ -161,11 +167,14 @@ namespace NekoUI
         
         blackScreenShape.setSize({(float)gs::width, (float)gs::height});
         choiceBackShape.setSize({(float)gs::width, (float)gs::height});
-        if (gs::verticalOrientation) { Player::neko.personScale = 1.4 * gs::scScale; Player::neko.ResizePerson(); }
-        else { Player::neko.personScale = 1.3 * gs::scScale; Player::neko.ResizePerson(); }
-        if (Player::neko.body.person.getGlobalBounds().height + 20*gs::scale > gs::height)
-            Player::neko.setPersonPosition(width/2, Player::neko.body.person.getGlobalBounds().height + 20*gs::scale + gs::screenOffsetTop);
-        else Player::neko.setPersonPosition(width/2, height + gs::screenOffsetTop);
+        if (drawNeko)
+        {
+            if (gs::verticalOrientation) { NekoB::neko.personScale = 1.4 * gs::scScale; NekoB::neko.ResizePerson(); }
+            else { NekoB::neko.personScale = 1.3 * gs::scScale; NekoB::neko.ResizePerson(); }
+            if (NekoB::neko.body.person.getGlobalBounds().height + 20*gs::scale > gs::height)
+                NekoB::neko.setPersonPosition(width/2, NekoB::neko.body.person.getGlobalBounds().height + 20*gs::scale + gs::screenOffsetTop);
+            else NekoB::neko.setPersonPosition(width/2, height + gs::screenOffsetTop);
+        }
         
         nameText.setCharacterSize(80 * gs::scale);
         nameText.setOrigin(nameText.getGlobalBounds().width/2, 0);
@@ -235,7 +244,6 @@ namespace NekoUI
         {
             blurScreenTexture.create(gs::width, gs::height);
             blurScreenTexture.update(*gs::window);
-            sf::Image screen = blurScreenTexture.copyToImage();
             std::thread([this]()
             {
                 sf::Context context;
@@ -262,22 +270,25 @@ namespace NekoUI
         
         window->draw(blurSprite);
         // window->draw(blackScreenShape);
-        Player::neko.Draw(window, true);
+        if (drawNeko) NekoB::neko.Draw(window, true);
         
         switch (screen)
         {
             case Screen::main:
-                window->draw(heartSprite);
-                window->draw(nameText);
-                
-                if (drawSpeechBubble) {
-                    window->draw(speechBubbleSprite);
-                    window->draw(speechBubbleText); }
-                
-                talkButton.draw(window);
-                requestButton.draw(window);
-                engageButton.draw(window);
-                actionButton.draw(window);
+                if (drawNeko)
+                {
+                    window->draw(heartSprite);
+                    window->draw(nameText);
+                    
+                    if (drawSpeechBubble) {
+                        window->draw(speechBubbleSprite);
+                        window->draw(speechBubbleText); }
+                    
+                    talkButton.draw(window);
+                    requestButton.draw(window);
+                    engageButton.draw(window);
+                    actionButton.draw(window);
+                }
                 break;
             case Screen::talk:
                 window->draw(heartSprite);
@@ -317,7 +328,8 @@ namespace NekoUI
             speechBubbleText.setString(nss::GetStringWithLineBreaks(speechBubbleText, speechBubbleLine, speechBubbleSprite.getGlobalBounds().width - 10*gs::scale));
             speechBubbleText.setPosition(speechBubbleSprite.getPosition().x - speechBubbleText.getGlobalBounds().width/2, speechBubbleSprite.getPosition().y + speechBubbleSprite.getGlobalBounds().height/2 - speechBubbleText.getGlobalBounds().height/2);
         }
-        else if (active && message.info == "NovelComponents :: Novel :: Destroying") nintDontDrawPersonNeko = false;
+        else if (active && message.info == "Novel :: Destroying") { drawNeko = gs::requestWindowRefresh = true; NekoB::neko.setPersonAlpha(alpha); Resize(gs::width, gs::height); }
+        else if (active && message.info == "Novel :: Starting") drawNeko = false;
     }
     void NekoInterfaceUI::Switch(const bool& on)
     {
@@ -335,7 +347,7 @@ namespace NekoUI
     {
         nekoIsSleeping = entity->sleeping;
         entity->beingActionedWith = true; entity->drawDialogue = false;
-        nintDontDrawPersonNeko = false; rm::requestCloseButton = true;
+        rm::requestCloseButton = true;
         nameText.setString(Player::display);
         nameText.setOrigin(nameText.getGlobalBounds().width/2, 0);
         if (speechBubbleLine == L"..." && !nekoIsSleeping)
@@ -381,6 +393,6 @@ namespace NekoUI
         speechBubbleText.setOutlineColor(sf::Color(speechBubbleText.getOutlineColor().r, speechBubbleText.getOutlineColor().g, speechBubbleText.getOutlineColor().b, alpha));
         speechBubbleSprite.setColor(sf::Color(speechBubbleSprite.getColor().r, speechBubbleSprite.getColor().g, speechBubbleSprite.getColor().b, alpha));
         
-        Player::neko.setPersonAlpha(alpha);
+        NekoB::neko.setPersonAlpha(alpha);
     }
 }

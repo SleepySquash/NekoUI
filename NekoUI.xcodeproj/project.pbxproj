@@ -42,28 +42,10 @@
 		DD15CD0D23F1F8E500CC40C2 /* libminEH.iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD15CD0C23F1F8C200CC40C2 /* libminEH.iOS.a */; };
 		DD15CD0E23F1F8EB00CC40C2 /* minEH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD15CD0A23F1F8C200CC40C2 /* minEH.framework */; };
 		DD15CD0F23F1F8EB00CC40C2 /* minEH.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD15CD0A23F1F8C200CC40C2 /* minEH.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DD1899EE23F08B4D00D81302 /* NovelListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD1899EC23F08B4D00D81302 /* NovelListener.cpp */; };
-		DD1899EF23F08B4D00D81302 /* NovelListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD1899EC23F08B4D00D81302 /* NovelListener.cpp */; };
-		DD1899F223F0910C00D81302 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD1899F023F0910C00D81302 /* Background.cpp */; };
-		DD1899F323F0910C00D81302 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD1899F023F0910C00D81302 /* Background.cpp */; };
-		DD1899F623F0927A00D81302 /* Modes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD1899F423F0927A00D81302 /* Modes.cpp */; };
-		DD1899F723F0927A00D81302 /* Modes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD1899F423F0927A00D81302 /* Modes.cpp */; };
-		DD189A0723F1606900D81302 /* VariableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A0523F1606900D81302 /* VariableSystem.cpp */; };
-		DD189A0823F1606900D81302 /* VariableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A0523F1606900D81302 /* VariableSystem.cpp */; };
 		DD189A2B23F1609C00D81302 /* CharacterLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A0D23F1609C00D81302 /* CharacterLibrary.cpp */; };
 		DD189A2C23F1609C00D81302 /* CharacterLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A0D23F1609C00D81302 /* CharacterLibrary.cpp */; };
-		DD189A2D23F1609C00D81302 /* Savable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A0E23F1609C00D81302 /* Savable.cpp */; };
-		DD189A2E23F1609C00D81302 /* Savable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A0E23F1609C00D81302 /* Savable.cpp */; };
-		DD189A2F23F1609C00D81302 /* Skin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1023F1609C00D81302 /* Skin.cpp */; };
-		DD189A3023F1609C00D81302 /* Skin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1023F1609C00D81302 /* Skin.cpp */; };
-		DD189A3123F1609C00D81302 /* VariableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1123F1609C00D81302 /* VariableSystem.cpp */; };
-		DD189A3223F1609C00D81302 /* VariableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1123F1609C00D81302 /* VariableSystem.cpp */; };
 		DD189A3323F1609C00D81302 /* Modes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1223F1609C00D81302 /* Modes.cpp */; };
 		DD189A3423F1609C00D81302 /* Modes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1223F1609C00D81302 /* Modes.cpp */; };
-		DD189A3523F1609C00D81302 /* SavingMechanism.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1323F1609C00D81302 /* SavingMechanism.cpp */; };
-		DD189A3623F1609C00D81302 /* SavingMechanism.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1323F1609C00D81302 /* SavingMechanism.cpp */; };
-		DD189A3723F1609C00D81302 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1523F1609C00D81302 /* Interface.cpp */; };
-		DD189A3823F1609C00D81302 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1523F1609C00D81302 /* Interface.cpp */; };
 		DD189A3923F1609C00D81302 /* GamePause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1A23F1609C00D81302 /* GamePause.cpp */; };
 		DD189A3A23F1609C00D81302 /* GamePause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1A23F1609C00D81302 /* GamePause.cpp */; };
 		DD189A3B23F1609C00D81302 /* Misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A1C23F1609C00D81302 /* Misc.cpp */; };
@@ -80,10 +62,6 @@
 		DD189A4623F1609C00D81302 /* NovelUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2423F1609C00D81302 /* NovelUpdate.cpp */; };
 		DD189A4723F1609C00D81302 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2523F1609C00D81302 /* Background.cpp */; };
 		DD189A4823F1609C00D81302 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2523F1609C00D81302 /* Background.cpp */; };
-		DD189A4923F1609C00D81302 /* GUISystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2723F1609C00D81302 /* GUISystem.cpp */; };
-		DD189A4A23F1609C00D81302 /* GUISystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2723F1609C00D81302 /* GUISystem.cpp */; };
-		DD189A5123F1619500D81302 /* NovelInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A4F23F1619500D81302 /* NovelInfo.cpp */; };
-		DD189A5223F1619500D81302 /* NovelInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A4F23F1619500D81302 /* NovelInfo.cpp */; };
 		DD27A47821FF43490012028E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDAB7496215D88450062F8B6 /* Assets.xcassets */; };
 		DD3A6E122293396D00222FF5 /* OffsetHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */; };
 		DD3A6E132293396D00222FF5 /* OffsetHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */; };
@@ -105,8 +83,36 @@
 		DD65CFD82200B0E400CBEF72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */; };
 		DD684B4A23E3670900A98368 /* ItemDetails.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4823E3670900A98368 /* ItemDetails.cpp */; };
 		DD684B4B23E3670900A98368 /* ItemDetails.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD684B4823E3670900A98368 /* ItemDetails.cpp */; };
-		DD715C4E23EEB7B600A4B734 /* Novel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD715C4C23EEB7B600A4B734 /* Novel.cpp */; };
-		DD715C4F23EEB7B600A4B734 /* Novel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD715C4C23EEB7B600A4B734 /* Novel.cpp */; };
+		DD6D5EF323F7E17F006F8F52 /* Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5EF123F7E17F006F8F52 /* Body.cpp */; };
+		DD6D5EF423F7E17F006F8F52 /* Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5EF123F7E17F006F8F52 /* Body.cpp */; };
+		DD6D5EFD23F7E87F006F8F52 /* NekoBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5EFB23F7E87F006F8F52 /* NekoBase.cpp */; };
+		DD6D5EFE23F7E87F006F8F52 /* NekoBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5EFB23F7E87F006F8F52 /* NekoBase.cpp */; };
+		DD6D5F0123F7E90C006F8F52 /* AbilityBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5EFF23F7E90C006F8F52 /* AbilityBase.cpp */; };
+		DD6D5F0223F7E90C006F8F52 /* AbilityBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5EFF23F7E90C006F8F52 /* AbilityBase.cpp */; };
+		DD6D5F0523F7E990006F8F52 /* EventBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0323F7E990006F8F52 /* EventBase.cpp */; };
+		DD6D5F0623F7E990006F8F52 /* EventBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0323F7E990006F8F52 /* EventBase.cpp */; };
+		DD6D5F0923F7E9F3006F8F52 /* NekoLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0723F7E9F3006F8F52 /* NekoLibrary.cpp */; };
+		DD6D5F0A23F7E9F3006F8F52 /* NekoLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0723F7E9F3006F8F52 /* NekoLibrary.cpp */; };
+		DD6D5F0D23F7EAB7006F8F52 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0B23F7EAB7006F8F52 /* Player.cpp */; };
+		DD6D5F0E23F7EAB7006F8F52 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0B23F7EAB7006F8F52 /* Player.cpp */; };
+		DD6D5F1123F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0F23F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp */; };
+		DD6D5F1223F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F0F23F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp */; };
+		DD6D5F1523F7EB43006F8F52 /* NekoDatabaseCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1323F7EB43006F8F52 /* NekoDatabaseCollection.cpp */; };
+		DD6D5F1623F7EB43006F8F52 /* NekoDatabaseCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1323F7EB43006F8F52 /* NekoDatabaseCollection.cpp */; };
+		DD6D5F1923F7EBA5006F8F52 /* NekoNinjaSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1723F7EBA5006F8F52 /* NekoNinjaSettings.cpp */; };
+		DD6D5F1A23F7EBA5006F8F52 /* NekoNinjaSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1723F7EBA5006F8F52 /* NekoNinjaSettings.cpp */; };
+		DD6D5F1D23F7EBC9006F8F52 /* NekoNinja.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1B23F7EBC9006F8F52 /* NekoNinja.cpp */; };
+		DD6D5F1E23F7EBC9006F8F52 /* NekoNinja.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1B23F7EBC9006F8F52 /* NekoNinja.cpp */; };
+		DD6D5F2123F7EC04006F8F52 /* GameplayEffects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1F23F7EC04006F8F52 /* GameplayEffects.cpp */; };
+		DD6D5F2223F7EC04006F8F52 /* GameplayEffects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F1F23F7EC04006F8F52 /* GameplayEffects.cpp */; };
+		DD6D5F2523F7ED2B006F8F52 /* EventDatabaseCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F2323F7ED2B006F8F52 /* EventDatabaseCollection.cpp */; };
+		DD6D5F2623F7ED2B006F8F52 /* EventDatabaseCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F2323F7ED2B006F8F52 /* EventDatabaseCollection.cpp */; };
+		DD6D5F2923F7EDF6006F8F52 /* EventAlert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F2723F7EDF6006F8F52 /* EventAlert.cpp */; };
+		DD6D5F2A23F7EDF6006F8F52 /* EventAlert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6D5F2723F7EDF6006F8F52 /* EventAlert.cpp */; };
+		DD7E7DEE23F5BC5F00BC8CDC /* Choice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7E7DEC23F5BC5F00BC8CDC /* Choice.cpp */; };
+		DD7E7DEF23F5BC5F00BC8CDC /* Choice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7E7DEC23F5BC5F00BC8CDC /* Choice.cpp */; };
+		DD7E7DFB23F5C0D800BC8CDC /* Persona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7E7DF923F5C0D800BC8CDC /* Persona.cpp */; };
+		DD7E7DFC23F5C0D800BC8CDC /* Persona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD7E7DF923F5C0D800BC8CDC /* Persona.cpp */; };
 		DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
 		DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */; };
 		DDAB7472215D88050062F8B6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDAB7471215D88050062F8B6 /* main.cpp */; };
@@ -222,47 +228,25 @@
 		DD135B71229D45A3003BC870 /* InventoryUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InventoryUI.cpp; sourceTree = "<group>"; };
 		DD135B72229D45A3003BC870 /* InventoryUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InventoryUI.hpp; sourceTree = "<group>"; };
 		DD15CD0423F1F8C200CC40C2 /* minEH.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = minEH.xcodeproj; path = ../../Framework/minEH/minEH.xcodeproj; sourceTree = "<group>"; };
-		DD1899EC23F08B4D00D81302 /* NovelListener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NovelListener.cpp; sourceTree = "<group>"; };
-		DD1899ED23F08B4D00D81302 /* NovelListener.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelListener.hpp; sourceTree = "<group>"; };
-		DD1899F023F0910C00D81302 /* Background.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Background.cpp; sourceTree = "<group>"; };
-		DD1899F123F0910C00D81302 /* Background.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Background.hpp; sourceTree = "<group>"; };
-		DD1899F423F0927A00D81302 /* Modes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Modes.cpp; sourceTree = "<group>"; };
-		DD1899F523F0927A00D81302 /* Modes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Modes.hpp; sourceTree = "<group>"; };
-		DD189A0523F1606900D81302 /* VariableSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VariableSystem.cpp; sourceTree = "<group>"; };
-		DD189A0623F1606900D81302 /* VariableSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VariableSystem.hpp; sourceTree = "<group>"; };
 		DD189A0C23F1609C00D81302 /* GamePause.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GamePause.hpp; sourceTree = "<group>"; };
 		DD189A0D23F1609C00D81302 /* CharacterLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterLibrary.cpp; sourceTree = "<group>"; };
-		DD189A0E23F1609C00D81302 /* Savable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Savable.cpp; sourceTree = "<group>"; };
-		DD189A0F23F1609C00D81302 /* Interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Interface.hpp; sourceTree = "<group>"; };
-		DD189A1023F1609C00D81302 /* Skin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skin.cpp; sourceTree = "<group>"; };
-		DD189A1123F1609C00D81302 /* VariableSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableSystem.cpp; sourceTree = "<group>"; };
 		DD189A1223F1609C00D81302 /* Modes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Modes.cpp; sourceTree = "<group>"; };
-		DD189A1323F1609C00D81302 /* SavingMechanism.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SavingMechanism.cpp; sourceTree = "<group>"; };
-		DD189A1423F1609C00D81302 /* Savable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Savable.hpp; sourceTree = "<group>"; };
-		DD189A1523F1609C00D81302 /* Interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interface.cpp; sourceTree = "<group>"; };
-		DD189A1623F1609C00D81302 /* Skin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Skin.hpp; sourceTree = "<group>"; };
-		DD189A1723F1609C00D81302 /* VariableSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VariableSystem.hpp; sourceTree = "<group>"; };
 		DD189A1823F1609C00D81302 /* Modes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Modes.hpp; sourceTree = "<group>"; };
-		DD189A1923F1609C00D81302 /* SavingMechanism.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SavingMechanism.hpp; sourceTree = "<group>"; };
 		DD189A1A23F1609C00D81302 /* GamePause.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePause.cpp; sourceTree = "<group>"; };
 		DD189A1B23F1609C00D81302 /* CharacterLibrary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterLibrary.hpp; sourceTree = "<group>"; };
 		DD189A1C23F1609C00D81302 /* Misc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Misc.cpp; sourceTree = "<group>"; };
 		DD189A1D23F1609C00D81302 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		DD189A1E23F1609C00D81302 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		DD189A1F23F1609C00D81302 /* Background.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Background.hpp; sourceTree = "<group>"; };
-		DD189A2023F1609C00D81302 /* GUISystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GUISystem.hpp; sourceTree = "<group>"; };
 		DD189A2123F1609C00D81302 /* Novel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Novel.cpp; sourceTree = "<group>"; };
 		DD189A2223F1609C00D81302 /* Dialogue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dialogue.cpp; sourceTree = "<group>"; };
 		DD189A2323F1609C00D81302 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
 		DD189A2423F1609C00D81302 /* NovelUpdate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NovelUpdate.cpp; sourceTree = "<group>"; };
 		DD189A2523F1609C00D81302 /* Background.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Background.cpp; sourceTree = "<group>"; };
 		DD189A2623F1609C00D81302 /* Audio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
-		DD189A2723F1609C00D81302 /* GUISystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUISystem.cpp; sourceTree = "<group>"; };
 		DD189A2823F1609C00D81302 /* Novel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Novel.hpp; sourceTree = "<group>"; };
 		DD189A2923F1609C00D81302 /* Dialogue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dialogue.hpp; sourceTree = "<group>"; };
 		DD189A2A23F1609C00D81302 /* Misc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Misc.hpp; sourceTree = "<group>"; };
-		DD189A4F23F1619500D81302 /* NovelInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NovelInfo.cpp; sourceTree = "<group>"; };
-		DD189A5023F1619500D81302 /* NovelInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NovelInfo.hpp; sourceTree = "<group>"; };
 		DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OffsetHelper.cpp; sourceTree = "<group>"; };
 		DD3A6E112293396D00222FF5 /* OffsetHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OffsetHelper.hpp; sourceTree = "<group>"; };
 		DD40882C22F858BB00F6C2C5 /* ItemEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemEntity.cpp; sourceTree = "<group>"; };
@@ -283,8 +267,36 @@
 		DD65CFD72200B0E400CBEF72 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD684B4823E3670900A98368 /* ItemDetails.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemDetails.cpp; sourceTree = "<group>"; };
 		DD684B4923E3670900A98368 /* ItemDetails.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemDetails.hpp; sourceTree = "<group>"; };
-		DD715C4C23EEB7B600A4B734 /* Novel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Novel.cpp; sourceTree = "<group>"; };
-		DD715C4D23EEB7B600A4B734 /* Novel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Novel.hpp; sourceTree = "<group>"; };
+		DD6D5EF123F7E17F006F8F52 /* Body.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Body.cpp; sourceTree = "<group>"; };
+		DD6D5EF223F7E17F006F8F52 /* Body.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Body.hpp; sourceTree = "<group>"; };
+		DD6D5EFB23F7E87F006F8F52 /* NekoBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NekoBase.cpp; sourceTree = "<group>"; };
+		DD6D5EFC23F7E87F006F8F52 /* NekoBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NekoBase.hpp; sourceTree = "<group>"; };
+		DD6D5EFF23F7E90C006F8F52 /* AbilityBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AbilityBase.cpp; sourceTree = "<group>"; };
+		DD6D5F0023F7E90C006F8F52 /* AbilityBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AbilityBase.hpp; sourceTree = "<group>"; };
+		DD6D5F0323F7E990006F8F52 /* EventBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EventBase.cpp; sourceTree = "<group>"; };
+		DD6D5F0423F7E990006F8F52 /* EventBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EventBase.hpp; sourceTree = "<group>"; };
+		DD6D5F0723F7E9F3006F8F52 /* NekoLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NekoLibrary.cpp; sourceTree = "<group>"; };
+		DD6D5F0823F7E9F3006F8F52 /* NekoLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NekoLibrary.hpp; sourceTree = "<group>"; };
+		DD6D5F0B23F7EAB7006F8F52 /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		DD6D5F0C23F7EAB7006F8F52 /* Player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Player.hpp; sourceTree = "<group>"; };
+		DD6D5F0F23F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AbilityDatabaseCollection.cpp; sourceTree = "<group>"; };
+		DD6D5F1023F7EB2B006F8F52 /* AbilityDatabaseCollection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AbilityDatabaseCollection.hpp; sourceTree = "<group>"; };
+		DD6D5F1323F7EB43006F8F52 /* NekoDatabaseCollection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NekoDatabaseCollection.cpp; sourceTree = "<group>"; };
+		DD6D5F1423F7EB43006F8F52 /* NekoDatabaseCollection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NekoDatabaseCollection.hpp; sourceTree = "<group>"; };
+		DD6D5F1723F7EBA5006F8F52 /* NekoNinjaSettings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NekoNinjaSettings.cpp; sourceTree = "<group>"; };
+		DD6D5F1823F7EBA5006F8F52 /* NekoNinjaSettings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NekoNinjaSettings.hpp; sourceTree = "<group>"; };
+		DD6D5F1B23F7EBC9006F8F52 /* NekoNinja.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NekoNinja.cpp; sourceTree = "<group>"; };
+		DD6D5F1C23F7EBC9006F8F52 /* NekoNinja.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NekoNinja.hpp; sourceTree = "<group>"; };
+		DD6D5F1F23F7EC04006F8F52 /* GameplayEffects.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameplayEffects.cpp; sourceTree = "<group>"; };
+		DD6D5F2023F7EC04006F8F52 /* GameplayEffects.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameplayEffects.hpp; sourceTree = "<group>"; };
+		DD6D5F2323F7ED2B006F8F52 /* EventDatabaseCollection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EventDatabaseCollection.cpp; sourceTree = "<group>"; };
+		DD6D5F2423F7ED2B006F8F52 /* EventDatabaseCollection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EventDatabaseCollection.hpp; sourceTree = "<group>"; };
+		DD6D5F2723F7EDF6006F8F52 /* EventAlert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EventAlert.cpp; sourceTree = "<group>"; };
+		DD6D5F2823F7EDF6006F8F52 /* EventAlert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EventAlert.hpp; sourceTree = "<group>"; };
+		DD7E7DEC23F5BC5F00BC8CDC /* Choice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Choice.cpp; sourceTree = "<group>"; };
+		DD7E7DED23F5BC5F00BC8CDC /* Choice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Choice.hpp; sourceTree = "<group>"; };
+		DD7E7DF923F5C0D800BC8CDC /* Persona.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Persona.cpp; sourceTree = "<group>"; };
+		DD7E7DFA23F5C0D800BC8CDC /* Persona.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Persona.hpp; sourceTree = "<group>"; };
 		DD87E10E237483F500083FB9 /* NekoUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NekoUI.entitlements; sourceTree = "<group>"; };
 		DD9F795F23DC333000D0E10C /* StrangeShopkeeperUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StrangeShopkeeperUI.cpp; sourceTree = "<group>"; };
 		DD9F796023DC333000D0E10C /* StrangeShopkeeperUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StrangeShopkeeperUI.hpp; sourceTree = "<group>"; };
@@ -467,17 +479,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DD1899F823F093CC00D81302 /* Abstract */ = {
-			isa = PBXGroup;
-			children = (
-				DD189A0523F1606900D81302 /* VariableSystem.cpp */,
-				DD189A0623F1606900D81302 /* VariableSystem.hpp */,
-				DD1899F423F0927A00D81302 /* Modes.cpp */,
-				DD1899F523F0927A00D81302 /* Modes.hpp */,
-			);
-			path = Abstract;
-			sourceTree = "<group>";
-		};
 		DD189A0A23F1609C00D81302 /* NovelComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,10 +492,12 @@
 				DD189A1F23F1609C00D81302 /* Background.hpp */,
 				DD189A1D23F1609C00D81302 /* Character.cpp */,
 				DD189A2323F1609C00D81302 /* Character.hpp */,
+				DD7E7DF923F5C0D800BC8CDC /* Persona.cpp */,
+				DD7E7DFA23F5C0D800BC8CDC /* Persona.hpp */,
 				DD189A2223F1609C00D81302 /* Dialogue.cpp */,
 				DD189A2923F1609C00D81302 /* Dialogue.hpp */,
-				DD189A2723F1609C00D81302 /* GUISystem.cpp */,
-				DD189A2023F1609C00D81302 /* GUISystem.hpp */,
+				DD7E7DEC23F5BC5F00BC8CDC /* Choice.cpp */,
+				DD7E7DED23F5BC5F00BC8CDC /* Choice.hpp */,
 				DD189A1C23F1609C00D81302 /* Misc.cpp */,
 				DD189A2A23F1609C00D81302 /* Misc.hpp */,
 			);
@@ -504,24 +507,12 @@
 		DD189A0B23F1609C00D81302 /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
-				DD189A1123F1609C00D81302 /* VariableSystem.cpp */,
-				DD189A1723F1609C00D81302 /* VariableSystem.hpp */,
 				DD189A0D23F1609C00D81302 /* CharacterLibrary.cpp */,
 				DD189A1B23F1609C00D81302 /* CharacterLibrary.hpp */,
-				DD189A1023F1609C00D81302 /* Skin.cpp */,
-				DD189A1623F1609C00D81302 /* Skin.hpp */,
-				DD189A1523F1609C00D81302 /* Interface.cpp */,
-				DD189A0F23F1609C00D81302 /* Interface.hpp */,
 				DD189A1A23F1609C00D81302 /* GamePause.cpp */,
 				DD189A0C23F1609C00D81302 /* GamePause.hpp */,
-				DD189A0E23F1609C00D81302 /* Savable.cpp */,
-				DD189A1423F1609C00D81302 /* Savable.hpp */,
-				DD189A1323F1609C00D81302 /* SavingMechanism.cpp */,
-				DD189A1923F1609C00D81302 /* SavingMechanism.hpp */,
 				DD189A1223F1609C00D81302 /* Modes.cpp */,
 				DD189A1823F1609C00D81302 /* Modes.hpp */,
-				DD189A4F23F1619500D81302 /* NovelInfo.cpp */,
-				DD189A5023F1619500D81302 /* NovelInfo.hpp */,
 			);
 			path = Abstract;
 			sourceTree = "<group>";
@@ -552,6 +543,7 @@
 		DD59163523DCF36400C5BE19 /* Jobs */ = {
 			isa = PBXGroup;
 			children = (
+				DD6D5EF823F7E871006F8F52 /* NekoPlace */,
 				DD59163623DCF36900C5BE19 /* FNAF */,
 			);
 			path = Jobs;
@@ -573,22 +565,41 @@
 				DD5EADE023040C7200CA0361 /* Static.hpp */,
 				DD09432C22FF2F6100FEF1AB /* Personality.cpp */,
 				DD09432D22FF2F6100FEF1AB /* Personality.hpp */,
+				DD6D5EF123F7E17F006F8F52 /* Body.cpp */,
+				DD6D5EF223F7E17F006F8F52 /* Body.hpp */,
 			);
 			path = Neko;
 			sourceTree = "<group>";
 		};
-		DD715C4B23EEB79600A4B734 /* VNComponents */ = {
+		DD6D5EF823F7E871006F8F52 /* NekoPlace */ = {
 			isa = PBXGroup;
 			children = (
-				DD1899F823F093CC00D81302 /* Abstract */,
-				DD1899EC23F08B4D00D81302 /* NovelListener.cpp */,
-				DD1899ED23F08B4D00D81302 /* NovelListener.hpp */,
-				DD715C4C23EEB7B600A4B734 /* Novel.cpp */,
-				DD715C4D23EEB7B600A4B734 /* Novel.hpp */,
-				DD1899F023F0910C00D81302 /* Background.cpp */,
-				DD1899F123F0910C00D81302 /* Background.hpp */,
+				DD6D5EFF23F7E90C006F8F52 /* AbilityBase.cpp */,
+				DD6D5F0023F7E90C006F8F52 /* AbilityBase.hpp */,
+				DD6D5EFB23F7E87F006F8F52 /* NekoBase.cpp */,
+				DD6D5EFC23F7E87F006F8F52 /* NekoBase.hpp */,
+				DD6D5F0323F7E990006F8F52 /* EventBase.cpp */,
+				DD6D5F0423F7E990006F8F52 /* EventBase.hpp */,
+				DD6D5F0723F7E9F3006F8F52 /* NekoLibrary.cpp */,
+				DD6D5F0823F7E9F3006F8F52 /* NekoLibrary.hpp */,
+				DD6D5F0F23F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp */,
+				DD6D5F1023F7EB2B006F8F52 /* AbilityDatabaseCollection.hpp */,
+				DD6D5F1723F7EBA5006F8F52 /* NekoNinjaSettings.cpp */,
+				DD6D5F1823F7EBA5006F8F52 /* NekoNinjaSettings.hpp */,
+				DD6D5F1323F7EB43006F8F52 /* NekoDatabaseCollection.cpp */,
+				DD6D5F1423F7EB43006F8F52 /* NekoDatabaseCollection.hpp */,
+				DD6D5F0B23F7EAB7006F8F52 /* Player.cpp */,
+				DD6D5F0C23F7EAB7006F8F52 /* Player.hpp */,
+				DD6D5F2323F7ED2B006F8F52 /* EventDatabaseCollection.cpp */,
+				DD6D5F2423F7ED2B006F8F52 /* EventDatabaseCollection.hpp */,
+				DD6D5F1F23F7EC04006F8F52 /* GameplayEffects.cpp */,
+				DD6D5F2023F7EC04006F8F52 /* GameplayEffects.hpp */,
+				DD6D5F2723F7EDF6006F8F52 /* EventAlert.cpp */,
+				DD6D5F2823F7EDF6006F8F52 /* EventAlert.hpp */,
+				DD6D5F1B23F7EBC9006F8F52 /* NekoNinja.cpp */,
+				DD6D5F1C23F7EBC9006F8F52 /* NekoNinja.hpp */,
 			);
-			path = VNComponents;
+			path = NekoPlace;
 			sourceTree = "<group>";
 		};
 		DD9F795E23DC331C00D0E10C /* Misc */ = {
@@ -729,7 +740,6 @@
 			isa = PBXGroup;
 			children = (
 				DD189A0A23F1609C00D81302 /* NovelComponents */,
-				DD715C4B23EEB79600A4B734 /* VNComponents */,
 				DD0F525C2222A74B005C08D5 /* VNLightComponents */,
 				DDDB65FD228F46A200E354CA /* NekoUIComponents */,
 			);
@@ -882,67 +892,70 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD189A5123F1619500D81302 /* NovelInfo.cpp in Sources */,
-				DD189A3723F1609C00D81302 /* Interface.cpp in Sources */,
 				DDE2846622F61E1E00B280A7 /* ItemDetailsUI.cpp in Sources */,
+				DD6D5F0123F7E90C006F8F52 /* AbilityBase.cpp in Sources */,
 				DD3A6E122293396D00222FF5 /* OffsetHelper.cpp in Sources */,
 				DD189A4323F1609C00D81302 /* Dialogue.cpp in Sources */,
 				DD135B632295D228003BC870 /* CharacterLibrary.cpp in Sources */,
 				DD189A4723F1609C00D81302 /* Background.cpp in Sources */,
+				DD6D5EFD23F7E87F006F8F52 /* NekoBase.cpp in Sources */,
 				DDE3DB84229297D4004DA2B1 /* ItemDB.cpp in Sources */,
 				DDE3DB802292979C004DA2B1 /* Item.cpp in Sources */,
-				DD1899F223F0910C00D81302 /* Background.cpp in Sources */,
 				DD09432222FE197F00FEF1AB /* Skill.cpp in Sources */,
 				DD135B73229D45A3003BC870 /* InventoryUI.cpp in Sources */,
 				DD09432A22FEE51100FEF1AB /* Interest.cpp in Sources */,
 				DD09431622FE193300FEF1AB /* ActivityDB.cpp in Sources */,
 				DDDB660D228F509800E354CA /* Player.cpp in Sources */,
+				DD7E7DEE23F5BC5F00BC8CDC /* Choice.cpp in Sources */,
 				DD189A3923F1609C00D81302 /* GamePause.cpp in Sources */,
 				DD09432622FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD189A3323F1609C00D81302 /* Modes.cpp in Sources */,
 				DD09432E22FF2F6100FEF1AB /* Personality.cpp in Sources */,
 				DD09431A22FE194500FEF1AB /* Buff.cpp in Sources */,
-				DD189A2F23F1609C00D81302 /* Skin.cpp in Sources */,
 				DDDB6609228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F525F2222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B672295D23A003BC870 /* NovelCharacter.cpp in Sources */,
 				DD09433B2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */,
+				DD6D5F1923F7EBA5006F8F52 /* NekoNinjaSettings.cpp in Sources */,
+				DD6D5F0523F7E990006F8F52 /* EventBase.cpp in Sources */,
 				DD684B4A23E3670900A98368 /* ItemDetails.cpp in Sources */,
 				DD40882E22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */,
-				DD1899EE23F08B4D00D81302 /* NovelListener.cpp in Sources */,
+				DD6D5F1523F7EB43006F8F52 /* NekoDatabaseCollection.cpp in Sources */,
 				DD59163923DFA53500C5BE19 /* FNAF.cpp in Sources */,
 				DDDB6604228F46D700E354CA /* NekoEntity.cpp in Sources */,
 				DD135B6B2296BFBB003BC870 /* JobInterfaceUI.cpp in Sources */,
-				DD1899F623F0927A00D81302 /* Modes.cpp in Sources */,
 				DD189A3F23F1609C00D81302 /* Audio.cpp in Sources */,
 				DD09431222FE186800FEF1AB /* Activity.cpp in Sources */,
-				DD189A0723F1606900D81302 /* VariableSystem.cpp in Sources */,
 				DDE0E6D3229DB6E600991722 /* CalendarUI.cpp in Sources */,
 				DDDB6600228F46C700E354CA /* Apartment.cpp in Sources */,
+				DD6D5F0923F7E9F3006F8F52 /* NekoLibrary.cpp in Sources */,
+				DD6D5F0D23F7EAB7006F8F52 /* Player.cpp in Sources */,
 				DD189A3D23F1609C00D81302 /* Character.cpp in Sources */,
 				DD189A4523F1609C00D81302 /* NovelUpdate.cpp in Sources */,
 				DDAB7472215D88050062F8B6 /* main.cpp in Sources */,
-				DD189A2D23F1609C00D81302 /* Savable.cpp in Sources */,
 				DDE0E6D7229DB97700991722 /* MapUI.cpp in Sources */,
-				DD189A3523F1609C00D81302 /* SavingMechanism.cpp in Sources */,
+				DD6D5F2123F7EC04006F8F52 /* GameplayEffects.cpp in Sources */,
 				DD189A2B23F1609C00D81302 /* CharacterLibrary.cpp in Sources */,
 				DDD2787F228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
 				DDE0E6CF229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
 				DD4EEF2923D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
-				DD715C4E23EEB7B600A4B734 /* Novel.cpp in Sources */,
+				DD6D5F1D23F7EBC9006F8F52 /* NekoNinja.cpp in Sources */,
+				DD6D5EF323F7E17F006F8F52 /* Body.cpp in Sources */,
 				DD09433722FF5A0800FEF1AB /* InterestsDB.cpp in Sources */,
 				DD5EADE123040C7200CA0361 /* Static.cpp in Sources */,
 				DD40883222F85C1400F6C2C5 /* RoomEntity.cpp in Sources */,
-				DD189A4923F1609C00D81302 /* GUISystem.cpp in Sources */,
 				DD135B6F22974070003BC870 /* RoomUI.cpp in Sources */,
-				DD189A3123F1609C00D81302 /* VariableSystem.cpp in Sources */,
 				DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
 				DD189A4123F1609C00D81302 /* Novel.cpp in Sources */,
 				DD5FC2E123E71EA80018D336 /* ContainerEntity.cpp in Sources */,
 				DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
+				DD6D5F2923F7EDF6006F8F52 /* EventAlert.cpp in Sources */,
 				DD09431E22FE195900FEF1AB /* BuffDB.cpp in Sources */,
+				DD6D5F2523F7ED2B006F8F52 /* EventDatabaseCollection.cpp in Sources */,
 				DDE3DB7C229295F4004DA2B1 /* Persona.cpp in Sources */,
 				DD189A3B23F1609C00D81302 /* Misc.cpp in Sources */,
+				DD7E7DFB23F5C0D800BC8CDC /* Persona.cpp in Sources */,
+				DD6D5F1123F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,67 +963,70 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD189A5223F1619500D81302 /* NovelInfo.cpp in Sources */,
-				DD189A3823F1609C00D81302 /* Interface.cpp in Sources */,
 				DDE2846722F61E1E00B280A7 /* ItemDetailsUI.cpp in Sources */,
+				DD6D5F0223F7E90C006F8F52 /* AbilityBase.cpp in Sources */,
 				DD3A6E132293396D00222FF5 /* OffsetHelper.cpp in Sources */,
 				DD189A4423F1609C00D81302 /* Dialogue.cpp in Sources */,
 				DD135B642295D228003BC870 /* CharacterLibrary.cpp in Sources */,
 				DD189A4823F1609C00D81302 /* Background.cpp in Sources */,
+				DD6D5EFE23F7E87F006F8F52 /* NekoBase.cpp in Sources */,
 				DDE3DB85229297D4004DA2B1 /* ItemDB.cpp in Sources */,
-				DD1899F323F0910C00D81302 /* Background.cpp in Sources */,
 				DDE3DB812292979C004DA2B1 /* Item.cpp in Sources */,
 				DD09432322FE197F00FEF1AB /* Skill.cpp in Sources */,
 				DD135B74229D45A3003BC870 /* InventoryUI.cpp in Sources */,
 				DD09432B22FEE51100FEF1AB /* Interest.cpp in Sources */,
 				DD09431722FE193300FEF1AB /* ActivityDB.cpp in Sources */,
 				DD189A3A23F1609C00D81302 /* GamePause.cpp in Sources */,
+				DD7E7DEF23F5BC5F00BC8CDC /* Choice.cpp in Sources */,
 				DDDB660E228F509800E354CA /* Player.cpp in Sources */,
 				DD09432722FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD189A3423F1609C00D81302 /* Modes.cpp in Sources */,
 				DD09432F22FF2F6100FEF1AB /* Personality.cpp in Sources */,
-				DD189A3023F1609C00D81302 /* Skin.cpp in Sources */,
 				DD09431B22FE194500FEF1AB /* Buff.cpp in Sources */,
 				DDDB660A228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F52602222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B682295D23A003BC870 /* NovelCharacter.cpp in Sources */,
 				DD684B4B23E3670900A98368 /* ItemDetails.cpp in Sources */,
+				DD6D5F1A23F7EBA5006F8F52 /* NekoNinjaSettings.cpp in Sources */,
+				DD6D5F0623F7E990006F8F52 /* EventBase.cpp in Sources */,
 				DD09433C2300C33A00FEF1AB /* FurnitureEntity.cpp in Sources */,
-				DD1899EF23F08B4D00D81302 /* NovelListener.cpp in Sources */,
 				DD59163A23DFA53500C5BE19 /* FNAF.cpp in Sources */,
+				DD6D5F1623F7EB43006F8F52 /* NekoDatabaseCollection.cpp in Sources */,
 				DD40882F22F858BB00F6C2C5 /* ItemEntity.cpp in Sources */,
 				DDDB6605228F46D700E354CA /* NekoEntity.cpp in Sources */,
 				DD135B6C2296BFBB003BC870 /* JobInterfaceUI.cpp in Sources */,
-				DD1899F723F0927A00D81302 /* Modes.cpp in Sources */,
 				DD189A4023F1609C00D81302 /* Audio.cpp in Sources */,
-				DD189A0823F1606900D81302 /* VariableSystem.cpp in Sources */,
 				DD09431322FE186800FEF1AB /* Activity.cpp in Sources */,
 				DDE0E6D4229DB6E600991722 /* CalendarUI.cpp in Sources */,
 				DD189A3E23F1609C00D81302 /* Character.cpp in Sources */,
+				DD6D5F0A23F7E9F3006F8F52 /* NekoLibrary.cpp in Sources */,
+				DD6D5F0E23F7EAB7006F8F52 /* Player.cpp in Sources */,
 				DDDB6601228F46C700E354CA /* Apartment.cpp in Sources */,
 				DD189A4623F1609C00D81302 /* NovelUpdate.cpp in Sources */,
-				DD189A2E23F1609C00D81302 /* Savable.cpp in Sources */,
 				DDE0E6D8229DB97700991722 /* MapUI.cpp in Sources */,
-				DD189A3623F1609C00D81302 /* SavingMechanism.cpp in Sources */,
 				DD189A2C23F1609C00D81302 /* CharacterLibrary.cpp in Sources */,
+				DD6D5F2223F7EC04006F8F52 /* GameplayEffects.cpp in Sources */,
 				DDAB74A1215D89CD0062F8B6 /* main.cpp in Sources */,
 				DDD27880228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
 				DDE0E6D0229D8CEB00991722 /* WardrobeUI.cpp in Sources */,
 				DD4EEF2A23D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */,
-				DD715C4F23EEB7B600A4B734 /* Novel.cpp in Sources */,
+				DD6D5F1E23F7EBC9006F8F52 /* NekoNinja.cpp in Sources */,
+				DD6D5EF423F7E17F006F8F52 /* Body.cpp in Sources */,
 				DD09433822FF5A0800FEF1AB /* InterestsDB.cpp in Sources */,
 				DD5EADE223040C7200CA0361 /* Static.cpp in Sources */,
 				DD40883322F85C1400F6C2C5 /* RoomEntity.cpp in Sources */,
-				DD189A4A23F1609C00D81302 /* GUISystem.cpp in Sources */,
 				DD135B7022974070003BC870 /* RoomUI.cpp in Sources */,
-				DD189A3223F1609C00D81302 /* VariableSystem.cpp in Sources */,
 				DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */,
 				DD189A4223F1609C00D81302 /* Novel.cpp in Sources */,
 				DD5FC2E223E71EA80018D336 /* ContainerEntity.cpp in Sources */,
 				DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
+				DD6D5F2A23F7EDF6006F8F52 /* EventAlert.cpp in Sources */,
 				DD09431F22FE195900FEF1AB /* BuffDB.cpp in Sources */,
+				DD6D5F2623F7ED2B006F8F52 /* EventDatabaseCollection.cpp in Sources */,
 				DDE3DB7D229295F4004DA2B1 /* Persona.cpp in Sources */,
 				DD189A3C23F1609C00D81302 /* Misc.cpp in Sources */,
+				DD7E7DFC23F5C0D800BC8CDC /* Persona.cpp in Sources */,
+				DD6D5F1223F7EB2B006F8F52 /* AbilityDatabaseCollection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

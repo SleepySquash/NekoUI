@@ -25,8 +25,6 @@
 #include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 #include <minEH/Engine/NovelSomeScript.hpp>
 
-#include "../GUISystem.hpp"
-
 using std::cin;
 using std::cout;
 using std::endl;
@@ -45,14 +43,13 @@ namespace ns
             sf::Int8 alpha{ 0 }; int maxAlpha{ 255 };
             float currentTime{ 0.f }, appearTime{ 0.15f }, disappearTime{ 0.15f };
             
-            GUISystem* guiSystem{ nullptr };
             enum modeEnum{ appearing, waiting, appeared, disappearing };
             modeEnum mode{ waiting };
             
             bool countdownLastTouchedMoment{ false };
             float lastTouchedMoment{ 0.f };
             
-            GamePause(GUISystem* guiSystem = nullptr);
+            GamePause();
             ~GamePause();
             void Update(const sf::Time& elapsedTime) override;
             void PollEvent(sf::Event& event) override;

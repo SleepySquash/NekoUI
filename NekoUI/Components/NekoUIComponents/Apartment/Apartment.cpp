@@ -30,7 +30,7 @@ namespace NekoUI
     }
     void Apartment::Init()
     {
-        neko.Init(); Player::OccupyPersona(); neko.sender = entity;
+        neko.Init(); NekoB::OccupyPersona(); neko.sender = entity;
         neko.positionInArray = 0; neko.vector = &entities; entities.push_back(&neko);
         hasFocusOnNeko = true; if (gs::trueVerticalOrientation) /*rm::scale = 3.f; else*/ rm::scale = 2.24f;
         entity->SendMessage({"NekoUI :: SelectNeko", &neko});
@@ -39,9 +39,9 @@ namespace NekoUI
         rm::drawDatePanel = rm::drawNeeds = rm::drawScrolldownMenu = rm::allowDTSaving = true;
         rm::canPressScrolldownMenu = rm::canPressDatePanel = rm::canOpenNekoUI = true;
         
-        Player::eyebrowsEmotion = NekoS::EyebrowsEmotion::DEFAULT;
-        Player::eyesEmotion = NekoS::EyesEmotion::DEFAULT;
-        Player::mouthEmotion = NekoS::MouthEmotion::DEFAULT;
+        NekoB::eyebrowsEmotion = NekoS::EyebrowsEmotion::DEFAULT;
+        NekoB::eyesEmotion = NekoS::EyesEmotion::DEFAULT;
+        NekoB::mouthEmotion = NekoS::MouthEmotion::DEFAULT;
         
         sf::Texture* texture = ic::LoadTexture(L"Data/Images/UI/scrolldown rev1.png");
         if (texture) scrolldownMenuOffsetY = texture->getSize().y;
@@ -531,7 +531,7 @@ namespace NekoUI
         savingIsRequired = true;
         SortEntities();
     }
-    void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); Player::FreePersona(); }
+    void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); NekoB::FreePersona(); }
     void Apartment::CleanUp()
     {
         ic::DeleteImage(L"Data/Apartment/Background/room.png");
@@ -1116,7 +1116,7 @@ namespace NekoUI
                 /* if (neko.activity->name == "ComeToSenses" || neko.activity->name == "Eating" || neko.activity->name == "Drinking") neko.activity->Abort();
                 else if (neko.activity->name == "ReturnToFood") neko.RemoveItemFromHands(); */
             }
-            NekoP::eyesEmotion = NekoS::EyesEmotion::Confused; Player::UpdateNekoEmotion();
+            NekoP::eyesEmotion = NekoS::EyesEmotion::Confused; NekoB::UpdateNekoEmotion();
         }
         else
         {

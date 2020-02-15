@@ -12,7 +12,6 @@ namespace ns
 {
     namespace NovelComponents
     {
-        Character::Character() : Savable(L"Character") { }
         void Character::LoadState(const std::wstring& stateName)
         {
             state = stateName; loaded = false;
@@ -240,90 +239,5 @@ namespace ns
             }
         }
         void Character::SetPosition(const Position& pos, float x, float y) { position = pos; customX = x; customY = y; }
-        void Character::Save(std::wofstream& wof)
-        {
-            if (loaded)
-            {
-                if (characterData) wof << L"name: " << characterData->name << endl;
-                if (position != Position::Center) wof << L"position: " << (int)position << endl;
-                if (state.length() != 0) wof << L"state: " << state << endl;
-                
-                if (mode != Mode::Exist)
-                {
-                    wof << L"mode: " << (int)mode << endl;
-                    if (mode == Mode::Appear || mode == Mode::Disapper) wof << L"currentTime: " << currentTime << endl;
-                    if (mode == Mode::Appear && ((Skin::self && appearTime != Skin::self->character.appearTime) || (!Skin::self && appearTime != 0.6f))) wof << L"appearTime: " << appearTime << endl;
-                }
-                if ((Skin::self && disappearTime != Skin::self->character.disappearTime) || (!Skin::self && disappearTime != 0.6f)) wof << L"disappearTime: " << disappearTime << endl;
-                if ((Skin::self && maxAlpha != Skin::self->character.maxAlpha) || (!Skin::self && maxAlpha != 255)) wof << L"maxAlpha: " << maxAlpha << endl;
-                if (messageBack != MessageBack::AtAppearance) wof << L"send: " << (int)messageBack << endl;
-            }
-        }
-        std::pair<std::wstring, bool> Character::Load(std::wifstream& wif)
-        {
-            mode = Mode::Exist; std::wstring line; nss::CommandSettings command; bool done{ false };
-            while (!done)
-            {
-                std::getline(wif, line); command.Command(line);
-                if (nss::Command(command, L"tag(")) done = true;
-                else if (nss::Command(command, L"name: "))
-                {
-                    std::wstring name = nss::ParseUntil(command, L'\n');
-                    auto it = CharacterLibrary::find(name);
-                    if (it != CharacterLibrary::library.end()) characterData = (*it).second;
-                }
-                else if (nss::Command(command, L"position: "))
-                {
-                    int md = nss::ParseAsInt(command);
-                    switch (md)
-                    {
-                        case 0: position = Position::Custom; break;
-                        case 1: position = Position::Left; break;
-                        case 2: position = Position::CLeft; break;
-                        case 4: position = Position::CRight; break;
-                        case 5: position = Position::Right; break;
-                        default: position = Position::Center; break;
-                    }
-                }
-                else if (nss::Command(command, L"state: ")) LoadState(nss::ParseUntil(command, L'\n'));
-                else if (nss::Command(command, L"mode: "))
-                {
-                    int md = nss::ParseAsInt(command);
-                    switch (md)
-                    {
-                        case 0: mode = Mode::Appear; break;
-                        case 2: mode = Mode::Disapper; break;
-                        case 3: mode = Mode::Deprecate; break;
-                        default: mode = Mode::Exist; break;
-                    }
-                }
-                else if (nss::Command(command, L"currenttime: ")) currentTime = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"appeartime: ")) appearTime = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"disappeartime: ")) disappearTime = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"parallaxpower: ")) parallaxPower = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"visible: ")) visible = nss::ParseAsBool(command);
-                else if (nss::Command(command, L"maxalpha: ")) maxAlpha = nss::ParseAsInt(command);
-                else if (nss::Command(command, L"send: "))
-                {
-                    int md = nss::ParseAsInt(command);
-                    switch (md)
-                    {
-                        case 0: messageBack = MessageBack::No; break;
-                        case 2: messageBack = MessageBack::AtDisappearance; break;
-                        case 3: messageBack = MessageBack::AtDeprecated; break;
-                        default: messageBack = MessageBack::AtAppearance; break;
-                    }
-                }
-                if (wif.eof()) done = true;
-            }
-            
-            if (mode == Mode::Appear) alpha = (sf::Uint8)(maxAlpha * (currentTime / appearTime));
-            else if (mode == Mode::Disapper) alpha = (sf::Uint8)(maxAlpha * (currentTime / disappearTime));
-            else alpha = maxAlpha;
-            if (loaded) sprite.setColor(sf::Color(sprite.getColor().r, sprite.getColor().g, sprite.getColor().b, alpha));
-            bool onHold{ !((messageBack == MessageBack::No) || (messageBack == MessageBack::AtAppearance && (int)mode > 0) || (messageBack == MessageBack::AtDisappearance && (int)mode > 1)) };
-            
-            return { line, onHold };
-        }
     }
 }

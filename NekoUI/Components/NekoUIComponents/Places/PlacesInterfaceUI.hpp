@@ -10,11 +10,15 @@
 #define PlacesInterfaceUI_hpp
 
 #include <minEH/Engine/EntitySystem.hpp>
+#include "../../NovelComponents/Novel.hpp"
+
+#include "../Apartment/Apartment.hpp"
 
 #include "Grocery/GroceryUI.hpp"
 #include "Misc/StrangeShopkeeperUI.hpp"
+
 #include "Jobs/FNAF/FNAF.hpp"
-#include "../Apartment/Apartment.hpp"
+#include "Jobs/NekoPlace/NekoNinja.hpp"
 
 namespace NekoUI
 {

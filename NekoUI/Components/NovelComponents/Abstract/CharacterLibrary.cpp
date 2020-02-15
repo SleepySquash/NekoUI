@@ -13,6 +13,8 @@ namespace ns
     namespace NovelComponents
     {
         std::unordered_map<std::wstring, CharacterData*> CharacterLibrary::library;
+        void* CharacterLibrary::nekoPersona{ nullptr };
+        std::wstring CharacterLibrary::nekoName;
         
         CharacterLibrary::CharacterLibrary() { }
         CharacterLibrary::~CharacterLibrary() { clear(); }

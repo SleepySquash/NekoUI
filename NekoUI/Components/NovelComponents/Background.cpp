@@ -12,7 +12,7 @@ namespace ns
 {
     namespace NovelComponents
     {
-        Background::Background(const std::wstring& folderPath) : folder(folderPath), Savable(L"Background") { }
+        Background::Background(const std::wstring& folderPath) : folder(folderPath) { }
         void Background::LoadImage(const std::wstring& path)
         {
             sf::Texture* texture = ic::RequestHigherTexture(folder + path, /*novelSystem*/ic::globalRequestSender, 1);
@@ -129,73 +129,6 @@ namespace ns
                     (newMode == Mode::Deprecate && messageBack == MessageBack::AtDeprecated))
                     novelSystem->SendMessage({"UnHold", this});
             }
-        }
-    
-        void Background::Save(std::wofstream& wof)
-        {
-            if (loaded)
-            {
-                wof << L"path: " << image << endl;
-                if (!visible) wof << L"visible: " << visible << endl;
-                if (parallaxPower != gs::defaultParallaxBackground) wof << L"parallaxPower: " << parallaxPower << endl;
-                if ((Skin::self && maxAlpha != Skin::self->background.maxAlpha) || (!Skin::self && maxAlpha != 255)) wof << L"maxAlpha: " << maxAlpha << endl;
-                
-                if (mode != Mode::Exist)
-                {
-                    wof << L"mode: " << (int)mode << endl;
-                    if (mode == Mode::Appear || mode == Mode::Disapper) wof << L"currentTime: " << currentTime << endl;
-                    if (mode == Mode::Appear && ((Skin::self && appearTime != Skin::self->background.appearTime) || (!Skin::self && appearTime != 0.6f))) wof << L"appearTime: " << appearTime << endl;
-                }
-                if ((Skin::self && disappearTime != Skin::self->background.disappearTime) || (!Skin::self && disappearTime != 0.6f)) wof << L"disappearTime: " << disappearTime << endl;
-                if (messageBack != MessageBack::AtAppearance) wof << L"send: " << (int)messageBack << endl;
-            }
-        }
-        std::pair<std::wstring, bool> Background::Load(std::wifstream& wif)
-        {
-            mode = Mode::Exist; std::wstring line; nss::CommandSettings command; bool done{ false };
-            while (!done)
-            {
-                std::getline(wif, line); command.Command(line);
-                if (nss::Command(command, L"tag(")) done = true;
-                else if (nss::Command(command, L"path: ")) LoadImage(nss::ParseUntil(command, L'\n')); //imageName
-                else if (nss::Command(command, L"mode: "))
-                {
-                    int md = nss::ParseAsInt(command);
-                    switch (md)
-                    {
-                        case 0: mode = Mode::Appear; break;
-                        case 2: mode = Mode::Disapper; break;
-                        case 3: mode = Mode::Deprecate; break;
-                        default: mode = Mode::Exist; break;
-                    }
-                }
-                else if (nss::Command(command, L"currenttime: ")) currentTime = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"appeartime: ")) appearTime = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"disappeartime: ")) disappearTime = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"parallaxpower: ")) parallaxPower = nss::ParseAsFloat(command);
-                else if (nss::Command(command, L"visible: ")) visible = nss::ParseAsBool(command);
-                else if (nss::Command(command, L"maxalpha: ")) maxAlpha = nss::ParseAsInt(command);
-                else if (nss::Command(command, L"send: "))
-                {
-                    int md = nss::ParseAsInt(command);
-                    switch (md)
-                    {
-                        case 0: messageBack = MessageBack::No; break;
-                        case 2: messageBack = MessageBack::AtDisappearance; break;
-                        case 3: messageBack = MessageBack::AtDeprecated; break;
-                        default: messageBack = MessageBack::AtAppearance; break;
-                    }
-                }
-                if (wif.eof()) done = true;
-            }
-            
-            if (mode == Mode::Appear) alpha = (sf::Uint8)(maxAlpha * (currentTime / appearTime));
-            else if (mode == Mode::Disapper) alpha = (sf::Uint8)(maxAlpha - (maxAlpha * (currentTime / disappearTime)));
-            else alpha = maxAlpha;
-            if (loaded) sprite.setColor(sf::Color(sprite.getColor().r, sprite.getColor().g, sprite.getColor().b, alpha));
-            bool onHold{ !((messageBack == MessageBack::No) || (messageBack == MessageBack::AtAppearance && (int)mode > 0) || (messageBack == MessageBack::AtDisappearance && (int)mode > 1)) };
-            
-            return { line, onHold };
         }
     }
 }

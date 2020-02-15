@@ -32,6 +32,7 @@ namespace NekoUI
         Inventory::map.emplace("PleatedSailorSkirt", new idc::PleatedSailorSkirt());
         Inventory::map.emplace("SailorBlouse", new idc::SailorBlouse());
         Inventory::map.emplace("SailorBlouse_top", new idc::SailorBlouse_top());
+        Inventory::map.emplace("Trousers", new idc::Trousers());
     }
     
     
@@ -250,6 +251,7 @@ namespace NekoUI
             Inventory::wardrobeShoes.Push("MaidShoes");
             Inventory::wardrobeAccessories.Push("NekoCollar");
             Inventory::wardrobeBottom.Push("PleatedSailorSkirt");
+            Inventory::wardrobeBottom.Push("Trousers");
             Inventory::wardrobeTop.Push("SailorBlouse");
         }
     }

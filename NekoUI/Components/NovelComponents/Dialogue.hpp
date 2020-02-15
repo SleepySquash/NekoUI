@@ -26,10 +26,8 @@
 #include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 #include <minEH/Engine/NovelSomeScript.hpp>
 
-#include "Abstract/Skin.hpp"
 #include "Abstract/CharacterLibrary.hpp"
-#include "GUISystem.hpp"
-#include "Abstract/Savable.hpp"
+#include "Abstract/Modes.hpp"
 
 using std::cin;
 using std::cout;
@@ -41,17 +39,17 @@ namespace ns
 {
     namespace NovelComponents
     {
-        struct Dialogue : NovelObject, Savable
+        struct Dialogue : NovelObject
         {
             sf::Text text;
-            std::wstring textString{ L"" };
-            std::wstring printingString{ L"" }, currentString{ L"" };
+            sf::Sprite sprite, nameSprite;
+            
+            std::wstring textString, printingString, currentString;
             
             sf::Text charText;
             std::wstring charString{ L"" };
             float charThickness{ 0.f };
             
-            GUISystem* guiSystem{ nullptr };
             CharacterData* character{ nullptr };
             
             bool visible{ true }, wasPressed{ false };
@@ -59,11 +57,8 @@ namespace ns
             sf::Uint8 alpha{ 0 }; int maxAlpha{ 255 };
             float currentTime{ 0.f }, waitingTime{ 2.f }, appearTime{ 0.6f }, disappearTime{ 0.6f };
             
-            enum modeEnum {appearing, waiting, waitingForTime, waitingForInput, waitingForChoose, disappearing, deprecated};
-            modeEnum mode{ appearing };
-            enum sendMessageBackEnum {noMessage, atAppearance, atDisappearing, atDeprecated};
-            sendMessageBackEnum sendMessageBack{ atDisappearing };
-            modeEnum afterAppearSwitchTo{ waitingForInput };
+            Mode mode{ Mode::Appear }, switchTo{ Mode::WaitingForInput };
+            MessageBack messageBack{ MessageBack::AtDisappearance };
             
             unsigned int textAppearPos{ 0 }, textAppearMax{ 0 }, textAppearI{ 0 };
             float characterInSecond{ 0.04f }, elapsedCharacterSum{ 0 };
@@ -79,7 +74,6 @@ namespace ns
             wchar_t leftSpeechAddition{ 0 }, rightSpeechAddition{ 0 };
             int afterRedLineShift{ 0 };
             
-            Dialogue(GUISystem* guiSystem = nullptr);
             void Init() override;
             void Update(const sf::Time& elapsedTime) override;
             void PollEvent(sf::Event& event) override;
@@ -89,59 +83,9 @@ namespace ns
             void SetCharacter(CharacterData* character);
             void SetCharacterName(const sf::String& characterName);
             void SetDialogue(const sf::String& dialogue);
-            void SetStateMode(modeEnum newMode);
+            void SetStateMode(const Mode& newMode);
             void ReceiveMessage(MessageHolder &message) override;
             void UpdateAlpha(bool mode = false);
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
-        };
-        
-        
-        
-        
-        
-        struct Choose : NovelObject, Savable
-        {
-            sf::Text text;
-            
-            GUISystem* guiSystem{ nullptr };
-            Skins::Dialogue* skin{ nullptr };
-            list<Choose*>::iterator groupPointer;
-            
-            GUI::TextButton button; int startingYY{ 0 };
-            
-            vector<std::wstring> actions, choices;
-            vector<int> choiceStart;
-            
-            bool fontLoaded{ false };
-            sf::Uint8 alpha{ 0 }; int maxAlpha{ 255 };
-            float currentTime{ 0.f }, appearTime{ 0.6f }, disappearTime{ 0.6f };
-            bool visible{ true };
-            
-            enum modeEnum {appearing, waitingForInput, disappearing, deprecated};
-            modeEnum mode{ appearing };
-            enum sendMessageBackEnum {noMessage, atAppearance, atDisappearing, atDeprecated};
-            sendMessageBackEnum sendMessageBack{ atDisappearing };
-            
-            std::wstring fontName{ L"NotoSansCJK-Regular.ttc" };
-            unsigned int characterSize{ 42 };
-            
-            Choose(GUISystem* guiSystem = nullptr);
-            void Init() override;
-            void Update(const sf::Time& elapsedTime) override;
-            void PollEvent(sf::Event& event) override;
-            void Draw(sf::RenderWindow* window) override;
-            void Destroy() override;
-            void Resize(const unsigned int& width, const unsigned int& height) override;
-            void SetStateMode(modeEnum newMode);
-            void AddChoice(const std::wstring& line);
-            void AddAction(const std::wstring& line);
-            void InitChoose();
-            void ReceiveMessage(MessageHolder &message) override;
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
         };
     }
 }

@@ -37,7 +37,7 @@ namespace NekoUI
         
         sf::RectangleShape blackScreenShape;
         sf::Sprite background; bool spriteLoaded{ false };
-        GUI::SpriteButton scrolldownMenu, homeButton, groceryButton, shopkeeperButton;
+        GUI::SpriteButton scrolldownMenu, homeButton, groceryButton, shopkeeperButton, parkButton;
         sf::CircleShape currentPosition; GUI::SpriteButton* buttonPosition{ nullptr };
         
         enum modeEnum { appearing, existing, disappearing };

@@ -21,6 +21,7 @@
 #include "RoomEntity.hpp"
 #include "RoomLibrary.hpp"
 #include "../Player.hpp"
+#include "../Neko/Body.hpp"
 #include "../Engine/Persona.hpp"
 #include "../Engine/Item.hpp"
 #include "../Database/ActivityDB.hpp"
@@ -59,7 +60,7 @@ namespace NekoUI
         bool beingActionedWith{ false }, ignoreBeingActionedWith{ false }, beingMoved{ false }, sleeping{ false };
         bool moveRight{ false }, moveLeft{ false }, moveDown{ false }, moveUp{ false }, moving{ false };
         float xySpd{ 140 };
-        bool chibiFacingIsRight{ Player::neko.chibiReversed };
+        bool chibiFacingIsRight{ NekoB::neko.chibiReversed };
         sf::Sprite shadow; sf::Vector2f shadowOffsetR, shadowOffsetL; bool drawShadow{ true };
         
         RoomEntity* movingToEntity{ nullptr };

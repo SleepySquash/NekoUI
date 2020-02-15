@@ -1,0 +1,143 @@
+//
+//  NekoHelpers.cpp
+//  NekoPlace
+//
+//  Created by Никита Исаенко on 29/01/2019.
+//  Copyright © 2019 Melanholy Hill. All rights reserved.
+//
+
+#include "GameplayEffects.hpp"
+
+namespace NekoNinja
+{
+    HeartsShape::HeartsShape(float x, float y, float scale, bool reverse) : reverse(reverse)
+    {
+        sprite.setPosition(x*gs::scalex, y*gs::scaley);
+        sprite.setScale(scale, scale);
+    }
+    void HeartsShape::Init()
+    {
+        sf::Texture* texture = ic::LoadTexture(L"Data/Jobs/NekoPlace/UI/heartsshape.png");
+        if (texture) sprite.setTexture(*texture);
+        sprite.setOrigin(190, reverse ? texture->getSize().y : 0);
+        sprite.setScale(0.3*gs::scale, 0.3*gs::scale);
+    }
+    void HeartsShape::Update(const sf::Time& elapsedTime)
+    {
+        if (elapsed < 0.4f) elapsed += elapsedTime.asSeconds();
+        else
+        {
+            alpha -= 255 * elapsedTime.asSeconds();
+            if (alpha <= 0) novelSystem->PopComponent(this);
+            else sprite.setColor(sf::Color(255, 255, 255, alpha));
+        }
+    }
+    void HeartsShape::Draw(sf::RenderWindow* window) { window->draw(sprite); }
+    
+    
+    
+    ComboText::ComboText(int count, float x, float y)
+    {
+        text.setString(L"Комбо +" + std::to_wstring(count));
+        text.setPosition(x*gs::scalex, y*gs::scaley);
+    }
+    void ComboText::Init()
+    {
+        text.setCharacterSize(90 * gs::scale);
+        text.setFillColor(sf::Color::Yellow);
+        text.setOutlineColor(sf::Color(40, 40, 40, 255));
+        text.setOutlineThickness(2.f * gs::scale);
+        fontLoaded = fc::GetFont(L"Pacifica.ttf");
+        if (fontLoaded) text.setFont(*fc::GetFont(L"Pacifica.ttf"));
+        
+        text.setPosition(text.getPosition().x - text.getLocalBounds().width/2, text.getPosition().y);
+        if (text.getGlobalBounds().left < 0)
+            text.setPosition(text.getGlobalBounds().left + gs::width/6, text.getPosition().y);
+        else if (text.getGlobalBounds().left + text.getGlobalBounds().width > gs::width)
+            text.setPosition(gs::width - text.getGlobalBounds().width - gs::width/8, text.getPosition().y);
+    }
+    void ComboText::Update(const sf::Time& elapsedTime)
+    {
+        text.setPosition(text.getPosition().x, text.getPosition().y - 50*elapsedTime.asSeconds());
+        if (elapsed < 0.4f) elapsed += elapsedTime.asSeconds();
+        else
+        {
+            alpha -= 255 * elapsedTime.asSeconds();
+            if (alpha <= 0) novelSystem->PopComponent(this);
+            else {
+                text.setFillColor(sf::Color(text.getFillColor().r, text.getFillColor().g, text.getFillColor().b, alpha));
+                text.setOutlineColor(sf::Color(text.getOutlineColor().r, text.getOutlineColor().g, text.getOutlineColor().b, alpha));
+            }
+        }
+    }
+    void ComboText::Draw(sf::RenderWindow* window) { if (fontLoaded) window->draw(text); }
+    
+    
+    CriticalHitText::CriticalHitText(float x, float y)
+    {
+        text.setString(L"В кокоро!");
+        text.setPosition(x*gs::scalex, y*gs::scaley);
+    }
+    void CriticalHitText::Init()
+    {
+        text.setCharacterSize(90 * gs::scale);
+        text.setFillColor(sf::Color::Red);
+        text.setOutlineColor(sf::Color(40, 40, 40, 255));
+        text.setOutlineThickness(2.f * gs::scale);
+        fontLoaded = fc::GetFont(L"Pacifica.ttf");
+        if (fontLoaded) text.setFont(*fc::GetFont(L"Pacifica.ttf"));
+        
+        text.setPosition(text.getPosition().x - text.getLocalBounds().width/2, text.getPosition().y);
+        if (text.getGlobalBounds().left < 0)
+            text.setPosition(text.getGlobalBounds().left + gs::width/6, text.getPosition().y);
+        else if (text.getGlobalBounds().left + text.getGlobalBounds().width > gs::width)
+            text.setPosition(gs::width - text.getGlobalBounds().width - gs::width/8, text.getPosition().y);
+    }
+    void CriticalHitText::Update(const sf::Time& elapsedTime)
+    {
+        text.setPosition(text.getPosition().x, text.getPosition().y - 50*elapsedTime.asSeconds());
+        if (elapsed < 0.4f) elapsed += elapsedTime.asSeconds();
+        else
+        {
+            alpha -= 255 * elapsedTime.asSeconds();
+            if (alpha <= 0) novelSystem->PopComponent(this);
+            else {
+                text.setFillColor(sf::Color(text.getFillColor().r, text.getFillColor().g, text.getFillColor().b, alpha));
+                text.setOutlineColor(sf::Color(text.getOutlineColor().r, text.getOutlineColor().g, text.getOutlineColor().b, alpha));
+            }
+        }
+    }
+    void CriticalHitText::Draw(sf::RenderWindow* window) { if (fontLoaded) window->draw(text); }
+    
+    
+    
+    ScratchScratch::ScratchScratch() { text.setString(L"Цап-царап!"); }
+    void ScratchScratch::Init()
+    {
+        text.setFillColor(sf::Color::Cyan);
+        text.setOutlineColor(sf::Color::Red);
+        fontLoaded = fc::GetFont(L"Pacifica.ttf");
+        if (fontLoaded) text.setFont(*fc::GetFont(L"Pacifica.ttf"));
+    }
+    void ScratchScratch::Update(const sf::Time& elapsedTime)
+    {
+        if (elapsed < 0.3f) elapsed += elapsedTime.asSeconds();
+        else
+        {
+            alpha -= 255 * elapsedTime.asSeconds();
+            if (alpha <= 0) novelSystem->PopComponent(this);
+            else {
+                text.setFillColor(sf::Color(text.getFillColor().r, text.getFillColor().g, text.getFillColor().b, alpha));
+                text.setOutlineColor(sf::Color(text.getOutlineColor().r, text.getOutlineColor().g, text.getOutlineColor().b, alpha));
+            }
+        }
+    }
+    void ScratchScratch::Resize(const unsigned int& width, const unsigned int& height)
+    {
+        text.setPosition(width/2, height/2);
+        text.setCharacterSize(160 * gs::scale);
+        text.setOutlineThickness(6.f * gs::scale);
+        text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
+    }
+    void ScratchScratch::Draw(sf::RenderWindow* window) { if (fontLoaded) window->draw(text); }
+}

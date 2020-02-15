@@ -122,14 +122,14 @@ namespace NekoUI
                 {
                     switch (category)
                     {
-                        case Category::Head: Player::neko.Undress(ClothType::Head); break;
-                        case Category::Top: Player::neko.Undress(ClothType::Top); break;
-                        case Category::Bottom: Player::neko.Undress(ClothType::Bottom); break;
-                        case Category::Onepiece: Player::neko.Undress(ClothType::Onepiece); break;
-                        case Category::Underwear: Player::neko.Undress(ClothType::Bra); Player::neko.Undress(ClothType::Pantsu); break;
-                        case Category::Socks: Player::neko.Undress(ClothType::Socks); break;
-                        case Category::Shoes: Player::neko.Undress(ClothType::Legwear); break;
-                        case Category::Accessories: Player::neko.Undress(ClothType::Accessory); Player::neko.Undress(ClothType::Gloves); break;
+                        case Category::Head: NekoB::neko.Undress(ClothType::Head); break;
+                        case Category::Top: NekoB::neko.Undress(ClothType::Top); break;
+                        case Category::Bottom: NekoB::neko.Undress(ClothType::Bottom); break;
+                        case Category::Onepiece: NekoB::neko.Undress(ClothType::Onepiece); break;
+                        case Category::Underwear: NekoB::neko.Undress(ClothType::Bra); NekoB::neko.Undress(ClothType::Pantsu); break;
+                        case Category::Socks: NekoB::neko.Undress(ClothType::Socks); break;
+                        case Category::Shoes: NekoB::neko.Undress(ClothType::Legwear); break;
+                        case Category::Accessories: NekoB::neko.Undress(ClothType::Accessory); NekoB::neko.Undress(ClothType::Gloves); break;
                         default: break;
                     }
                     return;
@@ -160,7 +160,7 @@ namespace NekoUI
                                 DressUndressItem(item.first, true);
                             }
                             else DressUndressItem(item.first, true);
-                            Player::neko.savingIsRequired = true;
+                            NekoB::neko.savingIsRequired = true;
                             return;
                         }
                         ++i;
@@ -174,7 +174,7 @@ namespace NekoUI
     }
     void WardrobeUI::DressUndressItem(Wearable* item, bool sort)
     {
-        if (item->dressed) Player::neko.Undress(item);
+        if (item->dressed) NekoB::neko.Undress(item);
         else
         {
             switch (category)
@@ -188,26 +188,26 @@ namespace NekoUI
                 case Category::Shoes: UndressByCategory(ClothType::Legwear); break;
                 default: break;
             }
-            Player::neko.Dress(item, sort);
+            NekoB::neko.Dress(item, sort);
         }
     }
     void WardrobeUI::UndressByCategory(const ClothType& category)
     {
-        vector<Cloth*>::iterator it = Player::neko.cloth.begin();
-        while (it != Player::neko.cloth.end())
+        vector<Cloth*>::iterator it = NekoB::neko.cloth.begin();
+        while (it != NekoB::neko.cloth.end())
             if ((*it)->item && (*it)->item->clothing == category)
             {
-                if ((*it)->offline) { delete (*it); it = Player::neko.cloth.erase(it); }
+                if ((*it)->offline) { delete (*it); it = NekoB::neko.cloth.erase(it); }
                 else
                 {
                     if ((*it)->item->dependencies)
                     {
                         Cloth* cl = (*it);
                         if (!cl->item->dependencies->calculated) Inventory::CalculateWearset(cl->item);
-                        for (auto iter : cl->item->dependencies->set) Player::neko.Undress(iter);
-                        cl->item->dressed = false; cl->Destroy(); it = Player::neko.cloth.begin();
+                        for (auto iter : cl->item->dependencies->set) NekoB::neko.Undress(iter);
+                        cl->item->dressed = false; cl->Destroy(); it = NekoB::neko.cloth.begin();
                     }
-                    else { (*it)->item->dressed = false; (*it)->Destroy(); delete (*it); it = Player::neko.cloth.erase(it); }
+                    else { (*it)->item->dressed = false; (*it)->Destroy(); delete (*it); it = NekoB::neko.cloth.erase(it); }
                 }
             }
             else ++it;
@@ -228,26 +228,26 @@ namespace NekoUI
             background.setPosition(width/2, height/2);
         }
         
-        Player::neko.personScale = 0.96f*((gs::height - gs::screenOffsetTop)/((float)gs::relativeHeight)); Player::neko.ResizePerson();
+        NekoB::neko.personScale = 0.96f*((gs::height - gs::screenOffsetTop)/((float)gs::relativeHeight)); NekoB::neko.ResizePerson();
         if (gs::verticalOrientation)
         {
-            // Player::neko.personScale = 1.21 * gs::scScale; Player::neko.ResizePerson();
+            // NekoB::neko.personScale = 1.21 * gs::scScale; NekoB::neko.ResizePerson();
             nintShape.setSize({gs::width*4.6f/5.f, gs::height*4.f/5.f});
             nintShape.setPosition((gs::width - nintShape.getSize().x)/2, 0);
             
-            if (Player::neko.body.person.getGlobalBounds().height + 20*gs::scale > gs::height)
-                Player::neko.setPersonPosition(width/2, Player::neko.body.person.getGlobalBounds().height + 20*gs::scale);
-            else Player::neko.setPersonPosition(width/2, height);
+            if (NekoB::neko.body.person.getGlobalBounds().height + 20*gs::scale > gs::height)
+                NekoB::neko.setPersonPosition(width/2, NekoB::neko.body.person.getGlobalBounds().height + 20*gs::scale);
+            else NekoB::neko.setPersonPosition(width/2, height);
         }
         else
         {
-            // Player::neko.personScale = 1.01 * gs::scScale; Player::neko.ResizePerson();
+            // NekoB::neko.personScale = 1.01 * gs::scScale; NekoB::neko.ResizePerson();
             nintShape.setSize({3.4f*gs::width/5.f, gs::height*4.f/5.f});
             nintShape.setPosition(gs::width - nintShape.getSize().x - 20*gs::scale, 0);
             
-            if (Player::neko.body.person.getGlobalBounds().height + 20*gs::scale > gs::height)
-                Player::neko.setPersonPosition(0.83*width/5, Player::neko.body.person.getGlobalBounds().height + 20*gs::scale);
-            else Player::neko.setPersonPosition(0.83*width/5, height);
+            if (NekoB::neko.body.person.getGlobalBounds().height + 20*gs::scale > gs::height)
+                NekoB::neko.setPersonPosition(0.83*width/5, NekoB::neko.body.person.getGlobalBounds().height + 20*gs::scale);
+            else NekoB::neko.setPersonPosition(0.83*width/5, height);
         }
         nintShape.setOutlineThickness(2*gs::scale);
         
@@ -285,7 +285,7 @@ namespace NekoUI
         
         //window->draw(blackScreenShape);
         if (spriteLoaded) window->draw(background);
-        Player::neko.Draw(window, true);
+        NekoB::neko.Draw(window, true);
         window->draw(nintShape);
         
         float xx = categoriesStartXX;
@@ -419,7 +419,7 @@ namespace NekoUI
         emptyText.setOutlineColor({emptyText.getOutlineColor().r, emptyText.getOutlineColor().g, emptyText.getOutlineColor().b, alpha});
         itemButtons.setAlpha(alpha);
         
-        Player::neko.setPersonAlpha(alpha);
+        NekoB::neko.setPersonAlpha(alpha);
     }
     void WardrobeUI::UpdateCategory()
     {

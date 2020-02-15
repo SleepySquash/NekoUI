@@ -37,7 +37,7 @@ namespace NekoUI
 {
     struct NekoInterfaceUI : Component
     {
-        bool active{ false };
+        bool active{ false }, drawNeko{ true };
         
         sf::RectangleShape blackScreenShape;
         NekoEntity* neko{ nullptr };
@@ -50,7 +50,6 @@ namespace NekoUI
         sf::Uint8 bluralpha{ 0 };
         float blurCurrentTime{ 0.f }, blurAppearTime{ 0.3f };
         
-        bool nintDontDrawPersonNeko{ false };
         sf::Text nameText, affectionStatusText;
         sf::Sprite heartSprite;
         GUI::TextButton talkButton, requestButton, engageButton, actionButton;

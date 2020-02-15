@@ -34,21 +34,16 @@
 #include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 #include <minEH/Engine/NovelSomeScript.hpp>
 
-#include "Abstract/VariableSystem.hpp"
 #include "Abstract/CharacterLibrary.hpp"
-#include "Abstract/Skin.hpp"
-#include "Abstract/Interface.hpp"
 #include "Abstract/GamePause.hpp"
-#include "Abstract/Savable.hpp"
-#include "Abstract/SavingMechanism.hpp"
 #include "Abstract/Modes.hpp"
-#include "Abstract/NovelInfo.hpp"
 
 #include "Audio.hpp"
 #include "Background.hpp"
 #include "Character.hpp"
+#include "Persona.hpp"
 #include "Dialogue.hpp"
-#include "GUISystem.hpp"
+#include "Choice.hpp"
 #include "Misc.hpp"
 
 using std::cin;
@@ -65,55 +60,37 @@ namespace ns
     namespace NovelComponents
     {
         struct Novel;
-        struct NovelLoader : Component
-        {
-            std::wstring fileName; NovelInfo* nvl;
-            NovelLoader(const std::wstring& fileName, NovelInfo* nvl);
-            void Update(const sf::Time& elapsedTime) override;
-        };
-        struct EventListener : NovelObject, Savable
+        struct EventListener : NovelObject
         {
             Novel* novel;
-            
             EventListener(Novel* novel);
             void ReceiveMessage(MessageHolder& message) override;
-            void Save(std::wofstream& wof) override;
         };
         struct Novel : Component
         {
-            std::wstring nsdataPath{ L"" }, folderPath{ L"" }, scenarioPath{ L"" }, scenario{ L"" }, line;
-            std::wifstream wif;
+            std::wstring folder, line;
             unsigned long position{ 0 };
             nss::CommandSettings command;
-            list<std::wstring> lines, execute;
-            int preloadLinesAmount{ 12 }, executeOnHold{ 0 }, executeHoldSize{ 0 };
-            list<std::wstring>::iterator executePosInsert;
+            list<std::wstring> lines;
+            int preloadLinesAmount{ 12 }, preloadedLines{ 0 };
             
-            // sf::Time timeReading;
-            // float nextAutosave{ gs::autosaveDeltaTime };
+            bool noDestroyMessage{ false };
+            list<NovelObject*> onHold;
             
-            bool eof{ false }, fileOpened{ false }, noDestroyMessage{ false };
-            list<NovelObject*> onHold, onExecute;
-            
-            NovelInfo* nvl{ nullptr };
             GamePause* gamePause{ nullptr };
+            bool noGamePause{ false };
             
             NovelSystem layers;
-            Interface interface;
             
             list<Background*> backgroundGroup;
             list<Character*> characterGroup;
+            list<Persona*> personaGroup;
             list<Dialogue*> dialogueGroup;
-            list<Choose*> chooseGroup;
+            list<Choice*> chooseGroup;
             list<SoundPlayer*> soundGroup;
             list<MusicPlayer*> musicGroup;
             list<MusicPlayer*> ambientGroup;
-            list<GUISystem*> GUIGroup;
             
-            Novel(const std::wstring& path, NovelInfo* nvl = nullptr);
-            Novel(NovelInfo* nvl);
-            Novel(const Novel&) = delete;
-            Novel(Novel&&) = delete;
             ~Novel();
             void Init() override;
             void Update(const sf::Time& elapsedTime) override;
@@ -121,15 +98,10 @@ namespace ns
             void ResourcesPreloading(list<std::wstring>& lines, std::wstring& line);
             void Resize(const unsigned int& width, const unsigned int& height) override;
             void Draw(sf::RenderWindow* window) override;
-            void Save(std::wofstream& wof);
             void ForwardMessage(MessageHolder& message);
             void ReceiveMessage(MessageHolder& message) override;
             void OnHold(NovelObject* component);
             void UnHold(NovelObject* component);
-            void VariableChange(const std::wstring& name);
-            void LocalVariables_Set(const std::wstring& name, std::wstring value);
-            void LocalVariables_Set(const std::wstring& name, bool value);
-            void LocalVariables_Set(const std::wstring& name, int value);
             template<typename T> void FreeGroup(list<T*>& elements) { elements.clear(); }
         };
     }

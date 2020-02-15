@@ -52,6 +52,8 @@ namespace ns
         struct CharacterLibrary
         {
             static std::unordered_map<std::wstring, CharacterData*> library;
+            static void* nekoPersona;
+            static std::wstring nekoName;
             
             static void clear();
             static std::unordered_map<std::wstring, CharacterData*>::const_iterator find(const std::wstring& key);

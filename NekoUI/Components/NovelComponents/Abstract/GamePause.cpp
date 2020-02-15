@@ -12,11 +12,11 @@ namespace ns
 {
     namespace NovelComponents
     {
-        GamePause::GamePause(GUISystem* guiSystem) : guiSystem(guiSystem) { shape.setFillColor(sf::Color(0,0,0,0)); }
+        GamePause::GamePause() { shape.setFillColor(sf::Color(0,0,0,0)); }
         GamePause::~GamePause() { gs::isPause = false; }
         void GamePause::Update(const sf::Time& elapsedTime)
         {
-            if (alpha && guiSystem) guiSystem->Update(elapsedTime);
+            // if (alpha && guiSystem) guiSystem->Update(elapsedTime);
             
             if (countdownLastTouchedMoment)
             {
@@ -41,7 +41,7 @@ namespace ns
                         mode = appeared;
                     }
                     else alpha = (sf::Int8)(maxAlpha * (currentTime / appearTime));
-                    if (guiSystem) guiSystem->SetAlpha(alpha);
+                    // if (guiSystem) guiSystem->SetAlpha(alpha);
                     menuBackButton.setAlpha(alpha);
                     break;
                     
@@ -54,7 +54,7 @@ namespace ns
                         mode = waiting;
                     }
                     else alpha = (sf::Int8)(maxAlpha - (maxAlpha * (currentTime / disappearTime)));
-                    if (guiSystem) guiSystem->SetAlpha(alpha);
+                    // if (guiSystem) guiSystem->SetAlpha(alpha);
                     menuBackButton.setAlpha(alpha);
                     break;
                     
@@ -65,7 +65,7 @@ namespace ns
         {
             //if (gs::isPause && menuBackButton.PollEvent(event)) { gs::isPause = false; entity->SendMessage({"GamePause :: Return to menu"}); }
             if (gs::ignoreEvent) return;
-            if (guiSystem) guiSystem->PollEvent(event);
+            // if (guiSystem) guiSystem->PollEvent(event);
             if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                 || (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Right))
             {
@@ -92,12 +92,12 @@ namespace ns
             }
             else if (event.type == sf::Event::LostFocus) { if (!gs::isPause) {gs::isPause = true; mode = appearing; currentTime = 0.f; }}
         }
-        void GamePause::Draw(sf::RenderWindow *window) { if (mode != waiting && guiSystem && !gs::ignoreDraw) guiSystem->Draw(window); }
-        void GamePause::Resize(const unsigned int& width, const unsigned int& height) { if (mode != waiting && guiSystem) guiSystem->Resize(width, height); }
+        void GamePause::Draw(sf::RenderWindow *window) { /*if (mode != waiting && guiSystem && !gs::ignoreDraw) guiSystem->Draw(window);*/ }
+        void GamePause::Resize(const unsigned int& width, const unsigned int& height) { /*if (mode != waiting && guiSystem) guiSystem->Resize(width, height);*/ }
         void GamePause::ReceiveMessage(MessageHolder &message)
         {
-            if (message.info == "FinishedExecute") guiSystem->ReceiveMessage(message);
-            else if (message.info == "GamePause") { mode = gs::isPause? appearing : disappearing; currentTime = 0.f; }
+            /*if (message.info == "FinishedExecute") guiSystem->ReceiveMessage(message);
+            else*/ if (message.info == "GamePause") { mode = gs::isPause? appearing : disappearing; currentTime = 0.f; }
         }
     }
 }

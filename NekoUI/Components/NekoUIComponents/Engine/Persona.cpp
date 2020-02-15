@@ -19,12 +19,12 @@ namespace NekoUI
             if (personLoaded) ic::DeleteImage(L"Data/Neko/Person/" + personPath);
             if ((personLoaded = (pPath != L"")))
             {
-                sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Person/" + pPath);
+                sf::Texture* texture = ic::RequestHigherTexture(L"Data/Neko/Person/" + pPath, this);
                 if ((personLoaded = texture))
                 {
                     personPath = pPath;
                     person.setTexture(*texture, true);
-                    person.setOrigin(texture->getSize().x/2, 0);
+                    person.setOrigin(texture->getSize().x/2, stackToDown ? texture->getSize().y : 0);
                 }
             }
         }
@@ -34,12 +34,12 @@ namespace NekoUI
             if (chibiLoaded) ic::DeleteImage(L"Data/Neko/Chibi/" + chibiPath);
             if ((chibiLoaded = (cPath != L"")))
             {
-                sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Chibi/" + cPath);
+                sf::Texture* texture = ic::RequestHigherTexture(L"Data/Neko/Chibi/" + cPath, this);
                 if ((chibiLoaded = texture))
                 {
                     chibiPath = cPath;
                     chibi.setTexture(*texture, true);
-                    chibi.setOrigin(texture->getSize().x/2, 0);
+                    chibi.setOrigin(texture->getSize().x/2, stackToDown ? texture->getSize().y : 0);
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace NekoUI
         if (chibiLoaded) chibi.setColor({chibi.getColor().r, chibi.getColor().g, chibi.getColor().b, alpha}); }
     void Cloth::ResizeChibi(const int& relativeBodyHeight)
     {
-        if (!chibiLoaded) return;
+        relativeChibiHeight = relativeBodyHeight; if (!chibiLoaded) return;
         float scale = (relativeBodyHeight * relativeChibiScale)/chibi.getLocalBounds().height;
         if (chibiReversed) chibi.setScale(-scale, scale); else chibi.setScale(scale, scale);
     }
@@ -71,7 +71,7 @@ namespace NekoUI
         if (personLoaded) person.setColor({person.getColor().r, person.getColor().g, person.getColor().b, alpha}); }
     void Cloth::ResizePerson(const int& relativeBodyHeight)
     {
-        if (!personLoaded) return;
+        relativePersonHeight = relativeBodyHeight; if (!personLoaded) return;
         float scale = (relativeBodyHeight * relativePersonScale)/person.getLocalBounds().height;
         if (personReversed) person.setScale(-scale, scale); else person.setScale(scale, scale);
     }
@@ -85,13 +85,35 @@ namespace NekoUI
     }
     
     void Cloth::Draw(sf::RenderWindow* window, bool mode) { if (hidden) return; if (mode) window->draw(person); else window->draw(chibi); }
+
+    void Cloth::SendMessage(MessageHolder message)
+    {
+        if (message.additional == L"Data/Neko/Person/" + personPath)
+        {
+            sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Person/" + personPath);
+            if ((personLoaded = texture)) {
+                person.setTexture(*texture, true);
+                person.setOrigin(texture->getSize().x/2, stackToDown ? texture->getSize().y : 0);
+                if (persona) persona->ResizePerson(); else ResizePerson(relativePersonHeight);
+            }
+        }
+        else if (message.additional == L"Data/Neko/Chibi/" + chibiPath)
+        {
+            sf::Texture* texture = ic::LoadTexture(L"Data/Neko/Chibi/" + chibiPath);
+            if ((chibiLoaded = texture)) {
+                chibi.setTexture(*texture, true);
+                chibi.setOrigin(texture->getSize().x/2, stackToDown ? texture->getSize().y : 0);
+                if (persona) persona->ResizeChibi(); else ResizeChibi(relativeChibiHeight);
+            }
+        }
+    }
     
     
     
     Persona::~Persona() { for (auto& c : cloth) if (c->owner) delete c; cloth.clear(); }
     void Persona::Init()
     {
-        body.Set(L"body.png", L"body.png"); body.depth = 0; body.imOnMyOwn = true; body.owner = false;
+        body.Set(L"body.png", L"body.png"); body.depth = 0; body.imOnMyOwn = body.stackToDown = true; body.owner = false; body.persona = this;
         // body.chibi.setOrigin(body.chibi.getOrigin().x, body.chibi.getLocalBounds().height);
         // body.person.setOrigin(body.person.getOrigin().x, body.person.getLocalBounds().height);
         
@@ -158,12 +180,11 @@ namespace NekoUI
 
     void Persona::OccupyMemory()
     {
+        if (loaded) return;
         for (auto c : cloth) c->Load(c->personPath, c->chibiPath);
-        body.chibi.setOrigin(body.chibi.getOrigin().x, body.chibi.getLocalBounds().height);
-        body.person.setOrigin(body.person.getOrigin().x, body.person.getLocalBounds().height);
-        RecalculateBounds();
+        RecalculateBounds(); loaded = true;
     }
-    void Persona::FreeMemory() { for (auto c : cloth) { c->Destroy(); c->offline = false; } }
+    void Persona::FreeMemory() { if (!loaded) return; for (auto c : cloth) { c->Destroy(); c->offline = false; } loaded = false; }
     
     void Persona::Dress(Wearable* item, bool sorting)
     {

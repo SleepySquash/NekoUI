@@ -20,8 +20,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "Neko/Personality.hpp"
-#include "Neko/Static.hpp"
+#include "Neko/Body.hpp"
 #include "Engine/Persona.hpp"
 #include "Database/ItemDB.hpp"
 #include "Database/SkillDB.hpp"
@@ -42,7 +41,6 @@ namespace NekoUI
 {
     struct Player
     {
-        static Persona neko;
         static unsigned long daysTogether; // считаться за "день" будут только дни, когда заходишь в игру.
         static float timePassed;
         
@@ -63,17 +61,6 @@ namespace NekoUI
         
         static void Birth();
         static void UpdateDaysTogether();
-        
-        static void OccupyPersona();
-        static void FreePersona();
-        
-        static NekoS::EyebrowsEmotion eyebrowsEmotion;
-        static NekoS::EyesEmotion eyesEmotion;
-        static NekoS::MouthEmotion mouthEmotion;
-        static void UpdateNekoEmotion();
-        enum class RestoringEmotion{ Eyebrows, Eyes, Mouth };
-        static void NekoEmotionAccordingToMood(const RestoringEmotion& restoring);
-        static void NekoEmotionsAccordingToMood();
     };
 }
 

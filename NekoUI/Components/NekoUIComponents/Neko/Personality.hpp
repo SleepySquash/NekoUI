@@ -52,7 +52,7 @@ namespace NekoUI
             static s::MoodEnum mood;
             
             enum class TraitsEnum { Kind, Lovely, Caring, Shy, Cute, Quiet, Playful, Sly, Romantic, Lewd, Scared, Sensetive, Active, Passive, Loyal, Dependent, Independent, Crybabe, Hardworker, Lazy, Calm, Cold, Sweettooth, Slow };
-            enum class DiseasesEnum{ Cold, Fever, Albino, Myopia, Hyperopia, Weak, Ulcer, Depression, Paranoid, Deaf };
+            enum class DiseasesEnum{ Cold, Fever, Albino, Myopia, Hyperopia, Weak, Ulcer, Depression, Paranoid, Deaf, Aphonia };
             enum class ShapeEnum{ Slim, Normal, Thick }; /// Лучше численное представление.
             enum class TemperamentEnum{ Choleric, Melancholic, Phlegmatic, Sanguine };
             

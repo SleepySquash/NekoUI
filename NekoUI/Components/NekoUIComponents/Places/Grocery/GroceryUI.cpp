@@ -448,7 +448,8 @@ namespace NekoUI
             {
                 --shelfFood[selectedxy].count;
                 if (shelfFood[selectedxy].count <= 0) { shelfFood[selectedxy].count = 0; checkList.erase(shelfFood[selectedxy].item); }
-                else { checkPrice -= shelfFood[selectedxy].item->price; checkList[shelfFood[selectedxy].item] = shelfFood[selectedxy].count; }
+                else { checkList[shelfFood[selectedxy].item] = shelfFood[selectedxy].count; }
+                checkPrice -= shelfFood[selectedxy].item->price;
             }
             else if (active && message.info == "count -= 10")
             {

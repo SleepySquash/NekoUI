@@ -24,8 +24,6 @@
 #include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 #include <minEH/Engine/NovelSomeScript.hpp>
 
-#include "Abstract/Skin.hpp"
-#include "Abstract/Savable.hpp"
 #include "Abstract/Modes.hpp"
 
 using std::cin;
@@ -38,7 +36,7 @@ namespace ns
 {
     namespace NovelComponents
     {
-        struct Background : NovelObject, Savable
+        struct Background : NovelObject
         {
             sf::Sprite sprite;
             std::wstring path{ L"" }, image{ L"" }, folder{ L"" };
@@ -70,9 +68,6 @@ namespace ns
             void CalculateScale(unsigned int width, unsigned int height);
             void CalculateParallax(int mouseX, int mouseY);
             void SetStateMode(const Mode& newMode);
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
         };
     }
 }

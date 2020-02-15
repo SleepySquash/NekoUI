@@ -26,8 +26,7 @@
 #include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 #include <minEH/Engine/NovelSomeScript.hpp>
 
-#include "Abstract/Skin.hpp"
-#include "Abstract/Savable.hpp"
+#include "Abstract/Modes.hpp"
 
 using std::cin;
 using std::cout;
@@ -39,7 +38,7 @@ namespace ns
 {
     namespace NovelComponents
     {
-        struct SoundPlayer : NovelObject, Savable
+        struct SoundPlayer : NovelObject
         {
         private:
             std::unique_ptr<char[]> fileInMemory;
@@ -50,30 +49,24 @@ namespace ns
             float volume{ 0.f }, currentTime{ 0.f }, timeToStartDisappearing{ 0.f };
             
         public:
-            enum modeEnum {appearing, playing, disappearing, deprecated};
-            modeEnum mode{ appearing };
-            enum sendMessageBackEnum {noMessage, atAppearance, atDisappearing, atDeprecated};
-            sendMessageBackEnum sendMessageBack{ noMessage };
+            Mode mode{ Mode::Appear };
+            MessageBack messageBack{ MessageBack::No };
             
             std::wstring folderPath{ L"" };
             bool loop{ false };
             float maxVolume{ 100 }, rmaxVolume{ 100 }, appearTime{ 0.f }, disappearTime{ 0.f };
             sf::Time playingOffset;
             
-            SoundPlayer();
             void Update(const sf::Time& elapsedTime) override;
             void Destroy() override;
             void LoadFromFile(const std::wstring& fileName);
-            void SetStateMode(modeEnum newMode);
+            void SetStateMode(const Mode& newMode);
             void ReceiveMessage(MessageHolder& message) override;
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
         };
         
         
         
-        struct MusicPlayer : NovelObject, Savable
+        struct MusicPlayer : NovelObject
         {
         private:
             std::unique_ptr<char[]> fileInMemory;
@@ -84,24 +77,18 @@ namespace ns
             float volume{ 0.f }, currentTime{ 0.f }, timeToStartDisappearing{ 0.f };
             
         public:
-            enum modeEnum {appearing, playing, disappearing, deprecated};
-            modeEnum mode{ appearing };
-            enum sendMessageBackEnum {noMessage, atAppearance, atDisappearing, atDeprecated};
-            sendMessageBackEnum sendMessageBack{ noMessage };
+            Mode mode{ Mode::Appear };
+            MessageBack messageBack{ MessageBack::No };
             
             std::wstring folderPath{ L"" };
             bool loop{ true }, ambient{ false };
             float maxVolume{ 100 }, rmaxVolume{ 100 }, appearTime{ 1.f }, disappearTime{ 1.f };
             sf::Time playingOffset;
             
-            MusicPlayer();
             void Update(const sf::Time& elapsedTime) override;
             void Destroy() override;
             void LoadFromFile(const std::wstring& fileName);
-            void SetStateMode(modeEnum newMode);
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
+            void SetStateMode(const Mode& newMode);
         };
     }
 }

@@ -16,6 +16,7 @@ namespace NekoUI
         groceryButton.setTexture(L"Data/Images/UI/map_Grocery.png"); groceryButton.setScale(0.5f);
         shopkeeperButton.setTexture(L"Data/Images/UI/map_Shopkeeper.png"); shopkeeperButton.setScale(0.5f);
         homeButton.setTexture(L"Data/Images/UI/map_Home.png"); homeButton.setScale(0.5f);
+        parkButton.setTexture(L"Data/Images/UI/map_Park.png"); parkButton.setScale(0.5f);
         currentPosition.setFillColor({32, 129, 215});
         
         scrolldownMenu.setTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
@@ -69,6 +70,12 @@ namespace NekoUI
             entity->SendMessage({"PlacesUI :: ApartmentUI"});
             Switch(false);
         }
+        else if (parkButton.PollEvent(event))
+        {
+            rm::requestCloseButton = clickable = false;
+            entity->SendMessage({"PlacesUI :: TestNovel"});
+            Switch(false);
+        }
     }
     void MapUI::Resize(const unsigned int& width, const unsigned int& height)
     {
@@ -78,6 +85,7 @@ namespace NekoUI
         groceryButton.Resize(width, height); groceryButton.setPosition(gs::width/2, gs::height/2);
         shopkeeperButton.Resize(width, height); shopkeeperButton.setPosition(gs::width/2 - 200*gs::scalex, gs::height/2 - 200*gs::scaley);
         homeButton.Resize(width, height); homeButton.setPosition(gs::width/2 + 200*gs::scalex, gs::height/2 + 200*gs::scaley);
+        parkButton.Resize(width, height); parkButton.setPosition(gs::width/2 - 200*gs::scalex, gs::height/2 + 200*gs::scaley);
         scrolldownMenu.Resize(width, height); scrolldownMenu.setPosition(width - 10*gs::scalex, height - 10*gs::scaley);
         if (spriteLoaded)
         {
@@ -104,6 +112,7 @@ namespace NekoUI
         groceryButton.draw(window);
         shopkeeperButton.draw(window);
         homeButton.draw(window);
+        parkButton.draw(window);
         scrolldownMenu.draw(window);
     }
     void MapUI::ReceiveMessage(MessageHolder& message)

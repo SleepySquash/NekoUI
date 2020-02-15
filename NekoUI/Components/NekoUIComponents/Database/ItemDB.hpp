@@ -144,6 +144,16 @@ namespace NekoUI
                 relativeChibiScale  = 0.061937; offsets.first = {-30.1802, -426.126};
             }
         };
+    
+        struct Trousers : Wearable
+        {
+            Trousers() : Wearable("Trousers", L"trousers.png", L"trousers.png", L"Очень удобные и обтягивающие спортивные штаны.")
+            {
+                display = L"Спортивные штаны"; depth = 30; clothing = ClothType::Bottom;
+                relativeChibiScale  = 0.29673423; offsets.first = {-24.7747748, -265.765766};
+                relativePersonScale = 0.48988622; offsets.second = {-24.0202276, -498.356511};
+            }
+        };
     }
     
     void ItemDatabaseCollection_LoadItems();

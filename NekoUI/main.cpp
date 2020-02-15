@@ -106,6 +106,7 @@ int main()
     
     if (!gs::isVerticalSyncEnabled) window.setFramerateLimit(gs::framerateLimit);
     window.setVerticalSyncEnabled(gs::isVerticalSyncEnabled);
+    gs::isParallaxEnabled = false;
     
     EntitySystem system;
     srand((unsigned int)time(nullptr));

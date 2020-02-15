@@ -71,6 +71,9 @@ namespace NekoUI
                 {
                     switch (i)
                     {
+                        case 0: rm::requestCloseButton = clickable = false;
+                            entity->SendMessage({"PlacesUI :: JobNekoPlace"});
+                            Switch(false); break;
                         case 1: rm::requestCloseButton = clickable = false;
                             entity->SendMessage({"PlacesUI :: JobFNAF"});
                             Switch(false); break;
@@ -122,7 +125,7 @@ namespace NekoUI
         {
             jobs.index = i;
             switch (i) {
-                case 0: jobs.setString(L"Официант"); jobs.shape.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH}); break;
+                case 0: jobs.setString(L"NekoPlace"); jobs.shape.setTextureRect({0,0,jobsBackgroundW,jobsBackgroundH}); break;
                 case 1: jobs.setString(L"FNAF"); jobs.shape.setTextureRect({jobsBackgroundW,0,jobsBackgroundW,jobsBackgroundH}); break;
                 case 2: jobs.setString(L"NekoExpress"); jobs.shape.setTextureRect({0,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;
                 case 3: jobs.setString(L"Защита башни"); jobs.shape.setTextureRect({jobsBackgroundW,jobsBackgroundH,jobsBackgroundW,jobsBackgroundH}); break;

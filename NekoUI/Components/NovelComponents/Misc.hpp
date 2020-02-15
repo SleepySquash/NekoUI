@@ -16,8 +16,6 @@
 #include <SFML/Main.hpp>
 #include <minEH/Engine/NovelSystem.hpp>
 
-#include "Abstract/Savable.hpp"
-
 using std::cin;
 using std::cout;
 using std::endl;
@@ -28,14 +26,11 @@ namespace ns
 {
     namespace NovelComponents
     {
-        struct Waiting : NovelObject, Savable
+        struct Waiting : NovelObject
         {
             float currentTime{ 0.f }, waitingTime{ 1.f };
             Waiting();
             void Update(const sf::Time& elapsedTime) override;
-            
-            void Save(std::wofstream& wof) override;
-            std::pair<std::wstring, bool> Load(std::wifstream& wof) override;
         };
     }
 }

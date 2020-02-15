@@ -18,7 +18,8 @@
 
 #include <minEH/Essentials/ResourcePath.hpp>
 #include <minEH/Engine/Settings.hpp>
-#include <minEH/Engine/Collectors.hpp>
+#include <minEH/Engine/Collectors/Image.hpp>
+#include <minEH/Engine/MessageHolder.hpp>
 
 #include "Item.hpp"
 
@@ -34,16 +35,19 @@ using namespace ns;
 
 namespace NekoUI
 {
-    struct Cloth
+    struct Persona;
+    struct Cloth : MessageSender
     {
-        bool personLoaded{ false }, chibiLoaded{ false }, imOnMyOwn{ false }, owner{ true };
+        bool personLoaded{ false }, chibiLoaded{ false }, imOnMyOwn{ false }, owner{ true }, stackToDown{ false };
         bool chibiReversed{ false }, personReversed{ false }, hidden{ false }, offline{ false };
         sf::Sprite person, chibi;
         
         Wearable* item{ nullptr };
+        Persona* persona{ nullptr };
         std::wstring personPath, chibiPath;
         float localPersonScale{ 1.f }, localChibiScale{ 1.f };
         float relativePersonScale{ 1.f }, relativeChibiScale{ 1.f };
+        int relativePersonHeight{ 0 }, relativeChibiHeight{ 0 };
         pair<pair<float, float>, pair<float, float>> offsets{ {0,0}, {0,0} };
         int depth{ 0 };
         
@@ -63,6 +67,8 @@ namespace NekoUI
         void UpdatePositionPerson(const float& x, const float& y);
         
         void Draw(sf::RenderWindow* window, bool mode = true);
+        
+        void SendMessage(MessageHolder message) override;
     };
     
     struct Persona
@@ -71,7 +77,7 @@ namespace NekoUI
         float personScale{ 1.f }, chibiScale{ 1.f };
         int chibiWidth{ 0 }, chibiHeight{ 0 }, personWidth{ 0 }, personHeight{ 0 };
         bool chibiReversed{ false }, personReversed{ false };
-        bool savingIsRequired{ false };
+        bool savingIsRequired{ false }, loaded{ false };
         
         Cloth eyebrows, eyes, mouth, nose, blush, fronthair, backhair, tail, arms, body;
         vector<Cloth*> cloth;

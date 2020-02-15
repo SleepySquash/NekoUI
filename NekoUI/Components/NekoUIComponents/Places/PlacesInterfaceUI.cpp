@@ -12,7 +12,25 @@ namespace NekoUI
 {
     void PlacesInterfaceUI::ReceiveMessage(MessageHolder& message)
     {
-        if (message.info == "PlacesUI :: ApartmentUI" || message.info == "PlacesUI :: GroceryUI" || message.info == "PlacesUI :: ShopkeeperUI" || message.info == "PlacesUI :: JobFNAF") entity->AddComponent<PlacesTransitionScreen>(message.info);
+        if (message.info == "PlacesUI :: ApartmentUI" || message.info == "PlacesUI :: GroceryUI" || message.info == "PlacesUI :: ShopkeeperUI" || message.info == "PlacesUI :: JobFNAF" || message.info == "PlacesUI :: TestNovel" || message.info == "PlacesUI :: JobNekoPlace") entity->AddComponent<PlacesTransitionScreen>(message.info);
+        else if (message.info == "PlacesUI :: Test2Novel")
+        {
+            rm::drawScrolldownMenu = rm::drawNeeds = false;
+            ns::NovelComponents::CharacterLibrary::nekoPersona = &NekoB::neko;
+            ns::NovelComponents::CharacterLibrary::nekoName = Player::display;
+            
+            auto novel = entity->AddComponent<ns::NovelComponents::Novel>();
+            //novel->lines.push_front(L"background \"Data/Images/Backgrounds/park.jpg\"");
+            novel->lines.push_front(L"show neko fade:0");
+            novel->lines.push_front(L"Неко \"Приветь, хозяин!!! ПОалфдо оплдйуо пуп тмьстмьст ацйлкойцл мовлмолв кцлолкц пыфпды подуйлпоуйд поулпко слмослмо поулоауло поулп оул олпулпупул влыф\"");
+            novel->lines.push_front(L"neko \"Дя, йа новелла >3<\"");
+            novel->lines.push_front(L"wait 0.5");
+        }
+        else if (message.info == "Novel :: Destroying")
+        {
+            rm::drawScrolldownMenu = rm::drawNeeds = true;
+            if (rm::location == rm::Location::Park) entity->AddComponent<PlacesTransitionScreen>("PlacesUI :: ApartmentUI");
+        }
     }
     
     PlacesTransitionScreen::PlacesTransitionScreen(const std::string& info) : info(info) { }
@@ -28,6 +46,7 @@ namespace NekoUI
         text.setString(L"Идём...");
         gs::ignoreDraw = false;
         
+        if (info == "Novel :: Destroying") info = "PlacesUI :: ApartmentUI";
         if (nss::Command(info, "PlacesUI :: Job"))
         {
             entity->system->SendMessage({"RoomUI :: Close"});
@@ -58,13 +77,28 @@ namespace NekoUI
             case 2:
                 //TODO: waitFor{ 0.1f }
                 ic::globalRequestSender->SendMessage({"Apartment :: Destroy"});
-                ic::globalRequestSender->SendMessage(info + " Destroy");
+                ic::globalRequestSender->SendMessage({"PlacesUI :: ApartmentUI Destroy"});
                 it = entity->components.begin();
                 std::advance(it, entity->components.size() - 1);
                 if (info == "PlacesUI :: GroceryUI") entity->InsertComponent<Places::GroceryUI>(it);
                 else if (info == "PlacesUI :: ApartmentUI") { entity->system->SendMessage({"RoomUI :: Show"}); entity->InsertComponent<Apartment>(it); }
                 else if (info == "PlacesUI :: ShopkeeperUI") entity->InsertComponent<Places::StrangeShopkeeperUI>(it);
                 else if (info == "PlacesUI :: JobFNAF") entity->InsertComponent<Jobs_FNAFGame::FNAF>(it);
+                else if (info == "PlacesUI :: JobNekoPlace") entity->InsertComponent<NekoNinja::Controller>(it);
+                else if (info == "PlacesUI :: TestNovel")
+                {
+                    rm::location = rm::Location::Park;
+                    
+                    ns::NovelComponents::CharacterLibrary::nekoPersona = &NekoB::neko;
+                    ns::NovelComponents::CharacterLibrary::nekoName = Player::display;
+                    
+                    auto novel = entity->AddComponent<ns::NovelComponents::Novel>();
+                    novel->lines.push_front(L"background \"Data/Images/Backgrounds/park.jpg\"");
+                    novel->lines.push_front(L"show neko");
+                    novel->lines.push_front(L"Неко \"Приветь, хозяин!!! ПОалфдо оплдйуо пуп тмьстмьст ацйлкойцл мовлмолв кцлолкц пыфпды подуйлпоуйд поулпко слмослмо поулоауло поулп оул олпулпупул влыф\"");
+                    novel->lines.push_front(L"neko \"Дя, йа новелла >3<\"");
+                    novel->lines.push_front(L"fadeout");
+                }
                 stage = 3;
                 break;
             case 3: stage = 4; break;
