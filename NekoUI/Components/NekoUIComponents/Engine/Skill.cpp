@@ -10,5 +10,5 @@
 
 namespace NekoUI
 {
-    Skill::Skill(const std::string& name) : name(name), display(utf16(name)) { }
+    Skill::Skill(const std::string& name, const unsigned int& level) : name(name), display(utf16(name)), level(level) { }
 }

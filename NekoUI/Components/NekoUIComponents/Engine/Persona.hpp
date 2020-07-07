@@ -23,13 +23,8 @@
 
 #include "Item.hpp"
 
-using std::cin;
-using std::cout;
-using std::endl;
 using std::vector;
 using std::pair;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 

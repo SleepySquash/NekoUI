@@ -6,26 +6,25 @@
 //  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
-#ifndef BuffDB_hpp
-#define BuffDB_hpp
+#ifndef ConditionDB_hpp
+#define ConditionDB_hpp
 
 #include <iostream>
+#include <list>
 
 #include <SFML/Graphics.hpp>
-
 #include <minEH/Engine/Settings.hpp>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
+#include "../Engine/Condition.hpp"
 
 using namespace ns;
 
 namespace NekoUI
 {
-    void BuffDatabaseCollection_LoadBuffs();
+    struct Conditions
+    {
+        static std::list<Condition> list;
+    };
 }
 
-#endif /* BuffDB_hpp */
+#endif /* ConditionDB_hpp */

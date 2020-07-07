@@ -18,10 +18,6 @@
 
 #include <minEH/Engine/MessageHolder.hpp>
 
-using std::cin;
-using std::cout;
-using std::endl;
-
 namespace NekoUI
 {
     enum class ItemType { Wearable, Food, Drink, Toy, Container, Other };

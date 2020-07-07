@@ -61,6 +61,7 @@
 #include <minEH/Components/Helpers/LanguageLibrary.hpp>
 
 #include "Components/NekoUIComponents/Player.hpp"
+#include "Components/NekoUIComponents/Neko/Brain.hpp"
 #include "Components/NekoUIComponents/Apartment/Apartment.hpp"
 #include "Components/NekoUIComponents/Misc/OffsetHelper.hpp"
 #include "Components/NekoUIComponents/Interfaces/NekoInterfaceUI.hpp"
@@ -72,6 +73,9 @@
 #include "Components/NekoUIComponents/Interfaces/MapUI.hpp"
 #include "Components/NekoUIComponents/Interfaces/ItemDetailsUI.hpp"
 #include "Components/NekoUIComponents/Places/PlacesInterfaceUI.hpp"
+#include "Components/NekoUIComponents/Interfaces/FlowchartUI.hpp"
+
+// #include "Components/VNLightComponents/Comp.hpp"
 
 using std::cout;
 using std::cin;
@@ -106,6 +110,7 @@ int main()
     
     if (!gs::isVerticalSyncEnabled) window.setFramerateLimit(gs::framerateLimit);
     window.setVerticalSyncEnabled(gs::isVerticalSyncEnabled);
+    // window.setFramerateLimit(120);
     gs::isParallaxEnabled = false;
     
     EntitySystem system;
@@ -114,6 +119,7 @@ int main()
     ic::globalRequestSender = &system;
     Language::Default(); lang::currentLanguage = "ru"; Languages::LoadData();
     
+#pragma mark -
     ///----------------------------------------------------------
     /// \brief Entity to hold NekoUI components
     ///
@@ -122,9 +128,14 @@ int main()
     ///----------------------------------------------------------
     Entity* Vanilla = system.AddEntity();
     {
+        /*for (int i = 0; i < 1; ++i)
+        {
+            Vanilla->AddComponent<Mesh>();
+        }*/
         Vanilla->AddComponent<NotificationsUI>();
         
         NekoUI::Player::Init();
+        Vanilla->AddComponent<NekoUI::Neko::BrainComponent>();
         Vanilla->AddComponent<NekoUI::CalendarUI>();
         Vanilla->AddComponent<NekoUI::NekoInterfaceUI>();
         Vanilla->AddComponent<NekoUI::JobInterfaceUI>();
@@ -132,10 +143,12 @@ int main()
         Vanilla->AddComponent<NekoUI::ItemDetailsUI>();
         Vanilla->AddComponent<NekoUI::WardrobeUI>();
         Vanilla->AddComponent<NekoUI::MapUI>();
+        Vanilla->AddComponent<NekoUI::FlowchartUI>();
         Vanilla->AddComponent<NekoUI::PlacesInterfaceUI>();
         Vanilla->AddComponent<NekoUI::Apartment>();
         // Vanilla->AddComponent<NekoUI::OffsetHelper>(L"mouth.png", true, 1); // scale = 0.66
     }
+#pragma mark -
     Entity* Lana = system.AddEntity();
     {
         Lana->AddComponent<NekoUI::RoomUI>();
@@ -151,17 +164,20 @@ int main()
     ///----------------------------------------------------------
     Entity* Shimakaze = system.AddEntity();
     {
-        // Shimakaze->AddComponent<EssentialComponents::DebugComponent>("Update 0 build 5");
+        Shimakaze->AddComponent<EssentialComponents::DebugComponent>("Update 0 build 5");
         Shimakaze->AddComponent<EssentialComponents::FadingFromBlackScreen>();
     }
     gs::lastMousePos = { sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y };
     
     bool active{ true };
     sf::Clock clock;
+    sf::Time clockTime;
+    float elapsedSecond{ 0 };
     
 #if defined(SFML_SYSTEM_IOS)
     window.setActive();
 #endif
+#pragma mark -
     while (window.isOpen())
     {
         sf::Event event;
@@ -255,7 +271,11 @@ int main()
 #if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
         if (active)
         {
-            system.Update(clock.restart());
+            clockTime = clock.restart();
+            elapsedSecond += clockTime.asSeconds();
+            if (elapsedSecond > gs::fixedUpdate) { system.FixedUpdate(gs::fixedUpdate); elapsedSecond = 0.f; }
+            
+            system.Update(clockTime);
             
             if (gs::requestWindowRefresh)
             {
@@ -269,7 +289,11 @@ int main()
         }
         else sf::sleep(sf::milliseconds(100));
 #else
-        system.Update(clock.restart());
+        clockTime = clock.restart();
+        elapsedSecond += clockTime.asSeconds();
+        if (elapsedSecond > gs::fixedUpdate) { system.FixedUpdate(gs::fixedUpdate); elapsedSecond = 0.f; }
+        
+        system.Update(clockTime);
         
         if (gs::requestWindowRefresh)
         {
@@ -282,6 +306,7 @@ int main()
         else sf::sleep(sf::milliseconds(10));
 #endif
     }
+#pragma mark -
     
     system.clear();
     

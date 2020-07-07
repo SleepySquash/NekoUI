@@ -1,45 +1,15 @@
 //
-//  ItemDB.cpp
+//  Inventory.cpp
 //  NekoUI
 //
-//  Created by Никита Исаенко on 20/05/2019.
-//  Copyright © 2019 Melancholy Hill. All rights reserved.
+//  Created by Никита Исаенко on 18.02.2020.
+//  Copyright © 2020 Melancholy Hill. All rights reserved.
 //
 
-#include "ItemDB.hpp"
+#include "Inventory.hpp"
 
 namespace NekoUI
 {
-    void ItemDatabaseCollection_LoadItems()
-    {
-        Inventory::map.emplace("Cupcake", new idc::Cupcake());
-        Inventory::map.emplace("Cake", new idc::Cake());
-        Inventory::map.emplace("Candy", new idc::Candy());
-        Inventory::map.emplace("Star", new idc::Star());
-        Inventory::map.emplace("Icecream", new idc::Icecream());
-        Inventory::map.emplace("Donut", new idc::Donut());
-        Inventory::map.emplace("FractionOfPie", new idc::FractionOfPie());
-        Inventory::map.emplace("Lootbox", new idc::Lootbox());
-        Inventory::map.emplace("WaterBottle", new idc::WaterBottle());
-        
-        Inventory::map.emplace("MaidUniform", new idc::MaidUniform());
-        Inventory::map.emplace("MaidHeadwear", new idc::MaidHeadwear());
-        Inventory::map.emplace("MaidGloves", new idc::MaidGloves());
-        Inventory::map.emplace("WhiteStockings", new idc::WhiteStockings());
-        Inventory::map.emplace("BlackStockings", new idc::BlackStockings());
-        Inventory::map.emplace("MaidShoes", new idc::MaidShoes());
-        Inventory::map.emplace("NekoCollar", new idc::NekoCollar());
-        Inventory::map.emplace("PleatedSailorSkirt", new idc::PleatedSailorSkirt());
-        Inventory::map.emplace("SailorBlouse", new idc::SailorBlouse());
-        Inventory::map.emplace("SailorBlouse_top", new idc::SailorBlouse_top());
-        Inventory::map.emplace("Trousers", new idc::Trousers());
-    }
-    
-    
-    
-    
-    
-    
     InventoryBase<Item> Inventory::items, Inventory::fridge, Inventory::transition;
     InventoryBase<Wearable> Inventory::wardrobeHead, Inventory::wardrobeTop, Inventory::wardrobeBottom, Inventory::wardrobeOnepiece, Inventory::wardrobeUnderwear, Inventory::wardrobeSocks, Inventory::wardrobeShoes, Inventory::wardrobeAccessories;
     std::unordered_map<std::string, Item*> Inventory::map;
@@ -253,6 +223,8 @@ namespace NekoUI
             Inventory::wardrobeBottom.Push("PleatedSailorSkirt");
             Inventory::wardrobeBottom.Push("Trousers");
             Inventory::wardrobeTop.Push("SailorBlouse");
+            Inventory::wardrobeUnderwear.Push("Bra1");
+            Inventory::wardrobeUnderwear.Push("Panties1");
         }
     }
 

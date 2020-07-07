@@ -20,15 +20,13 @@
 #include <minEH/Engine/Collectors.hpp>
 #include <minEH/Engine/GUI/Button/SomeButtons.hpp>
 
-#include "../Database/ItemDB.hpp"
+#include "../Engine/Inventory.hpp"
 #include "../Apartment/RoomLibrary.hpp"
 #include "../Player.hpp"
 
 using std::cin;
 using std::cout;
 using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 

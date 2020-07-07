@@ -13,26 +13,16 @@
 #include <unordered_map>
 
 #include <SFML/Graphics.hpp>
-
 #include <minEH/Engine/Settings.hpp>
 
 #include "../Engine/Interest.hpp"
-
-using std::cin;
-using std::cout;
-using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 
 namespace NekoUI
 {
     void InterestDatabaseCollection_LoadInterests();
-    struct Interests
-    {
-        static std::unordered_map<std::string, Interest*> map;
-    };
+    struct Interests { static std::unordered_map<std::string, Interest*> map; };
 }
 
 #endif /* InterestsDB_hpp */

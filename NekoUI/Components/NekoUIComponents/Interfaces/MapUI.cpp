@@ -12,15 +12,19 @@ namespace NekoUI
 {
     void MapUI::Init()
     {
-        blackScreenShape.setFillColor(sf::Color(0,0,0,170)); // TODO: Добавить "скейлинг относительно столько-то пикселей", на который будет просто делиться реальный размер, чтобы скейл не зависел от ресолюшинкласса
-        groceryButton.setTexture(L"Data/Images/UI/map_Grocery.png"); groceryButton.setScale(0.5f);
-        shopkeeperButton.setTexture(L"Data/Images/UI/map_Shopkeeper.png"); shopkeeperButton.setScale(0.5f);
-        homeButton.setTexture(L"Data/Images/UI/map_Home.png"); homeButton.setScale(0.5f);
-        parkButton.setTexture(L"Data/Images/UI/map_Park.png"); parkButton.setScale(0.5f);
+        blackScreenShape.setFillColor(sf::Color(0,0,0,170));
         currentPosition.setFillColor({32, 129, 215});
         
+        float scale = 0.4f;
+        groceryButton.setTexture(L"Data/Images/UI/map_Grocery.png"); groceryButton.setScale(scale * 1.1f * 215.f/groceryButton.sprite.getLocalBounds().width);
+        shopkeeperButton.setTexture(L"Data/Images/UI/map_Shopkeeper.png"); shopkeeperButton.setScale(scale * 0.8f * 309.f/shopkeeperButton.sprite.getLocalBounds().width);
+        homeButton.setTexture(L"Data/Images/UI/map_Home.png"); homeButton.setScale(scale * 240.f/homeButton.sprite.getLocalBounds().width);
+        parkButton.setTexture(L"Data/Images/UI/map_Park.png"); parkButton.setScale(scale * 256.f/parkButton.sprite.getLocalBounds().width);
+        trainButton.setTexture(L"Data/Images/UI/map_TrainStation.png"); trainButton.setScale(scale * 0.7f * 288.f/trainButton.sprite.getLocalBounds().width);
+        scienceButton.setTexture(L"Data/Images/UI/map_NekoScience.png"); scienceButton.setScale(scale * 0.9f * 287.f/scienceButton.sprite.getLocalBounds().width);
+        
         scrolldownMenu.setTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
-        scrolldownMenu.setScale(0.6f);
+        scrolldownMenu.setScale(0.6f * gs::scaleUI);
         scrolldownMenu.halign = Halign::Right;
         scrolldownMenu.valign = Valign::Bottom;
     }
@@ -76,16 +80,32 @@ namespace NekoUI
             entity->SendMessage({"PlacesUI :: TestNovel"});
             Switch(false);
         }
+        else if (scienceButton.PollEvent(event))
+        {
+            
+        }
+        else if (trainButton.PollEvent(event))
+        {
+            
+        }
     }
     void MapUI::Resize(const unsigned int& width, const unsigned int& height)
     {
         if (!active) return;
         
         blackScreenShape.setSize({(float)gs::width, (float)gs::height});
-        groceryButton.Resize(width, height); groceryButton.setPosition(gs::width/2, gs::height/2);
-        shopkeeperButton.Resize(width, height); shopkeeperButton.setPosition(gs::width/2 - 200*gs::scalex, gs::height/2 - 200*gs::scaley);
-        homeButton.Resize(width, height); homeButton.setPosition(gs::width/2 + 200*gs::scalex, gs::height/2 + 200*gs::scaley);
-        parkButton.Resize(width, height); parkButton.setPosition(gs::width/2 - 200*gs::scalex, gs::height/2 + 200*gs::scaley);
+        
+        float relScaleX = 1373.f/background.getLocalBounds().width * gs::scale,
+              relScaleY = 902.f/background.getLocalBounds().height * gs::scale;
+        homeButton.setPosition(background.getLocalBounds().left + 768*relScaleX, background.getLocalBounds().top + 186*relScaleY);
+        groceryButton.setPosition(background.getLocalBounds().left + 580*relScaleX, background.getLocalBounds().top + 365*relScaleY);
+        shopkeeperButton.setPosition(background.getLocalBounds().left + 805*relScaleX, background.getLocalBounds().top + 655*relScaleY);
+        parkButton.setPosition(background.getLocalBounds().left + 507*relScaleX, background.getLocalBounds().top + 484*relScaleY);
+        scienceButton.setPosition(background.getLocalBounds().left + 1111*relScaleX, background.getLocalBounds().top + 326*relScaleY);
+        trainButton.setPosition(background.getLocalBounds().left + 1011*relScaleX, background.getLocalBounds().top + 155*relScaleY);
+        
+        shopkeeperButton.Resize(width, height); homeButton.Resize(width, height); groceryButton.Resize(width, height); parkButton.Resize(width, height); scienceButton.Resize(width, height); trainButton.Resize(width, height);
+        
         scrolldownMenu.Resize(width, height); scrolldownMenu.setPosition(width - 10*gs::scalex, height - 10*gs::scaley);
         if (spriteLoaded)
         {
@@ -113,6 +133,8 @@ namespace NekoUI
         shopkeeperButton.draw(window);
         homeButton.draw(window);
         parkButton.draw(window);
+        scienceButton.draw(window);
+        trainButton.draw(window);
         scrolldownMenu.draw(window);
     }
     void MapUI::ReceiveMessage(MessageHolder& message)

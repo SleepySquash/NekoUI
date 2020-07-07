@@ -11,14 +11,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
 #include <minEH/Engine/Settings.hpp>
-
-using std::cin;
-using std::cout;
-using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 
@@ -31,7 +24,7 @@ namespace NekoUI
         unsigned int level{ 0 };
         float exp{ 0 }, expTilNextLevel{ 0 };
         
-        Skill(const std::string& name);
+        Skill(const std::string& name, const unsigned int& level = 0);
     };
 }
 

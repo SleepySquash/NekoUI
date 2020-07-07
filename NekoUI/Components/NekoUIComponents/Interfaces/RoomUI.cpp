@@ -49,7 +49,7 @@ namespace NekoUI
         // scrolldownTexture_normal = ic::LoadTexture(L"Data/Images/UI/scrolldown rev1.png");
         // scrolldownTexture_close = ic::LoadTexture(L"Data/Images/UI/ScrolldownButton_exit.png");
         // scrolldownMenu.setTexture(scrolldownTexture_normal);
-        scrolldownMenu.setScale(0.6f);
+        scrolldownMenu.setScale(0.6f * gs::scaleUI);
         scrolldownMenu.halign = Halign::Right;
         scrolldownMenu.valign = Valign::Bottom;
         
@@ -201,6 +201,7 @@ namespace NekoUI
                 entity->system->SendMessage({"WardrobeUI :: Close"});
                 entity->system->SendMessage({"JobInterfaceUI :: Close"});
                 entity->system->SendMessage({"MapUI :: Close"});
+                entity->system->SendMessage({"FlowchartUI :: Close"});
             }
             else rm::scrolldownMenuOpened = !rm::scrolldownMenuOpened;
             if (rm::scrolldownMenuOpened) scrolldown = Mode::appearing; else scrolldown = Mode::disappearing;
@@ -210,13 +211,13 @@ namespace NekoUI
             float xx = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().x : scrolldownMenu.sprite.getGlobalBounds().left - 5*scrolldownButtonsScaling*gs::scalex;
             float yy = gs::verticalOrientation ? scrolldownMenu.sprite.getGlobalBounds().top - 5*scrolldownButtonsScaling*gs::scaley : scrolldownMenu.sprite.getPosition().y;
             bool anyPressed{ event.type != sf::Event::TouchEnded && event.type != sf::Event::MouseButtonReleased };
-            for (int i = 0; i < 8; ++i)
+            for (int i = 1; i < 8; ++i)
             {
                 scrolldownButtons.index = i;
                 switch (i)
                 {
                     case 0: scrolldownButtons.sprite.setTextureRect({0, 0, 108, 125});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale);
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI);
                         if (scrolldownButtons.PollEvent(event)) {
                             entity->system->SendMessage({"CalendarUI :: Close"});
                             entity->system->SendMessage({"NekoUI :: Switch"});
@@ -224,11 +225,12 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Close"});
+                            entity->system->SendMessage({"FlowchartUI :: Close"});
                             rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 1: scrolldownButtons.sprite.setTextureRect({124, 0, 97, 126});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale);
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI);
                         if (scrolldownButtons.PollEvent(event)) {
                             entity->system->SendMessage({"CalendarUI :: Close"});
                             entity->system->SendMessage({"NekoUI :: Close"});
@@ -236,11 +238,12 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Close"});
+                            entity->system->SendMessage({"FlowchartUI :: Close"});
                             rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 2: scrolldownButtons.sprite.setTextureRect({230, 5, 128, 123});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale);
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI);
                         if (scrolldownButtons.PollEvent(event)) {
                             entity->system->SendMessage({"CalendarUI :: Close"});
                             entity->system->SendMessage({"NekoUI :: Close"});
@@ -248,11 +251,12 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Switch"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Close"});
+                            entity->system->SendMessage({"FlowchartUI :: Close"});
                             rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 3: scrolldownButtons.sprite.setTextureRect({368, 0, 130, 117});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale);
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI);
                         if (scrolldownButtons.PollEvent(event)) {
                             entity->system->SendMessage({"CalendarUI :: Close"});
                             entity->system->SendMessage({"NekoUI :: Close"});
@@ -260,13 +264,14 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Switch"});
                             entity->system->SendMessage({"MapUI :: Close"});
+                            entity->system->SendMessage({"FlowchartUI :: Close"});
                             rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 4: scrolldownButtons.sprite.setTextureRect({507, 0, 120, 124});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale); break;
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI); break;
                     case 5: scrolldownButtons.sprite.setTextureRect({637, 2, 136, 116});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale);
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI);
                         if (scrolldownButtons.PollEvent(event)) {
                             entity->system->SendMessage({"CalendarUI :: Close"});
                             entity->system->SendMessage({"NekoUI :: Close"});
@@ -274,13 +279,25 @@ namespace NekoUI
                             entity->system->SendMessage({"WardrobeUI :: Close"});
                             entity->system->SendMessage({"JobInterfaceUI :: Close"});
                             entity->system->SendMessage({"MapUI :: Switch"});
+                            entity->system->SendMessage({"FlowchartUI :: Close"});
                             rm::requestCloseButton = true; scrolldown = Mode::disappearing;
                             rm::scrolldownMenuOpened = false; }
                         break;
                     case 6: scrolldownButtons.sprite.setTextureRect({780, 3, 123, 114});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale); break;
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI);
+                        if (scrolldownButtons.PollEvent(event)) {
+                            entity->system->SendMessage({"CalendarUI :: Close"});
+                            entity->system->SendMessage({"NekoUI :: Close"});
+                            entity->system->SendMessage({"InventoryUI :: Close"});
+                            entity->system->SendMessage({"WardrobeUI :: Close"});
+                            entity->system->SendMessage({"JobInterfaceUI :: Close"});
+                            entity->system->SendMessage({"MapUI :: Close"});
+                            entity->system->SendMessage({"FlowchartUI :: Switch"});
+                            rm::requestCloseButton = true; scrolldown = Mode::disappearing;
+                            rm::scrolldownMenuOpened = false; }
+                        break;
                     case 7: scrolldownButtons.sprite.setTextureRect({908, 14, 120, 80});
-                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale); break;
+                        scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI); break;
                     default: break;
                 }
                 if (!rm::scrolldownMenuOpened) { anyPressed = true; break; }
@@ -316,9 +333,9 @@ namespace NekoUI
         
         float xx = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().x : scrolldownMenu.sprite.getGlobalBounds().left - 5*gs::scalex;
         float yy = gs::verticalOrientation ? scrolldownMenu.sprite.getGlobalBounds().top - 5*gs::scalex : scrolldownMenu.sprite.getPosition().y;
-        scrolldownButtons.setScale(1.f);
+        scrolldownButtons.setScale(1.f * gs::scaleUI);
         
-        for (int i = 0; i < 9; ++i)
+        for (int i = 1; i < 9; ++i)
         {
             switch (i)
             {
@@ -338,7 +355,7 @@ namespace NekoUI
         if (!gs::verticalOrientation && xx < 0) scrolldownButtonsScaling = (scrolldownMenu.sprite.getGlobalBounds().left)/((scrolldownMenu.sprite.getGlobalBounds().left) - xx);
         else if (gs::verticalOrientation && yy < 0) scrolldownButtonsScaling = (scrolldownMenu.sprite.getGlobalBounds().top)/((scrolldownMenu.sprite.getGlobalBounds().top) - yy);
         else scrolldownButtonsScaling = 1.f;
-        if (scrolldownButtonsScaling != 1.f) scrolldownButtons.setScale(1.f * scrolldownButtonsScaling);
+        if (scrolldownButtonsScaling != 1.f) scrolldownButtons.setScale(1.f * gs::scaleUI * scrolldownButtonsScaling);
         
         
         attentionText.setCharacterSize(25*gs::scale);
@@ -355,15 +372,15 @@ namespace NekoUI
         switch (rm::location)
         {
             default:
-                dateSprite.setScale(0.65f * gs::scale, 0.65f * gs::scale);
-                dayText.setCharacterSize(70*gs::scale);
-                dayText.setPosition(80*gs::scale, 20*gs::scale);
+                dateSprite.setScale(0.65f * gs::scale * gs::scaleUI, 0.65f * gs::scale * gs::scaleUI);
+                dayText.setCharacterSize(70*gs::scale * gs::scaleUI);
+                dayText.setPosition(80*gs::scale*gs::scaleUI, 20*gs::scale*gs::scaleUI);
                 dayText.setOrigin(dayText.getLocalBounds().width/2, 0);
-                monthText.setCharacterSize(45*gs::scale);
-                monthText.setPosition(80*gs::scale, 30*gs::scale + dayText.getGlobalBounds().height);
+                monthText.setCharacterSize(45*gs::scale * gs::scaleUI);
+                monthText.setPosition(80*gs::scale*gs::scaleUI, 30*gs::scale*gs::scaleUI + dayText.getGlobalBounds().height);
                 monthText.setOrigin(monthText.getLocalBounds().width/2, 0);
-                nekoMoodText.setCharacterSize(40*gs::scale);
-                nekoMoodText.setPosition(dateSprite.getGlobalBounds().left + dateSprite.getGlobalBounds().width + 15*gs::scale, 6*gs::scale + gs::screenOffsetTop);
+                nekoMoodText.setCharacterSize(40*gs::scale * gs::scaleUI);
+                nekoMoodText.setPosition(dateSprite.getGlobalBounds().left + dateSprite.getGlobalBounds().width + 15*gs::scale*gs::scaleUI, 6*gs::scale + gs::screenOffsetTop);
                 nekoMoodText.setOutlineThickness(gs::scale);
                 break;
         }
@@ -461,7 +478,7 @@ namespace NekoUI
             {
                 float xx = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().x : scrolldownMenu.sprite.getPosition().x - scrolldownMenu.sprite.getGlobalBounds().width/2 - (scrolldownMenu.sprite.getGlobalBounds().width/2 + 5*scrolldownButtonsScaling*gs::scalex) * scrolldownButtonsOffset;
                 float yy = gs::verticalOrientation ? scrolldownMenu.sprite.getPosition().y - scrolldownMenu.sprite.getGlobalBounds().height/2 - (scrolldownMenu.sprite.getGlobalBounds().height/2 + 5*scrolldownButtonsScaling*gs::scaley) * scrolldownButtonsOffset : scrolldownMenu.sprite.getPosition().y;
-                for (int i = 0; i < 8; ++i)
+                for (int i = 1; i < 8; ++i)
                 {
                     scrolldownButtons.index = i;
                     switch (i)
@@ -476,7 +493,7 @@ namespace NekoUI
                         case 7: scrolldownButtons.sprite.setTextureRect({908, 14, 120, 80}); break;
                         default: break;
                     }
-                    scrolldownButtons.setPosition(xx, yy - 62*gs::scale); scrolldownButtons.draw(window);
+                    scrolldownButtons.setPosition(xx, yy - 62*gs::scale*gs::scaleUI); scrolldownButtons.draw(window);
                     if (!gs::verticalOrientation) xx -= (scrolldownButtons.sprite.getGlobalBounds().width + 5*scrolldownButtonsScaling*gs::scalex) * scrolldownButtonsOffset;
                     else yy -= (scrolldownButtons.sprite.getGlobalBounds().height + 5*scrolldownButtonsScaling*gs::scaley) * scrolldownButtonsOffset;
                 }

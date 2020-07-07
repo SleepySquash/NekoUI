@@ -24,13 +24,11 @@
 #include "../Player.hpp"
 #include "../Apartment/NekoEntity.hpp"
 #include "../Apartment/RoomLibrary.hpp"
-#include "../Database/ItemDB.hpp"
+#include "../Engine/Inventory.hpp"
 
 using std::cin;
 using std::cout;
 using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 

@@ -6,25 +6,24 @@
 //  Copyright © 2019 Melancholy Hill. All rights reserved.
 //
 
-#ifndef Buff_hpp
-#define Buff_hpp
+#ifndef Condition_hpp
+#define Condition_hpp
 
 #include <iostream>
+#include <optional>
+
 #include <SFML/Graphics.hpp>
-
 #include <minEH/Engine/Settings.hpp>
-
-using std::cin;
-using std::cout;
-using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 using namespace ns;
 
 namespace NekoUI
 {
-    
+    struct Condition
+    {
+        std::optional<unsigned int> duration;
+        std::wstring display{ L"" };
+    };
 }
 
-#endif /* Buff_hpp */
+#endif /* Condition_hpp */

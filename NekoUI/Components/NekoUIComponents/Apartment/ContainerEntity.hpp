@@ -16,7 +16,7 @@
 #include <minEH/Engine/Settings.hpp>
 #include <minEH/Engine/Collectors.hpp>
 
-#include "../Database/ItemDB.hpp"
+#include "../Engine/Inventory.hpp"
 #include "RoomEntity.hpp"
 #include "RoomLibrary.hpp"
 

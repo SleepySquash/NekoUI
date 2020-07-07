@@ -13,9 +13,10 @@ namespace NekoUI
     std::unordered_map<std::string, Skill*> Skills::map;
     void SkillDatabaseCollection_LoadSkills()
     {
-        Skills::map["Movement"] = new Skill("Movement");
+        Skills::map["Independence"] = new Skill("Independence");
+        /*Skills::map["Movement"] = new Skill("Movement");
         Skills::map["Cooking"] = new Skill("Cooking");
         Skills::map["Computer"] = new Skill("Computer");
-        Skills::map["Sitting"] = new Skill("Sitting");
+        Skills::map["Sitting"] = new Skill("Sitting");*/
     }
 }

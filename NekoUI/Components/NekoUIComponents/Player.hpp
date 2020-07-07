@@ -22,7 +22,7 @@
 
 #include "Neko/Body.hpp"
 #include "Engine/Persona.hpp"
-#include "Database/ItemDB.hpp"
+#include "Database/Items.hpp"
 #include "Database/SkillDB.hpp"
 #include "Database/InterestsDB.hpp"
 #include "Database/ActivityDB.hpp"

@@ -20,13 +20,12 @@ namespace NekoUI
         struct Body
         {
             static Persona neko;
-            
             static void OccupyPersona();
             static void FreePersona();
             
-            static NekoS::EyebrowsEmotion eyebrowsEmotion;
-            static NekoS::EyesEmotion eyesEmotion;
-            static NekoS::MouthEmotion mouthEmotion;
+            static NekoS::EyebrowsEmotion eyebrowsEmotion, lasteyebrowsEmotion;
+            static NekoS::EyesEmotion eyesEmotion, lasteyesEmotion;
+            static NekoS::MouthEmotion mouthEmotion, lastmouthEmotion;
             static void UpdateNekoEmotion();
             enum class RestoringEmotion{ Eyebrows, Eyes, Mouth };
             static void NekoEmotionAccordingToMood(const RestoringEmotion& restoring);

@@ -64,18 +64,6 @@ namespace NekoUI
     void NekoEntity::Update(const sf::Time& elapsedTime)
     {
         if (gs::isPause) return;
-        NekoS::needHunger -= elapsedTime.asSeconds() * NekoS::hungerInSecond;
-        NekoS::needThirst -= elapsedTime.asSeconds() * NekoS::thirstInSecond;
-        NekoS::needCommunication -= elapsedTime.asSeconds() * NekoS::communicationInSecond;
-        NekoS::needHygiene -= elapsedTime.asSeconds() * NekoS::hygieneInSecond;
-        NekoS::needToilet -= elapsedTime.asSeconds() * NekoS::toiletInSecond;
-        NekoS::needEnergy -= elapsedTime.asSeconds() * NekoS::energyInSecond;
-        if (NekoS::needHunger < 0) NekoS::needHunger = 0;
-        if (NekoS::needThirst < 0) NekoS::needThirst = 0;
-        if (NekoS::needCommunication < 0) NekoS::needCommunication = 0;
-        if (NekoS::needHygiene < 0) NekoS::needHygiene = 0;
-        if (NekoS::needToilet < 0) NekoS::needToilet = 0;
-        if (NekoS::needEnergy < 0) NekoS::needEnergy = 0;
         
         if (blinking)
         {
@@ -84,17 +72,17 @@ namespace NekoUI
             {
                 if (!itisblink)
                 {
-                    blinkEmotion = NekoP::eyesEmotion;
-                    NekoP::eyesEmotion = NekoS::EyesEmotion::Closed;
-                    if (NekoP::eyesEmotion != NekoB::eyesEmotion) gs::requestWindowRefresh = true;
+                    blinkEmotion = NekoB::eyesEmotion;
+                    NekoB::eyesEmotion = NekoS::EyesEmotion::Closed;
+                    if (NekoB::eyesEmotion != NekoB::lasteyesEmotion) gs::requestWindowRefresh = true;
                     NekoB::UpdateNekoEmotion();
                     elapsedBlinking = closedBlinkDuration + (rand() % 4)/100.f;
                 }
                 else
                 {
-                    if (NekoP::eyesEmotion == NekoS::EyesEmotion::Closed)
-                        NekoP::eyesEmotion = blinkEmotion;
-                    if (NekoP::eyesEmotion != NekoB::eyesEmotion) gs::requestWindowRefresh = true;
+                    if (NekoB::eyesEmotion == NekoS::EyesEmotion::Closed)
+                        NekoB::eyesEmotion = blinkEmotion;
+                    if (NekoB::eyesEmotion != NekoB::lasteyesEmotion) gs::requestWindowRefresh = true;
                     NekoB::UpdateNekoEmotion();
                     elapsedBlinking = blinkingFrequency + (rand() % 6)/10.f;
                     if (allowRandomBlink)
@@ -248,6 +236,21 @@ namespace NekoUI
             cout << "I'm occupied at: " << activity->name << endl;
             ExecuteCurrentActivity();
         }
+    }
+    void NekoEntity::FixedUpdate(const unsigned int &elapsedTime)
+    {
+        NekoS::needHunger -= elapsedTime/60.f * NekoS::hungerInSecond;
+        NekoS::needThirst -= elapsedTime/60.f * NekoS::thirstInSecond;
+        NekoS::needCommunication -= elapsedTime/60.f * NekoS::communicationInSecond;
+        NekoS::needHygiene -= elapsedTime/60.f * NekoS::hygieneInSecond;
+        NekoS::needToilet -= elapsedTime/60.f * NekoS::toiletInSecond;
+        NekoS::needEnergy -= elapsedTime/60.f * NekoS::energyInSecond;
+        if (NekoS::needHunger < 0) NekoS::needHunger = 0;
+        if (NekoS::needThirst < 0) NekoS::needThirst = 0;
+        if (NekoS::needCommunication < 0) NekoS::needCommunication = 0;
+        if (NekoS::needHygiene < 0) NekoS::needHygiene = 0;
+        if (NekoS::needToilet < 0) NekoS::needToilet = 0;
+        if (NekoS::needEnergy < 0) NekoS::needEnergy = 0;
     }
     void NekoEntity::PollEvent(sf::Event& event)
     {
@@ -731,9 +734,9 @@ namespace NekoUI
         if (activity)
         {
             rm::canOpenNekoUI = activity->canNekoUI;
-            NekoP::eyebrowsEmotion = activity->eyebrowsEmotion;
-            NekoP::eyesEmotion = activity->eyesEmotion;
-            NekoP::mouthEmotion = activity->mouthEmotion;
+            NekoB::eyebrowsEmotion = activity->eyebrowsEmotion;
+            NekoB::eyesEmotion = activity->eyesEmotion;
+            NekoB::mouthEmotion = activity->mouthEmotion;
             blinking = activity->blinking; itisblink = false;
             drawShadow = activity->drawShadow;
             ignoreBeingActionedWith = activity->ignoreBeingActionedWith;

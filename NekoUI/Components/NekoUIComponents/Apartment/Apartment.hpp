@@ -87,6 +87,7 @@ namespace NekoUI
         void Destroy() override;
         void CleanUp();
         void Update(const sf::Time& elapsedTime) override;
+        void FixedUpdate(const unsigned int& elapsedTime) override;
         void PollEvent(sf::Event& event) override;
         void Resize(const unsigned int& width, const unsigned int& height) override;
         void Draw(sf::RenderWindow* window) override;

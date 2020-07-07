@@ -11,10 +11,10 @@
 		DD09431322FE186800FEF1AB /* Activity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431022FE186800FEF1AB /* Activity.cpp */; };
 		DD09431622FE193300FEF1AB /* ActivityDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431422FE193300FEF1AB /* ActivityDB.cpp */; };
 		DD09431722FE193300FEF1AB /* ActivityDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431422FE193300FEF1AB /* ActivityDB.cpp */; };
-		DD09431A22FE194500FEF1AB /* Buff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431822FE194500FEF1AB /* Buff.cpp */; };
-		DD09431B22FE194500FEF1AB /* Buff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431822FE194500FEF1AB /* Buff.cpp */; };
-		DD09431E22FE195900FEF1AB /* BuffDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431C22FE195900FEF1AB /* BuffDB.cpp */; };
-		DD09431F22FE195900FEF1AB /* BuffDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431C22FE195900FEF1AB /* BuffDB.cpp */; };
+		DD09431A22FE194500FEF1AB /* Condition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431822FE194500FEF1AB /* Condition.cpp */; };
+		DD09431B22FE194500FEF1AB /* Condition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431822FE194500FEF1AB /* Condition.cpp */; };
+		DD09431E22FE195900FEF1AB /* ConditionDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431C22FE195900FEF1AB /* ConditionDB.cpp */; };
+		DD09431F22FE195900FEF1AB /* ConditionDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09431C22FE195900FEF1AB /* ConditionDB.cpp */; };
 		DD09432222FE197F00FEF1AB /* Skill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432022FE197F00FEF1AB /* Skill.cpp */; };
 		DD09432322FE197F00FEF1AB /* Skill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432022FE197F00FEF1AB /* Skill.cpp */; };
 		DD09432622FE369800FEF1AB /* SkillDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD09432422FE369800FEF1AB /* SkillDB.cpp */; };
@@ -62,7 +62,13 @@
 		DD189A4623F1609C00D81302 /* NovelUpdate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2423F1609C00D81302 /* NovelUpdate.cpp */; };
 		DD189A4723F1609C00D81302 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2523F1609C00D81302 /* Background.cpp */; };
 		DD189A4823F1609C00D81302 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD189A2523F1609C00D81302 /* Background.cpp */; };
+		DD20A34B23FC1C8E005BEE4C /* Brain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD20A34923FC1C8E005BEE4C /* Brain.cpp */; };
+		DD20A34C23FC1C8E005BEE4C /* Brain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD20A34923FC1C8E005BEE4C /* Brain.cpp */; };
+		DD20A35623FC845B005BEE4C /* Inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD20A35423FC845B005BEE4C /* Inventory.cpp */; };
+		DD20A35723FC845B005BEE4C /* Inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD20A35423FC845B005BEE4C /* Inventory.cpp */; };
 		DD27A47821FF43490012028E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDAB7496215D88450062F8B6 /* Assets.xcassets */; };
+		DD36346923F8A1E6001F7061 /* FlowchartUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD36346723F8A1E6001F7061 /* FlowchartUI.cpp */; };
+		DD36346A23F8A1E6001F7061 /* FlowchartUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD36346723F8A1E6001F7061 /* FlowchartUI.cpp */; };
 		DD3A6E122293396D00222FF5 /* OffsetHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */; };
 		DD3A6E132293396D00222FF5 /* OffsetHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */; };
 		DD3A6E142293601A00222FF5 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = DDBCAD30222703B100D6A83A /* Data */; };
@@ -74,6 +80,7 @@
 		DD4EEF2A23D3A0DE00CF30B3 /* GroceryUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF2723D3A0DE00CF30B3 /* GroceryUI.cpp */; };
 		DD4EEF4323D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
 		DD4EEF4423D3C8D600CF30B3 /* PlacesInterfaceUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */; };
+		DD531DB82433EC8900D937AE /* Comp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD531DB62433EC8900D937AE /* Comp.cpp */; };
 		DD59163923DFA53500C5BE19 /* FNAF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59163723DFA53500C5BE19 /* FNAF.cpp */; };
 		DD59163A23DFA53500C5BE19 /* FNAF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD59163723DFA53500C5BE19 /* FNAF.cpp */; };
 		DD5EADE123040C7200CA0361 /* Static.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5EADDF23040C7200CA0361 /* Static.cpp */; };
@@ -159,8 +166,8 @@
 		DDE3DB7D229295F4004DA2B1 /* Persona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB7A229295F4004DA2B1 /* Persona.cpp */; };
 		DDE3DB802292979C004DA2B1 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB7E2292979C004DA2B1 /* Item.cpp */; };
 		DDE3DB812292979C004DA2B1 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB7E2292979C004DA2B1 /* Item.cpp */; };
-		DDE3DB84229297D4004DA2B1 /* ItemDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB82229297D4004DA2B1 /* ItemDB.cpp */; };
-		DDE3DB85229297D4004DA2B1 /* ItemDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB82229297D4004DA2B1 /* ItemDB.cpp */; };
+		DDE3DB84229297D4004DA2B1 /* Items.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB82229297D4004DA2B1 /* Items.cpp */; };
+		DDE3DB85229297D4004DA2B1 /* Items.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE3DB82229297D4004DA2B1 /* Items.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,10 +206,10 @@
 		DD09431122FE186800FEF1AB /* Activity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Activity.hpp; sourceTree = "<group>"; };
 		DD09431422FE193300FEF1AB /* ActivityDB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ActivityDB.cpp; sourceTree = "<group>"; };
 		DD09431522FE193300FEF1AB /* ActivityDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ActivityDB.hpp; sourceTree = "<group>"; };
-		DD09431822FE194500FEF1AB /* Buff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Buff.cpp; sourceTree = "<group>"; };
-		DD09431922FE194500FEF1AB /* Buff.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Buff.hpp; sourceTree = "<group>"; };
-		DD09431C22FE195900FEF1AB /* BuffDB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BuffDB.cpp; sourceTree = "<group>"; };
-		DD09431D22FE195900FEF1AB /* BuffDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BuffDB.hpp; sourceTree = "<group>"; };
+		DD09431822FE194500FEF1AB /* Condition.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Condition.cpp; sourceTree = "<group>"; };
+		DD09431922FE194500FEF1AB /* Condition.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Condition.hpp; sourceTree = "<group>"; };
+		DD09431C22FE195900FEF1AB /* ConditionDB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConditionDB.cpp; sourceTree = "<group>"; };
+		DD09431D22FE195900FEF1AB /* ConditionDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConditionDB.hpp; sourceTree = "<group>"; };
 		DD09432022FE197F00FEF1AB /* Skill.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Skill.cpp; sourceTree = "<group>"; };
 		DD09432122FE197F00FEF1AB /* Skill.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Skill.hpp; sourceTree = "<group>"; };
 		DD09432422FE369800FEF1AB /* SkillDB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SkillDB.cpp; sourceTree = "<group>"; };
@@ -247,6 +254,12 @@
 		DD189A2823F1609C00D81302 /* Novel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Novel.hpp; sourceTree = "<group>"; };
 		DD189A2923F1609C00D81302 /* Dialogue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dialogue.hpp; sourceTree = "<group>"; };
 		DD189A2A23F1609C00D81302 /* Misc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Misc.hpp; sourceTree = "<group>"; };
+		DD20A34923FC1C8E005BEE4C /* Brain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Brain.cpp; sourceTree = "<group>"; };
+		DD20A34A23FC1C8E005BEE4C /* Brain.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Brain.hpp; sourceTree = "<group>"; };
+		DD20A35423FC845B005BEE4C /* Inventory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Inventory.cpp; sourceTree = "<group>"; };
+		DD20A35523FC845B005BEE4C /* Inventory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Inventory.hpp; sourceTree = "<group>"; };
+		DD36346723F8A1E6001F7061 /* FlowchartUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FlowchartUI.cpp; sourceTree = "<group>"; };
+		DD36346823F8A1E6001F7061 /* FlowchartUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FlowchartUI.hpp; sourceTree = "<group>"; };
 		DD3A6E102293396D00222FF5 /* OffsetHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OffsetHelper.cpp; sourceTree = "<group>"; };
 		DD3A6E112293396D00222FF5 /* OffsetHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OffsetHelper.hpp; sourceTree = "<group>"; };
 		DD40882C22F858BB00F6C2C5 /* ItemEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemEntity.cpp; sourceTree = "<group>"; };
@@ -257,6 +270,8 @@
 		DD4EEF2823D3A0DE00CF30B3 /* GroceryUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GroceryUI.hpp; sourceTree = "<group>"; };
 		DD4EEF4123D3C8D600CF30B3 /* PlacesInterfaceUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlacesInterfaceUI.cpp; sourceTree = "<group>"; };
 		DD4EEF4223D3C8D600CF30B3 /* PlacesInterfaceUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlacesInterfaceUI.hpp; sourceTree = "<group>"; };
+		DD531DB62433EC8900D937AE /* Comp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Comp.cpp; sourceTree = "<group>"; };
+		DD531DB72433EC8900D937AE /* Comp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Comp.hpp; sourceTree = "<group>"; };
 		DD59163223DC9F0300C5BE19 /* minEH.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = minEH.hpp; sourceTree = "<group>"; };
 		DD59163723DFA53500C5BE19 /* FNAF.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FNAF.cpp; sourceTree = "<group>"; };
 		DD59163823DFA53500C5BE19 /* FNAF.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FNAF.hpp; sourceTree = "<group>"; };
@@ -349,8 +364,8 @@
 		DDE3DB7B229295F4004DA2B1 /* Persona.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Persona.hpp; sourceTree = "<group>"; };
 		DDE3DB7E2292979C004DA2B1 /* Item.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
 		DDE3DB7F2292979C004DA2B1 /* Item.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Item.hpp; sourceTree = "<group>"; };
-		DDE3DB82229297D4004DA2B1 /* ItemDB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemDB.cpp; sourceTree = "<group>"; };
-		DDE3DB83229297D4004DA2B1 /* ItemDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemDB.hpp; sourceTree = "<group>"; };
+		DDE3DB82229297D4004DA2B1 /* Items.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Items.cpp; sourceTree = "<group>"; };
+		DDE3DB83229297D4004DA2B1 /* Items.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Items.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,12 +411,14 @@
 			children = (
 				DDE3DB7E2292979C004DA2B1 /* Item.cpp */,
 				DDE3DB7F2292979C004DA2B1 /* Item.hpp */,
+				DD20A35423FC845B005BEE4C /* Inventory.cpp */,
+				DD20A35523FC845B005BEE4C /* Inventory.hpp */,
 				DDE3DB7A229295F4004DA2B1 /* Persona.cpp */,
 				DDE3DB7B229295F4004DA2B1 /* Persona.hpp */,
 				DD09431022FE186800FEF1AB /* Activity.cpp */,
 				DD09431122FE186800FEF1AB /* Activity.hpp */,
-				DD09431822FE194500FEF1AB /* Buff.cpp */,
-				DD09431922FE194500FEF1AB /* Buff.hpp */,
+				DD09431822FE194500FEF1AB /* Condition.cpp */,
+				DD09431922FE194500FEF1AB /* Condition.hpp */,
 				DD09432022FE197F00FEF1AB /* Skill.cpp */,
 				DD09432122FE197F00FEF1AB /* Skill.hpp */,
 				DD09432822FEE51100FEF1AB /* Interest.cpp */,
@@ -443,12 +460,12 @@
 		DD09433422FF303A00FEF1AB /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				DDE3DB82229297D4004DA2B1 /* ItemDB.cpp */,
-				DDE3DB83229297D4004DA2B1 /* ItemDB.hpp */,
+				DDE3DB82229297D4004DA2B1 /* Items.cpp */,
+				DDE3DB83229297D4004DA2B1 /* Items.hpp */,
 				DD09431422FE193300FEF1AB /* ActivityDB.cpp */,
 				DD09431522FE193300FEF1AB /* ActivityDB.hpp */,
-				DD09431C22FE195900FEF1AB /* BuffDB.cpp */,
-				DD09431D22FE195900FEF1AB /* BuffDB.hpp */,
+				DD09431C22FE195900FEF1AB /* ConditionDB.cpp */,
+				DD09431D22FE195900FEF1AB /* ConditionDB.hpp */,
 				DD09432422FE369800FEF1AB /* SkillDB.cpp */,
 				DD09432522FE369800FEF1AB /* SkillDB.hpp */,
 				DD09433522FF5A0800FEF1AB /* InterestsDB.cpp */,
@@ -466,6 +483,8 @@
 				DD135B622295D228003BC870 /* CharacterLibrary.hpp */,
 				DD135B652295D23A003BC870 /* NovelCharacter.cpp */,
 				DD135B662295D23A003BC870 /* NovelCharacter.hpp */,
+				DD531DB62433EC8900D937AE /* Comp.cpp */,
+				DD531DB72433EC8900D937AE /* Comp.hpp */,
 			);
 			path = VNLightComponents;
 			sourceTree = "<group>";
@@ -567,6 +586,8 @@
 				DD09432D22FF2F6100FEF1AB /* Personality.hpp */,
 				DD6D5EF123F7E17F006F8F52 /* Body.cpp */,
 				DD6D5EF223F7E17F006F8F52 /* Body.hpp */,
+				DD20A34923FC1C8E005BEE4C /* Brain.cpp */,
+				DD20A34A23FC1C8E005BEE4C /* Brain.hpp */,
 			);
 			path = Neko;
 			sourceTree = "<group>";
@@ -732,6 +753,8 @@
 				DDE0E6D6229DB97700991722 /* MapUI.hpp */,
 				DDE2846422F61E1E00B280A7 /* ItemDetailsUI.cpp */,
 				DDE2846522F61E1E00B280A7 /* ItemDetailsUI.hpp */,
+				DD36346723F8A1E6001F7061 /* FlowchartUI.cpp */,
+				DD36346823F8A1E6001F7061 /* FlowchartUI.hpp */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -899,7 +922,7 @@
 				DD135B632295D228003BC870 /* CharacterLibrary.cpp in Sources */,
 				DD189A4723F1609C00D81302 /* Background.cpp in Sources */,
 				DD6D5EFD23F7E87F006F8F52 /* NekoBase.cpp in Sources */,
-				DDE3DB84229297D4004DA2B1 /* ItemDB.cpp in Sources */,
+				DDE3DB84229297D4004DA2B1 /* Items.cpp in Sources */,
 				DDE3DB802292979C004DA2B1 /* Item.cpp in Sources */,
 				DD09432222FE197F00FEF1AB /* Skill.cpp in Sources */,
 				DD135B73229D45A3003BC870 /* InventoryUI.cpp in Sources */,
@@ -911,7 +934,7 @@
 				DD09432622FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD189A3323F1609C00D81302 /* Modes.cpp in Sources */,
 				DD09432E22FF2F6100FEF1AB /* Personality.cpp in Sources */,
-				DD09431A22FE194500FEF1AB /* Buff.cpp in Sources */,
+				DD09431A22FE194500FEF1AB /* Condition.cpp in Sources */,
 				DDDB6609228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F525F2222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B672295D23A003BC870 /* NovelCharacter.cpp in Sources */,
@@ -924,9 +947,11 @@
 				DD59163923DFA53500C5BE19 /* FNAF.cpp in Sources */,
 				DDDB6604228F46D700E354CA /* NekoEntity.cpp in Sources */,
 				DD135B6B2296BFBB003BC870 /* JobInterfaceUI.cpp in Sources */,
+				DD531DB82433EC8900D937AE /* Comp.cpp in Sources */,
 				DD189A3F23F1609C00D81302 /* Audio.cpp in Sources */,
 				DD09431222FE186800FEF1AB /* Activity.cpp in Sources */,
 				DDE0E6D3229DB6E600991722 /* CalendarUI.cpp in Sources */,
+				DD20A35623FC845B005BEE4C /* Inventory.cpp in Sources */,
 				DDDB6600228F46C700E354CA /* Apartment.cpp in Sources */,
 				DD6D5F0923F7E9F3006F8F52 /* NekoLibrary.cpp in Sources */,
 				DD6D5F0D23F7EAB7006F8F52 /* Player.cpp in Sources */,
@@ -934,6 +959,7 @@
 				DD189A4523F1609C00D81302 /* NovelUpdate.cpp in Sources */,
 				DDAB7472215D88050062F8B6 /* main.cpp in Sources */,
 				DDE0E6D7229DB97700991722 /* MapUI.cpp in Sources */,
+				DD36346923F8A1E6001F7061 /* FlowchartUI.cpp in Sources */,
 				DD6D5F2123F7EC04006F8F52 /* GameplayEffects.cpp in Sources */,
 				DD189A2B23F1609C00D81302 /* CharacterLibrary.cpp in Sources */,
 				DDD2787F228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
@@ -950,7 +976,8 @@
 				DD5FC2E123E71EA80018D336 /* ContainerEntity.cpp in Sources */,
 				DD9F796123DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
 				DD6D5F2923F7EDF6006F8F52 /* EventAlert.cpp in Sources */,
-				DD09431E22FE195900FEF1AB /* BuffDB.cpp in Sources */,
+				DD09431E22FE195900FEF1AB /* ConditionDB.cpp in Sources */,
+				DD20A34B23FC1C8E005BEE4C /* Brain.cpp in Sources */,
 				DD6D5F2523F7ED2B006F8F52 /* EventDatabaseCollection.cpp in Sources */,
 				DDE3DB7C229295F4004DA2B1 /* Persona.cpp in Sources */,
 				DD189A3B23F1609C00D81302 /* Misc.cpp in Sources */,
@@ -970,7 +997,7 @@
 				DD135B642295D228003BC870 /* CharacterLibrary.cpp in Sources */,
 				DD189A4823F1609C00D81302 /* Background.cpp in Sources */,
 				DD6D5EFE23F7E87F006F8F52 /* NekoBase.cpp in Sources */,
-				DDE3DB85229297D4004DA2B1 /* ItemDB.cpp in Sources */,
+				DDE3DB85229297D4004DA2B1 /* Items.cpp in Sources */,
 				DDE3DB812292979C004DA2B1 /* Item.cpp in Sources */,
 				DD09432322FE197F00FEF1AB /* Skill.cpp in Sources */,
 				DD135B74229D45A3003BC870 /* InventoryUI.cpp in Sources */,
@@ -982,7 +1009,7 @@
 				DD09432722FE369800FEF1AB /* SkillDB.cpp in Sources */,
 				DD189A3423F1609C00D81302 /* Modes.cpp in Sources */,
 				DD09432F22FF2F6100FEF1AB /* Personality.cpp in Sources */,
-				DD09431B22FE194500FEF1AB /* Buff.cpp in Sources */,
+				DD09431B22FE194500FEF1AB /* Condition.cpp in Sources */,
 				DDDB660A228F470400E354CA /* NekoInterfaceUI.cpp in Sources */,
 				DD0F52602222A767005C08D5 /* Novel.cpp in Sources */,
 				DD135B682295D23A003BC870 /* NovelCharacter.cpp in Sources */,
@@ -998,6 +1025,7 @@
 				DD189A4023F1609C00D81302 /* Audio.cpp in Sources */,
 				DD09431322FE186800FEF1AB /* Activity.cpp in Sources */,
 				DDE0E6D4229DB6E600991722 /* CalendarUI.cpp in Sources */,
+				DD20A35723FC845B005BEE4C /* Inventory.cpp in Sources */,
 				DD189A3E23F1609C00D81302 /* Character.cpp in Sources */,
 				DD6D5F0A23F7E9F3006F8F52 /* NekoLibrary.cpp in Sources */,
 				DD6D5F0E23F7EAB7006F8F52 /* Player.cpp in Sources */,
@@ -1005,6 +1033,7 @@
 				DD189A4623F1609C00D81302 /* NovelUpdate.cpp in Sources */,
 				DDE0E6D8229DB97700991722 /* MapUI.cpp in Sources */,
 				DD189A2C23F1609C00D81302 /* CharacterLibrary.cpp in Sources */,
+				DD36346A23F8A1E6001F7061 /* FlowchartUI.cpp in Sources */,
 				DD6D5F2223F7EC04006F8F52 /* GameplayEffects.cpp in Sources */,
 				DDAB74A1215D89CD0062F8B6 /* main.cpp in Sources */,
 				DDD27880228FF62400EFDABB /* RoomLibrary.cpp in Sources */,
@@ -1021,7 +1050,8 @@
 				DD5FC2E223E71EA80018D336 /* ContainerEntity.cpp in Sources */,
 				DD9F796223DC333000D0E10C /* StrangeShopkeeperUI.cpp in Sources */,
 				DD6D5F2A23F7EDF6006F8F52 /* EventAlert.cpp in Sources */,
-				DD09431F22FE195900FEF1AB /* BuffDB.cpp in Sources */,
+				DD09431F22FE195900FEF1AB /* ConditionDB.cpp in Sources */,
+				DD20A34C23FC1C8E005BEE4C /* Brain.cpp in Sources */,
 				DD6D5F2623F7ED2B006F8F52 /* EventDatabaseCollection.cpp in Sources */,
 				DDE3DB7D229295F4004DA2B1 /* Persona.cpp in Sources */,
 				DD189A3C23F1609C00D81302 /* Misc.cpp in Sources */,

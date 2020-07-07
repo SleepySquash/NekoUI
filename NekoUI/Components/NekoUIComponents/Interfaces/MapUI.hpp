@@ -26,8 +26,6 @@
 using std::cin;
 using std::cout;
 using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 
 namespace NekoUI
 {
@@ -37,7 +35,7 @@ namespace NekoUI
         
         sf::RectangleShape blackScreenShape;
         sf::Sprite background; bool spriteLoaded{ false };
-        GUI::SpriteButton scrolldownMenu, homeButton, groceryButton, shopkeeperButton, parkButton;
+        GUI::SpriteButton scrolldownMenu, homeButton, groceryButton, shopkeeperButton, parkButton, trainButton, scienceButton;
         sf::CircleShape currentPosition; GUI::SpriteButton* buttonPosition{ nullptr };
         
         enum modeEnum { appearing, existing, disappearing };

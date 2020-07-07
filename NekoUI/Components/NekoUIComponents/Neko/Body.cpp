@@ -13,22 +13,23 @@ namespace NekoUI
     namespace Neko
     {
         Persona Body::neko;
-        NekoS::EyebrowsEmotion Body::eyebrowsEmotion{ NekoS::EyebrowsEmotion::Normal };
-        NekoS::EyesEmotion Body::eyesEmotion{ NekoS::EyesEmotion::Normal };
-        NekoS::MouthEmotion Body::mouthEmotion{ NekoS::MouthEmotion::Smile };
+        NekoS::EyebrowsEmotion Body::eyebrowsEmotion{ NekoS::EyebrowsEmotion::Normal }, Body::lasteyebrowsEmotion{ eyebrowsEmotion };
+        NekoS::EyesEmotion Body::eyesEmotion{ NekoS::EyesEmotion::Normal }, Body::lasteyesEmotion{ eyesEmotion };
+        NekoS::MouthEmotion Body::mouthEmotion{ NekoS::MouthEmotion::Smile }, Body::lastmouthEmotion{ mouthEmotion };
         
         void Body::OccupyPersona() { neko.OccupyMemory(); UpdateNekoEmotion(); neko.chibiReversed = false; }
-        void Body::FreePersona() { neko.FreeMemory(); neko.chibiReversed = false; NekoEmotionsAccordingToMood(); }
+        void Body::FreePersona() { neko.FreeMemory(); neko.chibiReversed = false; NekoEmotionsAccordingToMood();
+            for (auto& c : neko.cloth) c->hidden = false; }
         
         
         
         void Body::UpdateNekoEmotion()
         {
-            if (eyebrowsEmotion != NekoP::eyebrowsEmotion)
+            if (eyebrowsEmotion != lasteyebrowsEmotion)
             {
-                if (NekoP::eyebrowsEmotion == NekoS::EyebrowsEmotion::DEFAULT)
+                if (eyebrowsEmotion == NekoS::EyebrowsEmotion::DEFAULT)
                     NekoEmotionAccordingToMood(RestoringEmotion::Eyebrows);
-                eyebrowsEmotion = NekoP::eyebrowsEmotion;
+                lasteyebrowsEmotion = eyebrowsEmotion;
                 switch (eyebrowsEmotion)
                 {
                     case NekoS::EyebrowsEmotion::Normal: neko.eyebrows.Load(L"eyebrows_normal.png", L"eyebrows_normal.png");
@@ -44,11 +45,11 @@ namespace NekoUI
                 neko.eyebrows.ResizePerson(neko.body.person.getGlobalBounds().height);
                 neko.eyebrows.UpdatePositionPerson(neko.body.person.getPosition().x, neko.body.person.getPosition().y);
             }
-            if (eyesEmotion != NekoP::eyesEmotion)
+            if (eyesEmotion != lasteyesEmotion)
             {
-                if (NekoP::eyesEmotion == NekoS::EyesEmotion::DEFAULT)
+                if (eyesEmotion == NekoS::EyesEmotion::DEFAULT)
                     NekoEmotionAccordingToMood(RestoringEmotion::Eyes);
-                eyesEmotion = NekoP::eyesEmotion;
+                lasteyesEmotion = eyesEmotion;
                 switch (eyesEmotion)
                 {
                     case NekoS::EyesEmotion::Normal: neko.eyes.Load(L"eyes_normal.png", L"eyes_normal.png");
@@ -73,11 +74,11 @@ namespace NekoUI
                 neko.eyes.ResizePerson(neko.body.person.getGlobalBounds().height);
                 neko.eyes.UpdatePositionPerson(neko.body.person.getPosition().x, neko.body.person.getPosition().y);
             }
-            if (mouthEmotion != NekoP::mouthEmotion)
+            if (mouthEmotion != lastmouthEmotion)
             {
-                if (NekoP::mouthEmotion == NekoS::MouthEmotion::DEFAULT)
+                if (mouthEmotion == NekoS::MouthEmotion::DEFAULT)
                     NekoEmotionAccordingToMood(RestoringEmotion::Mouth);
-                mouthEmotion = NekoP::mouthEmotion;
+                lastmouthEmotion = mouthEmotion;
                 switch (mouthEmotion)
                 {
                     case NekoS::MouthEmotion::Smile: neko.mouth.Load(L"mouth_smile.png", L"mouth_smile.png");
@@ -109,9 +110,9 @@ namespace NekoUI
             switch (NekoP::mood)
             {
                 case NekoS::MoodEnum::Happy:
-                    if (restoring == RestoringEmotion::Eyebrows) NekoP::eyebrowsEmotion = NekoS::EyebrowsEmotion::Normal;
-                    else if (restoring == RestoringEmotion::Eyes) NekoP::eyesEmotion = NekoS::EyesEmotion::Normal;
-                    else if (restoring == RestoringEmotion::Mouth) NekoP::mouthEmotion = NekoS::MouthEmotion::Smile;
+                    if (restoring == RestoringEmotion::Eyebrows) eyebrowsEmotion = NekoS::EyebrowsEmotion::Normal;
+                    else if (restoring == RestoringEmotion::Eyes) eyesEmotion = NekoS::EyesEmotion::Normal;
+                    else if (restoring == RestoringEmotion::Mouth) mouthEmotion = NekoS::MouthEmotion::Smile;
                     break;
                 default: break;
             }
@@ -122,9 +123,9 @@ namespace NekoUI
             switch (NekoP::mood)
             {
                 case NekoS::MoodEnum::Happy:
-                    NekoP::eyebrowsEmotion = NekoS::EyebrowsEmotion::Normal;
-                    NekoP::eyesEmotion = NekoS::EyesEmotion::Normal;
-                    NekoP::mouthEmotion = NekoS::MouthEmotion::Smile;
+                    eyebrowsEmotion = NekoS::EyebrowsEmotion::Normal;
+                    eyesEmotion = NekoS::EyesEmotion::Normal;
+                    mouthEmotion = NekoS::MouthEmotion::Smile;
                     break;
                 default: break;
             }

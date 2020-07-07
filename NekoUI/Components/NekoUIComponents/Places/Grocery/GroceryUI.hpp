@@ -27,7 +27,7 @@
 #include "../../Neko/Static.hpp"
 #include "../../Apartment/RoomLibrary.hpp"
 #include "../../Engine/Item.hpp"
-#include "../../Database/ItemDB.hpp"
+#include "../../Engine/Inventory.hpp"
 
 #include "ItemDetails.hpp"
 

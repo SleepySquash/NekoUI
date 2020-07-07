@@ -250,7 +250,7 @@ namespace NekoUI
                         
                 sf::Image screen = blurScreenTexture.copyToImage();
 #if defined(SFML_SYSTEM_IOS) || defined(SFML_SYSTEM_ANDROID)
-                sf::Image blur = GUI::Blur(screen, 6, 6*gs::scale);
+                sf::Image blur = GUI::Blur(screen, 6, (gs::scaleUI < 1) ? 4 : 6*gs::scale);
 #else
                 sf::Image blur = GUI::Blur(screen, 6, 4);
 #endif

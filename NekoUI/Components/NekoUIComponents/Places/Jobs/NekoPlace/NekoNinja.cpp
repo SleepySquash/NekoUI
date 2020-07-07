@@ -1095,7 +1095,7 @@ namespace NekoNinja
         
         Player::self->AddExperience(score*0.1);
         Player::self->SaveData();
-        moneyEarned = score / 40;
+        moneyEarned = score / 45;
         NekoUI::NekoS::money += moneyEarned;
         
         

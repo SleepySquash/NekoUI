@@ -32,7 +32,7 @@ namespace NekoUI
     {
         neko.Init(); NekoB::OccupyPersona(); neko.sender = entity;
         neko.positionInArray = 0; neko.vector = &entities; entities.push_back(&neko);
-        hasFocusOnNeko = true; if (gs::trueVerticalOrientation) /*rm::scale = 3.f; else*/ rm::scale = 2.24f;
+        hasFocusOnNeko = true; /*if (gs::trueVerticalOrientation) rm::scale = 3.f; else*/ rm::scale = 2.24f;
         entity->SendMessage({"NekoUI :: SelectNeko", &neko});
         
         rm::scrolldownMenuOpened = rm::requestCloseButton = false;
@@ -531,6 +531,7 @@ namespace NekoUI
         savingIsRequired = true;
         SortEntities();
     }
+#pragma mark -
     void Apartment::Destroy() { Player::SaveData(); SaveApartment(); CleanUp(); NekoB::FreePersona(); }
     void Apartment::CleanUp()
     {
@@ -632,6 +633,11 @@ namespace NekoUI
                 }
             }
         }
+    }
+    void Apartment::FixedUpdate(const unsigned int& elapsedTime)
+    {
+        if (!active) return;
+        neko.FixedUpdate(elapsedTime);
     }
     void Apartment::PollEvent(sf::Event& event)
     {
@@ -815,6 +821,7 @@ namespace NekoUI
         }
         if (drawPointer) { window->draw(nekoArrowSprite); window->draw(nekoPtrSprite); }
     }
+#pragma mark -
     void Apartment::ReceiveMessage(MessageHolder& message)
     {
         if (!active) return;
@@ -969,6 +976,7 @@ namespace NekoUI
         else if (message.info == "Apartment :: Destroy") { Player::SaveCurrentDT(); entity->PopComponent(this); }
         
     }
+#pragma mark -
     
     
     
@@ -1116,7 +1124,7 @@ namespace NekoUI
                 /* if (neko.activity->name == "ComeToSenses" || neko.activity->name == "Eating" || neko.activity->name == "Drinking") neko.activity->Abort();
                 else if (neko.activity->name == "ReturnToFood") neko.RemoveItemFromHands(); */
             }
-            NekoP::eyesEmotion = NekoS::EyesEmotion::Confused; NekoB::UpdateNekoEmotion();
+            NekoB::eyesEmotion = NekoS::EyesEmotion::Confused; NekoB::UpdateNekoEmotion();
         }
         else
         {

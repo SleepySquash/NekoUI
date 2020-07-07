@@ -19,13 +19,7 @@
 #include "../Apartment/RoomEntity.hpp"
 #include "../Neko/Static.hpp"
 
-using std::cin;
-using std::cout;
-using std::endl;
-using ns::base::utf8;
-using ns::base::utf16;
 using std::vector;
-
 using namespace ns;
 
 namespace NekoUI
